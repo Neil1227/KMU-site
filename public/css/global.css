@@ -1,0 +1,117 @@
+:root {
+    --main-font: 'League Spartan', Arial, sans-serif;
+    --primary-color:#f85e0a;
+    --secondary-color:#1c366a;
+    --tertiary-color:#ffc700;
+    --complimentary-color:#f0b211;
+    --white-text:#fff;
+    --off-white-color:#f3f1f1;
+    --gray-complement: #696969;
+    --btn-gold:rgb(255, 149, 0);
+    --btn-hover-gold:rgb(255, 123, 0);
+}
+
+
+/* Do this instead */
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden; /* Prevent horizontal scrollbars from appearing */
+    margin: 0;
+    font-family: var(--main-font);
+}
+
+
+/* Header container */
+.heading {
+  background-color: var(--white-text);
+  padding: 5px 20px;
+
+}
+
+/* Flex list layout */
+.heading-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly; /* <-- Even spacing */
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  color: var(--secondary-color);
+  font-weight: 300;
+  font-size: 0.7rem;
+}
+
+/* Icons in contact items */
+.heading-list li i {
+  font-size: 1rem;
+  margin-right: 8px;
+  color: var(--secondary-color);
+}
+
+/* Social icon links */
+.social-icon {
+  color: var(--secondary-color);
+  margin-left: 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: var(--primary-color); /* Optional hover color */
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .heading-list {
+    display: none;
+  }
+  
+}
+.read-more {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: var(--complementary-color);
+}
+.hr {
+  border: none;
+  border-top: 2px solid var(--primary-color); /* 4px thick black line */
+  width: 80%;
+  margin: 2rem auto;
+}
+
+.container-page {
+  padding: 0px 150px ;
+  flex: 1;
+}
+
+/* Smooth dropdown appearance on mobile */
+@media (max-width: 991px) {
+.container-page {
+  padding: 0px 20px;
+}
+}
+
+/* Responsive spacing */
+.section-container {
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+.section-title {
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+}
