@@ -15,8 +15,8 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav text-center">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+      <ul class="navbar-nav ">
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}">Home</a></li>
             <li class="nav-item dropdown dropdown-hover">
                 <a class="nav-link dropdown-toggle text-white" href="#" id="servicesDropdown" role="button">
                     Services
@@ -32,7 +32,7 @@
             <li class="nav-item"><a class="nav-link text-white" href="#research">Research</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#sdgs">SDGs</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="contact.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="">Contact</a></li>
       </ul>
     </div>
   </div>

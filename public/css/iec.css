@@ -64,11 +64,3 @@
 .brochure-card:hover .overlay {
   opacity: 1;
 }
-
-        /* Footer Styling */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            text-align: center;
-            color: white;
-        }

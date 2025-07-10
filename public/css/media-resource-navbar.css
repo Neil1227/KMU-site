@@ -6,7 +6,7 @@
     background: linear-gradient(90deg, #ff6a00, #ffb940);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
-    z-index: 10;
+
 }
 
 .navbar-nav {

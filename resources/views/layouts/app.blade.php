@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>@yield('title', 'KAMP MAALAM')</title>
+    <title>@yield('title', 'KMU')</title>
 
     @stack('css') <!-- Page-specific styles -->
     <!-- Shared CSS -->
@@ -19,14 +19,11 @@
 </head>
 
 <body>
-    @include('layouts.components.header')
-    @include('layouts.components.navbar')
 
     <main>
-        @yield('home')
-    </main>
+        @yield('content')
 
-    @include('layouts.components.footer')
+    </main>
 
     <!-- Shared JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

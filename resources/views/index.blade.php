@@ -33,7 +33,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="me-md-3 mb-2 mb-md-0">
-                <a href="Homepage.html" class="btn two-tone">Learn More</a>
+                <a href="{{ route('homepage') }}" class="btn two-tone">Learn More</a>
             </div>
         </div>
     </div>

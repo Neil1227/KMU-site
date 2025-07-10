@@ -20,18 +20,12 @@
             color: var(--primary-color);
         }
 
-        .btn-primary {
+        .card-body .watch-btn {
             background-color: var(--btn-gold);
+            color: var(--white-text);
             border: none;
         }
 
-        .btn-primary:hover {
+        .card-body .watch-btn:hover {
             background-color: var(--btn-hover-gold);
-        }
-        /* Footer Styling */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            text-align: center;
-            color: white;
         }

@@ -3,15 +3,21 @@
 @section('title', 'Home')
 
 @push('css')
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/research.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/research_section.css') }}">
+
 @endpush
+{{-- Header --}}
+@include('layouts.components.header')
 
-
-@section('home')
+{{-- Navbar --}}
+@include('layouts.components.navbar')
+@section('content')
     <section class="video-banner" data-aos="fade-down" data-aos-duration="1500">
         <video autoplay muted loop playsinline preload="auto" width="80%" height="300" style="border: 0;">
           <source src="{{ asset('assets/videos/compressed_homebanner.mp4') }}" type="video/mp4">
@@ -32,7 +38,7 @@
             <div class="row">
               <!-- ICTV Card -->
               <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="100">
-                  <a href="ictv.html" class="text-decoration-none">
+                  <a href="	{{ route('ictv') }}" class="text-decoration-none">
                       <div class="card text-center media-card">
                           <div class="position-relative">
                               <picture>
@@ -50,7 +56,7 @@
 
               <!-- IEC Materials Card -->
               <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="200">
-                  <a href="iec.html" class="text-decoration-none">
+                  <a href="	{{ route('iec') }}" class="text-decoration-none">
                       <div class="card text-center media-card">
                           <div class="position-relative">
                               <picture>
@@ -68,7 +74,7 @@
 
               <!-- MODULES Card -->
               <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="300">
-                  <a href="modules.html" class="text-decoration-none">
+                  <a href="	{{ route('modules') }}" class="text-decoration-none">
                       <div class="card text-center media-card">
                           <div class="position-relative">
                               <picture>
@@ -86,7 +92,7 @@
 
               <!-- NEWSLETTER Card -->
               <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="400">
-                  <a href="newsletter.html" class="text-decoration-none">
+                  <a href="	{{ route('newsletter') }}" class="text-decoration-none">
                       <div class="card text-center media-card">
                           <div class="position-relative">
                               <picture>
@@ -104,7 +110,7 @@
 
               <!-- TECH PORTFOLIO Card -->
               <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="500">
-                  <a href="tech portfolio.html" class="text-decoration-none">
+                  <a href="	{{ route('tech-portfolio') }}" class="text-decoration-none">
                       <div class="card text-center media-card">
                           <div class="position-relative">
                               <picture>
@@ -119,7 +125,6 @@
                       </div>
                   </a>
               </div>
-              
           </div>
         </div>
     </section>
@@ -132,311 +137,177 @@
                 <hr class="hr">
                 </h2>
 
-                <div class="container">
-                    <div class="row g-0">
-            <div class="col-md-3 p-2 d-flex " style="border: none;">
-              <a href="agriculture.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-agri.png" alt="Agriculture" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Agriculture</h5>
-                      <p class="card-texts">Study on sustainable agricultural practices.</p>
-                      <span class="read-more">Read more →</span>
+            <div class="container-page">
+              <div class="row g-0">
+
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="900" data-aos-duration="1000">
+                  <a href="{{ url('agriculture') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-agri.png') }}" alt="Agriculture" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Agriculture</h5>
+                          <p class="card-texts">Study on sustainable agricultural practices.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="aquaculture.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-aqua.png" alt="Aquaculture" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Aquaculture</h5>
-                      <p class="card-texts">Research on aquaculture development and sustainability.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="600" data-aos-duration="1000">
+                  <a href="{{ url('aquaculture') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-aqua.png') }}" alt="Aquaculture" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Aquaculture</h5>
+                          <p class="card-texts">Research on aquaculture development and sustainability.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="livestock.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-livestock.png" alt="Livestock" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Livestock</h5>
-                      <p class="card-texts">Innovative practices for livestock farming.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="300" data-aos-duration="1000">
+                  <a href="{{ url('livestock') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-livestock.png') }}" alt="Livestock" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Livestock</h5>
+                          <p class="card-texts">Innovative practices for livestock farming.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="livelihood.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-livelihood.png" alt="Livelihood" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Livelihood</h5>
-                      <p class="card-texts">Projects aimed at improving rural livelihoods.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="700" data-aos-duration="1000">
+                  <a href="{{ url('livelihood') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-livelihood.png') }}" alt="Livelihood" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Livelihood</h5>
+                          <p class="card-texts">Projects aimed at improving rural livelihoods.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="biotechnology.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-biotechnology.png" alt="Biotechnology" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Biotechnology</h5>
-                      <p class="card-texts">Advancements in genetic engineering and medicine.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="200" data-aos-duration="1000">
+                  <a href="{{ url('biotechnology') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-biotechnology.png') }}" alt="Biotechnology" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Biotechnology</h5>
+                          <p class="card-texts">Advancements in genetic engineering and medicine.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="root-crops.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-rootcrops.png" alt="Root Crops" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Root Crops</h5>
-                      <p class="card-texts">Exploration of root crops for food security.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="800" data-aos-duration="1000">
+                  <a href="{{ url('root-crops') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-rootcrops.png') }}" alt="Root Crops" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Root Crops</h5>
+                          <p class="card-texts">Exploration of root crops for food security.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="iot.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-iot.png" alt="Internet of Things" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Internet of Things</h5>
-                      <p class="card-texts">Using IoT for precision agriculture and research.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="300" data-aos-duration="1000">
+                  <a href="{{ url('iot') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-iot.png') }}" alt="Internet of Things" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Internet of Things</h5>
+                          <p class="card-texts">Using IoT for precision agriculture and research.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
-            </div>
 
-            <div class="col-md-3 p-2 d-flex">
-              <a href="others.html" class="text-decoration-none w-100 h-100">
-                <div class="new_research-card h-100">
-                  <div class="d-flex flex-column flex-md-row h-100">
-                    <img src="./assets/img/research_thumbnails/reseach-icon-others.png" alt="Others" loading="lazy" class="icon-img-research" />
-                    <div class="card-body">
-                      <h5 class="card-title">Others</h5>
-                      <p class="card-texts">Exploring emerging research topics and  innovations.</p>
-                      <span class="read-more">Read more →</span>
+                <div class="col-md-3 p-2 d-flex"  data-aos="fade-in" data-aos-delay="400" data-aos-duration="1000">
+                  <a href="{{ url('others') }}" class="text-decoration-none w-100 h-100">
+                    <div class="new_research-card h-100">
+                      <div class="d-flex flex-column flex-md-row h-100">
+                        <img src="{{ asset('assets/img/research_thumbnails/reseach-icon-others.png') }}" alt="Others" loading="lazy" class="icon-img-research" />
+                        <div class="card-body">
+                          <h5 class="card-title">Others</h5>
+                          <p class="card-texts">Exploring emerging research topics and  innovations.</p>
+                          <span class="read-more">Read more →</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </a>
+
+              </div>
             </div>
 
-
-            </div>
-          </div>
     </section>
         
-    <!-- SDGs Section -->
-    <section id="sdgs" class="py-5">
-            <!-- Title -->
-            <h2 class="text-center section-title mb-5"  data-aos="fade-down" data-aos-duration="800">
-                Sustainable Development Goals (SDG)
-            <hr class="hr">
-            </h2>
-        
-        <div class="container-page">
-            <!-- SDG Grid -->
-            <div class="row g-4 justify-content-center">
-                <!-- Example of one card -->
-        <!-- SDG Cards -->
-                    <!-- Add animation to each card with staggered delays -->
+<!-- SDGs Section -->
+<section id="sdgs" class="py-5">
+    <!-- Title -->
+    <h2 class="text-center section-title mb-5" data-aos="fade-down" data-aos-duration="800">
+        Sustainable Development Goals (SDG)
+        <hr class="hr">
+    </h2>
 
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                        <a href="./sdg.html#sdg1" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/1.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
+    <div class="container-page">
+        <div class="row g-4 justify-content-center">
+            @for ($i = 1; $i <= 17; $i++)
+                <div class="col-md-3 mb-4"
+                     data-aos="zoom-in"
+                     data-aos-delay="{{ 100 + floor(($i - 1) / 4) * 100 }}">
+                    <a href="{{ url('/sdgs#sdg' . $i) }}" class="text-decoration-none">
+                        <div class="card sdg-card">
+                            <img src="{{ asset('assets/img/sdgs/' . $i . '.png') }}"
+                                 alt="SDG {{ $i }}"
+                                 loading="lazy"
+                                 class="background-img-sdg">
+                        </div>
+                    </a>
+                </div>
+            @endfor
+
+            <!-- Final SDGs Banner Card -->
+            <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="700">
+                <a href="{{ url('/sdgs#sdgs') }}" class="text-decoration-none">
+                    <div class="card sdg-card">
+                        <img src="{{ asset('assets/img/sdgs/SDGS-banner.png') }}"
+                             alt="SDG Banner"
+                             loading="lazy"
+                             class="background-img-sdg">
                     </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                        <a href="./sdg.html#sdg2" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/2.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                        <a href="./sdg.html#sdg3" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/3.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                        <a href="./sdg.html#sdg4" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/4.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="400">
-                        <a href="./sdg.html#sdg5" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/5.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="400">
-                        <a href="./sdg.html#sdg6" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/6.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="400">
-                        <a href="./sdg.html#sdg7" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/7.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="400">
-                        <a href="./sdg.html#sdg8" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/8.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="500">
-                        <a href="./sdg.html#sdg9" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/9.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="500">
-                        <a href="./sdg.html#sdg10" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/10.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="500">
-                        <a href="./sdg.html#sdg11" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/11.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="500">
-                        <a href="./sdg.html#sdg12" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/12.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="600">
-                        <a href="./sdg.html#sdg13" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/13.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="600">
-                        <a href="./sdg.html#sdg14" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/14.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="600">
-                        <a href="./sdg.html#sdg15" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/15.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="600">
-                        <a href="./sdg.html#sdg16" class="text-decoration-none">
-                            <div class="card sdg-card">
-                    
-                            <img src="./assets/img/sdgs/16.png" alt="Image" loading="lazy" class="background-img-sdg">
-                    
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="700">
-                        <a href="./sdg.html#sdg17" class="text-decoration-none">
-                            <div class="card sdg-card">
-                                <img src="./assets/img/sdgs/17.png" alt="Image" loading="lazy" class="background-img-sdg">
-                            </div>
-                    
-                        </a>
-                    </div>
-                    <!-- Last card (banner) -->
-                    <div class=" col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="700">
-                        <a href="#sdgs" class="text-decoration-none">
-                            <div class="card sdg-card">                 
-                                <img src="./assets/img/sdgs/SDGS-banner.png" alt="Image" loading="lazy" class="background-img-sdg">
-                            </div>
-                        </a>
-                    </div>
+                </a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
+</section>
+
 
     <!-- About Section -->
     <section id="about" class="py-5 about-section">
@@ -476,6 +347,11 @@
             </div>
       </div>
     </section>
+    <!-- the issue is the research_section -->
+        @include('layouts.components.footer')
+@push('scripts')
+    <script src="{{ asset('js/navbar.js') }}"></script>
+@endpush
 @endsection
 
 

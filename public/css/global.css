@@ -115,3 +115,11 @@ body {
     width: 100%;
     font-weight: bold;
 }
+
+/* Footer Styling */
+footer {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  text-align: center;
+  color: white;
+}

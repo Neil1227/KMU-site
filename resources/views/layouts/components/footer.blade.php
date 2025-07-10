@@ -3,10 +3,10 @@
   <div class="container-fluid py-5">
     <div class="row gy-4">
       <!-- Column 1: Logos -->
-      <div class="col-12 col-md-3 text-center text-md-start">
+      <div class="col-12 col-md-3 text-center ">
         <div class="custom-footer-logos d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
           <img src="assets/img/iptbm.png" alt="Logo 1" class="custom-footer-logo">
-          <img src="assets/img/kmlogo.png" alt="Logo 2" class="custom-footer-logo">
+          <img src="assets/img/logo.png" alt="Logo 2" class="custom-footer-logo">
           <img src="assets/img/sibultbi-logo.png" alt="Logo 3" class="custom-footer-logo">
           <img src="assets/img/officeofinnovation.png" alt="Logo 4" class="custom-footer-logo">
         </div>
