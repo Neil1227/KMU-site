@@ -3,15 +3,13 @@
 @section('title', 'Contact Us')
 
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ asset('styles/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/homepage.css') }}">
-    <link rel="stylesheet" href="{{ asset('styles/navbar.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
+
 @endpush
 
 @section('content')
@@ -32,14 +30,14 @@
 {{-- Google Map --}}
 <div class="map-container d-flex justify-content-center py-5">
   <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!..." 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2476.777044480476!2d120.69328491244967!3d15.217683326258085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3396ef00529fdd05%3A0x7c6e3080efd62457!2sInformation%20Communication%20Technology%20Research%20and%20Development%20-%20PSAU!5e0!3m2!1sen!2sph!4v1750837917550!5m2!1sen!2sph"
     width="80%" 
     height="300" 
     style="border:0;" 
-    allowfullscreen 
+    allowfullscreen="" 
     loading="lazy" 
     referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
+  </iframe>  
 </div>
 
 {{-- Contact Section --}}

@@ -1,0 +1,28 @@
+.sidebar {
+    background-color: #0d3b66;
+    color: white;
+    min-height: 100vh;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 16px;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.km-header {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Segoe UI', sans-serif;
+}
+.km-header i:hover {
+    color: #dc3545;
+    cursor: pointer;
+}

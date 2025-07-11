@@ -29,7 +29,7 @@
 
     <!-- Media Resources -->
     <section id="media-resources" class="py-5">
-        <h2 class="text-center mb-4 section-title" data-aos="fade-up">
+        <h2 class="text-center mb-4 section-title" >
             Media Resources
         <hr class="hr">
         </h2>

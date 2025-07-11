@@ -28,11 +28,11 @@
                     </ul>
             </li>
             <li class="nav-item"><a class="nav-link text-white" href="tech.html">Technologies</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#media-resources">Media Resources</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#research">Research</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#sdgs">SDGs</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="">Contact</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#media-resources">Media Resources</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#research">Research</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#sdgs">SDGs</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#about">About</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="{{ route('contact') }}">Contact</a></li>
       </ul>
     </div>
   </div>

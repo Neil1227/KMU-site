@@ -1,0 +1,85 @@
+.login-container {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    min-height: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: gray;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.btn-login.btn {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    text-align: center;
+    background-color: var(--btn-gold);
+    margin-bottom: 20px;
+    color: white;
+    border-radius: 25px;
+    outline: none;
+    transition: 0.3s;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-login.btn:hover {
+    background-color: var(--btn-hover-gold);
+    color: white;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 25px;
+    padding-left: 45px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    color: gray;
+}
+
+.form-control:focus {
+    border: 1px solid #343a40;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: gray;
+}
+
+.form-control:focus + i {
+    color: #343a40;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+}
+
+.input-wrapper i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--gray-color);
+    pointer-events: none;
+}

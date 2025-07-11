@@ -193,30 +193,27 @@ public function newsletter()
 public function modules()
 {
     $modules = [
-        [
-            'title' => 'Module 1: Introduction to Aquaculture',
-            'file' => 'MODULE1.pdf',
-        ],
-        [
-            'title' => 'Module 2: Sustainable Farming Techniques',
-            'file' => 'MODULE2.pdf',
-        ],
-        [
-            'title' => 'Module 3: Disease Management in Fisheries',
-            'file' => 'MODULE3.pdf',
-        ],
-        [
-            'title' => 'Module 4: Advanced Aquaculture Systems',
-            'file' => 'MODULE4.pdf',
-        ],
-        [
-            'title' => 'Module 5: Business in Aquaculture',
-            'file' => 'MODULE5.pdf',
-        ],
+        ['title' => 'Sibul TBI Module on Banana Chips Processing', 'file' => 'Sibul TBI Module on Banana Chips Processing.pdf'],
+        ['title' => 'Sibul TBI Module on Business Model Canvas and Business Plan Preparation', 'file' => 'Sibul TBI Module on Business Model Canvas and Business Plan Preparation.pdf'],
+        ['title' => 'Sibul TBI Module on Catfish Farming in Traditional and Biofloc Technology', 'file' => 'Sibul TBI Module on Catfish Farming in Traditional and Biofloc Technology.pdf'],
+        ['title' => 'Sibul TBI Module on Design Thinking', 'file' => 'Sibul TBI Module on Design Thinking.pdf'],
+        ['title' => 'Sibul TBI Module on Entrepreneurial Mindset', 'file' => 'Sibul TBI Module on Entrepreneurial Mindset.pdf'],
+        ['title' => 'Sibul TBI Module on Goat Farming Practices in the Philippines', 'file' => 'Sibul TBI Module on Goat Farming Practices in the Philippines.pdf'],
+        ['title' => 'Sibul TBI Module on Hydroponics Farming', 'file' => 'Sibul TBI Module on Hydroponics Farming.pdf'],
+        ['title' => 'Sibul TBI Module on Intellectual Property Rights', 'file' => 'Sibul TBI Module on Intellectual Property Rights.pdf'],
+        ['title' => 'Sibul TBI Module on Introduction to Digital Marketing', 'file' => 'Sibul TBI Module on Introduction to Digital Marketing.pdf'],
+        ['title' => 'Sibul TBI Module on IRL', 'file' => 'Sibul TBI Module on IRL.pdf'],
+        ['title' => 'Sibul TBI Module on Legal Matters for Start Ups', 'file' => 'Sibul TBI Module on Legal Matters for Start Ups.pdf'],
+        ['title' => 'Sibul TBI Module on Obligations and Contracts', 'file' => 'Sibul TBI Module on Obligations and Contracts.pdf'],
+        ['title' => 'Sibul TBI Module on Onion processing and other Onion Products', 'file' => 'Sibul TBI Module on Onion processing and other Onion Products.pdf'],
+        ['title' => 'Sibul TBI Module on Product Development', 'file' => 'Sibul TBI Module on Product Development.pdf'],
+        ['title' => 'Sibul TBI Module on TRL', 'file' => 'Sibul TBI Module on TRL.pdf'],
     ];
 
     return view('media-resources-section.modules', compact('modules'));
+
 }
+
 
 public function techPortfolio()
 {

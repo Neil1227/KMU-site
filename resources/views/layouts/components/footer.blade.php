@@ -1,9 +1,9 @@
 <!-- Footer -->
 <footer class="custom-footer-section">
-  <div class="container-fluid py-5">
+  <div class="container-fluid  py-5">
     <div class="row gy-4">
       <!-- Column 1: Logos -->
-      <div class="col-12 col-md-3 text-center ">
+      <div class="col-12 col-md-3 text-center justify-content-center ">
         <div class="custom-footer-logos d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
           <img src="assets/img/iptbm.png" alt="Logo 1" class="custom-footer-logo">
           <img src="assets/img/logo.png" alt="Logo 2" class="custom-footer-logo">
@@ -37,10 +37,12 @@
       <div class="col-12 col-md-3">
         <h5 class="custom-footer-title">Contact Us</h5>
         <p class="custom-footer-text">
-          Pampanga State Agricultural University<br>
+        Pampanga State Agricultural University
+        </p>
+        <p class="custom-footer-text">
           PAC, San Agustin, Magalang, Pampanga, Philippines
         </p>
-        <p class="custom-footer-text">Email: <a href="mailto:kmc@psau.edu.ph" class="text-decoration-none text-dark">kmc@psau.edu.ph</a></p>
+        <p class="custom-footer-text">Email: kmc@psau.edu.ph</a></p>
         <p class="custom-footer-text">Phone: (045) 123-4567</p>
       </div>
     </div>

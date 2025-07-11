@@ -3,25 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\ContactController;
 
 
 // ✅ Static page: no logic or data passed, just a Blade file
-Route::view('/index', 'index');
+Route::view('/', 'index')->name('index');
 Route::view('/homepage', 'homepage')->name('homepage');
 Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
-Route::view('/contact', 'contact')->name('contact');
 
-
-
-
-
-// ✅ Dynamic page: use a closure if you plan to add logic later
-Route::get('/contact', function () {
-    // You can add logic or pass data here in the future
-    return view('contact');
-});
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
 
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
@@ -40,3 +32,15 @@ Route::get('/biotechnology', [ResearchController::class, 'biotechnology'])->name
 Route::get('/root-crops', [ResearchController::class, 'rootCrops'])->name('root-crops');
 Route::get('/iot', [ResearchController::class, 'iot'])->name('iot');
 Route::get('/others', [ResearchController::class, 'others'])->name('others');
+
+//admin login
+
+// Admin Login Page (UI only for now)
+Route::get('/admin/login', function () {
+    return view('admin.auth.login');
+})->name('admin.login');
+
+//Admin Dashboard
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});

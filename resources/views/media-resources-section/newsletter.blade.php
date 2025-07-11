@@ -30,9 +30,9 @@
 
 {{-- Newsletter PDF Cards --}}
 <section class="container-page my-5">
-    <div class="row g-4">
-        @foreach ($newsletters as $newsletter)
-            <div class="col-md-6 col-lg-4">
+    <div id="newsletterCards" class="row g-4">
+        @foreach ($newsletters as $index => $newsletter)
+            <div class="col-md-6 col-lg-4 newsletter-card collapsible {{ $index >= 6 ? 'collapsed' : '' }}">
                 <a href="{{ asset('assets/files/' . $newsletter['file']) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
                         <img src="{{ asset('assets/img/newsletter_thumbnail/' . $newsletter['thumbnail']) }}"
@@ -48,7 +48,37 @@
             </div>
         @endforeach
     </div>
+
+    <div class="text-center mt-4">
+        <button id="toggleNewsletterBtn" class="btn btn-primary">Show More</button>
+    </div>
 </section>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.newsletter-card.collapsible');
+    const toggleBtn = document.getElementById('toggleNewsletterBtn');
+    let expanded = false;
+
+    toggleBtn.addEventListener('click', function () {
+        cards.forEach((card, index) => {
+            if (index >= 6) {
+                card.classList.toggle('collapsed');
+            }
+        });
+
+        expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
+
+        if (!expanded) {
+            document.getElementById('newsletterCards').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>
+@endpush
+
 
 {{-- Footer --}}
 @include('layouts.components.sub-footer')

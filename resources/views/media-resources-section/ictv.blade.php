@@ -23,9 +23,9 @@
 
 {{-- ICTV Episode Cards --}}
 <section class="container-page my-5">
-    <div class="row justify-content-center">
-        @foreach ($episodes as $episode)
-            <div class="col-md-4 mb-4">
+    <div class="row justify-content-center" id="ictvCards">
+        @foreach ($episodes as $index => $episode)
+            <div class="col-md-4 mb-4 transition-card ictv-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
                     <picture>
                         <source srcset="{{ asset('assets/img/ictv_thumbnail/' . $episode['webp']) }}" type="image/webp">
@@ -40,7 +40,29 @@
             </div>
         @endforeach
     </div>
+
+    {{-- Toggle Button --}}
+    @if (count($episodes) > 6)
+        <div class="text-center mt-4">
+            <button id="toggleIctvBtn" class="btn btn-primary">Show More</button>
+        </div>
+    @endif
 </section>
+@push('scripts')
+<script>
+document.getElementById('toggleIctvBtn').addEventListener('click', function () {
+    const hiddenCards = document.querySelectorAll('.ictv-card.d-none');
+    const isHidden = hiddenCards.length > 0;
+
+    hiddenCards.forEach(card => {
+        card.classList.toggle('d-none');
+    });
+
+    this.textContent = isHidden ? 'Show Less' : 'Show More';
+});
+</script>
+
+@endpush
 
 {{-- Only show sub-footer on this page --}}
 @include('layouts.components.sub-footer')
