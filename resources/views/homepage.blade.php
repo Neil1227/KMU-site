@@ -31,17 +31,17 @@
       <div class="absolute-cards-container">
         <div class="card-box transparent-card" data-aos="fade-right" data-aos-duration="1500">
           <i class="fa-solid fa-magnifying-glass card-icon"></i>
-          <h5 class="text-white">Acquire</h5>
+          <h5 class="text-white">Acquiring</h5>
           <p><em>Learn. Discover. Collect.</em></p>
         </div>
         <div class="card-box primary-card" data-aos="fade-up" data-aos-duration="1500">
           <i class="fa-solid fa-bullhorn card-icon"></i>
-          <h5 class="text-white">Promote</h5>
+          <h5 class="text-white">Promoting</h5>
           <p><em>Highlight. Inspire. Engage.</em></p>
         </div>
         <div class="card-box secondary-card" data-aos="fade-left" data-aos-duration="1500">
           <i class="fa-solid fa-share-nodes card-icon"></i>
-          <h5 class="text-white">Share</h5>
+          <h5 class="text-white">Sharing</h5>
           <p><em>Spread. Connect. Empower.</em></p>
         </div>
       </div>

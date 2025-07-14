@@ -23,7 +23,7 @@
                 </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item text-dark" href="PS.html">Plagiarism Scan</a></li>
-                        <li><a class="dropdown-item text-dark" href="PA.html">Promotional Activities</a></li>
+                        <li><a class="dropdown-item text-dark" href="{{ route('ictv') }}">Promotional Activities</a></li>
                         <li><a class="dropdown-item text-dark" href="KSA.html">Knowledge Sharing</a></li>
                     </ul>
             </li>
