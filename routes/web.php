@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminController;
 
 
 // ✅ Static page: no logic or data passed, just a Blade file
@@ -40,7 +41,13 @@ Route::get('/admin/login', function () {
     return view('admin.auth.login');
 })->name('admin.login');
 
-//Admin Dashboard
+// Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
-});
+})->name('admin.dashboard');
+
+// Admin Content management page
+Route::get('/admin/ictv', [AdminController::class, 'ictv'])->name('admin.ictv');
+Route::get('/admin/iec', [AdminController::class, 'iec'])->name('admin.iec');
+Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
+Route::get('/admin/newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');

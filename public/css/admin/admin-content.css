@@ -1,0 +1,73 @@
+/* Wrapper to center and limit width */
+.ictv-form-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    padding: 0 1rem;
+}
+
+/* Main form styling */
+.ictv-form {
+    background: #fff;
+    padding: 2rem;
+
+}
+
+/* Form title */
+.form-title {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+
+}
+
+/* Upload drop area box */
+.upload-box {
+    border: 2px dashed #d1d5db;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    color: #6b7280;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background-color: #f9fafb;
+    border-color: var(--secondary-color);
+}
+
+/* Upload icon inside the box */
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Upload button */
+.ictv-form .btn-upload {
+    background-color: var(--secondary-color);
+    color: var(--off-white-color);
+    border: none;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%; /* full width inside form */
+}
+
+/* Upload icon spacing */
+.btn-upload i {
+    margin-right: 8px;
+}
+
+/* Hover and focus effects */
+.ictv-form .btn-upload:hover {
+    background-color: var(--primary-color);
+    color: var(--off-white-color);
+}
+
+.ictv-form .btn-upload:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(216, 76, 0, 0.4);
+}

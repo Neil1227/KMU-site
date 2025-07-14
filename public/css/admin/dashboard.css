@@ -41,7 +41,13 @@ body h3 {
     background-color: white;
     height: 100%;
 }
+.dashboard-card-quick {
 
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    height: auto;
+}
 .status-badge {
     padding: 5px 10px;
     border-radius: 12px;

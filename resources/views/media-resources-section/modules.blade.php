@@ -34,10 +34,10 @@
             <div class="col-md-6 col-lg-4 module-card transition-card {{ $index >= 6 ? 'hidden-card' : '' }}">
                 <a href="{{ asset('assets/files/modules/' . $module['file']) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
-                        <img src="{{ asset('assets/img/logo.png') }}" 
-                             alt="PDF icon"
-                             loading="lazy"
-                             class="img-fluid">
+                        <img src="{{ asset('assets/img/modules_thumbnail/' . $module['thumbnail']) }}" 
+                            alt="{{ $module['title'] }}"
+                            loading="lazy"
+                            class="img-fluid">
                         <div class="card-body text-center mt-2">
                             <h6>{{ $module['title'] }}</h6>
                             <small>Click to open PDF</small>

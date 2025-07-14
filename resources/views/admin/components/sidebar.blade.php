@@ -3,12 +3,10 @@
             <h3 class="text-white">Admin Panel</h3>
             <small class="d-block mb-4">Content Management</small>
             <hr>
-            <a href="#" class="active">Dashboard</a>
-            <a href="#">Content</a>
-            <a href="#">Media Upload</a>
-            <a href="#">Images</a>
-            <a href="#">Videos</a>
-            <a href="#">Documents</a>
-            <a href="#">Users</a>
+            <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">Dashboard</a>
+            <a href="{{ route('admin.ictv') }}" class="{{ Route::currentRouteName() === 'admin.ictv' ? 'active' : '' }}">ICTV Episodes</a>
+            <a href="{{ route('admin.iec') }}" class="{{ Route::currentRouteName() === 'admin.iec' ? 'active' : '' }}">IEC Materials</a>
+            <a href="{{ route('admin.modules') }}" class="{{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">Modules</a>
+            <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters</a>
             <a href="#">Settings</a>
         </div>

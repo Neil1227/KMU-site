@@ -27,46 +27,46 @@
                 <p>Welcome back! Here's an overview of your content.</p>
             </div>
 
-
             <div class="row g-4 mb-4">
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div>Total Content</div>
-                            <i class="fa fa-file-alt card-icon"></i>
+                            <div><strong>ICTV Episodes</strong></div>
+                            <i class="fa-solid fa-tv card-icon"></i>
                         </div>
                         <h3>1,234</h3>
-                        <small>Published articles</small>
+                        <small>Total Content</small>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div>Media Files</div>
-                            <i class="fa fa-upload card-icon"></i>
+                            <div><strong>IEC Materials</strong></div>
+                            <i class="fa-solid fa-image  card-icon"></i>
                         </div>
                         <h3>856</h3>
-                        <small>Images & videos</small>
+                        <small>Total IEC Materials</small>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div>Active Users</div>
-                            <i class="fa fa-users card-icon"></i>
+                            <div><strong>Modules</strong></div>
+                            
+                            <i class="fa-solid fa-book-open-reader card-icon"></i>
                         </div>
                         <h3>48</h3>
-                        <small>Content creators</small>
+                        <small>Total Modules</small>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div>Page Views</div>
-                            <i class="fa fa-eye card-icon"></i>
+                            <div><strong>Newsletters</strong></div>
+                            <i class="fa fa-file-alt card-icon"></i>
                         </div>
                         <h3>12.5K</h3>
-                        <small>This month</small>
+                        <small>Total Newsletters</small>
                     </div>
                 </div>
             </div>
@@ -97,11 +97,13 @@
                     <div class="dashboard-card">
                         <h5>Quick Actions</h5>
                         <div class="d-grid gap-3 mt-3">
-                            <button class="btn btn-outline-primary"><i class="fa fa-file-alt"></i> Create Content</button>
-                            <button class="btn btn-outline-warning"><i class="fa fa-upload"></i> Upload Media</button>
-                            <button class="btn btn-outline-info"><i class="fa fa-users"></i> Manage Users</button>
-
-                            <a href="{{ route('index') }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.ictv') }}" class="btn btn-outline-primary">
+                                <i class="fa-solid fa-tv"></i> ICTV
+                            </a>
+                            <button class="btn btn-outline-danger"><i class="fa-solid fa-image"></i> IEC Materials</button>
+                            <button class="btn btn-outline-secondary"><i class="fa fa-file-alt"></i> Modules</button>
+                            <button class="btn btn-outline-success"><i class="fa-solid fa-book-open-reader"></i> Newsletters</button>
+                            <a href="{{ route('index') }}" class="btn btn-outline-dark">
                                 <i class="fa fa-eye"></i> View Site
                             </a>
                         </div>

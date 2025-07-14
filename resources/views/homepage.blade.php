@@ -26,7 +26,26 @@
       </video>
         <div class="video-overlay"></div>
     </section>
-
+    <!-- KMU Cards (Insert Here) -->
+    <section class="kmu-section mt-4">
+      <div class="absolute-cards-container">
+        <div class="card-box transparent-card" data-aos="fade-right" data-aos-duration="1500">
+          <i class="fa-solid fa-magnifying-glass card-icon"></i>
+          <h5 class="text-white">Acquire</h5>
+          <p><em>Learn. Discover. Collect.</em></p>
+        </div>
+        <div class="card-box primary-card" data-aos="fade-up" data-aos-duration="1500">
+          <i class="fa-solid fa-bullhorn card-icon"></i>
+          <h5 class="text-white">Promote</h5>
+          <p><em>Highlight. Inspire. Engage.</em></p>
+        </div>
+        <div class="card-box secondary-card" data-aos="fade-left" data-aos-duration="1500">
+          <i class="fa-solid fa-share-nodes card-icon"></i>
+          <h5 class="text-white">Share</h5>
+          <p><em>Spread. Connect. Empower.</em></p>
+        </div>
+      </div>
+    </section>
     <!-- Media Resources -->
     <section id="media-resources" class="py-5">
         <h2 class="text-center mb-4 section-title" >
@@ -350,6 +369,23 @@
     <!-- the issue is the research_section -->
         @include('layouts.components.footer')
 @push('scripts')
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.absolute-cards-container .card-box');
+        let current = 0;
+
+        function cycleZoom() {
+          cards.forEach(card => card.classList.remove('zoom-effect'));
+          cards[current].classList.add('zoom-effect');
+
+          current = (current + 1) % cards.length;
+        }
+
+        cycleZoom(); // initial run
+        setInterval(cycleZoom, 2500); // run every 2.5 seconds
+      });
+    </script>
+
     <script src="{{ asset('js/navbar.js') }}"></script>
 @endpush
 @endsection

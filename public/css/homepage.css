@@ -15,7 +15,7 @@
 .video-banner {
   position: relative;
   width: 100%;
-  padding-top: 40%; /* Maintain aspect ratio: (7 / 21) * 100 = ~33.33% */
+  padding-top: 34%; /* Maintain aspect ratio: (7 / 21) * 100 = ~33.33% */
   overflow: hidden;
   background-color: black;
 }
@@ -40,6 +40,96 @@
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 2;
 }
+.absolute-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.card-box {
+  padding: 1.5rem;
+  width: 300px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  color: var(--off-white-color);
+}
+
+.card-box:hover {
+  transform: translateY(-5px);
+}
+
+.card-box h5 {
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+
+.card-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.transparent-card {
+  background-color: var(--primary-color);
+}
+
+.primary-card {
+  background-color: var(--secondary-color);
+}
+
+.secondary-card {
+  background-color: rgb(19, 85, 19);
+}
+/* Responsive - make absolute cards smaller on tablets and mobile */
+@media (max-width: 768px) {
+  .absolute-cards-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Add spacing between cards */
+  }
+
+  .card-box {
+    width: 100%;
+    max-width: 250px;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .card-box h5 {
+    font-size: 1.1rem;
+  }
+
+  .card-box p {
+    font-size: 0.85rem;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+    z-index: 1;
+  }
+  50% {
+    transform: scale(1.05);  /* softer zoom */
+    z-index: 2;
+  }
+  100% {
+    transform: scale(1);
+    z-index: 1;
+  }
+}
+
+.card-box.zoom-effect {
+  animation: zoomIn 1.2s ease-in-out;
+}
+
 
 /* media section--------------------------------------------------------------------- */
 .section-title {
