@@ -94,19 +94,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="dashboard-card">
-                        <h5>Quick Actions</h5>
-                        <div class="d-grid gap-3 mt-3">
-                            <a href="{{ route('admin.ictv') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-tv"></i> ICTV
-                            </a>
-                            <button class="btn btn-outline-danger"><i class="fa-solid fa-image"></i> IEC Materials</button>
-                            <button class="btn btn-outline-secondary"><i class="fa fa-file-alt"></i> Modules</button>
-                            <button class="btn btn-outline-success"><i class="fa-solid fa-book-open-reader"></i> Newsletters</button>
-                            <a href="{{ route('index') }}" class="btn btn-outline-dark">
-                                <i class="fa fa-eye"></i> View Site
-                            </a>
-                        </div>
+                    @include('admin.components.quick-action')
                     </div>
                 </div>
             </div>
