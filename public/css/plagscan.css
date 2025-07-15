@@ -1,0 +1,126 @@
+.roadmap {
+  max-width: 900px;
+  margin: auto;
+}
+
+.roadmap h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.step {
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 30px;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, #f7941d, #002b5c);
+}
+
+.step:last-child::before {
+  height: 0;
+}
+
+.step-circle {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.step.completed .step-circle {
+  background: var(--primary-color);
+}
+
+.step .card {
+  background-color: rgba(240, 240, 240, 0.815);
+  border-radius: 8px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.step .card:hover {
+  transform: translateY(-2px);
+}
+
+.card h2 {
+  font-size: 18px;
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.step.completed .card h2 {
+  color: var(--primary-color);
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-light);
+}
+
+.qr {
+  margin-top: 10px;
+}
+
+.qr img {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+  }
+
+  .roadmap h1 {
+    font-size: 20px;
+  }
+
+  .card h2 {
+    font-size: 16px;
+  }
+
+  .card p {
+    font-size: 13px;
+  }
+
+  .step::before {
+    left: 16px;
+  }
+
+  .step-circle {
+    left: 4px;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+}

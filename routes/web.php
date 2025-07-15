@@ -3,8 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 // ✅ Static page: no logic or data passed, just a Blade file
@@ -14,7 +18,9 @@ Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
 
-Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+// For main controller
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
 
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
