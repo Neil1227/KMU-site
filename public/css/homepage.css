@@ -14,7 +14,7 @@
 #video-hero {
   background-color: var(--off-white-color);
   padding: 10px 0;
-  height: 100dvh;
+
 }
 
 .video-banner {
@@ -85,6 +85,62 @@
 
 .arrow {
   font-size: 1.2rem;
+}
+@media (max-width: 1024px) {
+  .video-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .explore-btn {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+  }
+
+  .video-banner {
+    width: 90%;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .video-content h1 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .explore-btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  .video-overlay {
+    padding: 30px 16px;
+  }
+
+  #video-hero {
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-content h1 {
+    font-size: 1rem;
+  }
+
+  .explore-btn {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+
+  .arrow {
+    font-size: 1rem;
+  }
+
+  .video-banner {
+    width: 95%;
+    border-radius: 8px;
+  }
 }
 
 .absolute-cards-container {

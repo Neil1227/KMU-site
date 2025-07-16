@@ -28,7 +28,7 @@
   <div class="video-overlay">
     <div class="video-content">
     <a href="#media-resources" class="explore-btn">
-      Explore <span class="arrow">&#8595;</span>
+      Explore more <span class="arrow">&#8595;</span>
     </a>
     </div>
   </div>
