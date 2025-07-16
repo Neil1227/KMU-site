@@ -20,11 +20,11 @@
 @include('layouts.components.navbar')
 
 <section class="container-page mt-5">
-    <h2 class="text-center mb-4 section-title" data-aos="fade-up">
+    <h2 class="text-center mb-4 section-title" data-aos="fade-up" data-aos-duration="1500">
         Plagiarism Check Roadmap
         <hr class="hr">
     </h2>
-    <div class="roadmap">
+    <div class="roadmap" data-aos="fade-up" data-aos-duration="1500">
         <div class="step completed">
             <div class="step-circle">1</div>
             <div class="card">
@@ -32,7 +32,6 @@
                 <p>Fill out the Google form <strong><a class="text-decoration-none" style="color: #f85e0a" href="https://docs.google.com/forms/d/e/1FAIpQLSfMYKBGAQRT-RNDej52Xzu7qGVn94pcs9P-_CkxBTRyDYONaQ/viewform">(bit.ly/kmc-plagscan)</a></strong> to request a PlagScan, scan the QR code, or email your paper to <strong>kmc@psau.edu.ph</strong>.</p>
                 <div class="qr">
                     <img src="{{ asset('assets/img/qr.png') }}" alt="QR Code" />
-
                 </div>
             </div>
         </div>

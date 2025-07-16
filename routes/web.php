@@ -21,6 +21,7 @@ Route::get('/sdgs', function () {
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
+Route::get('/promotional', [MainController::class, 'promotional'])->name('promotional');
 
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
