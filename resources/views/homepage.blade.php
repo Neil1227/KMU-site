@@ -19,14 +19,25 @@
 @include('layouts.components.navbar')
 
 @section('content')
-<section class="video-banner" data-aos="fade-down" data-aos-duration="1500">
-  <video autoplay muted loop playsinline preload="auto" width="80%" height="300" style="border: 0;">
+<section id="video-hero" data-aos="fade-down" data-aos-duration="1500">
+<div class="video-banner" data-aos="fade-down" data-aos-duration="1500">
+  <video autoplay muted loop playsinline preload="auto">
     <source src="{{ asset('assets/videos/compressed_homebanner.mp4') }}" type="video/mp4">
-
     Your browser does not support the video tag.
   </video>
-  <div class="video-overlay"></div>
+  <div class="video-overlay">
+    <div class="video-content">
+    <a href="#media-resources" class="explore-btn">
+      Explore <span class="arrow">&#8595;</span>
+    </a>
+    </div>
+  </div>
+</div>
 </section>
+
+
+
+
 <!-- KMU Cards (Insert Here) -->
 <section class="kmu-section mt-4">
   <div class="absolute-cards-container">
