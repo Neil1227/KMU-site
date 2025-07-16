@@ -27,9 +27,12 @@
   </video>
   <div class="video-overlay">
     <div class="video-content">
-    <a href="#media-resources" class="explore-btn">
-      Explore more <span class="arrow">&#8595;</span>
-    </a>
+      <h1 class="hero-title" style="color:#f85e0a;">Knowledge Management Unit</h1>
+      <p class="hero-subtitle"><em>Centralizing Institutional Knowledge for Innovation</em></p>
+
+      <a href="#media-resources" class="explore-btn bounce">
+        Explore more <span class="arrow">&#8595;</span>
+      </a>
     </div>
   </div>
 </div>
