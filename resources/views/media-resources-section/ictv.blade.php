@@ -27,10 +27,10 @@
         @foreach ($episodes as $index => $episode)
             <div class="col-md-4 mb-4 transition-card ictv-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
-                    <picture>
-                        <source srcset="{{ asset('assets/img/ictv_thumbnail/' . $episode['webp']) }}" type="image/webp">
-                        <img src="{{ asset('assets/img/ictv_thumbnail/' . $episode['png']) }}" class="card-img-top media-img" alt="{{ $episode['title'] }}">
-                    </picture>
+                <picture>
+                    <source srcset="{{ asset('storage/ictv_thumbnail/' . $episode->webp) }}" type="image/webp">
+                    <img src="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}" class="card-img-top media-img" alt="{{ $episode->title }}">
+                </picture>
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $episode['title'] }}</h5>
                         <p class="card-text">{{ $episode['description'] }}</p>

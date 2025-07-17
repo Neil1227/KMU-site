@@ -31,7 +31,10 @@
     cursor: pointer;
     transition: 0.3s;
 }
-
+.upload-box.drag-over {
+    border-color: #28a745;
+    background-color: #f6fff8;
+}
 .upload-box:hover {
     background-color: #f9fafb;
     border-color: var(--secondary-color);

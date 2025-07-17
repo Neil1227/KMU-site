@@ -5,6 +5,11 @@ use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ICTVController;
+
+//Uploads for ICTV
+Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.upload');
+
 
 Route::get('/', function () {
     return view('welcome');
