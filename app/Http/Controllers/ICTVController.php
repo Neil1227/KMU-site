@@ -62,6 +62,48 @@ public function destroy($id)
     return response()->json(['success' => true]);
 }
 
+//updating record
+// updating record
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'link' => 'nullable|url',
+        'png' => 'nullable|file|mimes:png',
+        'webp' => 'nullable|file|mimes:webp',
+    ]);
+
+    $episode = ICTV::findOrFail($id);
+
+    // Handle new file uploads if present
+    if ($request->hasFile('png')) {
+        if ($episode->png) {
+            Storage::delete('ictv_thumbnail/' . $episode->png);
+        }
+        $pngFilename = uniqid() . '.png';
+        $request->file('png')->storeAs('ictv_thumbnail', $pngFilename);
+        $episode->png = $pngFilename;
+    }
+
+    if ($request->hasFile('webp')) {
+        if ($episode->webp) {
+            Storage::delete('ictv_thumbnail/' . $episode->webp);
+        }
+        $webpFilename = uniqid() . '.webp';
+        $request->file('webp')->storeAs('ictv_thumbnail', $webpFilename);
+        $episode->webp = $webpFilename;
+    }
+
+    // Update fields
+    $episode->title = $request->title;
+    $episode->description = $request->description;
+    $episode->link = $request->link;
+    $episode->save();
+
+    return back()->with('success', 'Episode updated successfully!');
+}
+
 
 
 

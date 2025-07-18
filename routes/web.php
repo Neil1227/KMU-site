@@ -11,6 +11,8 @@ use App\Http\Controllers\ICTVController;
 Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.upload');
 Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
 Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
+Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.update');
+
 
 
 
@@ -62,7 +64,11 @@ Route::get('/admin/dashboard', function () {
 })->name('admin.dashboard');
 
 // Admin Content management page
+//ictvs
 Route::get('/admin/ictv', [AdminController::class, 'ictv'])->name('admin.ictv');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 Route::get('/admin/iec', [AdminController::class, 'iec'])->name('admin.iec');
 Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
 Route::get('/admin/newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');
+Route::get('/admin/promotional', [AdminController::class, 'promotional'])->name('admin.promotional');

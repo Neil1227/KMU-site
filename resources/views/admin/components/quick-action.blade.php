@@ -12,19 +12,19 @@
                                 <div class="col-md-6">
                                     <a href="{{ route('admin.iec') }}"
                                        class="btn w-100 {{ Route::currentRouteName() === 'admin.iec' ? 'btn-danger text-white' : 'btn-outline-danger' }}">
-                                        <i class="fa-solid fa-image me-1"></i> IEC Materials
+                                        <i class="fa-solid fa-image me-1"></i> Add IEC Materials
                                     </a>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ route('admin.modules') }}"
                                        class="btn w-100 {{ Route::currentRouteName() === 'admin.modules' ? 'btn-secondary text-white' : 'btn-outline-secondary' }}">
-                                        <i class="fa fa-file-alt me-1"></i> Modules
+                                        <i class="fa fa-file-alt me-1"></i> Add Modules
                                     </a>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ route('admin.newsletter') }}"
                                         class="btn w-100 {{ Route::currentRouteName() === 'admin.newsletter' ? 'btn-success text-white' : 'btn-outline-success' }}">
-                                        <i class="fa-solid fa-book-open-reader me-1"></i> Newsletters
+                                        <i class="fa-solid fa-book-open-reader me-1"></i> Add Newsletters
                                     </a>
                                 </div>
                                 <div class="col-12">
@@ -32,6 +32,7 @@
                                         <i class="fa fa-eye me-1"></i> View Site
                                     </a>
                                 </div>
+                                <!-- changes this into promotional -->
                                 <div class="col-12">
                                     <a href="{{ route('ictv-table') }}" class="btn btn-outline-primary w-100">
                                         <i class="fa fa-table me-1"></i> View ICTV Table

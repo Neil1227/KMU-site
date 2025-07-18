@@ -9,8 +9,9 @@
             ICTV Table
             </a>
 
-            <a href="{{ route('admin.iec') }}" class="{{ Route::currentRouteName() === 'admin.iec' ? 'active' : '' }}">IEC Materials</a>
-            <a href="{{ route('admin.modules') }}" class="{{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">Modules</a>
-            <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters</a>
+            <a href="{{ route('admin.iec') }}" class="{{ Route::currentRouteName() === 'admin.iec' ? 'active' : '' }}">IEC Table</a>
+            <a href="{{ route('admin.modules') }}" class="{{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">Modules Table</a>
+            <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters Table</a>
+            <a href="{{ route('admin.promotional') }}" class="{{ Route::currentRouteName() === 'admin.promotional' ? 'active' : '' }}">Promotional Table</a>
             <a href="#">Settings</a>
         </div>
