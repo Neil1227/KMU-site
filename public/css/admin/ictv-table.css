@@ -1,0 +1,36 @@
+/* Custom ICTV Table Card Styling */
+.ictv-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.ictv-card .card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.ictv-card .badge {
+    font-size: 0.85rem;
+    padding: 0.4em 0.6em;
+    border-radius: 20px;
+}
+
+.ictv-card .table {
+    margin-bottom: 0;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.ictv-card .table th,
+.ictv-card .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ictv-card .table img {
+    border-radius: 4px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}

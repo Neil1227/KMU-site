@@ -4,7 +4,11 @@
             <small class="d-block mb-4">Content Management</small>
             <hr>
             <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">Dashboard</a>
-            <a href="{{ route('admin.ictv') }}" class="{{ Route::currentRouteName() === 'admin.ictv' ? 'active' : '' }}">ICTV Episodes</a>
+            <a href="{{ route('ictv-table') }}" 
+            class="{{ (Route::currentRouteName() === 'admin.ictv' || Route::currentRouteName() === 'ictv-table') ? 'active' : '' }}">
+            ICTV Table
+            </a>
+
             <a href="{{ route('admin.iec') }}" class="{{ Route::currentRouteName() === 'admin.iec' ? 'active' : '' }}">IEC Materials</a>
             <a href="{{ route('admin.modules') }}" class="{{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">Modules</a>
             <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters</a>

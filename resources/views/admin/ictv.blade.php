@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/admin-content.css') }}">
+    <!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 @endpush
 
 @section('content')
@@ -70,31 +73,6 @@
                                 <i class="fa fa-upload"></i> Upload Content
                             </button>
                         </form>
-                    @if (session('success'))
-                        <script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: @json(session('success')),
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'OK'
-                            });
-                        </script>
-                    @endif
-
-                    @if (session('error'))
-                        <script>
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: @json(session('error')),
-                                confirmButtonColor: '#d33',
-                                confirmButtonText: 'OK'
-                            });
-                        </script>
-                    @endif
-
-
                     </div>
                 </div>
 
@@ -172,6 +150,17 @@ document.querySelectorAll('.drop-area').forEach(area => {
     });
 </script>
 @endif
+<!-- jQuery and DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#ictvTable').DataTable({
+            responsive: true
+        });
+    });
+</script>
 
 @endpush
 @endsection

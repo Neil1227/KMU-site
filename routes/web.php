@@ -9,6 +9,9 @@ use App\Http\Controllers\ICTVController;
 
 //Uploads for ICTV
 Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.upload');
+Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
+Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
+
 
 
 Route::get('/', function () {

@@ -6,7 +6,7 @@
                                 <div class="col-md-6">
                                     <a href="{{ route('admin.ictv') }}"
                                        class="btn w-100 {{ Route::currentRouteName() === 'admin.ictv' ? 'btn-primary text-white' : 'btn-outline-primary' }}">
-                                        <i class="fa-solid fa-tv me-1"></i> ICTV
+                                        <i class="fa-solid fa-tv me-1"></i> Add ICTV
                                     </a>
                                 </div>
                                 <div class="col-md-6">
@@ -32,5 +32,11 @@
                                         <i class="fa fa-eye me-1"></i> View Site
                                     </a>
                                 </div>
+                                <div class="col-12">
+                                    <a href="{{ route('ictv-table') }}" class="btn btn-outline-primary w-100">
+                                        <i class="fa fa-table me-1"></i> View ICTV Table
+                                    </a>
+                                </div>
+
                             </div>
                         </div>

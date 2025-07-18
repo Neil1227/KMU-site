@@ -1,4 +1,4 @@
-                    <!-- Dashboard Stats Cards (2x2 layout) -->
+               <!-- Dashboard Stats Cards (2x2 layout) -->
                     <div class="row g-3 mt-4">
                         <div class="col-md-6">
                             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.ictv' ? 'active' : '' }}">
@@ -6,7 +6,7 @@
                                     <div><strong>ICTV Episodes</strong></div>
                                     <i class="fa-solid fa-tv card-icon"></i>
                                 </div>
-                                <h3>1,234</h3>
+                                <h3>{{ $episodes->count() }}</h3>
                                 <small>Total Content</small>
                             </div>
                         </div>

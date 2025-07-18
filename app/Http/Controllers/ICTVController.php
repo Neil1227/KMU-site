@@ -46,6 +46,21 @@ public function upload(Request $request)
     return redirect()->back()->with('error', 'Something went wrong!');
 
 }
+//tables rendering
+public function table()
+{
+    $episodes = Ictv::latest()->get(); // Get all episodes
+    return view('admin.ictv-table', compact('episodes'));
+}
+
+//deleting record
+public function destroy($id)
+{
+    $episode = ICTV::findOrFail($id);
+    $episode->delete();
+
+    return response()->json(['success' => true]);
+}
 
 
 

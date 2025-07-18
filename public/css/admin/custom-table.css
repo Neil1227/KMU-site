@@ -1,0 +1,35 @@
+
+/* Make the table container scrollable on small screens */
+.table-responsive-sm {
+    overflow-x: auto;
+}
+
+.dataTables_filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing below search bar */
+}
+
+
+.dataTables_filter label {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.dataTables_filter input {
+    padding: 8px 14px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    font-size: 14px;
+    width: 220px;
+}
+
+.dataTables_filter input:focus {
+    outline: none;
+    border-color: #f85e0a;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
