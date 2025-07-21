@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ictv;
+use App\Models\IECMaterial;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -46,9 +47,11 @@ public function upload(Request $request)
     return redirect()->back()->with('error', 'Something went wrong!');
 
 }
+
 //tables rendering
 public function table()
 {
+    $iecMaterials = IECMaterial::latest()->get();
     $episodes = Ictv::latest()->get(); // Get all episodes
     return view('admin.ictv-table', compact('episodes'));
 }
@@ -62,7 +65,6 @@ public function destroy($id)
     return response()->json(['success' => true]);
 }
 
-//updating record
 // updating record
 public function update(Request $request, $id)
 {
@@ -103,8 +105,5 @@ public function update(Request $request, $id)
 
     return back()->with('success', 'Episode updated successfully!');
 }
-
-
-
 
 }

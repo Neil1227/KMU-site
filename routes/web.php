@@ -5,7 +5,10 @@ use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\ICTVController;
+use App\Http\Controllers\IECMaterialController;
+
 
 //Uploads for ICTV
 Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.upload');
@@ -13,7 +16,11 @@ Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
 Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
 Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.update');
 
-
+//Upload for IEC
+Route::post('/admin/iec/upload', [IECMaterialController::class, 'upload'])->name('admin.iec.upload');
+Route::delete('/iec-materials/{id}', [IECMaterialController::class, 'destroy'])->name('iec-materials.destroy');
+Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->name('iec.update');
+Route::get('/admin/iec-table', [IECMaterialController::class, 'index'])->name('admin.iec-table');
 
 
 Route::get('/', function () {
@@ -67,6 +74,7 @@ Route::get('/admin/dashboard', function () {
 //ictvs
 Route::get('/admin/ictv', [AdminController::class, 'ictv'])->name('admin.ictv');
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 
 Route::get('/admin/iec', [AdminController::class, 'iec'])->name('admin.iec');
 Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');

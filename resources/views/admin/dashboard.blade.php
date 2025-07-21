@@ -28,7 +28,7 @@
                             <div><strong>IEC Materials</strong></div>
                             <i class="fa-solid fa-image  card-icon"></i>
                         </div>
-                        <h3>856</h3>
+                        <h3>{{ $iecMaterials->count() }}</h3>
                         <small>Total IEC Materials</small>
                     </div>
                 </div>

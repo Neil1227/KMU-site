@@ -27,17 +27,18 @@
                                         <i class="fa-solid fa-book-open-reader me-1"></i> Add Newsletters
                                     </a>
                                 </div>
-                                <div class="col-12">
+                                <!-- changes this into promotional -->
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-outline-warning w-100">
+                                        <i class="fa fa-table me-1"></i> Promotional Ativities
+                                    </a>
+                                </div>
+                                <div class="col-6">
                                     <a href="{{ route('index') }}" class="btn btn-outline-dark w-100">
                                         <i class="fa fa-eye me-1"></i> View Site
                                     </a>
                                 </div>
-                                <!-- changes this into promotional -->
-                                <div class="col-12">
-                                    <a href="{{ route('ictv-table') }}" class="btn btn-outline-primary w-100">
-                                        <i class="fa fa-table me-1"></i> View ICTV Table
-                                    </a>
-                                </div>
+
 
                             </div>
                         </div>
