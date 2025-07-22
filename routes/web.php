@@ -6,8 +6,12 @@ use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 
+//Uploading Controllers
 use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
+use App\Http\Controllers\ModuleController;
+
+
 
 
 //Uploads for ICTV
@@ -16,11 +20,20 @@ Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
 Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
 Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.update');
 
+
+
 //Upload for IEC
 Route::post('/admin/iec/upload', [IECMaterialController::class, 'upload'])->name('admin.iec.upload');
 Route::get('/admin/iec-table', [IECMaterialController::class, 'index'])->name('admin.iec-table');
 Route::delete('/iec-materials/{id}', [IECMaterialController::class, 'destroy'])->name('iec-materials.destroy');
 Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->name('iec.update');
+
+
+
+//Upload for Modules
+Route::post('/admin/modules', [ModuleController::class, 'store'])->name('admin.modules.store');
+Route::get('/admin/modules', [ModuleController::class, 'index'])->name('admin.modules');
+Route::get('/admin/modules-table', [ModuleController::class, 'table'])->name('admin.modules-table');
 
 
 

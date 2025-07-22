@@ -104,8 +104,6 @@
     });
 </script>
 
-
-
 <!-- SweetAlert Feedback -->
 @if(session('success'))
     <script>

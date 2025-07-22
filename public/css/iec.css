@@ -12,7 +12,7 @@
       transform: translateY(-5px);
     }
 
-    .card-title {
+    .card-title-iec {
       color: var(--primary-color);
       font-weight: bold;
     }

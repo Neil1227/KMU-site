@@ -32,14 +32,14 @@
     <div class="row g-4" id="moduleCards">
         @foreach ($modules as $index => $module)
             <div class="col-md-6 col-lg-4 module-card transition-card {{ $index >= 6 ? 'hidden-card' : '' }}">
-                <a href="{{ asset('assets/files/modules/' . $module['file']) }}" target="_blank" class="text-decoration-none">
+                <a href="{{ asset('storage/modules/' . $module->file) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
-                        <img src="{{ asset('assets/img/modules_thumbnail/' . $module['thumbnail']) }}" 
-                            alt="{{ $module['title'] }}"
+                        <img src="{{ asset('storage/modules_thumbnail/' . $module->png) }}" 
+                            alt="{{ $module->title }}"
                             loading="lazy"
                             class="img-fluid">
                         <div class="card-body text-center mt-2">
-                            <h6>{{ $module['title'] }}</h6>
+                            <h6>{{ $module->title }}</h6>
                             <small>Click to open PDF</small>
                         </div>
                     </div>
@@ -49,12 +49,13 @@
     </div>
 
     {{-- Toggle Button --}}
-    @if (count($modules) > 6)
+    @if ($modules->count() > 6)
         <div class="text-center mt-4">
             <button id="toggleBtn" class="btn btn-primary">Show More</button>
         </div>
     @endif
 </section>
+
 
 
 

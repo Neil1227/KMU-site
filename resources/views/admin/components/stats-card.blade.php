@@ -29,13 +29,13 @@
     </div>
 
     <div class="col-md-6">
-        <a href="#" class="text-decoration-none text-dark">
+        <a href="{{ route('admin.modules-table') }}" class="text-decoration-none text-dark">
             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">
                 <div class="d-flex justify-content-between align-items-center">
                     <div><strong>Modules</strong></div>
                     <i class="fa-solid fa-book-open-reader card-icon"></i>
                 </div>
-                <h3>48</h3>
+                <h3>{{ $modules->count() }}</h3>
                 <small>Total Modules</small>
             </div>
         </a>

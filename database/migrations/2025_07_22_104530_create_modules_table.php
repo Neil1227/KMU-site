@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('file')->nullable(); // for uploaded PDF or ZIP
+            $table->string('png')->nullable(); // for preview image
             $table->timestamps();
         });
+
     }
 
     /**

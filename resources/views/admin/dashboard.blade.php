@@ -39,7 +39,7 @@
                             
                             <i class="fa-solid fa-book-open-reader card-icon"></i>
                         </div>
-                        <h3>48</h3>
+                        <h3>{{ $modules->count() }}</h3>
                         <small>Total Modules</small>
                     </div>
                 </div>

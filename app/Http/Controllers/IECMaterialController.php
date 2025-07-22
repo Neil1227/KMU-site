@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
+use App\Models\Module;
 
 class IECMaterialController extends Controller
 {
@@ -64,7 +65,8 @@ public function index()
 {
     $iecMaterials = IECMaterial::latest()->get();
     $episodes = Ictv::all();
-    return view('admin.iec-table', compact('iecMaterials', 'episodes'));
+    $modules = Module::latest()->get();
+    return view('admin.iec-table', compact('iecMaterials', 'episodes', 'modules'));
 
 }
 

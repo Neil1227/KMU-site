@@ -1,6 +1,6 @@
 
                     <div class="dashboard-card-quick mt-2">
-                        <h5>Quick Actions</h5>
+                        <h5>Upload Content</h5>
                         <div class="mt-3">
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -34,7 +34,7 @@
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="{{ route('index') }}" class="btn btn-outline-dark w-100">
+                                    <a href="{{ route('index') }}" class="btn btn-outline-dark w-100" target="_blank">
                                         <i class="fa fa-eye me-1"></i> View Site
                                     </a>
                                 </div>

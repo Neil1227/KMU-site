@@ -15,7 +15,11 @@
             IEC Table
             </a>
 
-            <a href="{{ route('admin.modules') }}" class="{{ Route::currentRouteName() === 'admin.modules' ? 'active' : '' }}">Modules Table</a>
+            <a href="{{ route('admin.modules-table') }}" 
+            class="{{ (Route::currentRouteName() === 'admin.modules' || Route::currentRouteName() === 'admin.modules-table') ? 'active' : '' }}">
+            Modules Table
+            </a>
+            
             <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters Table</a>
             <a href="{{ route('admin.promotional') }}" class="{{ Route::currentRouteName() === 'admin.promotional' ? 'active' : '' }}">Promotional Table</a>
             <a href="#">Settings</a>

@@ -25,13 +25,13 @@
     <div class="row g-4 mt-4">
         @foreach ($brochures as $brochure)
             <div class="col-md-6 col-lg-6">
-                <a href="{{ asset('assets/files/iec_brochure/' . $brochure['pdf']) }}" target="_blank" class="text-decoration-none">
+                <a href="{{ asset('storage/iec_brochure/' . $brochure->file) }}" target="_blank" class="text-decoration-none">
                     <div class="card h-100 shadow brochure-card">
-                        <img src="{{ asset('storage/iec_thumbnail/' . $brochure['image']) }}" alt="{{ $brochure['title'] }}" class="card-img-top" loading="lazy">
+                        <img src="{{ asset('storage/iec_thumbnail/' . $brochure->png) }}" alt="{{ $brochure->title }}" class="card-img-top" loading="lazy">
                         <div class="overlay"><i class="fa fa-eye" style="font-size: 24px;"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $brochure['title'] }}</h5>
-                            <p class="card-text small text-muted">{{ $brochure['description'] }}</p>
+                            <h5 class="card-title-iec">{{ $brochure->title }}</h5>
+                            <p class="card-text small text-muted">{{ $brochure->description }}</p>
                         </div>
                     </div>
                 </a>
@@ -39,6 +39,7 @@
         @endforeach
     </div>
 </div>
+
 
 
 {{-- Footer --}}

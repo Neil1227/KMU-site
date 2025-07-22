@@ -1,75 +1,118 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Upload Modules')
-
-@push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin/admin-content.css') }}">
-@endpush
+@section('title', 'Upload Module')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        @include('admin.components.sidebar')
-
-        <!-- Main Content -->
-        <div class="col-md-10">
-            @include('admin.components.header')
-
-            <div class="row g-4">
-                <!-- IEC Upload Form -->
-                <div class="col-md-6">
-                    <div class="ictv-form mt-2">
-                        <div class="form-title">
-                            <h4 class="text-white mb-0">Module Details</h4>
-                        </div>
-
-                        <form action="#" method="POST" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="mb-3 mt-3">
-                                <label for="title" class="form-label">Title *</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="pdf" class="form-label">Upload PDF</label>
-                                    <div class="upload-box">
-                                        <i class="fa fa-upload upload-icon"></i>
-                                        <p>Upload PDF file</p>
-                                        <input type="file" id="pdf" name="pdf" accept="image/pdf" hidden onchange="this.previousElementSibling.previousElementSibling.innerHTML = this.files[0].name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="iec-png" class="form-label">PNG Image</label>
-                                    <div class="upload-box">
-                                        <i class="fa fa-upload upload-icon"></i>
-                                        <p>Upload PNG file</p>
-                                        <input type="file" id="iec-png" name="iec-png" accept="image/png" hidden onchange="this.previousElementSibling.previousElementSibling.innerHTML = this.files[0].name">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-upload w-100">
-                                <i class="fa fa-upload me-1"></i> Upload Modules Content
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <!-- Quick Actions + Dashboard Stats -->
-                <div class="col-md-6">
-                        @include('admin.components.quick-action')
-
-                        <!-- Dashboard Summary Cards -->
-                        @include('admin.components.stats-card')
-                    </div>
-                </div>
+<div class="row g-4">
+    <!-- Modules Upload Form -->
+    <div class="col-md-6">
+        <div class="ictv-form mt-2">
+            <div class="form-title">
+                <h4 class="text-white mb-0">Module Details</h4>
             </div>
+
+            <form action="{{ route('admin.modules.store') }}" id="uploadModuleForm" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="mb-3 mt-3">
+                    <label for="title" class="form-label">Title *</label>
+                    <input type="text" class="form-control" id="module_title" name="title" required>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="module-file" class="form-label">Upload File (PDF/ZIP)</label>
+                        <div class="upload-box drop-area">
+                            <i class="fa fa-upload upload-icon"></i>
+                            <p class="upload-text">Upload module file</p>
+                            <input type="file" class="file-input" id="module-file" name="file" accept=".pdf,.zip" hidden>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="module-thumbnail" class="form-label">Thumbnail (PNG/JPG)</label>
+                        <div class="upload-box drop-area">
+                            <i class="fa fa-upload upload-icon"></i>
+                            <p class="upload-text">Upload preview image</p>
+                            <input type="file" class="file-input" id="module-thumbnail" name="png" accept="image/png,image/jpeg" hidden>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-upload w-100">
+                    <i class="fa fa-upload me-1"></i> Upload Module
+                </button>
+            </form>
         </div>
+    </div>
+
+    <!-- Quick Actions + Dashboard Stats -->
+    <div class="col-md-6">
+        @include('admin.components.quick-action')
+        @include('admin.components.stats-card')
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<!-- Drag & Drop Upload -->
+<script>
+    document.querySelectorAll('.drop-area').forEach(area => {
+        const input = area.querySelector('.file-input');
+        const text = area.querySelector('.upload-text');
+
+        area.addEventListener('click', () => input.click());
+
+        input.addEventListener('change', () => {
+            if (input.files.length > 0) {
+                text.textContent = input.files[0].name;
+            }
+        });
+
+        area.addEventListener('dragover', e => {
+            e.preventDefault();
+            area.classList.add('drag-over');
+        });
+
+        area.addEventListener('dragleave', () => {
+            area.classList.remove('drag-over');
+        });
+
+        area.addEventListener('drop', e => {
+            e.preventDefault();
+            area.classList.remove('drag-over');
+
+            const droppedFile = e.dataTransfer.files[0];
+            if (droppedFile) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(droppedFile);
+                input.files = dataTransfer.files;
+                text.textContent = droppedFile.name;
+            }
+        });
+    });
+</script>
+
+<!-- SweetAlert Feedback -->
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: @json(session('success')),
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: @json(session('error')),
+            showConfirmButton: true
+        });
+    </script>
+@endif
+@endpush

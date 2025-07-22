@@ -19,8 +19,8 @@
 @include('layouts.components.navbar')
 
 @section('content')
-<section id="video-hero" data-aos="fade-down" data-aos-duration="1500">
-<div class="video-banner" data-aos="fade-down" data-aos-duration="1500">
+<section id="video-hero" data-aos="fade-in" data-aos-duration="2000">
+<div class="video-banner" data-aos="fade-in" data-aos-duration="2000">
   <video autoplay muted loop playsinline preload="auto">
     <source src="{{ asset('assets/videos/compressed_homebanner.mp4') }}" type="video/mp4">
     Your browser does not support the video tag.
