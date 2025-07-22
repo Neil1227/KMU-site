@@ -18,9 +18,11 @@ Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.up
 
 //Upload for IEC
 Route::post('/admin/iec/upload', [IECMaterialController::class, 'upload'])->name('admin.iec.upload');
+Route::get('/admin/iec-table', [IECMaterialController::class, 'index'])->name('admin.iec-table');
 Route::delete('/iec-materials/{id}', [IECMaterialController::class, 'destroy'])->name('iec-materials.destroy');
 Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->name('iec.update');
-Route::get('/admin/iec-table', [IECMaterialController::class, 'index'])->name('admin.iec-table');
+
+
 
 
 Route::get('/', function () {
