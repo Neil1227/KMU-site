@@ -31,9 +31,14 @@ Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->nam
 
 
 //Upload for Modules
-Route::post('/admin/modules', [ModuleController::class, 'store'])->name('admin.modules.store');
-Route::get('/admin/modules', [ModuleController::class, 'index'])->name('admin.modules');
+Route::post('/admin/modules/upload', [ModuleController::class, 'upload'])->name('admin.modules.upload');
 Route::get('/admin/modules-table', [ModuleController::class, 'table'])->name('admin.modules-table');
+Route::delete('/admin/modules/{id}', [ModuleController::class, 'destroy'])->name('admin.modules.destroy');
+Route::put('/admin/modules/{id}', [ModuleController::class, 'update'])->name('admin.modules.update');
+
+
+
+
 
 
 

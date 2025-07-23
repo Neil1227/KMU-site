@@ -9,7 +9,16 @@ use App\Models\Module;
 
 class IECMaterialController extends Controller
 {
-    
+ 
+public function index()
+{
+    $iecMaterials = IECMaterial::latest()->get();
+    $episodes = Ictv::all();
+    $modules = Module::latest()->get();
+    return view('admin.iec-table', compact('iecMaterials', 'episodes', 'modules'));
+
+}
+
 public function upload(Request $request)
 {
     $validated = $request->validate([
@@ -61,14 +70,6 @@ public function destroy($id)
     return response()->json(['success' => 'IEC Material deleted successfully.']);
 }
 
-public function index()
-{
-    $iecMaterials = IECMaterial::latest()->get();
-    $episodes = Ictv::all();
-    $modules = Module::latest()->get();
-    return view('admin.iec-table', compact('iecMaterials', 'episodes', 'modules'));
-
-}
 
 public function update(Request $request, $id)
 {

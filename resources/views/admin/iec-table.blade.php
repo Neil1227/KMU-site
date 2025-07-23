@@ -107,7 +107,7 @@
     });
 </script>
 
-<!-- drag an drop -->
+<!-- edit drag an drop -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const dropAreas = document.querySelectorAll(".drop-area");
@@ -149,57 +149,6 @@
                 if (input.files.length) {
                     area.querySelector(".upload-text").textContent = input.files[0].name;
                 }
-            });
-        });
-    });
-</script>
-
-<!-- sweet alert for delete and its function -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.delete-iec').forEach(button => {
-            button.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`/iec-materials/${id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Deleted!',
-                                text: data.success,
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-
-                            // Reload after 1.5s (to match Swal timer)
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1500);
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            Swal.fire('Error', 'Something went wrong.', 'error');
-                        });
-                    }
-                });
             });
         });
     });
@@ -298,9 +247,57 @@
     });
 </script>
 
+<!-- sweet alert for delete and its function -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-iec').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
 
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/iec-materials/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: data.success,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
 
+                            // Reload after 1.5s (to match Swal timer)
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1500);
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire('Error', 'Something went wrong.', 'error');
+                        });
+                    }
+                });
+            });
+        });
+    });
 </script>
+
 
 
 @endpush

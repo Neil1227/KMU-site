@@ -11,7 +11,7 @@
                 <h4 class="text-white mb-0">Module Details</h4>
             </div>
 
-            <form action="{{ route('admin.modules.store') }}" id="uploadModuleForm" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.modules.upload') }}" id="uploadModuleForm" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 mt-3">
@@ -21,19 +21,19 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="module-file" class="form-label">Upload File (PDF/ZIP)</label>
+                        <label for="module-file" class="form-label">Upload File (PDF)</label>
                         <div class="upload-box drop-area">
                             <i class="fa fa-upload upload-icon"></i>
                             <p class="upload-text">Upload module file</p>
-                            <input type="file" class="file-input" id="module-file" name="file" accept=".pdf,.zip" hidden>
+                            <input type="file" class="file-input" id="module-file" name="pdf" accept="application/pdf" hidden>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="module-thumbnail" class="form-label">Thumbnail (PNG/JPG)</label>
+                        <label for="module-thumbnail" class="form-label">Thumbnail (PNG)</label>
                         <div class="upload-box drop-area">
                             <i class="fa fa-upload upload-icon"></i>
                             <p class="upload-text">Upload preview image</p>
-                            <input type="file" class="file-input" id="module-thumbnail" name="png" accept="image/png,image/jpeg" hidden>
+                            <input type="file" class="file-input" id="module-thumbnail" name="png" accept="image/png" hidden>
                         </div>
                     </div>
                 </div>
