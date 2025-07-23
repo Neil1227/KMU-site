@@ -33,14 +33,14 @@
     <div id="newsletterCards" class="row g-4">
         @foreach ($newsletters as $index => $newsletter)
             <div class="col-md-6 col-lg-4 newsletter-card collapsible {{ $index >= 6 ? 'collapsed' : '' }}">
-                <a href="{{ asset('assets/files/' . $newsletter['file']) }}" target="_blank" class="text-decoration-none">
+                <a href="{{ asset('storage/newsletter/' . $newsletter->file) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
-                        <img src="{{ asset('assets/img/newsletter_thumbnail/' . $newsletter['thumbnail']) }}"
+                        <img src="{{ asset('storage/newsletter_thumbnail/' . $newsletter->png) }}"
                              alt="Preview of Newsletter"
                              loading="lazy"
                              class="img-fluid">
                         <div class="card-body text-center mt-2">
-                            <h6>{{ $newsletter['title'] }}</h6>
+                            <h6>{{ $newsletter->title }}</h6>
                             <small>Click to open PDF</small>
                         </div>
                     </div>
@@ -53,6 +53,7 @@
         <button id="toggleNewsletterBtn" class="btn btn-primary">Show More</button>
     </div>
 </section>
+
 
 @push('scripts')
 <script>

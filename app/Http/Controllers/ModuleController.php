@@ -81,7 +81,7 @@ class ModuleController extends Controller
         $module->title = $request->title;
 
         if ($request->hasFile('pdf')) {
-            $pdfPath = $request->file('pdf')->store('modules_pdf', 'public');
+            $pdfPath = $request->file('pdf')->store('modules', 'public');
             $module->file = basename($pdfPath);
         }
 

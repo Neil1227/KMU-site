@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
 use App\Http\Controllers\ModuleController;
-
+use App\Http\Controllers\NewsletterController;
 
 
 
@@ -35,6 +35,15 @@ Route::post('/admin/modules/upload', [ModuleController::class, 'upload'])->name(
 Route::get('/admin/modules-table', [ModuleController::class, 'table'])->name('admin.modules-table');
 Route::delete('/admin/modules/{id}', [ModuleController::class, 'destroy'])->name('admin.modules.destroy');
 Route::put('/admin/modules/{id}', [ModuleController::class, 'update'])->name('admin.modules.update');
+
+
+//upload for newsletter
+Route::get('/admin/newsletter-table', [NewsletterController::class, 'table'])->name('admin.newsletter-table');
+Route::get('newsletters', [NewsletterController::class, 'index'])->name('admin.newsletters');
+Route::post('newsletters', [NewsletterController::class, 'store'])->name('newsletters.store');
+Route::put('newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
+Route::delete('newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
+
 
 
 

@@ -20,7 +20,11 @@
             Modules Table
             </a>
             
-            <a href="{{ route('admin.newsletter') }}" class="{{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">Newsletters Table</a>
+            <a href="{{ route('admin.newsletter-table') }}" 
+            class="{{ (Route::currentRouteName() === 'admin.newsletter' || Route::currentRouteName() === 'admin.newsletter-table') ? 'active' : '' }}">
+            Newsletter Table
+            </a>
+
             <a href="{{ route('admin.promotional') }}" class="{{ Route::currentRouteName() === 'admin.promotional' ? 'active' : '' }}">Promotional Table</a>
             <a href="#">Settings</a>
         </div>

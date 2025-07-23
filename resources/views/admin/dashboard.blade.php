@@ -49,7 +49,7 @@
                             <div><strong>Newsletters</strong></div>
                             <i class="fa fa-file-alt card-icon"></i>
                         </div>
-                        <h3>12.5K</h3>
+                        <h3>{{ $newsletter->count() }}</h3>
                         <small>Total Newsletters</small>
                     </div>
                 </div>

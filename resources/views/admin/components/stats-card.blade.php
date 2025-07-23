@@ -42,13 +42,13 @@
     </div>
 
     <div class="col-md-6">
-        <a href="#" class="text-decoration-none text-dark">
+        <a href="{{ route('admin.newsletter-table') }}" class="text-decoration-none text-dark">
             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">
                 <div class="d-flex justify-content-between align-items-center">
                     <div><strong>Newsletters</strong></div>
                     <i class="fa fa-file-alt card-icon"></i>
                 </div>
-                <h3>12.5K</h3>
+                <h3>{{ $newsletter->count() }}</h3>
                 <small>Total Newsletters</small>
             </div>
         </a>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Upload Newsletter')
 
@@ -10,15 +10,6 @@
 @endpush
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        @include('admin.components.sidebar')
-
-        <!-- Main Content -->
-        <div class="col-md-10">
-            @include('admin.components.header')
-
             <div class="row g-4">
                 <!-- IEC Upload Form -->
                 <div class="col-md-6">
@@ -69,7 +60,5 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 @endsection
