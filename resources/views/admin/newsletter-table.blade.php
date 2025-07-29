@@ -73,13 +73,14 @@
                     @endforeach
                 </tbody>
             </table>
-            <!-- include('admin.components.modal-newsletter') -->
+            @include('admin.components.modal-newsletter')
         </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
+<!-- table config -->
 <script>
     $(document).ready(function () {
         $('#newsletterTable').DataTable({
@@ -145,47 +146,171 @@
             Swal.fire("Error", "Something went wrong.", "error");
         });
     });
+</script>
 
-    document.querySelectorAll('.delete-newsletter').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
+<!-- edit drag and drop -->
+<script>
+    function initializeDragDrop() {
+        document.querySelectorAll('.drop-area').forEach(area => {
+            const input = area.querySelector('.file-input');
+            const text = area.querySelector('.upload-text');
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This action cannot be undone!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    fetch(`/admin/newsletters/${id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Deleted!',
-                            text: data.success,
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                        setTimeout(() => location.reload(), 1500);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        Swal.fire('Error', 'Something went wrong.', 'error');
-                    });
+            area.addEventListener('click', () => input.click());
+
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    text.textContent = input.files[0].name;
                 }
+            });
+
+            area.addEventListener('dragover', e => {
+                e.preventDefault();
+                area.classList.add('drag-over');
+            });
+
+            area.addEventListener('dragleave', () => {
+                area.classList.remove('drag-over');
+            });
+
+            area.addEventListener('drop', e => {
+                e.preventDefault();
+                area.classList.remove('drag-over');
+
+                const droppedFile = e.dataTransfer.files[0];
+                if (droppedFile) {
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(droppedFile);
+                    input.files = dataTransfer.files;
+                    text.textContent = droppedFile.name;
+                }
+            });
+        });
+    }
+
+    // Re-initialize when modal is opened
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#editNewsletterModal').on('shown.bs.modal', function () {
+            initializeDragDrop();
+        });
+    });
+</script>
+
+<!-- Edit Modal Population for Newsletter -->
+<script>
+    $('.edit-newsletter-btn').on('click', function () {
+        const newsletterId = $(this).data('id');
+        const title = $(this).data('title');
+        const pdfFile = $(this).data('file');
+        const pngFile = $(this).data('thumbnail-png');
+
+        $('#edit-newsletter-id').val(newsletterId); // ✅ correct ID
+        $('#edit_newsletter_title').val(title);
+        $('#editNewsletterForm').attr('action', `/admin/newsletter/${newsletterId}`);
+        let thumbnailHTML = '';
+
+        if (pngFile) {
+            thumbnailHTML = `
+                <div style="display:inline-block; text-align:center;">
+                    <small>PNG</small><br>
+                    <img src="${pngFile}" alt="Thumbnail Preview" width="80" class="img-thumbnail">
+                </div>`;
+        }
+
+        $('#current_newsletter_thumbnail').html(thumbnailHTML);
+
+        $('#editNewsletterModal').modal('show'); // ✅ this is the trigger
+    });
+
+</script>
+
+<!-- Edit Save for Newsletter with SweetAlert + Axios -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const saveNewsletterBtn = document.getElementById("saveEditNewsletterBtn");
+
+            saveNewsletterBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const form = document.getElementById("editNewsletterForm");
+                const formData = new FormData(form);
+                const id = document.getElementById("edit-newsletter-id").value;
+
+                formData.append('_method', 'PUT');
+
+                axios.post(`/admin/newsletters/${id}`, formData, {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then(response => {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: response.data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    console.error("Newsletter update error:", error.response || error);
+                    Swal.fire("Error", "Something went wrong while updating.", "error");
+                });
+            });
+        });
+    </script>
+
+<!-- SweetAlert for delete and its function (Newsletter) -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-newsletter').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`/admin/newsletters/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: data.success,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1500);
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire('Error', 'Something went wrong.', 'error');
+                        });
+                    }
+                });
             });
         });
     });
 </script>
+
+
 @endpush

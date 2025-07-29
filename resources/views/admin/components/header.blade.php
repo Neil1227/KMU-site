@@ -4,8 +4,15 @@
             </button>
                 
             <h2 class="m-0 fw-bold">Knowledge Management Unit</h2>
-                <a href="#" class="text-dark" title="Sign out">
+                <!-- Logout Link -->
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-dark" title="Sign out">
                     <i class="fas fa-sign-out-alt fa-lg"></i>
                 </a>
+
+                <!-- Hidden Form -->
+                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
             </header>
             

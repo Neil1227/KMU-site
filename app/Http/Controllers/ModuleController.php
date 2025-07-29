@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
+use App\Models\RecentActivity; // ← Include this
 
 class ModuleController extends Controller
 {
-
-
     public function table()
     {
         $iecMaterials = IECMaterial::latest()->get();
@@ -18,9 +17,8 @@ class ModuleController extends Controller
         $modules = Module::latest()->get();
 
         return view('admin.modules-table', compact('iecMaterials', 'episodes', 'modules'));
-
     }
-    
+
     public function upload(Request $request)
     {
         $validated = $request->validate([
@@ -40,30 +38,45 @@ class ModuleController extends Controller
             $imagePath = $request->file('png')->store('modules_thumbnail', 'public');
         }
 
-        Module::create([
+        $module = Module::create([
             'title' => $validated['title'],
             'file' => basename($pdfPath),
             'png' => $imagePath ? basename($imagePath) : null,
         ]);
 
+        // Log recent activity
+        RecentActivity::create([
+            'action' => 'added',
+            'title' => $module->title,
+            'source' => 'Modules'
+        ]);
+
         return redirect()->back()->with('success', 'Module uploaded successfully.');
     }
-    
+
     public function destroy($id)
     {
         $module = Module::findOrFail($id);
 
-        // Delete the PDF file if it exists
-        if ($module->pdf && \Storage::disk('public')->exists($module->pdf)) {
-            \Storage::disk('public')->delete($module->pdf);
+        // Delete PDF if exists
+        if ($module->file && \Storage::disk('public')->exists('modules/' . $module->file)) {
+            \Storage::disk('public')->delete('modules/' . $module->file);
         }
 
-        // Delete the PNG thumbnail if it exists
-        if ($module->png && \Storage::disk('public')->exists('module_thumbnail/' . $module->png)) {
-            \Storage::disk('public')->delete('module_thumbnail/' . $module->png);
+        // Delete PNG thumbnail if exists
+        if ($module->png && \Storage::disk('public')->exists('modules_thumbnail/' . $module->png)) {
+            \Storage::disk('public')->delete('modules_thumbnail/' . $module->png);
         }
 
+        $deletedTitle = $module->title;
         $module->delete();
+
+        // Log recent activity
+        RecentActivity::create([
+            'action' => 'deleted',
+            'title' => $deletedTitle,
+            'source' => 'Modules'
+        ]);
 
         return response()->json(['success' => 'Module deleted successfully.']);
     }
@@ -76,8 +89,7 @@ class ModuleController extends Controller
             'png' => 'nullable|image|mimes:png',
         ]);
 
-        $module = Module::findOrFail($id); // ← use $id from route
-
+        $module = Module::findOrFail($id);
         $module->title = $request->title;
 
         if ($request->hasFile('pdf')) {
@@ -92,10 +104,13 @@ class ModuleController extends Controller
 
         $module->save();
 
+        // Log recent activity
+        RecentActivity::create([
+            'action' => 'updated',
+            'title' => $module->title,
+            'source' => 'Modules'
+        ]);
+
         return response()->json(['message' => 'Module updated successfully!']);
     }
-
-
-
 }
-

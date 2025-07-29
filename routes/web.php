@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
@@ -11,6 +14,38 @@ use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
+
+// These routes are only accessible if NOT logged in
+Route::middleware('admin.guest')->group(function () {
+    Route::get('/admin/login', function () {
+        return view('admin.login');
+    })->name('admin.login');
+
+    Route::post('/admin/login', [AdminController::class, 'login']);
+});
+
+// Protect *everything else* under /admin/*
+Route::prefix('admin')->middleware('admin.auth')->group(function () {
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    // Add more protected admin routes here
+    // Admin Content management page
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('ictv', [AdminController::class, 'ictv'])->name('admin.ictv');
+    Route::get('iec', [AdminController::class, 'iec'])->name('admin.iec');
+    Route::get('modules', [AdminController::class, 'modules'])->name('admin.modules');
+    Route::get('newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');
+    Route::get('promotional', [AdminController::class, 'promotional'])->name('admin.promotional');
+    // Add if any(url/controller class/routename in the blade) 
+});
+
+//logout
+Route::post('/admin/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('admin.login');
+})->name('admin.logout');
 
 
 
@@ -29,7 +64,6 @@ Route::delete('/iec-materials/{id}', [IECMaterialController::class, 'destroy'])-
 Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->name('iec.update');
 
 
-
 //Upload for Modules
 Route::post('/admin/modules/upload', [ModuleController::class, 'upload'])->name('admin.modules.upload');
 Route::get('/admin/modules-table', [ModuleController::class, 'table'])->name('admin.modules-table');
@@ -38,31 +72,24 @@ Route::put('/admin/modules/{id}', [ModuleController::class, 'update'])->name('ad
 
 
 //upload for newsletter
+Route::post('/admin/newsletter', [NewsletterController::class, 'upload'])->name('admin.newsletter.upload');
 Route::get('/admin/newsletter-table', [NewsletterController::class, 'table'])->name('admin.newsletter-table');
-Route::get('newsletters', [NewsletterController::class, 'index'])->name('admin.newsletters');
-Route::post('newsletters', [NewsletterController::class, 'store'])->name('newsletters.store');
-Route::put('newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
-Route::delete('newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
+Route::delete('/admin/newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
+Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
 
 
+// recent activities
+Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
+Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
 
 
-
-
-
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-// ✅ Static page: no logic or data passed, just a Blade file
+// Static page: no logic or data passed, just a Blade file
 Route::view('/', 'index')->name('index');
 Route::view('/homepage', 'homepage')->name('homepage');
 Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
+
 
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
@@ -87,25 +114,6 @@ Route::get('/root-crops', [ResearchController::class, 'rootCrops'])->name('root-
 Route::get('/iot', [ResearchController::class, 'iot'])->name('iot');
 Route::get('/others', [ResearchController::class, 'others'])->name('others');
 
-//admin login
-
-// Admin Login Page (UI only for now)
-Route::get('/admin/login', function () {
-    return view('admin.auth.login');
-})->name('admin.login');
-
-// Admin Dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-// Admin Content management page
-//ictvs
-Route::get('/admin/ictv', [AdminController::class, 'ictv'])->name('admin.ictv');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 
-Route::get('/admin/iec', [AdminController::class, 'iec'])->name('admin.iec');
-Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
-Route::get('/admin/newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');
-Route::get('/admin/promotional', [AdminController::class, 'promotional'])->name('admin.promotional');
+

@@ -2,13 +2,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Ictv;
 use App\Models\IECMaterial; 
 use App\Models\Module; 
 use App\Models\Newsletter; 
+use App\Models\RecentActivity;
+
+use App\Models\Admin;
 
 class AdminController extends Controller
 {
+
+    //Logins
+    public function login(Request $request)
+    {
+        // 1. Validate request
+        $request->validate([
+            'user' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // 2. Attempt to find user
+        $admin = Admin::where('user', $request->user)->first();
+
+        // 3. Check if user exists and password matches
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            // 4. Store login info in session
+            Session::put('admin_logged_in', true);
+            Session::put('admin_user', $admin->user);
+
+            return redirect()->route('admin.dashboard'); // Adjust this route
+        }
+
+        // 5. If login fails
+        return back()->withErrors(['user' => 'Invalid credentials.']);
+    }
+    
+    public function logout()
+    {
+        Session::flush(); // Clears all session data
+        return redirect()->route('admin.login');
+    }
+
+    //For  recent activities
+    public function index()
+    {
+        $recentActivities = RecentActivity::latest()->take(5)->get(); // or ->limit(10)
+        return view('admin.dashboard', compact('recentActivities'));
+    }
+    public function recentActivitiesTable()
+    {
+        $recentActivities = RecentActivity::latest()->get();
+
+        return view('admin.recent-table', compact('recentActivities'));
+    }
+    public function deleteRecentActivity($id)
+    {
+        $activity = RecentActivity::findOrFail($id);
+        $activity->delete();
+
+        return response()->json(['success' => true]);
+    }
+
     // dashboard only
     public function dashboard()
     {
@@ -16,7 +73,8 @@ class AdminController extends Controller
         $iecMaterials = IECMaterial::all(); // or paginate if needed
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
-        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter'));
+        $recentActivities = RecentActivity::latest()->take(5)->get();
+        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','recentActivities'));
     }
 
     // ictv only

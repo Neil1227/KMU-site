@@ -52,19 +52,20 @@ body h3 {
     padding: 5px 10px;
     border-radius: 12px;
     font-size: 0.75rem;
+    font-weight: bold;
 }
 
 .status-published {
-    background-color: #ffe8e1;
-    color: #fa541c;
+    background-color: #e1f1ff;
+    color: #007bff;
 }
 
 .status-draft {
-    background-color: #e6f7ff;
-    color: #1890ff;
+    background-color: #e6ffe6;
+    color: #28a745;
 }
 
 .status-review {
-    background-color: #fff7e6;
-    color: #faad14;
+    background-color: #ffe6e6;
+    color: #dc3545;
 }

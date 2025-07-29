@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Newsletter;
+use App\Models\RecentActivity;
 
 class NewsletterController extends Controller
 {
@@ -15,34 +17,38 @@ class NewsletterController extends Controller
 
     public function table()
     {
-        $newsletters = Newsletter::all(); // adjust model if needed
+        $newsletters = Newsletter::all();
         return view('admin.newsletter-table', compact('newsletters'));
     }
 
-
     public function upload(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf|max:5120',
-            'png' => 'nullable|image|mimes:png|max:2048',
+            'newsletter-pdf' => 'nullable|mimes:pdf|max:5120',
+            'newsletter-png' => 'nullable|image|mimes:png|max:2048',
         ]);
 
-        $pdfPath = null;
-        $imagePath = null;
+        $newsletter = new Newsletter();
+        $newsletter->title = $request->title;
 
-        if ($request->hasFile('file')) {
-            $pdfPath = $request->file('file')->store('newsletter_files', 'public');
+        if ($request->hasFile('newsletter-pdf')) {
+            $pdfPath = $request->file('newsletter-pdf')->store('newsletter', 'public');
+            $newsletter->file = basename($pdfPath);
         }
 
-        if ($request->hasFile('png')) {
-            $imagePath = $request->file('png')->store('newsletter_thumbnails', 'public');
+        if ($request->hasFile('newsletter-png')) {
+            $imagePath = $request->file('newsletter-png')->store('newsletter_thumbnail', 'public');
+            $newsletter->png = basename($imagePath);
         }
 
-        Newsletter::create([
-            'title' => $validated['title'],
-            'file' => $pdfPath ? basename($pdfPath) : null,
-            'png' => $imagePath ? basename($imagePath) : null,
+        $newsletter->save();
+
+        // Log recent activity: added
+        RecentActivity::create([
+            'action' => 'added',
+            'title' => $newsletter->title,
+            'source' => 'Newsletter',
         ]);
 
         return redirect()->back()->with('success', 'Newsletter uploaded successfully.');
@@ -60,16 +66,23 @@ class NewsletterController extends Controller
         $newsletter->title = $request->title;
 
         if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('newsletter_files', 'public');
+            $filePath = $request->file('file')->store('newsletter', 'public');
             $newsletter->file = basename($filePath);
         }
 
         if ($request->hasFile('png')) {
-            $pngPath = $request->file('png')->store('newsletter_thumbnails', 'public');
+            $pngPath = $request->file('png')->store('newsletter_thumbnail', 'public');
             $newsletter->png = basename($pngPath);
         }
 
         $newsletter->save();
+
+        // Log recent activity: updated
+        RecentActivity::create([
+            'action' => 'updated',
+            'title' => $newsletter->title,
+            'source' => 'Newsletter',
+        ]);
 
         return response()->json(['message' => 'Newsletter updated successfully.']);
     }
@@ -78,15 +91,23 @@ class NewsletterController extends Controller
     {
         $newsletter = Newsletter::findOrFail($id);
 
-        if ($newsletter->file && \Storage::disk('public')->exists('newsletter_files/' . $newsletter->file)) {
-            \Storage::disk('public')->delete('newsletter_files/' . $newsletter->file);
+        if ($newsletter->file && Storage::disk('public')->exists('newsletter/' . $newsletter->file)) {
+            Storage::disk('public')->delete('newsletter/' . $newsletter->file);
         }
 
-        if ($newsletter->png && \Storage::disk('public')->exists('newsletter_thumbnails/' . $newsletter->png)) {
-            \Storage::disk('public')->delete('newsletter_thumbnails/' . $newsletter->png);
+        if ($newsletter->png && Storage::disk('public')->exists('newsletter_thumbnail/' . $newsletter->png)) {
+            Storage::disk('public')->delete('newsletter_thumbnail/' . $newsletter->png);
         }
 
+        $deletedTitle = $newsletter->title; // Save before delete
         $newsletter->delete();
+
+        // Log recent activity: deleted
+        RecentActivity::create([
+            'action' => 'deleted',
+            'title' => $deletedTitle,
+            'source' => 'Newsletter',
+        ]);
 
         return response()->json(['success' => 'Newsletter deleted successfully.']);
     }
