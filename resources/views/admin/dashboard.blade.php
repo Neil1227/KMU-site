@@ -43,7 +43,7 @@
                         <small>Total Modules</small>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Newsletters</strong></div>
@@ -53,7 +53,7 @@
                         <small>Total Newsletters</small>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Promotional Activities</strong></div>
@@ -63,7 +63,16 @@
                         <small>Total Activities</small>
                     </div>
                 </div>
-
+                <div class="col-md-4">
+                    <div class="dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><strong>Podcast</strong></div>
+                            <i class="fa-solid fa-clapperboard card-icon"></i>
+                        </div>
+                        <h3>#</h3>
+                        <small>Total Podcast</small>
+                    </div>
+                </div>
             </div>
 
 

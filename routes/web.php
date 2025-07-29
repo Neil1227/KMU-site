@@ -14,6 +14,7 @@ use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PromotionalActivityController;
 
 // These routes are only accessible if NOT logged in
 Route::middleware('admin.guest')->group(function () {
@@ -77,6 +78,10 @@ Route::get('/admin/newsletter-table', [NewsletterController::class, 'table'])->n
 Route::delete('/admin/newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
 Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
 
+//upload for Promotional Activities
+Route::get('/promotionalactivities-table', [PromotionalActivityController::class, 'table'])->name('admin.promotionalactivities-table');
+
+
 
 // recent activities
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
@@ -94,7 +99,7 @@ Route::get('/sdgs', function () {
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
-Route::get('/promotional', [MainController::class, 'promotional'])->name('promotional');
+
 
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
@@ -102,6 +107,8 @@ Route::get('/iec', [MediaResourceController::class, 'iec'])->name('iec');
 Route::get('/modules', [MediaResourceController::class, 'modules'])->name('modules');
 Route::get('/newsletter', [MediaResourceController::class, 'newsletter'])->name('newsletter');
 Route::get('/tech-portfolio', [MediaResourceController::class, 'techPortfolio'])->name('tech-portfolio');
+Route::get('/promotional', [MediaResourceController::class, 'promotionalActivities'])->name('promotional');
+
 
 // Research Controller
 

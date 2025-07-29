@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotional_activities', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    Schema::create('promotional_activities', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->text('description')->nullable();
+        $table->string('link')->nullable(); // Optional YouTube or download link
+        $table->string('png')->nullable(); // Image file
+        $table->timestamps();
+    });
+
     }
 
     /**

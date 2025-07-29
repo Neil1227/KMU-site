@@ -25,14 +25,20 @@
             Newsletter Table
             </a>
 
-            <a href="{{ route('admin.promotional') }}" class="{{ Route::currentRouteName() === 'admin.promotional' ? 'active' : '' }}">
+            <a href="{{ route('admin.promotionalactivities-table') }}" 
+            class="{{ Route::currentRouteName() === 'admin.promotionalactivities-table' ? 'active' : '' }}">
             Promotional Table
+            </a>
+
+            <a href="#" 
+            class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
+            Podcast Table
             </a>
 
             <a href="{{ route('admin.recent-activities') }}" 
             class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
             Recent Activities
             </a>
-            
+
             <a href="#">Settings</a>
         </div>

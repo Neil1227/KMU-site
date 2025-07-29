@@ -29,11 +29,16 @@
                                 </div>
                                 <!-- changes this into promotional -->
                                 <div class="col-6">
-                                    <a href="#" class="btn btn-outline-warning w-100">
+                                    <a href="{{ route('admin.promotional') }}" class="btn btn-outline-warning w-100">
                                         <i class="fa fa-table me-1"></i> Promotional Ativities
                                     </a>
                                 </div>
                                 <div class="col-6">
+                                    <a href="#" class="btn btn-outline-secondary w-100">
+                                        <i class="fa-solid fa-clapperboard me-1"></i> Podcast
+                                    </a>
+                                </div>
+                                <div class="col-12">
                                     <a href="{{ route('index') }}" class="btn btn-outline-dark w-100" target="_blank">
                                         <i class="fa fa-eye me-1"></i> View Site
                                     </a>
