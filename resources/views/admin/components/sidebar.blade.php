@@ -30,8 +30,8 @@
             Promotional Table
             </a>
 
-            <a href="#" 
-            class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
+            <a href="{{ route('admin.podcast-table') }}" 
+            class="{{ Route::currentRouteName() === 'admin.podcast-table' ? 'active' : '' }}">
             Podcast Table
             </a>
 

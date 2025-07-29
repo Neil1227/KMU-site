@@ -15,6 +15,9 @@ use App\Http\Controllers\IECMaterialController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
+use App\Http\Controllers\PodcastController;
+
+
 
 // These routes are only accessible if NOT logged in
 Route::middleware('admin.guest')->group(function () {
@@ -36,6 +39,7 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     Route::get('modules', [AdminController::class, 'modules'])->name('admin.modules');
     Route::get('newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');
     Route::get('promotional', [AdminController::class, 'promotional'])->name('admin.promotional');
+    Route::get('podcast', [AdminController::class, 'podcast'])->name('admin.podcast');
     // Add if any(url/controller class/routename in the blade) 
 });
 
@@ -55,7 +59,6 @@ Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.uploa
 Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
 Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
 Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.update');
-
 
 
 //Upload for IEC
@@ -81,7 +84,8 @@ Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->
 //upload for Promotional Activities
 Route::get('/promotionalactivities-table', [PromotionalActivityController::class, 'table'])->name('admin.promotionalactivities-table');
 
-
+//upload for podcast
+Route::get('/podcast-table', [PodcastController::class, 'table'])->name('admin.podcast-table');
 
 // recent activities
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
@@ -107,7 +111,9 @@ Route::get('/iec', [MediaResourceController::class, 'iec'])->name('iec');
 Route::get('/modules', [MediaResourceController::class, 'modules'])->name('modules');
 Route::get('/newsletter', [MediaResourceController::class, 'newsletter'])->name('newsletter');
 Route::get('/tech-portfolio', [MediaResourceController::class, 'techPortfolio'])->name('tech-portfolio');
-Route::get('/promotional', [MediaResourceController::class, 'promotionalActivities'])->name('promotional');
+
+//Services Controller
+Route::get('/promotional', [MainController::class, 'promotionalActivities'])->name('promotional');
 
 
 // Research Controller

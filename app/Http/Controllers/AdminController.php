@@ -10,6 +10,7 @@ use App\Models\Module;
 use App\Models\Newsletter; 
 use App\Models\PromotionalActivity;
 use App\Models\RecentActivity;
+use App\Models\Podcast;
 
 use App\Models\Admin;
 
@@ -79,8 +80,9 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
+        $podcast = Podcast::latest()->get();
         $recentActivities = RecentActivity::latest()->take(5)->get();
-        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','recentActivities'));
+        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','podcast','recentActivities'));
     }
 
     // ictv only
@@ -91,7 +93,8 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
-        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional')); // Pass them to view
+        $podcast = Podcast::latest()->get();
+        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast')); // Pass them to view
     }
 
     //iec only
@@ -101,7 +104,8 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
-        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional'));
+        $podcast = Podcast::latest()->get();
+        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast'));
     }
 
     //modules only
@@ -111,7 +115,8 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
-        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules','newsletter','promotional'));
+        $podcast = Podcast::latest()->get();
+        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules','newsletter','promotional','podcast'));
     }
 
     //Newsletter only
@@ -121,8 +126,10 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
-        return view('admin.newsletter', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional'));
+        $podcast = Podcast::latest()->get();
+        return view('admin.newsletter', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
     }
+
     //Promotional activities only
     public function promotional() {
         $iecMaterials = IECMaterial::latest()->get();
@@ -130,6 +137,18 @@ class AdminController extends Controller
         $modules = Module::latest()->get();
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
-        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional'));
+        $podcast = Podcast::latest()->get();
+        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
+    }
+
+    //Podcast Only
+    public function podcast() {
+        $iecMaterials = IECMaterial::latest()->get();
+        $episodes = Ictv::all();
+        $modules = Module::latest()->get();
+        $newsletter = Newsletter::latest()->get();
+        $promotional = PromotionalActivity::latest()->get();
+        $podcast = Podcast::latest()->get();
+        return view('admin.podcast', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
     }
 }

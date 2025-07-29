@@ -27,14 +27,13 @@
                                         <i class="fa-solid fa-book-open-reader me-1"></i> Add Newsletters
                                     </a>
                                 </div>
-                                <!-- changes this into promotional -->
                                 <div class="col-6">
                                     <a href="{{ route('admin.promotional') }}" class="btn btn-outline-warning w-100">
                                         <i class="fa fa-table me-1"></i> Promotional Ativities
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="#" class="btn btn-outline-secondary w-100">
+                                    <a href="{{ route('admin.podcast') }}" class="btn btn-outline-secondary w-100">
                                         <i class="fa-solid fa-clapperboard me-1"></i> Podcast
                                     </a>
                                 </div>

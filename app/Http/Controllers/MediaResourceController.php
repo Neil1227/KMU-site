@@ -6,7 +6,7 @@ use App\Models\Ictv;
 use App\Models\IECMaterial;
 use App\Models\Module;
 use App\Models\Newsletter;
-use App\Models\PromotionalActivity;
+
 
 class MediaResourceController extends Controller
 {
@@ -34,11 +34,7 @@ class MediaResourceController extends Controller
         return view('media-resources-section.newsletter', compact('newsletters'));
     }
  
-    public function promotionalActivities()
-    {
-        $promotional = PromotionalActivity::latest()->get();
-        return view('media-resources-section.promotional', compact('promotional'));
-    }
+
 
 
 

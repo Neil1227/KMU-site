@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PromotionalActivity;
 
 class MainController extends Controller
 {
@@ -14,5 +15,9 @@ class MainController extends Controller
     {
         return view('plagscan');
     }
-
+    public function promotionalActivities()
+    {
+        $promotional = PromotionalActivity::latest()->get();
+        return view('media-resources-section.promotional', compact('promotional'));
+    }
 }

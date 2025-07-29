@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Promotional Activities')
+@section('title', 'Podcasts')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/admin/ictv-table.css') }}">
@@ -11,21 +11,21 @@
     <div class="container mt-4">
         <div class="card ictv-card mt-4">
             <div class="card-header text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Promotional Activities</h5>
+                <h5 class="mb-0">Podcasts</h5>
 
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-light text-dark">{{ $promotional->count() }} total</span>
-                    <a href="{{ route('admin.promotional') }}" class="btn btn-sm btn-primary" title="Add New Activity">
+                    <span class="badge bg-light text-dark">{{ $podcasts->count() }} total</span>
+                    <a href="{{ route('admin.podcast') }}" class="btn btn-sm btn-primary" title="Add New Podcast">
                         <i class="bi bi-plus-lg"></i>
                     </a>
-                    <a href="{{ route('promotional') }}" class="btn btn-sm btn-dark" target="_blank">
+                    <a href="#" class="btn btn-sm btn-dark" target="_blank">
                         <i class="fa fa-eye"></i>
                     </a>
                 </div>
             </div>
 
             <div class="card-body table-responsive-sm">
-                <table id="promoTable" class="display table table-bordered table-striped table-sm">
+                <table id="podcastTable" class="display table table-bordered table-striped table-sm">
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
@@ -38,14 +38,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($promotional as $activity)
+                        @forelse ($podcasts as $podcast)
                             <tr>
-                                <td>{{ $activity->id }}</td>
-                                <td>{{ $activity->title }}</td>
-                                <td>{{ $activity->description }}</td>
+                                <td>{{ $podcast->id }}</td>
+                                <td>{{ $podcast->title }}</td>
+                                <td>{{ $podcast->description }}</td>
                                 <td>
-                                    @if ($activity->link)
-                                        <a href="{{ $activity->link }}" target="_blank" class="btn btn-sm btn-primary">
+                                    @if ($podcast->link)
+                                        <a href="{{ $podcast->link }}" target="_blank" class="btn btn-sm btn-primary">
                                             View Link
                                         </a>
                                     @else
@@ -53,20 +53,18 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($activity->thumbnail)
-                                        <img src="{{ asset('storage/promotional/' . $activity->thumbnail) }}" width="60" alt="Thumbnail">
+                                    @if ($podcast->png)
+                                        <img src="{{ asset('storage/podcast/' . $podcast->png) }}" width="60" alt="Thumbnail">
                                     @else
                                         N/A
                                     @endif
                                 </td>
-                                <td>{{ $activity->created_at->format('Y-m-d h:i A') }}</td>
+                                <td>{{ $podcast->created_at->format('Y-m-d h:i A') }}</td>
                                 <td>
-                                    <!-- Edit Button -->
                                     <button type="button" class="btn btn-sm btn-success">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
 
-                                    <!-- Delete Button -->
                                     <button type="button" class="btn btn-danger btn-sm">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -85,7 +83,7 @@
 @push('scripts')
 <script>
     $(document).ready(function () {
-        $('#promoTable').DataTable({
+        $('#podcastTable').DataTable({
             responsive: true,
             pageLength: 8,
             lengthChange: true,
