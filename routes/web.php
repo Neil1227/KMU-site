@@ -122,7 +122,7 @@ Route::get('/tech-portfolio', [MediaResourceController::class, 'techPortfolio'])
 
 //Services Controller
 Route::get('/promotional', [MainController::class, 'promotionalActivities'])->name('promotional');
-
+Route::get('/podcast', [MainController::class, 'podcast'])->name('podcast');
 
 // Research Controller
 

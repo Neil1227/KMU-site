@@ -42,7 +42,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary w-100">Update Promotional Activity</button>
+          <button type="submit" class="btn btn-success w-100">Update Promotional Activity</button>
         </div>
       </div>
     </form>

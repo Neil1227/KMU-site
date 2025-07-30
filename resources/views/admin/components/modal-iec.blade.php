@@ -46,7 +46,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" id="saveEditBtn" class="btn btn-primary w-100">Update Material</button>
+          <button type="submit" id="saveEditBtn" class="btn btn-success w-100">Update Material</button>
         </div>
       </div>
     </form>

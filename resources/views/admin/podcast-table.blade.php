@@ -19,7 +19,7 @@
                         <i class="bi bi-plus-lg"></i>
                     </a>
                     
-                    <a href="#" class="btn btn-sm btn-dark" target="_blank">
+                    <a href="{{ route('podcast') }}" class="btn btn-sm btn-dark" target="_blank">
                         <i class="fa fa-eye"></i>
                     </a>
                 </div>

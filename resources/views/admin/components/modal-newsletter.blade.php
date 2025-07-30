@@ -44,7 +44,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" id="saveEditNewsletterBtn" class="btn btn-success w-100">Save Changes</button>
+          <button type="submit" id="saveEditNewsletterBtn" class="btn btn-success w-100">Update Newsletter</button>
         </div>
       </div>
     </form>

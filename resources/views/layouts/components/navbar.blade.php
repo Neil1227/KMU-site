@@ -24,7 +24,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item text-dark" href="{{ route('plagscan') }}">Plagiarism Scan</a></li>
             <li><a class="dropdown-item text-dark" href="{{ route('promotional') }}">Promotional Activities</a></li>
-            <li><a class="dropdown-item text-dark" href="{{ route('ictv') }}">Knowledge Sharing</a></li>
+            <li><a class="dropdown-item text-dark" href="{{ route('podcast') }}">Knowledge Sharing</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link text-white" href="tech.html">Technologies</a></li>

@@ -42,7 +42,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success" id="saveEditPodcastBtn">Save Changes</button>
+          <button type="submit" class="btn btn-success w-100"id="saveEditPodcastBtn">Update Podcast</button>
         </div>
       </div>
     </form>
