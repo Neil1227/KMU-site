@@ -155,7 +155,6 @@
             const title = $(this).data('title');
             const description = $(this).data('description');
             const link = $(this).data('link');
-            const thumbnailWebp = $(this).data('thumbnail-webp');
             const thumbnailPng = $(this).data('thumbnail-png');
 
             $('#edit_id').val(episodeId);
@@ -165,13 +164,6 @@
             $('#editEpisodeForm').attr('action', `/admin/ictv/${episodeId}`);
 
             let previewHTML = '';
-            if (thumbnailWebp) {
-                previewHTML += `
-                    <div style="display:inline-block; text-align:center; margin-right:10px;">
-                        <small>WEBP</small><br>
-                        <img src="${thumbnailWebp}" alt="WEBP Thumbnail" width="80" class="img-thumbnail">
-                    </div>`;
-            }
             if (thumbnailPng) {
                 previewHTML += `
                     <div style="display:inline-block; text-align:center;">
@@ -185,6 +177,7 @@
         });
     });
 </script>
+
 
 <!-- Drag & Drop Upload -->
 <script>

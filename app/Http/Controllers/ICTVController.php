@@ -7,8 +7,8 @@ use App\Models\Ictv;
 use App\Models\IECMaterial;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\RecentActivity;
-
 
 class ICTVController extends Controller
 {
@@ -19,17 +19,10 @@ class ICTVController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'webp' => 'nullable|file|mimes:webp',
             'png' => 'nullable|file|mimes:png',
         ]);
 
-        $webpFilename = null;
         $pngFilename = null;
-
-        if ($request->hasFile('webp')) {
-            $webpFilename = uniqid() . '.webp';
-            $request->file('webp')->storeAs('ictv_thumbnail', $webpFilename);
-        }
 
         if ($request->hasFile('png')) {
             $pngFilename = uniqid() . '.png';
@@ -40,11 +33,9 @@ class ICTVController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'link' => $request->link,
-            'webp' => $webpFilename,
             'png' => $pngFilename,
         ]);
 
-        // Log to recent_activities table
         RecentActivity::create([
             'action' => 'added',
             'title' => $request->title,
@@ -67,9 +58,13 @@ class ICTVController extends Controller
     {
         $episode = Ictv::findOrFail($id);
         $title = $episode->title;
+
+        if ($episode->png) {
+            Storage::delete('ictv_thumbnail/' . $episode->png);
+        }
+
         $episode->delete();
 
-        // Log to laravel.log (optional)
         Log::warning('ICTV Deleted', [
             'user' => Auth::check() ? Auth::user()->name : 'Guest',
             'id' => $id,
@@ -77,7 +72,6 @@ class ICTVController extends Controller
             'timestamp' => now()
         ]);
 
-        // Log to recent_activities table
         RecentActivity::create([
             'action' => 'deleted',
             'title' => $title,
@@ -95,7 +89,6 @@ class ICTVController extends Controller
             'description' => 'required|string',
             'link' => 'nullable|url',
             'png' => 'nullable|file|mimes:png',
-            'webp' => 'nullable|file|mimes:webp',
         ]);
 
         $episode = Ictv::findOrFail($id);
@@ -109,21 +102,11 @@ class ICTVController extends Controller
             $episode->png = $pngFilename;
         }
 
-        if ($request->hasFile('webp')) {
-            if ($episode->webp) {
-                Storage::delete('ictv_thumbnail/' . $episode->webp);
-            }
-            $webpFilename = uniqid() . '.webp';
-            $request->file('webp')->storeAs('ictv_thumbnail', $webpFilename);
-            $episode->webp = $webpFilename;
-        }
-
         $episode->title = $request->title;
         $episode->description = $request->description;
         $episode->link = $request->link;
         $episode->save();
 
-        // Log to recent_activities table
         RecentActivity::create([
             'action' => 'updated',
             'title' => $episode->title,

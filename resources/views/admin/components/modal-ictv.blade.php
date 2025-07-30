@@ -31,15 +31,7 @@
           <div id="current_thumbnail" class=" mb-2"></div>
 
             <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="edit_webp" class="form-label">WEBP Image (optional)</label>
-                <div class="upload-box drop-area" data-type="webp">
-                <i class="fa fa-upload upload-icon"></i>
-                <p class="upload-text">Drag & drop WEBP or click</p>
-                <input type="file" id="edit_webp" name="webp" accept="image/webp" class="file-input" hidden>
-                </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="edit_png" class="form-label">PNG Image (optional)</label>
                 <div class="upload-box drop-area" data-type="png">
                 <i class="fa fa-upload upload-icon"></i>

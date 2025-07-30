@@ -32,15 +32,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="webp" class="form-label">WEBP Image</label>
-                        <div class="upload-box drop-area" data-type="webp">
-                            <i class="fa fa-upload upload-icon"></i>
-                            <p class="upload-text">Drag & drop WEBP or click</p>
-                            <input type="file" id="webp" name="webp" accept="image/webp" class="file-input" required hidden>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="png" class="form-label">PNG Image</label>
                         <div class="upload-box drop-area" data-type="png">
                             <i class="fa fa-upload upload-icon"></i>

@@ -12,7 +12,6 @@ class Ictv extends Model
         'title',
         'description',
         'link',
-        'webp',
         'png',
     ];
 
