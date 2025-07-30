@@ -59,7 +59,7 @@
                             <div><strong>Promotional Activities</strong></div>
                             <i class="fa-solid fa-bullhorn card-icon"></i>
                         </div>
-                        <h3>#</h3>
+                        <h3>{{ $promotional->count() }}</h3>
                         <small>Total Activities</small>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                             <div><strong>Podcast</strong></div>
                             <i class="fa-solid fa-clapperboard card-icon"></i>
                         </div>
-                        <h3>#</h3>
+                        <h3>{{ $podcast->count() }}</h3>
                         <small>Total Podcast</small>
                     </div>
                 </div>

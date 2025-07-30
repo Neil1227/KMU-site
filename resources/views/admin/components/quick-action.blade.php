@@ -33,7 +33,7 @@
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="{{ route('admin.podcast') }}" class="btn btn-outline-secondary w-100">
+                                    <a href="{{ route('admin.podcast') }}" class="btn btn-outline-info w-100">
                                         <i class="fa-solid fa-clapperboard me-1"></i> Podcast
                                     </a>
                                 </div>

@@ -81,7 +81,7 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        $recentActivities = RecentActivity::latest()->take(5)->get();
+        $recentActivities = RecentActivity::latest()->take(3)->get();
         return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','podcast','recentActivities'));
     }
 

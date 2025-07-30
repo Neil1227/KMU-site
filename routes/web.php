@@ -82,10 +82,18 @@ Route::delete('/admin/newsletters/{id}', [NewsletterController::class, 'destroy'
 Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
 
 //upload for Promotional Activities
+Route::post('/promotionalactivities/upload', [PromotionalActivityController::class, 'store'])->name('promotional.upload');
 Route::get('/promotionalactivities-table', [PromotionalActivityController::class, 'table'])->name('admin.promotionalactivities-table');
+Route::delete('/admin/promotionalactivities/{id}', [PromotionalActivityController::class, 'destroy'])->name('promotionalactivities.destroy');
+Route::put('/admin/promotional/{id}', [PromotionalActivityController::class, 'update'])->name('promotional.update');
+
 
 //upload for podcast
+Route::post('/podcast-upload', [PodcastController::class, 'store'])->name('podcast.store');
 Route::get('/podcast-table', [PodcastController::class, 'table'])->name('admin.podcast-table');
+Route::delete('/podcasts/{id}', [PodcastController::class, 'destroy'])->name('podcast.destroy');
+Route::put('/admin/podcasts/{id}', [PodcastController::class, 'update'])->name('podcasts.update');
+
 
 // recent activities
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');

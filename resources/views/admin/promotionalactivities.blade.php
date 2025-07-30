@@ -13,7 +13,7 @@
                 <h4 class="text-white mb-0">Promotional Activity Details</h4>
             </div>
 
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('promotional.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 mt-3">
@@ -36,7 +36,7 @@
                     <div class="upload-box drop-area" data-type="png">
                         <i class="fa fa-upload upload-icon"></i>
                         <p class="upload-text">Drag & drop PNG or click</p>
-                        <input type="file" id="thumbnail" name="thumbnail" accept="image/png" class="file-input" required hidden>
+                        <input type="file" id="thumbnail" name="png" accept="image/png" class="file-input" hidden>
                     </div>
                 </div>
 
@@ -44,6 +44,7 @@
                     <i class="fa fa-upload"></i> Upload Activity
                 </button>
             </form>
+
         </div>
     </div>
 

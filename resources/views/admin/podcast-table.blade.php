@@ -18,6 +18,7 @@
                     <a href="{{ route('admin.podcast') }}" class="btn btn-sm btn-primary" title="Add New Podcast">
                         <i class="bi bi-plus-lg"></i>
                     </a>
+                    
                     <a href="#" class="btn btn-sm btn-dark" target="_blank">
                         <i class="fa fa-eye"></i>
                     </a>
@@ -54,20 +55,27 @@
                                 </td>
                                 <td>
                                     @if ($podcast->png)
-                                        <img src="{{ asset('storage/podcast/' . $podcast->png) }}" width="60" alt="Thumbnail">
+                                        <img src="{{ asset('storage/podcast_thumbnail/' . $podcast->png) }}" width="60" alt="Thumbnail">
                                     @else
                                         N/A
                                     @endif
                                 </td>
                                 <td>{{ $podcast->created_at->format('Y-m-d h:i A') }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-success">
+                                    <button class="btn btn-sm btn-success edit-podcast-btn"
+                                        data-id="{{ $podcast->id }}"
+                                        data-title="{{ $podcast->title }}"
+                                        data-description="{{ $podcast->description }}"
+                                        data-link="{{ $podcast->link }}"
+                                        data-thumbnail="{{ $podcast->png }}">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash"></i>
+
+                                    <button class="btn btn-danger btn-sm delete-podcast" data-id="{{ $podcast->id }}">
+                                        <i class="bi bi-trash"></i> 
                                     </button>
+
                                 </td>
                             </tr>
                         @empty
@@ -75,12 +83,14 @@
                         @endforelse
                     </tbody>
                 </table>
+                @include('admin.components.modal-podcast')
             </div>
         </div>
     </div>
 @endsection
 
 @push('scripts')
+<!-- table config -->
 <script>
     $(document).ready(function () {
         $('#podcastTable').DataTable({
@@ -93,6 +103,159 @@
         });
     });
 </script>
+
+<!-- Edit Modal Population for Podcast -->
+<script>
+ $(document).ready(function () {
+    $('.edit-podcast-btn').on('click', function () {
+        const podcastId = $(this).data('id');
+        const title = $(this).data('title');
+        const description = $(this).data('description');
+        const link = $(this).data('link');
+        const thumbnail = $(this).data('thumbnail');
+
+        $('#podcast_edit_id').val(podcastId);
+        $('#podcast_edit_title').val(title);
+        $('#podcast_edit_description').val(description);
+        $('#podcast_edit_link').val(link);
+        $('#editPodcastForm').attr('action', `/admin/podcast/${podcastId}`);
+
+        let previewHTML = '';
+        if (thumbnail) {
+            previewHTML = `
+                <div style="display:inline-block; text-align:center;">
+                    <small>Current Thumbnail</small><br>
+                    <img src="/storage/podcast_thumbnail/${thumbnail}" alt="Thumbnail" width="80" class="img-thumbnail">
+                </div>`;
+        }
+
+        $('#podcast_current_thumbnail').html(previewHTML);
+        $('#editPodcastModal').modal('show');
+    });
+    });
+</script>
+
+<!-- Edit Save for Podcast with SweetAlert + Axios -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const savePodcastBtn = document.getElementById("saveEditPodcastBtn");
+
+        savePodcastBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const form = document.getElementById("editPodcastForm");
+            const formData = new FormData(form);
+            const id = document.getElementById("podcast_edit_id").value;
+
+            formData.append('_method', 'PUT');
+
+            axios.post(`/admin/podcasts/${id}`, formData, {
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
+            .then(response => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.data.message || "Podcast updated successfully.",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload();
+                });
+            })
+            .catch(error => {
+                console.error("Podcast update error:", error.response || error);
+                Swal.fire("Error", "Something went wrong while updating the podcast.", "error");
+            });
+        });
+    });
+</script>
+
+
+<!-- drag and drop and upload for Podcast -->
+<script>
+    document.querySelectorAll('#editPodcastModal .drop-area').forEach(area => {
+        const input = area.querySelector('.file-input');
+        const text = area.querySelector('.upload-text');
+
+        area.addEventListener('click', () => input.click());
+
+        input.addEventListener('change', () => {
+            if (input.files.length > 0) {
+                text.textContent = input.files[0].name;
+            }
+        });
+
+        area.addEventListener('dragover', e => {
+            e.preventDefault();
+            area.classList.add('drag-over');
+        });
+
+        area.addEventListener('dragleave', () => {
+            area.classList.remove('drag-over');
+        });
+
+        area.addEventListener('drop', e => {
+            e.preventDefault();
+            area.classList.remove('drag-over');
+            const droppedFile = e.dataTransfer.files[0];
+            if (droppedFile) {
+                input.files = e.dataTransfer.files;
+                text.textContent = droppedFile.name;
+            }
+        });
+    });
+</script>
+
+<!-- delte js -->
+<script>
+    document.querySelectorAll('.delete-podcast').forEach(button => {
+        button.addEventListener('click', function () {
+            const podcastId = this.dataset.id;
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'This will permanently delete the podcast.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/podcasts/${podcastId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: data.message,
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire('Error', 'Something went wrong.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
 
 @if(session('success'))
     <script>
@@ -116,4 +279,6 @@
         });
     </script>
 @endif
+
+
 @endpush

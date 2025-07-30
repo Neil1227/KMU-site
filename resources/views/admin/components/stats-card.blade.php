@@ -54,10 +54,10 @@
         </a>
     </div>
         <div class="col-md-4">
-        <a href="{{ route('admin.newsletter-table') }}" class="text-decoration-none text-dark">
+        <a href="{{ route('admin.promotionalactivities-table') }}" class="text-decoration-none text-dark">
             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">
                 
-                <h3 class="d-flex justify-content-center align-items-center">{{ $newsletter->count() }}</h3>
+                <h3 class="d-flex justify-content-center align-items-center">{{ $promotional->count() }}</h3>
                 <div class="d-flex justify-content-center align-items-center">
                     <div ><strong>Promotional</strong></div>
                     <!-- <i class="fa fa-file-alt card-icon"></i> -->
@@ -66,10 +66,10 @@
         </a>
     </div>
         <div class="col-md-4">
-        <a href="{{ route('admin.newsletter-table') }}" class="text-decoration-none text-dark">
+        <a href="{{ route('admin.podcast-table') }}" class="text-decoration-none text-dark">
             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">
                 
-                <h3 class="d-flex justify-content-center align-items-center">{{ $newsletter->count() }}</h3>
+                <h3 class="d-flex justify-content-center align-items-center">{{ $podcast->count() }}</h3>
                 <div class="d-flex justify-content-center align-items-center">
                     <div><strong>Podcast</strong></div>
                     <!-- <i class="fa fa-file-alt card-icon"></i> -->
