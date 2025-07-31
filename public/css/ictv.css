@@ -2,10 +2,16 @@
 .card {
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* for Safari support */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     overflow: hidden;
     padding: 10px;
     border:none !important;
+}
+/* Transition Background Styling */
+.transition-card .card {
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .card-text {
@@ -62,11 +68,6 @@
 #toggleIctvBtn.btn-primary:hover {
     background-color: #d84c00;
     transform: translateY(-1px);
-}
-
-/* Transition Background Styling */
-.transition-card .card {
-    background-color: rgba(255, 255, 255, 0.800);
 }
 
 /* Hide Collapsed Elements */
