@@ -69,7 +69,7 @@
   </h2>
 
   <div class="container-page">
-    <div class="row">
+    <div class="row d-flex justify-content-center">
       <!-- ICTV Card -->
       <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="100">
         <a href="	{{ route('ictv') }}" class="text-decoration-none">
