@@ -3,43 +3,43 @@
                         <h5>Upload Content</h5>
                         <div class="mt-3">
                             <div class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
                                     <a href="{{ route('admin.ictv') }}"
-                                       class="btn w-100 {{ Route::currentRouteName() === 'admin.ictv' ? 'btn-primary text-white' : 'btn-outline-primary' }}">
-                                        <i class="fa-solid fa-tv me-1"></i> Add ICTV
+                                       class="btn w-100 d-flex justify-content-between align-items-center {{ Route::currentRouteName() === 'admin.ictv' ? 'btn-primary text-white' : 'btn-outline-primary' }}">
+                                         Add ICTV <i class="fa-solid fa-tv me-1"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
                                     <a href="{{ route('admin.iec') }}"
-                                       class="btn w-100 {{ Route::currentRouteName() === 'admin.iec' ? 'btn-danger text-white' : 'btn-outline-danger' }}">
-                                        <i class="fa-solid fa-image me-1"></i> Add IEC Materials
+                                       class="btn w-100 d-flex justify-content-between align-items-center {{ Route::currentRouteName() === 'admin.iec' ? 'btn-danger text-white' : 'btn-outline-danger' }}">
+                                        Add IEC Materials<i class="fa-solid fa-image me-1"></i> 
                                     </a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
                                     <a href="{{ route('admin.modules') }}"
-                                       class="btn w-100 {{ Route::currentRouteName() === 'admin.modules' ? 'btn-secondary text-white' : 'btn-outline-secondary' }}">
-                                        <i class="fa fa-file-alt me-1"></i> Add Modules
+                                       class="btn w-100 d-flex justify-content-between align-items-center {{ Route::currentRouteName() === 'admin.modules' ? 'btn-secondary text-white' : 'btn-outline-secondary' }}">
+                                        Add Modules<i class="fa fa-file-alt me-1"></i> 
                                     </a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
                                     <a href="{{ route('admin.newsletter') }}"
-                                        class="btn w-100 {{ Route::currentRouteName() === 'admin.newsletter' ? 'btn-success text-white' : 'btn-outline-success' }}">
-                                        <i class="fa-solid fa-book-open-reader me-1"></i> Add Newsletters
+                                        class="btn w-100 d-flex justify-content-between align-items-center {{ Route::currentRouteName() === 'admin.newsletter' ? 'btn-success text-white' : 'btn-outline-success' }}">
+                                        Add Newsletters<i class="fa-solid fa-book-open-reader me-1"></i> 
                                     </a>
                                 </div>
-                                <div class="col-6">
-                                    <a href="{{ route('admin.promotional') }}" class="btn btn-outline-warning w-100">
-                                        <i class="fa fa-table me-1"></i> Promotional Ativities
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
+                                    <a href=" {{ route('admin.promotional') }}" class="btn btn-outline-warning w-100 d-flex justify-content-between align-items-center">
+                                        Promotional Ativities<i class="fa fa-table me-1"></i> 
                                     </a>
                                 </div>
-                                <div class="col-6">
-                                    <a href="{{ route('admin.podcast') }}" class="btn btn-outline-info w-100">
-                                        <i class="fa-solid fa-clapperboard me-1"></i> Podcast
+                                <div class="col-md-6 d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('admin.podcast') }}" class="btn btn-outline-info w-100 d-flex justify-content-between align-items-center">
+                                        Podcast<i class="fa-solid fa-clapperboard me-1"></i> 
                                     </a>
                                 </div>
-                                <div class="col-12">
-                                    <a href="{{ route('index') }}" class="btn btn-outline-dark w-100" target="_blank">
-                                        <i class="fa fa-eye me-1"></i> View Site
+                                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('index') }}" class="btn btn-outline-dark w-100 d-flex justify-content-between align-items-center" target="_blank">
+                                        View Site<i class="fa fa-eye me-1"></i> 
                                     </a>
                                 </div>
 

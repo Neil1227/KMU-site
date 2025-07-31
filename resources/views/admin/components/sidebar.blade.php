@@ -1,5 +1,5 @@
         {{-- Sidebar --}}
-        <div class="col-md-2 sidebar p-3">
+        <div class="col-md-2 sidebar sidebar-wrapper p-3" id="sidebar" >
             <h3 class="text-white">Admin Panel</h3>
             <small class="d-block mb-4">Content Management</small>
             <hr>
@@ -39,6 +39,4 @@
             class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
             Recent Activities
             </a>
-
-            <a href="#">Settings</a>
         </div>

@@ -56,7 +56,7 @@
             <div class="step-circle">4</div>
             <div class="card">
                 <h2>Final Step: Claim Your Certificate</h2>
-                <p>Collect your certificate from the ICTRD office beside the DABEE building. Present your student ID or confirmation email upon claiming.</p>
+                <p>Collect your certificate from the ICTRD office beside the CBEE building. Present your student ID or confirmation email upon claiming.</p>
             </div>
         </div>
     </div>

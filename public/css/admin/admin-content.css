@@ -9,6 +9,7 @@
 /* Main form styling */
 .ictv-form {
     background: #fff;
+    border: 1px solid #f0f0f0;
     padding: 2rem;
     border-radius: 10px;
 }
@@ -81,4 +82,92 @@ a .dashboard-card:hover {
 .ictv-form .btn-upload:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(216, 76, 0, 0.4);
+}
+#sidebar {
+    transition: all 0.3s ease-in-out;
+}
+.logout-link {
+    color: #1c366a; /*  your custom color */
+}
+
+.logout-link:hover {
+    color: #1c406a; /* lighter shade on hover */
+}
+
+#main-content {
+    margin-left: 250px; /* same as sidebar width */
+}
+/* Base styling for the menu toggle button */
+.btn-menu {
+    background-color: transparent;
+    border: none;
+    color: #1c366a; /* adjust based on your theme */
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* On hover */
+.btn-menu:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Optional: Add subtle shadow */
+.btn-menu:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive font size */
+@media (min-width: 768px) {
+    .btn-menu {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-menu {
+        display: none; /* Hide on large screens */
+    }
+}
+
+@media (max-width: 991px) {
+    h2{
+        font-size: 1.25rem;
+    }
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100%;
+        width: 250px;
+        background-color: #0d3b66;
+        z-index: 1050;
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    #sidebar.show {
+        left: 0;
+    }
+
+    #main-content {
+        width: 100%;
+        margin-left: 0px; /* same as sidebar width */
+
+    }
+
+
+    .sidebar-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1040;
+    }
+
+    .sidebar-backdrop.hidden {
+        display: none;
+    }
 }

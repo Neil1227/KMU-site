@@ -31,20 +31,21 @@
 <body>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row d-flex " id="admin-wrapper">
 
             {{-- Sidebar --}}
                 @include('admin.components.sidebar')
 
             {{-- Main Content --}}
-            <div class="col-md-10">
-                
-                {{-- Header --}}
-                @include('admin.components.header')
+            <div class="col">
+                 <div class="content-wrapper col" id="main-content">
+                    {{-- Header --}}
+                    @include('admin.components.header')
 
-                {{-- Dynamic Content --}}
-               
-                @yield('content')
+                    {{-- Dynamic Content --}}
+                
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
@@ -79,7 +80,30 @@
     <script>
         AOS.init();
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
 
+    toggleBtn?.addEventListener("click", function () {
+        sidebar.classList.toggle("show");
+
+        if (!document.getElementById("sidebar-backdrop")) {
+            const backdrop = document.createElement("div");
+            backdrop.className = "sidebar-backdrop";
+            backdrop.id = "sidebar-backdrop";
+            document.body.appendChild(backdrop);
+
+            backdrop.addEventListener("click", function () {
+                sidebar.classList.remove("show");
+                backdrop.remove();
+            });
+        } else {
+            document.getElementById("sidebar-backdrop").remove();
+        }
+    });
+});
+</script>
     @stack('scripts') <!-- Page-specific scripts -->
 </body>
 </html>

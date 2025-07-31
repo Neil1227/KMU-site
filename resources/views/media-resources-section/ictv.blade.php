@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
     <link rel="stylesheet" href="{{ asset('css/research.css') }}">
     <link rel="stylesheet" href="{{ asset('css/media-resource-navbar.css') }}">
-
 @endpush
 
 @section('content')
-
 
 {{-- Header --}}
 @include('layouts.components.header')
@@ -23,47 +21,56 @@
 
 {{-- ICTV Episode Cards --}}
 <section class="container-page my-5">
-    <div class="row justify-content-center" id="ictvCards">
+    <div class="row g-4" id="ictvCards">
         @foreach ($episodes as $index => $episode)
-            <div class="col-md-4 mb-4 transition-card ictv-card {{ $index >= 6 ? 'd-none' : '' }}">
+            <div class="col-md-4 transition-card ictv-card collapsible {{ $index >= 6 ? 'collapsed' : '' }}">
                 <div class="card">
                     <img src="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}" class="card-img-top media-img" alt="{{ $episode->title }}">
 
                     <div class="card-body">
-                        <h5 class="ictv-card-title">{{ $episode['title'] }}</h5>
-                        <p class="card-text">{{ $episode['description'] }}</p>
-                        <a href="{{ $episode['link'] }}" target="_blank" class="btn watch-btn">Watch Episode</a>
+                        <h5 class="ictv-card-title">{{ $episode->title }}</h5>
+                        <p class="card-text">{{ $episode->description }}</p>
+                        <a href="{{ $episode->link }}" target="_blank" class="btn watch-btn">Watch Episode</a>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
 
-    {{-- Toggle Button --}}
     @if (count($episodes) > 6)
         <div class="text-center mt-4">
             <button id="toggleIctvBtn" class="btn btn-primary">Show More</button>
         </div>
     @endif
 </section>
+
+
 @push('scripts')
 <script>
-document.getElementById('toggleIctvBtn').addEventListener('click', function () {
-    const hiddenCards = document.querySelectorAll('.ictv-card.d-none');
-    const isHidden = hiddenCards.length > 0;
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.ictv-card.collapsible');
+    const toggleBtn = document.getElementById('toggleIctvBtn');
+    let expanded = false;
 
-    hiddenCards.forEach(card => {
-        card.classList.toggle('d-none');
+    toggleBtn?.addEventListener('click', function () {
+        cards.forEach((card, index) => {
+            if (index >= 6) {
+                card.classList.toggle('collapsed');
+            }
+        });
+
+        expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
+
+        if (!expanded) {
+            document.getElementById('ictvCards').scrollIntoView({ behavior: 'smooth' });
+        }
     });
-
-    this.textContent = isHidden ? 'Show Less' : 'Show More';
 });
 </script>
-
 @endpush
 
-{{-- Only show sub-footer on this page --}}
+{{-- Footer --}}
 @include('layouts.components.sub-footer')
-
 
 @endsection

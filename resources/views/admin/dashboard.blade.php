@@ -5,71 +5,72 @@
 
 @section('content')
 
+
         {{-- Main Content --}}
             <!-- <div class="welcome-text mt-3 mx-3">
-                <h2>Dashboard</h2>
+                <h1>Dashboard</h1>
                 <p>Welcome back! Here's an overview of your content.</p>
             </div> -->
 
-            <div class="row g-4 mb-3 mt-2 mx-3">
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+            <div class="row g-4 mb-3 mt-2 mx-1">
+                <div class="col-md-4 col-sm-6  ">
+                    <div class="dashboard-card" style="background-color:#e1f1ff;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>ICTV Episodes</strong></div>
-                            <i class="fa-solid fa-tv card-icon"></i>
+                            <i class="fa-solid fa-tv card-icon" style="color:#1e90ff;" ></i>
                         </div>
-                        <h3>{{ $episodes->count() }}</h3>
+                        <h1>{{ $episodes->count() }}</h1>
                         <small>Total Content</small>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#ffe1e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>IEC Materials</strong></div>
-                            <i class="fa-solid fa-image  card-icon"></i>
+                            <i class="fa-solid fa-image  card-icon" style="color:#dc143c;"></i>
                         </div>
-                        <h3>{{ $iecMaterials->count() }}</h3>
+                        <h1>{{ $iecMaterials->count() }}</h1>
                         <small>Total IEC Materials</small>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#f0f0f0;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Modules</strong></div>
                             
-                            <i class="fa-solid fa-book-open-reader card-icon"></i>
+                            <i class="fa-solid fa-book-open-reader card-icon" style="color:696969;"></i>
                         </div>
-                        <h3>{{ $modules->count() }}</h3>
+                        <h1>{{ $modules->count() }}</h1>
                         <small>Total Modules</small>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#e1f9e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Newsletters</strong></div>
-                            <i class="fa fa-file-alt card-icon"></i>
+                            <i class="fa fa-file-alt card-icon" style="color:#228B22;"></i>
                         </div>
-                        <h3>{{ $newsletter->count() }}</h3>
+                        <h1>{{ $newsletter->count() }}</h1>
                         <small>Total Newsletters</small>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#fff9e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Promotional Activities</strong></div>
-                            <i class="fa-solid fa-bullhorn card-icon"></i>
+                            <i class="fa-solid fa-bullhorn card-icon" style="color:#FF8C00;"></i>
                         </div>
-                        <h3>{{ $promotional->count() }}</h3>
+                        <h1>{{ $promotional->count() }}</h1>
                         <small>Total Activities</small>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="dashboard-card">
+                <div class="col-md-4 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#d5fafa;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Podcast</strong></div>
-                            <i class="fa-solid fa-clapperboard card-icon"></i>
+                            <i class="fa-solid fa-clapperboard card-icon" style="color:#48D1CC;"></i>
                         </div>
-                        <h3>{{ $podcast->count() }}</h3>
+                        <h1>{{ $podcast->count() }}</h1>
                         <small>Total Podcast</small>
                     </div>
                 </div>

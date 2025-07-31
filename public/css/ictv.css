@@ -4,6 +4,7 @@
         .card {
             background: #ffffff;
             border-radius: 15px;
+            min-height: 350px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             overflow: hidden;
@@ -12,7 +13,7 @@
             color: var(--gray-complement);
         }
         .card:hover {
-            transform: translateY(-3px);
+            transform: scale(1.01);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -30,19 +31,25 @@
             background-color: var(--btn-hover-gold);
         }
         /* ICTV Smooth Transition Cards */
+        .collapsed {
+            display: none !important;
+        }
+
+/* Smooth ICTV card reveal */
 .ictv-card.collapsible {
-    overflow: hidden;
+    max-height: 1000px; /* Enough to hold full card */
     opacity: 1;
-    max-height: 500px;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+    transform: scaleY(1);
+    transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+    overflow: hidden;
 }
 
 .ictv-card.collapsed {
     max-height: 0;
     opacity: 0;
-    pointer-events: none;
-    margin: 0 !important;
+    transform: scaleY(0.95);
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* ICTV Show More/Less Button Style */

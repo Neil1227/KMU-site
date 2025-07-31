@@ -1,8 +1,15 @@
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* full height */
+    width: 250px;  /* set your sidebar width */
     background-color: #0d3b66;
     color: white;
-    min-height: 100vh;
+    overflow: hidden; /* prevent scroll inside the sidebar */
+    z-index: 1000; /* ensure it's on top */
 }
+
 
 .sidebar a {
     color: white;
@@ -20,7 +27,7 @@
 .km-header {
     background-color: #f8f8f8;
     border-bottom: 1px solid #ddd;
-    font-family: 'Segoe UI', sans-serif;
+
 }
 .km-header i:hover {
     color: #dc3545;
