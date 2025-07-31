@@ -22,7 +22,7 @@
 
 <body>
 
-    <main>
+    <main class="page-wrapper">
         @yield('content')
     </main>
 

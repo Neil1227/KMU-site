@@ -20,13 +20,12 @@
 @include('layouts.components.generic-background')
 
 {{-- ICTV Episode Cards --}}
-<section class="container-page my-5">
-    <div class="row g-4" id="ictvCards">
+<section class="container-page mb-5">
+    <div class="row justify-content-center g-4 mt-4" id="ictvCards">
         @foreach ($episodes as $index => $episode)
-            <div class="col-md-4 transition-card ictv-card collapsible {{ $index >= 6 ? 'collapsed' : '' }}">
+            <div class="col-md-4 transition-card ictv-card {{ $index >= 6 ? 'collapsed' : '' }}">
                 <div class="card">
-                    <img src="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}" class="card-img-top media-img" alt="{{ $episode->title }}">
-
+                    <img src="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}" class="card-img media-img" alt="{{ $episode->title }}">
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $episode->title }}</h5>
                         <p class="card-text">{{ $episode->description }}</p>
@@ -48,7 +47,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const cards = document.querySelectorAll('.ictv-card.collapsible');
+    const cards = document.querySelectorAll('.ictv-card');
     const toggleBtn = document.getElementById('toggleIctvBtn');
     let expanded = false;
 

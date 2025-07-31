@@ -31,7 +31,7 @@
 <section class="container-page my-5">
     <div class="row g-4" id="moduleCards">
         @foreach ($modules as $index => $module)
-            <div class="col-md-6 col-lg-4 module-card transition-card {{ $index >= 6 ? 'hidden-card' : '' }}">
+            <div class="col-md-6 col-lg-4 module-card {{ $index >= 6 ? 'hidden-card' : '' }}">
                 <a href="{{ asset('storage/modules/' . $module->file) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
                         <img src="{{ asset('storage/modules_thumbnail/' . $module->png) }}" 
@@ -62,7 +62,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.module-card.transition-card');
+    const cards = document.querySelectorAll('.module-card');
     const toggleBtn = document.getElementById('toggleBtn');
     let expanded = false;
 

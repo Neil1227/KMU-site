@@ -13,7 +13,7 @@
                 <h4 class="text-white mb-0">Promotional Activity Details</h4>
             </div>
 
-            <form action="{{ route('promotional.upload') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.promotional.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 mt-3">

@@ -76,20 +76,20 @@ Route::put('/admin/modules/{id}', [ModuleController::class, 'update'])->name('ad
 
 
 //upload for newsletter
-Route::post('/admin/newsletter', [NewsletterController::class, 'upload'])->name('admin.newsletter.upload');
+Route::post('/admin/newsletter/upload', [NewsletterController::class, 'upload'])->name('admin.newsletter.upload');
 Route::get('/admin/newsletter-table', [NewsletterController::class, 'table'])->name('admin.newsletter-table');
 Route::delete('/admin/newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
 Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
 
 //upload for Promotional Activities
-Route::post('/promotionalactivities/upload', [PromotionalActivityController::class, 'store'])->name('promotional.upload');
+Route::post('/admin/promotionalactivities/upload', [PromotionalActivityController::class, 'store'])->name('admin.promotional.upload');
 Route::get('/promotionalactivities-table', [PromotionalActivityController::class, 'table'])->name('admin.promotionalactivities-table');
 Route::delete('/admin/promotionalactivities/{id}', [PromotionalActivityController::class, 'destroy'])->name('promotionalactivities.destroy');
 Route::put('/admin/promotional/{id}', [PromotionalActivityController::class, 'update'])->name('promotional.update');
 
 
 //upload for podcast
-Route::post('/podcast-upload', [PodcastController::class, 'store'])->name('podcast.store');
+Route::post('/admin/podcasts/store', [PodcastController::class, 'store'])->name('admin.podcast.store');
 Route::get('/podcast-table', [PodcastController::class, 'table'])->name('admin.podcast-table');
 Route::delete('/podcasts/{id}', [PodcastController::class, 'destroy'])->name('podcast.destroy');
 Route::put('/admin/podcasts/{id}', [PodcastController::class, 'update'])->name('podcasts.update');

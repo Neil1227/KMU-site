@@ -3,13 +3,10 @@
 @section('title', 'Promotional Activities')
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('css/promotional-activities.css') }}">
-<link rel="stylesheet" href="{{ asset('css/global.css') }}">
-<link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
-<link rel="stylesheet" href="{{ asset('css/research.css') }}">
-<link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/research.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
 @endpush
 
 @section('content')
@@ -23,12 +20,12 @@
 @include('layouts.components.generic-background')
 
 {{-- Promotional Activities Cards --}}
-<section class="container-page my-5">
-    <div class="row justify-content-center" id="promoCards">
+<section class="container-page mb-5">
+    <div class="row justify-content-center g-4 mt-4" id="promoCards">
         @forelse ($promotional as $index => $promo)
             <div class="col-md-4 mb-4 transition-card ictv-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
-                    <img src="{{ asset('storage/promotional_thumbnail/' . $promo->png) }}" class="card-img-top media-img" alt="{{ $promo->title }}">
+                    <img src="{{ asset('storage/promotional_thumbnail/' . $promo->png) }}" class="card-img media-img" alt="{{ $promo->title }}">
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $promo->title }}</h5>
                         <p class="card-text">{{ $promo->description }}</p>
@@ -55,11 +52,11 @@
 @push('scripts')
 <script>
     document.getElementById('togglePromoBtn')?.addEventListener('click', function () {
-        const hiddenCards = document.querySelectorAll('.ictv-card.d-none');
+        const hiddenCards = document.querySelectorAll('.ictv-card');
         const isHidden = hiddenCards.length > 0;
 
         hiddenCards.forEach(card => {
-            card.classList.toggle('d-none');
+            card.classList.toggle('ictv-card');
         });
 
         this.textContent = isHidden ? 'Show Less' : 'Show More';

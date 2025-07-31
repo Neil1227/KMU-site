@@ -32,7 +32,7 @@
 <section class="container-page my-5">
     <div id="newsletterCards" class="row g-4">
         @foreach ($newsletters as $index => $newsletter)
-            <div class="col-md-6 col-lg-4 newsletter-card collapsible {{ $index >= 6 ? 'collapsed' : '' }}">
+            <div class="col-md-6 col-lg-4 newsletter-card {{ $index >= 6 ? 'collapsed' : '' }}">
                 <a href="{{ asset('storage/newsletter/' . $newsletter->file) }}" target="_blank" class="text-decoration-none">
                     <div class="pdf-card">
                         <img src="{{ asset('storage/newsletter_thumbnail/' . $newsletter->png) }}"
@@ -58,7 +58,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const cards = document.querySelectorAll('.newsletter-card.collapsible');
+    const cards = document.querySelectorAll('.newsletter-card');
     const toggleBtn = document.getElementById('toggleNewsletterBtn');
     let expanded = false;
 

@@ -24,6 +24,9 @@
                             <div class="mb-3 mt-3">
                                 <label for="title" class="form-label">Title *</label>
                                 <input type="text" class="form-control" id="title" name="title" required>
+                                        @error('title')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                             </div>
 
                             <div class="row mb-3">

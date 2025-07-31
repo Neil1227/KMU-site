@@ -13,7 +13,7 @@
                 <h4 class="text-white mb-0">Podcast Episode Details</h4>
             </div>
 
-            <form action="{{ route('podcast.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.podcast.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3 mt-3">

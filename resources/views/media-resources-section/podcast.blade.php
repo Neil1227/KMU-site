@@ -3,11 +3,8 @@
 @section('title', 'Podcast')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/promotional-activities.css') }}">
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}"> 
     <link rel="stylesheet" href="{{ asset('css/research.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
 @endpush
@@ -23,15 +20,16 @@
 @include('layouts.components.generic-background')
 
 {{-- Podcast Cards --}}
-<section class="container-page my-5">
-    <div class="row justify-content-center" id="podcastCards">
+<section class="container-page mb-5">
+    <div class="row justify-content-center g-4 mt-4" id="podcastCards">
         @foreach ($podcasts as $index => $podcast)
             <div class="col-md-4 mb-4 transition-card podcast-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
-                    <img src="{{ asset('storage/podcast_thumbnail/' . $podcast->png) }}" class="card-img-top media-img" alt="{{ $podcast->title }}">
+                    <img src="{{ asset('storage/podcast_thumbnail/' . $podcast->png) }}" class="card-img media-img" alt="{{ $podcast->title }}">
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $podcast->title }}</h5>
                         <p class="card-text">{{ $podcast->description }}</p>
+                        <a href="{{ $podcast->link }}" target="_blank" class="btn watch-btn">Watch Episode</a>
                     </div>
                 </div>
             </div>

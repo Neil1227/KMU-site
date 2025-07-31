@@ -1,41 +1,37 @@
+/* Card Styling for Promotional and Podcast */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+    padding: 10px;
+    border:none !important;
+}
 
+.card-text {
+    color: var(--secondary-color);
+}
 
-        /* Card Styling */
-        .card {
-            background: #ffffff;
-            border-radius: 15px;
-            min-height: 350px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            overflow: hidden;
-        }
-        .card-text{
-            color: var(--gray-complement);
-        }
-        .card:hover {
-            transform: scale(1.01);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+.transition-card .card:hover {
+    transform: translateY(-5px);
+}
 
-        .ictv-card-title{
-            color: var(--primary-color);
-        }
+.ictv-card-title {
+    color: var(--primary-color);
+}
 
-        .card-body .watch-btn {
-            background-color: var(--btn-gold);
-            color: var(--white-text);
-            border: none;
-        }
+/* Watch Button Styling */
+.card-body .watch-btn {
+    background-color: var(--btn-gold);
+    color: var(--white-text);
+    border: none;
+}
 
-        .card-body .watch-btn:hover {
-            background-color: var(--btn-hover-gold);
-        }
-        /* ICTV Smooth Transition Cards */
-        .collapsed {
-            display: none !important;
-        }
+.card-body .watch-btn:hover {
+    background-color: var(--btn-hover-gold);
+}
 
-/* Smooth ICTV card reveal */
+/* Smooth ICTV Card Reveal Transition */
 .ictv-card.collapsible {
     max-height: 1000px; /* Enough to hold full card */
     opacity: 1;
@@ -68,3 +64,12 @@
     transform: translateY(-1px);
 }
 
+/* Transition Background Styling */
+.transition-card .card {
+    background-color: rgba(255, 255, 255, 0.800);
+}
+
+/* Hide Collapsed Elements */
+.collapsed {
+    display: none !important;
+}

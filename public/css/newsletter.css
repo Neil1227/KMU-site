@@ -1,7 +1,8 @@
 .pdf-card {
-  background-color: var(--off-white-color);
+  background-color: rgba(255, 255, 255, 0.800);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px var(--gray-complement);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   display: flex;
@@ -11,8 +12,7 @@
 }
 
 .pdf-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .pdf-card img {
@@ -33,20 +33,13 @@
   color: var(--secondary-color);
 }
 
-/* Smooth transition setup */
-.newsletter-card.collapsible {
-    overflow: hidden;
-    opacity: 1;
-    max-height: 500px;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
-}
-
 .newsletter-card.collapsed {
     max-height: 0;
     opacity: 0;
     pointer-events: none;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: hidden;
 }
 #toggleNewsletterBtn.btn-primary {
   background-color: var(--primary-color);
@@ -62,4 +55,3 @@
   background-color: #d84c00;
   transform: translateY(-1px);
 }
-
