@@ -38,8 +38,9 @@ body {
 
 /* Header container */
 .heading {
-  background-color: var(--white-text);
+  background-color: var(--off-white-color);
   padding: 5px 20px;
+  
 
 }
 

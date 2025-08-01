@@ -1,9 +1,24 @@
 /* Default navbar */
 .navbar {
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   background-color: var(--primary-color);
   transition: background-color 0.3s ease;
 }
+/* Default (mobile-first): no padding */
+.navbar .start-nav {
+  padding-left: 0;
+}
 
+/* Add padding on viewports wider than 991px */
+@media (min-width: 992px) {
+  .navbar .start-nav {
+    padding-left: 10%;
+  }
+}
 /* New color when sticky takes effect */
 .navbar.sticky-active {
   background-color: var(--secondary-color); /* Dark blue or any new color */

@@ -7,6 +7,16 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
 
+}/* Default (mobile-first): no padding */
+.navbar .start-nav {
+  padding-left: 0;
+}
+
+/* Add padding on viewports wider than 991px */
+@media (min-width: 992px) {
+  .navbar .start-nav {
+    padding-left: 150px;
+  }
 }
 
 .navbar-nav {

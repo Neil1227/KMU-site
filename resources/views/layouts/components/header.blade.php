@@ -1,6 +1,6 @@
 <!-- Header -->
 <header>
-  <div class="heading" data-aos="fade-down" data-aos-duration="1000">
+  <div class="heading" data-aos="fade-in" data-aos-duration="1000">
     <ul class="heading-list mt-1">
       <li class="heading-content-email"><i class="fas fa-envelope"></i> kmc@psau.edu.ph</li>
       <li class="heading-content-phone"><i class="fas fa-phone"></i> +63 900 000 0000</li>

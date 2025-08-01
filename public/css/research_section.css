@@ -11,7 +11,7 @@
   text-align: start ;
 }
 .card-body .card-texts{
-    color: var(--gray-complement);
+    color: var(--secondary-color);
 }
 
 /* === CARD === */
@@ -61,6 +61,7 @@
   padding: 0;
   flex-grow: 1;
   text-align: start;
+  justify-content: center;
 }
 
 .card-title,
