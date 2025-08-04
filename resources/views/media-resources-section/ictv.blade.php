@@ -45,28 +45,7 @@
 
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const cards = document.querySelectorAll('.ictv-card');
-    const toggleBtn = document.getElementById('toggleIctvBtn');
-    let expanded = false;
-
-    toggleBtn?.addEventListener('click', function () {
-        cards.forEach((card, index) => {
-            if (index >= 6) {
-                card.classList.toggle('collapsed');
-            }
-        });
-
-        expanded = !expanded;
-        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
-
-        if (!expanded) {
-            document.getElementById('ictvCards').scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-</script>
+<script src="{{ asset('js/show.js') }}"></script>
 @endpush
 
 {{-- Footer --}}

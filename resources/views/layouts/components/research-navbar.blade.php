@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-down" data-aos-duration="1000">
+<nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-in" data-aos-duration="1000">
   <div class="container-fluid">
     
     <!-- LOGO (for mobile view) -->

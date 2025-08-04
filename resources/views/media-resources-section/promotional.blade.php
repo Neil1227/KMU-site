@@ -50,18 +50,7 @@
 </section>
 
 @push('scripts')
-<script>
-    document.getElementById('togglePromoBtn')?.addEventListener('click', function () {
-        const hiddenCards = document.querySelectorAll('.ictv-card');
-        const isHidden = hiddenCards.length > 0;
-
-        hiddenCards.forEach(card => {
-            card.classList.toggle('ictv-card');
-        });
-
-        this.textContent = isHidden ? 'Show Less' : 'Show More';
-    });
-</script>
+<script src="{{ asset('js/show.js') }}"></script>
 @endpush
 
 {{-- Only show sub-footer on this page --}}

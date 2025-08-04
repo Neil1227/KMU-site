@@ -69,8 +69,6 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="{{ asset('message.js') }}"></script>
 <script src="{{ asset('assets/js/navbar.js') }}"></script>
 <script>

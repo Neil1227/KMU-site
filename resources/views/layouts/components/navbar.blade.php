@@ -1,6 +1,6 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark " data-aos="fade-in" data-aos-duration="1000" style="position: sticky; top: 0; z-index: 999;">
-  <div class="container-fluid d-flex justify-content-start start-nav">
+  <div class="container-fluid d-flex justify-content-evenly ">
 
     <!-- LOGO -->
     <div class="navbar-logo d-lg-none">
@@ -14,7 +14,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+
       <ul class="navbar-nav ">
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}">Home</a></li>
         <li class="nav-item dropdown dropdown-hover">
@@ -34,6 +35,11 @@
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#about">About</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('contact') }}">Contact</a></li>
       </ul>
+<form role="search" class="modern-search">
+  <input type="text" placeholder="Search..." />
+  <button type="submit"><i class="fas fa-search"></i></button>
+</form>
+
     </div>
   </div>
 </nav>

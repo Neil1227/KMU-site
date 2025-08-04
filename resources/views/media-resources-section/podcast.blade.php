@@ -45,18 +45,7 @@
 </section>
 
 @push('scripts')
-<script>
-document.getElementById('togglePodcastBtn')?.addEventListener('click', function () {
-    const hiddenCards = document.querySelectorAll('.podcast-card.d-none');
-    const isHidden = hiddenCards.length > 0;
-
-    hiddenCards.forEach(card => {
-        card.classList.toggle('d-none');
-    });
-
-    this.textContent = isHidden ? 'Show Less' : 'Show More';
-});
-</script>
+<script src="{{ asset('js/show.js') }}"></script>
 @endpush
 
 {{-- Only show sub-footer on this page --}}

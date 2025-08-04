@@ -56,28 +56,7 @@
 
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const cards = document.querySelectorAll('.newsletter-card');
-    const toggleBtn = document.getElementById('toggleNewsletterBtn');
-    let expanded = false;
-
-    toggleBtn.addEventListener('click', function () {
-        cards.forEach((card, index) => {
-            if (index >= 6) {
-                card.classList.toggle('collapsed');
-            }
-        });
-
-        expanded = !expanded;
-        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
-
-        if (!expanded) {
-            document.getElementById('newsletterCards').scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-</script>
+<script src="{{ asset('js/show.js') }}"></script>
 @endpush
 
 

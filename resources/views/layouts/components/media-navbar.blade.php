@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-down" data-aos-duration="1000">
+<nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-in" data-aos-duration="1000">
     <div class="container-fluid start-nav">
         <div class="navbar-logo d-lg-none" data-aos="fade-right" data-aos-delay="100">
             <h3 class="logo-text">{{ strtoupper($active ?? '') }}</h3>
@@ -11,8 +11,8 @@
         </button>
 
         <!-- Collapsible Nav Links -->
-        <div class="collapse navbar-collapse" id="navbarNav" data-aos="fade-down" data-aos-delay="100">
-            <ul class="navbar-nav  ">
+        <div class="collapse navbar-collapse" id="navbarNav" data-aos="fade-in" data-aos-delay="100">
+            <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
                     <a class="nav-link text-white {{ $active == 'home' ? 'active' : '' }}" href="{{ url('/homepage') }}#media-resources">Home</a>
                 </li>

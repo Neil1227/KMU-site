@@ -60,28 +60,7 @@
 
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.module-card');
-    const toggleBtn = document.getElementById('toggleBtn');
-    let expanded = false;
-
-    toggleBtn.addEventListener('click', () => {
-        cards.forEach((card, index) => {
-            if (index >= 6) {
-                card.classList.toggle('hidden-card');
-            }
-        });
-
-        toggleBtn.textContent = expanded ? 'Show More' : 'Show Less';
-        expanded = !expanded;
-
-        if (!expanded) {
-            document.getElementById('moduleCards').scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-</script>
+<script src="{{ asset('js/show.js') }}"></script>
 @endpush
 
 

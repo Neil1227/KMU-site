@@ -3,26 +3,36 @@
     font-size: 1rem;
     top: 0; 
     z-index: 1030;
-    background: linear-gradient(90deg, #ff6a00, #ffb940);
+    background: linear-gradient(90deg, #ff6a00, #1c366a);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
 
-}/* Default (mobile-first): no padding */
+}
+/* Default: center the .start-nav */
+.navbar {
+  display: flex;
+  justify-content: center; /* centers children horizontally */
+  align-items: center;     /* optional: vertically center if needed */
+}
+
 .navbar .start-nav {
   padding-left: 0;
 }
 
-/* Add padding on viewports wider than 991px */
+/* On viewports wider than 991px */
 @media (min-width: 992px) {
   .navbar .start-nav {
-    padding-left: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
   }
 }
+
 
 .navbar-nav {
     display: flex;
     gap: 25px;
-    align-items: flex-end;
+    align-items: center;
 }
 
   .navbar-nav .nav-link {
