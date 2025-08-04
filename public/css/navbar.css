@@ -16,7 +16,7 @@
 .modern-search {
   display: flex;
   align-items: center;
-  background-color: var(--secondary-color); /* or white */
+   background: linear-gradient(to right,var(--primary-color), var(--secondary-color));
   border-radius: 999px;
   padding: 3px 5px;
   width: 250px;

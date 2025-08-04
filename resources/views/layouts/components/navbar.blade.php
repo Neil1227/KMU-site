@@ -35,10 +35,11 @@
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#about">About</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('contact') }}">Contact</a></li>
       </ul>
-<form role="search" class="modern-search">
-  <input type="text" placeholder="Search..." />
+<form role="search" class="modern-search" action="{{ route('search') }}" method="GET">
+  <input type="text" name="query" placeholder="Search..." value="{{ request('query') }}" />
   <button type="submit"><i class="fas fa-search"></i></button>
 </form>
+
 
     </div>
   </div>

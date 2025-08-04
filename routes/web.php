@@ -8,6 +8,7 @@ use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SearchController;
 
 //Uploading Controllers
 use App\Http\Controllers\ICTVController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
+
 
 
 
@@ -102,6 +104,8 @@ Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitie
 
 // Static page: no logic or data passed, just a Blade file
 Route::view('/', 'index')->name('index');
+Route::redirect('/home', '/homepage')->name('home');
+
 Route::view('/homepage', 'homepage')->name('homepage');
 Route::get('/sdgs', function () {
     return view('sdg');
@@ -135,6 +139,9 @@ Route::get('/root-crops', [ResearchController::class, 'rootCrops'])->name('root-
 Route::get('/iot', [ResearchController::class, 'iot'])->name('iot');
 Route::get('/others', [ResearchController::class, 'others'])->name('others');
 
+
+// Search Controller
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
 
