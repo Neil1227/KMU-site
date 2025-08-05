@@ -4,11 +4,15 @@
     <div class="row gy-4">
       <!-- Column 1: Logos -->
       <div class="col-12 col-md-3 text-center justify-content-center ">
-        <div class="custom-footer-logos d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+        <div class="custom-footer-logos d-flex flex-wrap justify-content-center justify-content-md-evenly gap-2 mb-3">
           <img src="assets/img/iptbm.png" alt="Logo 1" class="custom-footer-logo">
           <img src="assets/img/logo.png" alt="Logo 2" class="custom-footer-logo">
           <img src="assets/img/sibultbi-logo.png" alt="Logo 3" class="custom-footer-logo">
           <img src="assets/img/officeofinnovation.png" alt="Logo 4" class="custom-footer-logo">
+        </div>
+        {{-- Real-time Viewer Section --}}
+        <div class="total-site-views text-center py-3">
+            <i class="fa fa-eye sm"></i> {{ number_format($totalPageViews) }} total site views
         </div>
       </div>
 
@@ -26,10 +30,9 @@
       <div class="col-6 col-md-3">
         <h5 class="custom-footer-title">Resources</h5>
         <ul class="list-unstyled custom-footer-links">
-          <li><a href="#">Media</a></li>
-          <li><a href="#">Publications</a></li>
-          <li><a href="#">Newsletters</a></li>
-          <li><a href="#">Modules</a></li>
+          <li><a href="#media-resources">Media</a></li>
+          <li><a href="{{ route('newsletter') }}">Newsletters</a></li>
+          <li><a href="{{ route('modules') }}">Modules</a></li>
         </ul>
       </div>
 

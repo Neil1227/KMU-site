@@ -12,7 +12,26 @@
 .navbar .start-nav {
   padding-left: 0;
 }
+
+
 /* Default modern-search style */
+.modern-search-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+/* On smaller screens, show the search bar first (on top) */
+@media (max-width: 768px) {
+  .modern-search-wrapper {
+    flex-direction: column;
+  }
+}
+
+
 .modern-search {
   display: flex;
   align-items: center;
@@ -50,12 +69,13 @@
   font-size: 16px;
 }
 
-
 /* Add padding on viewports wider than 991px */
 @media (min-width: 992px) {
   .navbar .start-nav {
     padding-left: 10%;
+    
   }
+  
 }
 /* New color when sticky takes effect */
 .navbar.sticky-active {
@@ -193,6 +213,13 @@
         opacity: 1;
     }
 }
+@media (max-width: 991px) {
+  .modern-search {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+}
 
 @media (max-width: 991px) {
   .navbar {
@@ -222,6 +249,10 @@
   }
   .navbar .navbar-toggler {
     margin-left: auto;
+      border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
   }
 
   .navbar-nav {
