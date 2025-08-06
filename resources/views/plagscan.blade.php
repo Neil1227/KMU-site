@@ -19,10 +19,9 @@
 {{-- Navbar --}}
 @include('layouts.components.navbar')
 
-<section class="container-page mt-5">
-    <h2 class="text-center mb-4 section-title" data-aos="fade-up" data-aos-duration="1500">
-        Plagiarism Check Roadmap
-        <hr class="hr">
+<section class="container-page mt-3">
+    <h2 class="text-center mb-3 section-title" data-aos="fade-up" data-aos-duration="1500">
+        Plagiarism <span class="title-highlight"> Check Roadmap</span>
     </h2>
     <div class="roadmap" data-aos="fade-up" data-aos-duration="1500">
         <div class="step completed">
@@ -56,7 +55,16 @@
             <div class="step-circle">4</div>
             <div class="card">
                 <h2>Final Step: Claim Your Certificate</h2>
-                <p>Collect your certificate from the ICTRD office beside the CBEE building. Present your student ID or confirmation email upon claiming.</p>
+                <p>Claim your certificate from the ICTRD office beside the College of Business, Economics and Entrepreneurship (CBEE) building. <br>
+                Before we issue the Anti-Plagiarism Testing Certificate, please proceed to the Cashier's Office for your payment:
+                <ul>
+                    <li><strong>Undergraduate students:</strong> Free</li>
+                    <li><strong>Masterate students:</strong> Php 700.00</li>
+                    <li><strong>Doctorate students:</strong> Php 1,000.00</li>
+                    <li><strong>Non-PSAU clients:</strong> Php 700.00</li>
+                </ul>
+                   
+                <p>Present your student ID and reciept upon claiming for clients who needs to settle payment.</p>
             </div>
         </div>
     </div>

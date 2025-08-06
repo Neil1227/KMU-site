@@ -107,6 +107,7 @@ Route::view('/', 'index')->name('index');
 Route::redirect('/home', '/homepage')->name('home');
 
 Route::view('/homepage', 'homepage')->name('homepage');
+Route::view('/technology', 'technology')->name('technology');
 Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');

@@ -79,10 +79,10 @@
   color: var(--primary-color);
 }
 
-.card p {
+.card p , ul {
   font-size: 14px;
   line-height: 1.4;
-  color: var(--text-light);
+  color: var(--secondary-color);
 }
 
 .qr {

@@ -60,7 +60,7 @@
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 30px;
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 
 .hero-buttons {
@@ -106,7 +106,7 @@ a.btn-outline {
 
 .hero-stats div {
   text-align: center;
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 
 .hero-stats .highlight {
@@ -468,7 +468,7 @@ a.btn-outline {
   padding: 15px;
 }
 p.card-text {
-color: var(--gray-complement);
+color: var(--secondary-color);
 }
 /* sdgs-------------------------------------------------------------- */
   .sdg-card-hover {
@@ -563,38 +563,22 @@ color: var(--gray-complement);
     background-color: var(--off-white-color);
   }
 
-  .about-title {
-    color: var(--primary-color);
-    font-weight: bold;
-  }
 
-  .about-box {
-    background-color: var(--white-text);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    margin: 0 200px 10px 200px;
-  }
-  .about-box p {
-  text-align: justify;
-  font-size: 1rem;
+.about-content {
+  justify-content: center;
 }
 
-@media (max-width: 1100px) {
-  .about-box {
-    margin: 0 50px 10px 50px;
-  }
-  .about-box p {
-  text-align: justify;
-  font-size: .9rem;
+.about-logo {
+  max-width: 120px;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.about-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
-  .about-logo {
-    max-width: 120px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
 
 
 .about-title {
@@ -606,8 +590,163 @@ color: var(--gray-complement);
     background-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.section-title span {
+  color: var(--primary-color);
+}
+
+.subtitle {
+  color: var(--secondary-color);
+  max-width: 700px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.mission-box {
+  background: linear-gradient(135deg, #1c366a, #2a5298); /* Or just use solid: background-color: #1c366a; */
+  color: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* newly added about section */
+
+    .team-section,
+    .values-section {
+      margin: 50px 0;
+    }
+
+    .team-container,
+    .values-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+.team-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.team-card:hover,
+.team-card.active {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.team-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+/* Zoom and border on hover */
+.team-card:hover img,
+.team-card.active img {
+  transform: scale(1.1);
+  border: 4px solid #f7dccb; /* or any color you prefer */
+}
 
 
+/* add a imag hover zoomin */
+.team-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+    .team-card h4 {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .team-card p.role {
+      color: var(--secondary-color);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .team-card p.desc {
+      font-size: 0.9em;
+      color: #555;
+    }
+.values-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Optional: controls space between cards */
+}
+
+.value-card {
+  flex: 1 1 250px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px;
+  margin: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Optional: Center text too */
+  min-height: 200px;  /* Adjust this height as needed */
+}
+
+/* add this line if you wanted a shadow upon hover */
+/* .value-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+} */
+
+.value-icon {
+  width: 50px;              /* Fixed width */
+  height: 50px;             /* Fixed height = width */
+  display: flex;            /* Flex to center icon */
+  align-items: center;
+  justify-content: center;
+  background: #f7dccb;
+  border-radius: 50%;       /* Makes it circular */
+  font-size: 20px;
+  transition: color 0.3s ease;
+  margin-bottom: 10px;
+}
+.title-highlight{
+  color: var(--primary-color);
+}
+
+/* Change icon color when card is hovered */
+.value-card:hover .value-icon {
+  color: var(--off-white-color);
+    background: var(--primary-color);
+}
+
+
+    .value-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .value-desc {
+      font-size: 0.9em;
+      color: #555;
+    }
 
 
 

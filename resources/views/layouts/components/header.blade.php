@@ -3,7 +3,7 @@
   <div class="heading" data-aos="fade-in" data-aos-duration="1000">
     <ul class="heading-list mt-1">
       <li class="heading-content-email"><i class="fas fa-envelope"></i> kmc@psau.edu.ph</li>
-      <li class="heading-content-phone"><i class="fas fa-phone"></i> +63 900 000 0000</li>
+      <li class="heading-content-phone"><i class="fas fa-phone"></i> +63 936 745 0668</li>
       <li class="heading-content-location"><i class="fas fa-map-marker-alt"></i> PAC, San Agustin, Magalang, Pampanga, Philippines </li>
       <li class="heading-content-social">
         <a href="https://www.facebook.com/psau.kmc" class="social-icon" target="_blank"><i class="fa-brands fa-facebook"></i></a>

@@ -69,15 +69,14 @@
             font-weight: bold;
             text-decoration: none;
             color: var(--white-text);
-            background-color: var(--secondary-color); /* Two-tone gradient */
+            background-color: var(--primary-color); /* Two-tone gradient */
             border: none;
-            border-radius: 30px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .btn.two-tone:hover {
-            background: linear-gradient(135deg, #a63601, #fa7a3e);
+            background: var(--secondary-color);
             transform: scale(1.05);
         }
         @keyframes slideText {
@@ -89,7 +88,7 @@
 
         .hero-section {
             position: relative;
-            height: 90vh;
+            height: 94dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -126,10 +125,10 @@
             margin-top: 300px;
         }
 
-        .hero-content .btn:hover {
+        /* .hero-content .btn:hover {
             transform: scale(1.1);
             background-color: #e64a1c;
-        }
+        } */
 
         @media (max-width: 768px) {
         .hero-section video {
@@ -166,7 +165,7 @@
 
          /* Footer Styling */
          footer {
-            background-color: var(--primary-color);
+            flex: 1;
             color: var(--white-text);
             padding: 15px;
             text-align: center;

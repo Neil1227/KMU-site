@@ -3,10 +3,11 @@
   <div class="container-fluid d-flex justify-content-evenly ">
 
     <!-- LOGO -->
-    <div class="navbar-logo d-lg-none">
-      <!-- <img src="./assets/img/kmlogo.png" alt="Logo" class="mobile-logo"> -->
-      <h3 class="logo-text text-white">Knowledge Management Unit</h3>
-    </div>
+<div class="navbar-logo d-lg-none d-flex align-items-center">
+  <img src="./assets/img/kmlogo.png" alt="Logo" class="mobile-logo me-2" style="height: 30px;">
+  <h3 class="logo-text text-white mb-0">Knowledge Management Unit</h3>
+</div>
+
 
     <!-- TOGGLER BUTTON -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -28,7 +29,7 @@
             <li><a class="dropdown-item text-dark" href="{{ route('podcast') }}">Knowledge Sharing</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link text-white" href="tech.html">Technologies</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ route('technology') }}">Technologies</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#media-resources">Media Resources</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#research">Research</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#sdgs">SDGs</a></li>

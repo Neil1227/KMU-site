@@ -12,7 +12,11 @@
         </div>
         {{-- Real-time Viewer Section --}}
         <div class="total-site-views text-center py-3">
-            <i class="fa fa-eye sm"></i> {{ number_format($totalPageViews) }} total site views
+          <!-- hitwebcounter Code START -->
+          <!-- <a href="https://www.hitwebcounter.com" target="_blank">
+          <img src="https://hitwebcounter.com/counter/counter.php?page=21316161&style=0006&nbdigits=6&type=page&initCount=0" 
+          title="Counter Widget" Alt="Visit counter For Websites"   border="0" /></a>        -->
+            <i class="fa fa-eye sm"></i> {{ number_format($totalPageViews) }} Total Visitors
         </div>
       </div>
 
@@ -46,7 +50,7 @@
           PAC, San Agustin, Magalang, Pampanga, Philippines
         </p>
         <p class="custom-footer-text">Email: kmc@psau.edu.ph</a></p>
-        <p class="custom-footer-text">Phone: (045) 123-4567</p>
+        <p class="custom-footer-text">Phone: +63 936 745 0668</p>
       </div>
     </div>
 

@@ -90,15 +90,11 @@
           <img src="{{ asset("assets/img/sdgs/$i.png") }}" alt="SDG" />
         </div>
         <div class="text-column">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at diam ut lorem dignissim tincidunt. Nulla facilisi. Curabitur suscipit, augue sed dignissim aliquam, nisi odio blandit metus, et tincidunt mi ante non nisl.</p>
-          <p>Praesent id quam sed nulla varius tincidunt. Proin dapibus, nunc in dictum tincidunt, nulla sem egestas risus, eget porttitor odio velit ut libero.</p>
-          <p>Vivamus iaculis turpis sit amet mattis fermentum. Sed sit amet faucibus neque, ut suscipit ipsum. Pellentesque non metus nec eros scelerisque commodo.</p>
+            <p>No content available</p>
         </div>
       @else
         <div class="text-column">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at diam ut lorem dignissim tincidunt. Nulla facilisi. Curabitur suscipit, augue sed dignissim aliquam, nisi odio blandit metus, et tincidunt mi ante non nisl.</p>
-          <p>Praesent id quam sed nulla varius tincidunt. Proin dapibus, nunc in dictum tincidunt, nulla sem egestas risus, eget porttitor odio velit ut libero.</p>
-          <p>Vivamus iaculis turpis sit amet mattis fermentum. Sed sit amet faucibus neque, ut suscipit ipsum. Pellentesque non metus nec eros scelerisque commodo.</p>
+            <p>No content available</p>
         </div>
         <div class="image-column">
           <img src="{{ asset("assets/img/sdgs/$i.png") }}" alt="SDG" />

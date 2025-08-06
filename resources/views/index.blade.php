@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/research.css') }}">
 
 </head>
 
