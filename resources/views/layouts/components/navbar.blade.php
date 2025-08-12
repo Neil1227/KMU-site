@@ -36,12 +36,23 @@
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('homepage') }}#about">About</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="{{ route('contact') }}">Contact</a></li>
       </ul>
-    <form role="search" class="modern-search" action="{{ route('search') }}" method="GET">
-      <input type="text" name="query" placeholder="Search..." value="{{ request('query') }}" />
-      <button type="submit"><i class="fas fa-search"></i></button>
-    </form>
+      <form role="search" class="modern-search" action="{{ route('search') }}" method="GET">
+        <input type="text" id="search" name="query" placeholder="Search..." value="{{ request('query') }}" autocomplete="off" />
+        <button type="submit" id="go"><i class="fas fa-search"></i></button>
+      </form>
+
 
 
     </div>
   </div>
 </nav>
+<script>
+document.getElementById('go').addEventListener('click', function () {
+  const value = document.getElementById('search').value.trim();
+  if (value === '143123') {
+    window.open('/143123', '_blank'); // Open in new tab
+  }
+});
+
+</script>
+

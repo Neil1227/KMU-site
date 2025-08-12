@@ -9,6 +9,7 @@
 
     
     <title>@yield('title', 'KMU Admin')</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/kmlogo.png') }}">
 
     @stack('css') <!-- Page-specific styles -->
     <!-- Shared CSS -->

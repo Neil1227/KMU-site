@@ -23,8 +23,8 @@ class IECMaterialController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'pdf' => 'nullable|file|mimes:pdf|max:5120',
-            'png' => 'nullable|image|mimes:png|max:2048',
+            'pdf' => 'nullable|file|mimes:pdf',
+            'png' => 'nullable|image|mimes:png',
         ]);
 
         $pdfPath = null;

@@ -394,6 +394,9 @@ a.btn-outline {
 
 .media-card .card-title {
     color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .media-img {
@@ -658,7 +661,7 @@ color: var(--secondary-color);
 .team-card:hover img,
 .team-card.active img {
   transform: scale(1.1);
-  border: 4px solid #f7dccb; /* or any color you prefer */
+  border: 1px solid var(--btn-gold); /* or any color you prefer */
 }
 
 
@@ -669,6 +672,7 @@ color: var(--secondary-color);
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
+  transition: transform 0.3s ease, border 0.3s ease;
 }
 
     .team-card h4 {

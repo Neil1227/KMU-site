@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
 <link rel="stylesheet" href="{{ asset('css/research_section.css') }}">
 
+
 @endpush
 
 
@@ -424,17 +425,17 @@
       <h2  class="section-title text-center mb-5">Our <span class="title-highlight">Objectives</span></h2>
       <div class="values-container">
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-sliders-h"></i></div>
+          <div class="value-icon"><i class="fas fa-circle-down fs-4"></i></div>
           <div class="value-title highlight">Aquire</div>
           <div class="value-desc">Aquire and organize Knowledge resources created by university stakeholders to be come purposeful assets of PSAU.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-users"></i></div>
+          <div class="value-icon"><i class="fas fa-users fs-4" ></i></div>
           <div class="value-title highlight">Share</div>
           <div class="value-desc">Create space and best practice for knowledge sharing activities, making knowledge-based assets accessible to all.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="value-icon"><i class="fas fa-check-circle fs-4"></i></div>
           <div class="value-title highlight">Promote</div>
           <div class="value-desc">Ensure knowledge resources are acquiescent to existing quality assurance rules and regulations.</div>
         </div>
@@ -447,6 +448,7 @@
 
 @push('scripts')
 <script src="{{ asset('js/navbar.js') }}"></script>
+
 <!-- comment out this for 3 card effect infinite loop -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {

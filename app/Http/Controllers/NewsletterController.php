@@ -11,7 +11,7 @@ class NewsletterController extends Controller
 {
     public function index()
     {
-        $newsletters = Newsletter::latest()->get();
+        $newsletters = Newsletter::orderBy('created_at', 'asc')->get();
         return view('admin.newsletter-table', compact('newsletters'));
     }
 
@@ -25,8 +25,8 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'newsletter-pdf' => 'nullable|mimes:pdf|max:5120',
-            'newsletter-png' => 'nullable|image|mimes:png|max:2048',
+            'newsletter-pdf' => 'nullable|mimes:pdf|max:307200',
+            'newsletter-png' => 'nullable|image|mimes:png|max:30720',
         ]);
 
         $newsletter = new Newsletter();
@@ -58,8 +58,8 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf|max:5120',
-            'png' => 'nullable|image|mimes:png|max:2048',
+            'file' => 'nullable|file|mimes:pdf|max:307200',
+            'png' => 'nullable|image|mimes:png|max:30720',
         ]);
 
         $newsletter = Newsletter::findOrFail($id);

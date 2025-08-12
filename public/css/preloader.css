@@ -1,0 +1,95 @@
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #e9e9e9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.loader {
+  position: relative;
+  width: 2.5em;
+  height: 2.5em;
+  transform: rotate(165deg);
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0.25em;
+  transform: translate(-50%, -50%);
+}
+
+.loader:before {
+  animation: before 2s infinite;
+}
+
+.loader:after {
+  animation: after 2s infinite;
+}
+
+@keyframes before {
+  0% {
+    width: 0.5em;
+    box-shadow:
+      1em -0.75em var(--primary-color),
+     -1em 0.75em var(--secondary-color);
+  }
+  35% {
+    width: 2.5em;
+    box-shadow:
+      0 -0.75em var(--primary-color),
+      0  0.75em var(--secondary-color);
+  }
+  70% {
+    width: 0.5em;
+    box-shadow:
+     -1em -0.75em var(--primary-color),
+      1em  0.75em var(--secondary-color);
+  }
+  100% {
+    box-shadow:
+      1em -0.75em var(--primary-color),
+     -1em  0.75em var(--secondary-color);
+  }
+}
+
+@keyframes after {
+  0% {
+    height: 0.5em;
+    box-shadow:
+      0.75em 1em var(--tertiary-color),
+     -0.75em -1em forestgreen;
+  }
+  35% {
+    height: 2.5em;
+    box-shadow:
+      0.75em 0 var(--tertiary-color),
+     -0.75em 0 forestgreen;
+  }
+  70% {
+    height: 0.5em;
+    box-shadow:
+      0.75em -1em var(--tertiary-color),
+     -0.75em  1em forestgreen;
+  }
+  100% {
+    box-shadow:
+      0.75em 1em var(--tertiary-color),
+     -0.75em -1em forestgreen;
+  }
+}
+
+

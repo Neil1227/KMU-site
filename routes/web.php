@@ -112,6 +112,13 @@ Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
 
+// for redirect using the secret code
+Route::get('/143123', function () {
+    return redirect()->route('admin.login'); // if you named the admin login route
+    // or return redirect('/admin/login'); if you use the direct path
+});
+
+
 
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
