@@ -34,12 +34,6 @@
   display: inline-block;
 }
 
-.image-container img {
-  max-width: 100%;   /* Adjust this value as needed */
-  height: auto;
-  display: inline-block;
-}
-
 /* Overlay Styling */
 .overlay {
   position: absolute;
@@ -69,7 +63,7 @@
 }
 
 .card-text {
-    color: var(--secondary-color);
+    color: var(--gray-complement);
 }
 
 /* Button Styling */

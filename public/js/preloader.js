@@ -7,6 +7,6 @@
         setTimeout(() => {
           preloader.style.display = "none";
         }, 500); // Wait for fade-out transition to complete
-      }, 2500); // Delay before fade-out starts (in milliseconds)
+      }, 2000); // Delay before fade-out starts (in milliseconds)
     }
   });

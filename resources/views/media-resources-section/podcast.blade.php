@@ -20,10 +20,10 @@
 @include('layouts.components.generic-background')
 
 {{-- Podcast Cards --}}
-<section class="container-page mb-5">
+<section class="container-page mb-5" id="podcast">
     <div class="row justify-content-center g-4 mt-4" id="podcastCards">
         @foreach ($podcasts as $index => $podcast)
-            <div class="col-md-4 mb-4 transition-card podcast-card {{ $index >= 6 ? 'd-none' : '' }}">
+            <div class="col-md-4 mb-4 transition-card ictv-card podcast-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
                     <img src="{{ asset('storage/podcast_thumbnail/' . $podcast->png) }}" class="card-img media-img" alt="{{ $podcast->title }}">
                     <div class="card-body">

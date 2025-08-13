@@ -1,7 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark" data-aos="fade-in" data-aos-duration="1000">
     <div class="container-fluid start-nav">
-        <div class="navbar-logo d-lg-none" data-aos="fade-right" data-aos-delay="100">
-            <h3 class="logo-text">{{ strtoupper($active ?? '') }}</h3>
+
+        <!-- Navbar Logo (left-aligned) -->
+        <div class="navbar-logo d-lg-none d-flex align-items-center" data-aos="fade-right" data-aos-delay="100">
+            <img src="./assets/img/kmlogo.png" alt="Logo" class="mobile-logo me-2" style="height: 30px;">
+            <h3 class="logo-text mb-0">{{ strtoupper($active ?? '') }}</h3>
         </div>
 
         <!-- Navbar Toggler (right-aligned) -->
