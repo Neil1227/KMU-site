@@ -18,42 +18,45 @@ class IECMaterialController extends Controller
         return view('admin.iec-table', compact('iecMaterials', 'episodes', 'modules'));
     }
 
-    public function upload(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'pdf' => 'nullable|file|mimes:pdf',
-            'png' => 'nullable|image|mimes:png',
-        ]);
+   public function upload(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'pdf' => 'nullable|file|mimes:pdf',
+        'png' => 'nullable|image|mimes:png',
+    ]);
 
-        $pdfPath = null;
-        $imagePath = null;
+    $pdfName = null;
+    $imageName = null;
 
-        if ($request->hasFile('pdf')) {
-            $pdfPath = $request->file('pdf')->store('iec_brochure', 'public');
-        }
-
-        if ($request->hasFile('png')) {
-            $imagePath = $request->file('png')->store('iec_thumbnail', 'public');
-        }
-
-        $iec = IECMaterial::create([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'file' => basename($pdfPath),
-            'png' => $imagePath ? basename($imagePath) : null,
-        ]);
-
-        // Log activity
-        RecentActivity::create([
-            'action' => 'added',
-            'title' => $iec->title,
-            'source' => 'IEC Material',
-        ]);
-
-        return redirect()->back()->with('success', 'IEC Material uploaded successfully.');
+    if ($request->hasFile('pdf')) {
+        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
+        $request->file('pdf')->storeAs('iec_brochure', $pdfName, 'public');
     }
+
+    if ($request->hasFile('png')) {
+        $imageName = time() . '_' . $request->file('png')->getClientOriginalName();
+        $request->file('png')->storeAs('iec_thumbnail', $imageName, 'public');
+    }
+
+    $iec = IECMaterial::create([
+        'title' => $validated['title'],
+        'description' => $validated['description'],
+        'file' => $pdfName,
+        'png' => $imageName,
+    ]);
+
+    // Log activity
+    RecentActivity::create([
+        'action' => 'added',
+        'title' => $iec->title,
+        'source' => 'IEC Material',
+    ]);
+
+    return redirect()->back()->with('success', 'IEC Material uploaded successfully.');
+}
+
 
     public function destroy($id)
     {
@@ -94,14 +97,17 @@ class IECMaterialController extends Controller
         $material->description = $request->description;
 
         if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('iec_brochure', 'public');
-            $material->file = basename($filePath);
+            $fileName = time() . '_' . $request->file('file')->getClientOriginalName();
+            $request->file('file')->storeAs('iec_brochure', $fileName, 'public');
+            $material->file = $fileName;
         }
 
         if ($request->hasFile('png')) {
-            $pngPath = $request->file('png')->store('iec_thumbnail', 'public');
-            $material->png = basename($pngPath);
+            $pngName = time() . '_' . $request->file('png')->getClientOriginalName();
+            $request->file('png')->storeAs('iec_thumbnail', $pngName, 'public');
+            $material->png = $pngName;
         }
+
 
         $material->save();
 

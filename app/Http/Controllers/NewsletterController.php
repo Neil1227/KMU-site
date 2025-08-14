@@ -25,22 +25,25 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'newsletter-pdf' => 'nullable|mimes:pdf|max:307200',
-            'newsletter-png' => 'nullable|image|mimes:png|max:30720',
+            'newsletter-pdf' => 'nullable|mimes:pdf',
+            'newsletter-png' => 'nullable|image|mimes:png',
         ]);
 
         $newsletter = new Newsletter();
         $newsletter->title = $request->title;
 
-        if ($request->hasFile('newsletter-pdf')) {
-            $pdfPath = $request->file('newsletter-pdf')->store('newsletter', 'public');
-            $newsletter->file = basename($pdfPath);
-        }
+    if ($request->hasFile('newsletter-pdf')) {
+        $pdfName = time() . '_' . $request->file('newsletter-pdf')->getClientOriginalName();
+        $request->file('newsletter-pdf')->storeAs('newsletter', $pdfName, 'public');
+        $newsletter->file = $pdfName;
+    }
 
-        if ($request->hasFile('newsletter-png')) {
-            $imagePath = $request->file('newsletter-png')->store('newsletter_thumbnail', 'public');
-            $newsletter->png = basename($imagePath);
-        }
+    if ($request->hasFile('newsletter-png')) {
+        $imageName = time() . '_' . $request->file('newsletter-png')->getClientOriginalName();
+        $request->file('newsletter-png')->storeAs('newsletter_thumbnail', $imageName, 'public');
+        $newsletter->png = $imageName;
+    }
+
 
         $newsletter->save();
 
@@ -58,22 +61,25 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf|max:307200',
-            'png' => 'nullable|image|mimes:png|max:30720',
+            'file' => 'nullable|file|mimes:pdf',
+            'png' => 'nullable|image|mimes:png',
         ]);
 
         $newsletter = Newsletter::findOrFail($id);
         $newsletter->title = $request->title;
 
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('newsletter', 'public');
-            $newsletter->file = basename($filePath);
-        }
+    if ($request->hasFile('file')) {
+        $fileName = time() . '_' . $request->file('file')->getClientOriginalName();
+        $request->file('file')->storeAs('newsletter', $fileName, 'public');
+        $newsletter->file = $fileName;
+    }
 
-        if ($request->hasFile('png')) {
-            $pngPath = $request->file('png')->store('newsletter_thumbnail', 'public');
-            $newsletter->png = basename($pngPath);
-        }
+    if ($request->hasFile('png')) {
+        $pngName = time() . '_' . $request->file('png')->getClientOriginalName();
+        $request->file('png')->storeAs('newsletter_thumbnail', $pngName, 'public');
+        $newsletter->png = $pngName;
+    }
+
 
         $newsletter->save();
 

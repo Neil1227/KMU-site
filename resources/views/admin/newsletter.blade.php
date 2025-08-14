@@ -18,7 +18,7 @@
                             <h4 class="text-white mb-0">Newsletter Details</h4>
                         </div>
 
-                        <form action="{{ route('admin.newsletter.upload') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.newsletter.upload') }}" method="POST" enctype="multipart/form-data" data-show-loader>
                             @csrf
 
                             <div class="mb-3 mt-3">
@@ -56,6 +56,8 @@
 
                     </div>
                 </div>
+
+
                 <!-- Quick Actions + Dashboard Stats -->
                 <div class="col-md-6">
                         @include('admin.components.quick-action')
@@ -68,6 +70,8 @@
 
 @endsection
 @push('scripts')
+
+
 <!-- Drag & Drop Upload -->
 <script>
     document.querySelectorAll('.drop-area').forEach(area => {

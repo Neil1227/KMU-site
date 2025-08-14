@@ -11,7 +11,7 @@
                             <h4 class="text-white mb-0">IEC Material Details</h4>
                         </div>
 
-                       <form action="{{ route('admin.iec.upload') }}" id="editIecForm" method="POST" enctype="multipart/form-data">
+                       <form action="{{ route('admin.iec.upload') }}" id="editIecForm" method="POST" enctype="multipart/form-data" data-show-loader>
 
                             @csrf
 

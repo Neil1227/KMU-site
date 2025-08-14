@@ -26,7 +26,12 @@
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/sidebar.css') }}">
     
-
+                <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                </style>
 </head>
 
 <body>
@@ -44,7 +49,17 @@
                     @include('admin.components.header')
 
                     {{-- Dynamic Content --}}
-                
+                    <!-- Loader for Large File Overlay -->
+                        <div id="upload-loader">
+                            <div style="
+                                border:6px solid #f85e0a;
+                                border-top:6px solid #1c366a;
+                                border-radius:50%;
+                                width:60px;
+                                height:60px;
+                                animation:spin 1s linear infinite;"></div>
+                            <p style="margin-top:10px;font-size:16px;color:#333;">Uploading, please wait...</p>
+                        </div>
                     @yield('content')
                 </div>
             </div>
@@ -76,6 +91,36 @@
     <!-- jQuery and DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Large File js loader -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const forms = document.querySelectorAll('form[data-show-loader]');
+
+        if (forms.length > 0) {
+            forms.forEach(form => {
+                form.addEventListener("submit", function () {
+                    const loader = document.getElementById("upload-loader");
+                    if (!loader) return;
+
+                    loader.style.display = "flex";
+
+                    // Minimum display time (e.g., 800ms) to prevent flash
+                    const startTime = Date.now();
+                    form.addEventListener("ajaxComplete", function () {
+                        const elapsed = Date.now() - startTime;
+                        const remaining = 800 - elapsed;
+                        setTimeout(() => {
+                            loader.style.display = "none";
+                        }, remaining > 0 ? remaining : 0);
+                    });
+                });
+            });
+        }
+    });
+    </script>
+
+
     <script>
         AOS.init();
     </script>

@@ -11,7 +11,7 @@
                 <h4 class="text-white mb-0">Module Details</h4>
             </div>
 
-            <form action="{{ route('admin.modules.upload') }}" id="uploadModuleForm" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.modules.upload') }}" id="uploadModuleForm" method="POST" enctype="multipart/form-data" data-show-loader>
                 @csrf
 
                 <div class="mb-3 mt-3">

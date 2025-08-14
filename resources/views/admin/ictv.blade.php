@@ -13,7 +13,7 @@
                 <h4 class="text-white mb-0">ICTV Episode Details</h4>
             </div>
 
-            <form action="{{ route('ictv.upload') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('ictv.upload') }}" method="POST" enctype="multipart/form-data" data-show-loader>
                 @csrf
 
                 <div class="mb-3 mt-3">

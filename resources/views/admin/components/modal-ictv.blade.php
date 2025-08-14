@@ -1,7 +1,7 @@
 <!-- Edit Episode Modal -->
 <div class="modal fade" id="editEpisodeModal" tabindex="-1" aria-labelledby="editEpisodeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-<form id="editEpisodeForm" method="POST" enctype="multipart/form-data">
+<form id="editEpisodeForm" method="POST" enctype="multipart/form-data" data-show-loader>
   @csrf
   @method('PUT')
 

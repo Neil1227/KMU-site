@@ -1,7 +1,7 @@
 <!-- Edit Promotional Activity Modal -->
 <div class="modal fade" id="editPromoModal" tabindex="-1" aria-labelledby="editPromoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form id="editPromoForm" method="POST" enctype="multipart/form-data">
+    <form id="editPromoForm" method="POST" enctype="multipart/form-data" data-show-loader>
       @csrf
       @method('PUT')
 

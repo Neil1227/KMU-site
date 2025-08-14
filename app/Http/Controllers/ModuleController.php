@@ -27,21 +27,23 @@ class ModuleController extends Controller
             'png' => 'nullable|image|mimes:png',
         ]);
 
-        $pdfPath = null;
-        $imagePath = null;
+        $pdfName = null;
+        $imageName = null;
 
         if ($request->hasFile('pdf')) {
-            $pdfPath = $request->file('pdf')->store('modules', 'public');
+            $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
+            $request->file('pdf')->storeAs('modules', $pdfName, 'public');
         }
 
         if ($request->hasFile('png')) {
-            $imagePath = $request->file('png')->store('modules_thumbnail', 'public');
+            $imageName = time() . '_' . $request->file('png')->getClientOriginalName();
+            $request->file('png')->storeAs('modules_thumbnail', $imageName, 'public');
         }
 
         $module = Module::create([
             'title' => $validated['title'],
-            'file' => basename($pdfPath),
-            'png' => $imagePath ? basename($imagePath) : null,
+            'file' => $pdfName,
+            'png' => $imageName,
         ]);
 
         // Log recent activity
@@ -53,6 +55,7 @@ class ModuleController extends Controller
 
         return redirect()->back()->with('success', 'Module uploaded successfully.');
     }
+
 
     public function destroy($id)
     {
@@ -92,15 +95,18 @@ class ModuleController extends Controller
         $module = Module::findOrFail($id);
         $module->title = $request->title;
 
-        if ($request->hasFile('pdf')) {
-            $pdfPath = $request->file('pdf')->store('modules', 'public');
-            $module->file = basename($pdfPath);
-        }
+    if ($request->hasFile('pdf')) {
+        $pdfName = time() . '_' . $request->file('pdf')->getClientOriginalName();
+        $request->file('pdf')->storeAs('modules', $pdfName, 'public');
+        $module->file = $pdfName;
+    }
 
-        if ($request->hasFile('png')) {
-            $pngPath = $request->file('png')->store('modules_thumbnail', 'public');
-            $module->png = basename($pngPath);
-        }
+    if ($request->hasFile('png')) {
+        $pngName = time() . '_' . $request->file('png')->getClientOriginalName();
+        $request->file('png')->storeAs('modules_thumbnail', $pngName, 'public');
+        $module->png = $pngName;
+    }
+
 
         $module->save();
 
