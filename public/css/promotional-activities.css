@@ -1,63 +1,73 @@
+/* ====== CARD COMPONENT ====== */
+.card {
+  border-radius: 15px;
+  border: none !important;
+  padding: 10px;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
 
+.transition-card .card {
+  background-color: rgba(255, 255, 255, 0.6);
+}
 
-        /* Card Styling */
-        .card {
-            background: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            overflow: hidden;
-        }
-        .card-text{
-            color: var(--gray-complement);
-        }
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+.transition-card .card:hover {
+  transform: translateY(-5px);
+}
 
-        .ictv-card-title{
-            color: var(--primary-color);
-        }
+.card-text {
+  color: var(--secondary-color);
+}
 
-        .card-body .watch-btn {
-            background-color: var(--btn-gold);
-            color: var(--white-text);
-            border: none;
-        }
+.ictv-card-title {
+  color: var(--primary-color);
+}
 
-        .card-body .watch-btn:hover {
-            background-color: var(--btn-hover-gold);
-        }
-        /* ICTV Smooth Transition Cards */
+/* Watch Button */
+.card-body .watch-btn {
+  background-color: var(--primary-color);
+  color: var(--white-text);
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.card-body .watch-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--white-text);
+}
+
+/* Collapsible Cards */
 .ictv-card.collapsible {
-    overflow: hidden;
-    opacity: 1;
-    max-height: 500px;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+  max-height: 1000px;
+  opacity: 1;
+  transform: scaleY(1);
+  transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  overflow: hidden;
 }
 
 .ictv-card.collapsed {
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
-    margin: 0 !important;
-    padding: 0 !important;
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0.95);
+  padding: 0 !important;
+  margin: 0 !important;
+  display: none !important;
 }
 
-/* ICTV Show More/Less Button Style */
+/* Toggle Button */
 #toggleIctvBtn.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    padding: 8px 24px;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white-text);
+  font-weight: 600;
+  padding: 8px 24px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #toggleIctvBtn.btn-primary:hover {
-    background-color: #d84c00;
-    transform: translateY(-1px);
+  background-color: #d84c00;
+  transform: translateY(-1px);
 }
-

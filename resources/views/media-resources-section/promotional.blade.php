@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}"> 
     <link rel="stylesheet" href="{{ asset('css/research.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/promotional-activities.css') }}">
 @endpush
 
 @section('content')

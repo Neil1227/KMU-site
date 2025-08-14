@@ -137,7 +137,6 @@ Route::get('/promotional', [MainController::class, 'promotionalActivities'])->na
 Route::get('/podcast', [MainController::class, 'podcast'])->name('podcast');
 
 // Research Controller
-
 Route::get('/agriculture', [ResearchController::class, 'agriculture'])->name('agriculture');
 Route::get('/aquaculture', [ResearchController::class, 'aquaculture'])->name('aquaculture');
 Route::get('/livestock', [ResearchController::class, 'livestock'])->name('livestock');
