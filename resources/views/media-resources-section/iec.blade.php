@@ -17,7 +17,7 @@
 
 
 {{-- Navbar --}}
-@include('layouts.components.media-navbar', ['active' => 'iec'])
+@include('layouts.components.media-navbar', ['active' => 'iec materials'])
 
 @include('layouts.components.generic-background')
 

@@ -38,6 +38,10 @@
   padding: 10px;
 }
 
+.navbar.sticky-active .collapse {
+  background-color: var(--secondary-color);
+}
+
 /* ===============================
    NAV LINKS
    =============================== */
