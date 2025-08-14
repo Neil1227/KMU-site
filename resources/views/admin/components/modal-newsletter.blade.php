@@ -1,7 +1,7 @@
 <!-- Edit Newsletter Modal -->
 <div class="modal fade" id="editNewsletterModal" tabindex="-1" aria-labelledby="editNewsletterModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form id="editNewsletterForm" method="POST" enctype="multipart/form-data" data-show-loader>
+    <form id="editNewsletterForm" method="POST" enctype="multipart/form-data" data-upload-loader>
       @csrf
 
       <div class="modal-content">

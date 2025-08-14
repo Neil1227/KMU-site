@@ -1,7 +1,7 @@
 <!-- Edit IEC Material Modal -->
 <div class="modal fade" id="editIECModal" tabindex="-1" aria-labelledby="editIECModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form id="editIECForm" method="POST" enctype="multipart/form-data" data-show-loader>
+    <form id="editIECForm" method="POST" enctype="multipart/form-data" data-upload-loader>
       @csrf
       
       <div class="modal-content">

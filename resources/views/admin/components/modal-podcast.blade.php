@@ -1,7 +1,7 @@
 <!-- Edit Podcast Modal -->
 <div class="modal fade" id="editPodcastModal" tabindex="-1" aria-labelledby="editPodcastModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form id="editPodcastForm" method="POST" enctype="multipart/form-data" data-show-loader>
+    <form id="editPodcastForm" method="POST" enctype="multipart/form-data" data-upload-loader>
       @csrf
       @method('PUT')
 

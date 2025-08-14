@@ -120,34 +120,64 @@
     });
     </script>
 
+<!-- Large File JS Loader (Update) continue this -->
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const updateForms = document.querySelectorAll('form[data-show-update-loader]');
+
+    if (updateForms.length > 0) {
+        updateForms.forEach(form => {
+            form.addEventListener("submit", function () {
+                const loader = document.getElementById("update-loader");
+                if (!loader) return;
+
+                loader.style.display = "flex";
+
+                const startTime = Date.now();
+                form.addEventListener("ajaxComplete", function () {
+                    const elapsed = Date.now() - startTime;
+                    const remaining = 800 - elapsed;
+                    setTimeout(() => {
+                        loader.style.display = "none";
+                    }, remaining > 0 ? remaining : 0);
+                });
+            });
+        });
+    }
+});
+</script> -->
+
+
+
 
     <script>
         AOS.init();
     </script>
+
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("sidebarToggle");
-    const sidebar = document.getElementById("sidebar");
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("sidebarToggle");
+            const sidebar = document.getElementById("sidebar");
 
-    toggleBtn?.addEventListener("click", function () {
-        sidebar.classList.toggle("show");
+            toggleBtn?.addEventListener("click", function () {
+                sidebar.classList.toggle("show");
 
-        if (!document.getElementById("sidebar-backdrop")) {
-            const backdrop = document.createElement("div");
-            backdrop.className = "sidebar-backdrop";
-            backdrop.id = "sidebar-backdrop";
-            document.body.appendChild(backdrop);
+                if (!document.getElementById("sidebar-backdrop")) {
+                    const backdrop = document.createElement("div");
+                    backdrop.className = "sidebar-backdrop";
+                    backdrop.id = "sidebar-backdrop";
+                    document.body.appendChild(backdrop);
 
-            backdrop.addEventListener("click", function () {
-                sidebar.classList.remove("show");
-                backdrop.remove();
+                    backdrop.addEventListener("click", function () {
+                        sidebar.classList.remove("show");
+                        backdrop.remove();
+                    });
+                } else {
+                    document.getElementById("sidebar-backdrop").remove();
+                }
             });
-        } else {
-            document.getElementById("sidebar-backdrop").remove();
-        }
-    });
-});
-</script>
+        });
+    </script>
     @stack('scripts') <!-- Page-specific scripts -->
 </body>
 </html>
