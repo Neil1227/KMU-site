@@ -43,13 +43,13 @@
   .form-control, .btn {
     border-radius: 8px;
   }
-  a.btn-hero {
+  #contactForm .btn-hero {
     background-color: var(--primary-color);
     color: white;
     border: none;
   }
 
-  a.btn-hero:hover {
+  #contactForm .btn-hero:hover {
     background-color: var(--secondary-color);
     color: white;
 

@@ -23,39 +23,41 @@
 
 
 <section class="container-page">
-      <h2 class="text-center mb-4 mt-3 section-title" data-aos="fade-up">Get in <span class="title-highlight">touch with us!</span> </h2>
+<h2 class="text-center mb-4 mt-3 section-title" data-aos="fade-up">Get in <span class="title-highlight">touch with us!</span> </h2>
 <div class="row g-4 mb-3">
   <!-- Right Column (Form) -->
   <div class="col-md-7 order-1 order-md-2">
-    <div class="card form-card p-4">
-      <h4 class="mb-3 fw-bold highlight">Send us a message</h4>
-      <form>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" placeholder="eg. Juan Dela Cruz">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" placeholder="eg. juan.delacruz@email.com">
-          </div>
+  <div class="card form-card p-4">
+    <h4 class="mb-3 fw-bold highlight">Send us a message</h4>
+    <form id="contactForm" action="https://formspree.io/f/xzzvwzyn" method="POST">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Full Name</label>
+          <input type="text" name="name" class="form-control" placeholder="eg. Juan Dela Cruz" required>
         </div>
-
-        <div class="mt-3">
-          <label class="form-label">Subject</label>
-          <input type="text" class="form-control" placeholder="How can we help?">
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" placeholder="eg. juan.delacruz@email.com" required>
         </div>
+      </div>
 
-        <div class="mt-3">
-          <label class="form-label">Message</label>
-          <textarea class="form-control" rows="4" placeholder="Share details to help us assist you efficiently."></textarea>
-        </div>
+      <div class="mt-3">
+        <label class="form-label">Subject</label>
+        <input type="text" name="subject" class="form-control" placeholder="How can we help?" required>
+      </div>
 
-        <p class="small mt-2 text-muted"><em>We aim to respond to all inquiries within 1–2 business days.</em></p>
-        <a type="submit" class="btn btn-hero px-4 mt-2">Send message</a>
-      </form>
-    </div>
+      <div class="mt-3">
+        <label class="form-label">Message</label>
+        <textarea name="message" class="form-control" rows="4" placeholder="Share details to help us assist you efficiently." required></textarea>
+      </div>
+
+      <p class="small mt-2 text-muted"><em>We aim to respond to all inquiries within 1–2 business days.</em></p>
+      <button type="submit" class="btn btn-hero px-4 mt-2">Send message</button>
+    </form>
+    <div id="formStatus" class="mt-3"></div>
   </div>
+</div>
+
 
   <!-- Left Column (Contact Info) -->
   <div class="col-md-5 order-2 order-md-1">
@@ -113,6 +115,7 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="{{ asset('message.js') }}"></script>
 <script src="{{ asset('js/navbar.js') }}"></script>
+<script src="{{ asset('js/email.js') }}"></script>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="{{ asset('js/map.js') }}"></script>

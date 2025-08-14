@@ -430,13 +430,13 @@
           <div class="value-desc">Aquire and organize Knowledge resources created by university stakeholders to be come purposeful assets of PSAU.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-users fs-4" ></i></div>
-          <div class="value-title highlight">Share</div>
+          <div class="value-icon"><i class="fas fa-check-circle fs-4" ></i></div>
+          <div class="value-title highlight">Promote</div>
           <div class="value-desc">Create space and best practice for knowledge sharing activities, making knowledge-based assets accessible to all.</div>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-check-circle fs-4"></i></div>
-          <div class="value-title highlight">Promote</div>
+          <div class="value-icon"><i class="fas fa-users fs-4"></i></div>
+          <div class="value-title highlight">Share</div>
           <div class="value-desc">Ensure knowledge resources are acquiescent to existing quality assurance rules and regulations.</div>
         </div>
       </div>
