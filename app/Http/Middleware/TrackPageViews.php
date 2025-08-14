@@ -9,12 +9,15 @@ class TrackPageViews
 {
     public function handle($request, Closure $next)
     {
-        // Avoid counting admin or API routes if needed
-        if (!$request->is('admin/*') && !$request->is('api/*')) {
+        // Avoid admin or API routes
+        if (
+            !$request->is('admin/*') &&
+            !$request->is('api/*') &&
+            $request->routeIs('homepage') // Only increment on homepage route
+        ) {
             DB::table('page_views')->where('id', 1)->increment('count');
         }
 
         return $next($request);
     }
 }
-

@@ -448,25 +448,6 @@
 
 @push('scripts')
 <script src="{{ asset('js/navbar.js') }}"></script>
-
-<!-- comment out this for 3 card effect infinite loop -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.absolute-cards-container .card-box');
-    let current = 0;
-
-    function cycleZoom() {
-      cards.forEach(card => card.classList.remove('zoom-effect'));
-      cards[current].classList.add('zoom-effect');
-
-      current = (current + 1) % cards.length;
-    }
-
-    cycleZoom(); // initial run
-    setInterval(cycleZoom, 2500); // run every 2.5 seconds
-  });
-</script>
-
 <!-- counter for the hero -->
 <script src="{{ asset('js/counter.js') }}"></script>
 

@@ -112,12 +112,25 @@ Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
 
+
+
+// By clicking the learn more button from index, it will increment the page view counter and redirect to the homepage
+Route::get('/learn-more', function () {
+    // Increment counter
+    \DB::table('page_views')->increment('count');
+
+    // Redirect to home
+    return redirect('/home');
+});
+
+
+
+
 // for redirect using the secret code
 Route::get('/143123', function () {
     return redirect()->route('admin.login'); // if you named the admin login route
     // or return redirect('/admin/login'); if you use the direct path
 });
-
 
 
 // For main controller

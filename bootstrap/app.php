@@ -11,19 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Register global middleware here
-        $middleware->append([
-            \App\Http\Middleware\TrackPageViews::class,
-        ]);
 
-        // Optional: keep aliases for named routes
+        // ✅ Add TrackPageViews globally
+        $middleware->append(\App\Http\Middleware\TrackPageViews::class);
+
+        // ✅ Keep your existing aliases
         $middleware->alias([
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
             'admin.guest' => \App\Http\Middleware\AdminGuest::class,
         ]);
     })
-
-
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
