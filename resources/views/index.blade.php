@@ -25,20 +25,29 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <video autoplay muted playsinline class="mt-5">
+<!-- Hero Section with Image Fallback -->
+<div class="hero-section">
+    <!-- Video for non-iOS -->
+    <video autoplay muted playsinline class="hero-video">
         <source src="./assets/videos/opener_14-37-44.mp4" type="video/mp4">
         Your browser does not support the video tag.
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="me-md-3 mb-2 mb-md-0">
-                <a href="{{ url('/learn-more') }}" class="btn two-tone">Learn More</a>
+    </video>
 
-            </div>
+    <!-- Fallback image for iOS -->
+    <img src="{{ asset('assets/img/KMULOGO.png') }}" 
+         alt="Hero Image" 
+         class="hero-fallback-img">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <div class="me-md-3 mb-2 mb-md-0">
+            <a href="{{ url('/learn-more') }}" class="btn two-tone">Learn More ⇀</a>
         </div>
     </div>
+</div>
+
+
 
     <!-- Footer -->
     <footer class="text-center">
