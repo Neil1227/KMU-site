@@ -132,7 +132,18 @@ mark {
     width: 100%;
     font-weight: bold;
 }
+/* Watch Button */
+.card-body .watch-btn {
+  background-color: var(--primary-color);
+  color: var(--white-text);
+  border: none;
+  transition: background-color 0.3s ease;
+}
 
+.card-body .watch-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--white-text);
+}
 /* Footer Styling */
 footer {
   background: rgba(0, 0, 0, 0.5);

@@ -39,7 +39,7 @@
                                     <div class="upload-box drop-area">
                                         <i class="fa fa-upload upload-icon"></i>
                                         <p class="upload-text">Upload PNG file</p>
-                                        <input type="file" class="file-input" id="modules-png" name="png" accept="image/png" hidden>
+                                        <input type="file" class="file-input" id="modules-png" name="png" accept="image/*" hidden>
                                     </div>
                                 </div>
                             </div>

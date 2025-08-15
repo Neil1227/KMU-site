@@ -37,7 +37,7 @@
                         <div class="upload-box drop-area" data-type="png">
                             <i class="fa fa-upload upload-icon"></i>
                             <p class="upload-text">Drag & drop PNG or click</p>
-                            <input type="file" id="png" name="png" accept="image/png" class="file-input" required hidden>
+                            <input type="file" id="png" name="png" accept="image/*" class="file-input" required hidden>
                         </div>
                     </div>
                 </div>

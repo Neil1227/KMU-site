@@ -26,7 +26,7 @@ public function upload(Request $request)
     $request->validate([
         'title' => 'required|string|max:255',
         'newsletter-pdf' => 'nullable|mimes:pdf',
-        'newsletter-png' => 'nullable|image|mimes:png',
+        'newsletter-png' => 'nullable|image',
     ]);
 
     $newsletter = new Newsletter();
@@ -81,7 +81,7 @@ public function update(Request $request, $id)
     $request->validate([
         'title' => 'required|string|max:255',
         'file' => 'nullable|file|mimes:pdf',
-        'png' => 'nullable|image|mimes:png',
+        'png' => 'nullable|image',
     ]);
 
     $newsletter = Newsletter::findOrFail($id);

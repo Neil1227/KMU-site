@@ -33,7 +33,7 @@
                         <div class="upload-box drop-area">
                             <i class="fa fa-upload upload-icon"></i>
                             <p class="upload-text">Upload preview image</p>
-                            <input type="file" class="file-input" id="module-thumbnail" name="png" accept="image/png" hidden>
+                            <input type="file" class="file-input" id="module-thumbnail" name="png" accept="image/*" hidden>
                         </div>
                     </div>
                 </div>

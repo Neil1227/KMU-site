@@ -24,7 +24,7 @@ public function upload(Request $request)
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'pdf' => 'nullable|file|mimes:pdf',
-        'png' => 'nullable|image|mimes:png',
+        'png' => 'nullable|image',
     ]);
 
     $pdfName = null;
@@ -108,7 +108,7 @@ public function update(Request $request, $id)
         'title' => 'required|string',
         'description' => 'required|string',
         'file' => 'nullable|mimes:pdf',
-        'png' => 'nullable|image|mimes:png',
+        'png' => 'nullable|image',
     ]);
 
     $material = IECMaterial::findOrFail($id);

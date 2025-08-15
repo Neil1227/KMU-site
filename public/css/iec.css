@@ -34,14 +34,14 @@
   display: inline-block;
 }
 
-/* Overlay Styling */
-.overlay {
+
+/* .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* darker semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.7); 
   opacity: 0;
   transition: opacity 0.3s ease;
   display: flex;
@@ -54,7 +54,7 @@
 .image-container:hover .overlay,
 .card:hover .overlay {
   opacity: 1;
-}
+} */
 
 /* Text Styling */
 .card-title-iec {

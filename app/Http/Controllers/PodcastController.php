@@ -21,7 +21,7 @@ class PodcastController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url|max:2048', // Optional podcast link
-            'png' => 'nullable|image|mimes:png|max:2048', // Only PNG files
+            'png' => 'nullable|image', // Only PNG files
         ]);
 
         $pngFileName = null;
@@ -77,7 +77,7 @@ class PodcastController extends Controller
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'link' => 'nullable|url|max:2048',
-        'png' => 'nullable|image|mimes:png|max:2048',
+        'png' => 'nullable|image',
     ]);
 
     $podcast = Podcast::findOrFail($id);

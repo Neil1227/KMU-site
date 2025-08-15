@@ -19,7 +19,7 @@ class ICTVController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'png' => 'nullable|file|mimes:png',
+           'png' => 'nullable|image', 
         ]);
 
         $pngFilename = null;
@@ -88,7 +88,7 @@ class ICTVController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'png' => 'nullable|file|mimes:png',
+            'png' => 'nullable|image',
         ]);
 
         $episode = Ictv::findOrFail($id);

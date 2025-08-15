@@ -25,20 +25,25 @@
     <div class="row justify-content-center g-4 mt-4">
         @foreach ($brochures as $brochure)
             <div class="col-md-4 col-lg-4 transition-card">
-                <a href="{{ asset('storage/iec_brochure/' . $brochure->file) }}" target="_blank" class="text-decoration-none">
-                    <div class="card ">
-                        <div class="image-container">
-                            <img src="{{ asset('storage/iec_thumbnail/' . $brochure->png) }}" alt="{{ $brochure->title }}" class="card-img" loading="lazy">
-                            <div class="overlay">
-                                <i class="fa fa-eye" style="font-size: 24px;"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title-iec">{{ $brochure->title }}</h5>
-                            <p class="card-text ">{{ $brochure->description }}</p>
-                        </div>
+                <div class="card">
+                    <div class="image-container">
+                        <img src="{{ asset('storage/iec_thumbnail/' . $brochure->png) }}" 
+                            alt="{{ $brochure->title }}" 
+                            class="card-img" 
+                            loading="lazy">
+                        <!-- <div class="overlay">
+                            <i class="fa fa-eye" style="font-size: 24px;"></i>
+                        </div> -->
                     </div>
-                </a>
+                    <div class="card-body">
+                        <h5 class="card-title-iec">{{ $brochure->title }}</h5>
+                        <a href="{{ asset('storage/iec_brochure/' . $brochure->file) }}" 
+                        target="_blank" 
+                        class="btn watch-btn mt-2">
+                            View Brochure
+                        </a>
+                    </div>
+                </div>
             </div>
         @endforeach
     </div>

@@ -24,7 +24,7 @@ class PromotionalActivityController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'png' => 'nullable|file|mimes:png', // ✅ match the db column
+            'png' => 'nullable|image', // ✅ match the db column
         ]);
 
         $pngFilename = null;
@@ -57,7 +57,7 @@ class PromotionalActivityController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'png' => 'nullable|file|mimes:png',
+            'png' => 'nullable|image',
         ]);
 
         $activity = PromotionalActivity::findOrFail($id);

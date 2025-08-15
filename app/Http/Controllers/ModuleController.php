@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
-use App\Models\RecentActivity; // ← Include this
+use App\Models\RecentActivity; 
 
 class ModuleController extends Controller
 {
@@ -24,7 +24,7 @@ public function upload(Request $request)
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'pdf' => 'nullable|file|mimes:pdf',
-        'png' => 'nullable|image|mimes:png',
+        'png' => 'nullable|image',
     ]);
 
     $pdfName = null;
@@ -108,7 +108,7 @@ public function update(Request $request, $id)
     $request->validate([
         'title' => 'required|string',
         'pdf' => 'nullable|mimes:pdf',
-        'png' => 'nullable|image|mimes:png',
+        'png' => 'nullable|image',
     ]);
 
     $module = Module::findOrFail($id);
