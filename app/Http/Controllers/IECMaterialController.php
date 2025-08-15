@@ -7,154 +7,134 @@ use App\Models\Ictv;
 use App\Models\IECMaterial;
 use App\Models\Module;
 use App\Models\RecentActivity;
+use Illuminate\Support\Facades\Storage;
 
 class IECMaterialController extends Controller
 {
+    /**
+     * Display the IEC Materials dashboard
+     */
     public function index()
     {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::all();
         $modules = Module::latest()->get();
+
         return view('admin.iec-table', compact('iecMaterials', 'episodes', 'modules'));
     }
 
-public function upload(Request $request)
-{
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'pdf' => 'nullable|file|mimes:pdf',
-        'png' => 'nullable|image',
-    ]);
+    /**
+     * Upload a new IEC Material
+     */
+    public function upload(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'pdf'   => 'nullable|file|mimes:pdf',
+            'png'   => 'nullable|image',
+        ]);
 
-    $pdfName = null;
-    $imageName = null;
+        $pdfName = $this->storeFile($request, 'pdf', 'iec_brochure');
+        $pngName = $this->storeFile($request, 'png', 'iec_thumbnail');
 
-    // Function to get unique filename
-    $getUniqueFilename = function ($file, $folder) {
-        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $extension = $file->getClientOriginalExtension();
+        $iec = IECMaterial::create([
+            'title' => $validated['title'],
+            'file'  => $pdfName,
+            'png'   => $pngName,
+        ]);
 
-        $baseName = str_replace(' ', '_', $originalName);
-        $fileName = $baseName . '.' . $extension;
+        $this->logActivity('added', $iec->title);
 
-        $counter = 1;
+        return redirect()->back()->with('success', 'IEC Material uploaded successfully.');
+    }
 
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
-            $fileName = $baseName . '_(' . $counter . ').' . $extension;
-            $counter++;
+    /**
+     * Update an existing IEC Material
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'file'  => 'nullable|mimes:pdf',
+            'png'   => 'nullable|image',
+        ]);
+
+        $material = IECMaterial::findOrFail($id);
+        $material->title = $request->title;
+
+        if ($request->hasFile('file')) {
+            $material->file = $this->storeFile($request, 'file', 'iec_brochure');
         }
 
-        return $fileName;
-    };
+        if ($request->hasFile('png')) {
+            $material->png = $this->storeFile($request, 'png', 'iec_thumbnail');
+        }
 
-    if ($request->hasFile('pdf')) {
-        $pdfName = $getUniqueFilename($request->file('pdf'), 'iec_brochure');
-        $request->file('pdf')->storeAs('iec_brochure', $pdfName, 'public');
+        $material->save();
+
+        $this->logActivity('updated', $material->title);
+
+        return response()->json(['message' => 'IEC Material updated successfully!']);
     }
 
-    if ($request->hasFile('png')) {
-        $imageName = $getUniqueFilename($request->file('png'), 'iec_thumbnail');
-        $request->file('png')->storeAs('iec_thumbnail', $imageName, 'public');
-    }
-
-    $iec = IECMaterial::create([
-        'title' => $validated['title'],
-        'description' => $validated['description'],
-        'file' => $pdfName,
-        'png' => $imageName,
-    ]);
-
-    // Log activity
-    RecentActivity::create([
-        'action' => 'added',
-        'title' => $iec->title,
-        'source' => 'IEC Material',
-    ]);
-
-    return redirect()->back()->with('success', 'IEC Material uploaded successfully.');
-}
-
-
-
+    /**
+     * Delete an IEC Material
+     */
     public function destroy($id)
     {
         $material = IECMaterial::findOrFail($id);
+
+        if ($material->file && Storage::disk('public')->exists('iec_brochure/' . $material->file)) {
+            Storage::disk('public')->delete('iec_brochure/' . $material->file);
+        }
+
+        if ($material->png && Storage::disk('public')->exists('iec_thumbnail/' . $material->png)) {
+            Storage::disk('public')->delete('iec_thumbnail/' . $material->png);
+        }
+
         $title = $material->title;
-
-        if ($material->file && \Storage::disk('public')->exists($material->file)) {
-            \Storage::disk('public')->delete($material->file);
-        }
-
-        if ($material->png && \Storage::disk('public')->exists('iec_thumbnail/' . $material->png)) {
-            \Storage::disk('public')->delete('iec_thumbnail/' . $material->png);
-        }
-
         $material->delete();
 
-        // Log activity
-        RecentActivity::create([
-            'action' => 'deleted',
-            'title' => $title,
-            'source' => 'IEC Material',
-        ]);
+        $this->logActivity('deleted', $title);
 
         return response()->json(['success' => 'IEC Material deleted successfully.']);
     }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'title' => 'required|string',
-        'description' => 'required|string',
-        'file' => 'nullable|mimes:pdf',
-        'png' => 'nullable|image',
-    ]);
+    /**
+     * Store uploaded file with unique filename
+     */
+    private function storeFile(Request $request, string $field, string $folder): ?string
+    {
+        if (!$request->hasFile($field)) {
+            return null;
+        }
 
-    $material = IECMaterial::findOrFail($id);
-    $material->title = $request->title;
-    $material->description = $request->description;
-
-    // Function to get unique filename
-    $getUniqueFilename = function ($file, $folder) {
+        $file = $request->file($field);
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = $file->getClientOriginalExtension();
-
         $baseName = str_replace(' ', '_', $originalName);
         $fileName = $baseName . '.' . $extension;
-
         $counter = 1;
 
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
             $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }
 
+        $file->storeAs($folder, $fileName, 'public');
+
         return $fileName;
-    };
-
-    if ($request->hasFile('file')) {
-        $fileName = $getUniqueFilename($request->file('file'), 'iec_brochure');
-        $request->file('file')->storeAs('iec_brochure', $fileName, 'public');
-        $material->file = $fileName;
     }
 
-    if ($request->hasFile('png')) {
-        $pngName = $getUniqueFilename($request->file('png'), 'iec_thumbnail');
-        $request->file('png')->storeAs('iec_thumbnail', $pngName, 'public');
-        $material->png = $pngName;
+    /**
+     * Log recent activity
+     */
+    private function logActivity(string $action, string $title)
+    {
+        RecentActivity::create([
+            'action' => $action,
+            'title'  => $title,
+            'source' => 'IEC Material',
+        ]);
     }
-
-    $material->save();
-
-    // Log activity
-    RecentActivity::create([
-        'action' => 'updated',
-        'title' => $material->title,
-        'source' => 'IEC Material',
-    ]);
-
-    return response()->json(['message' => 'IEC material updated successfully!']);
-}
-
 }

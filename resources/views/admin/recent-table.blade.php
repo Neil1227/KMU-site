@@ -12,8 +12,20 @@
         <div class="card ictv-card mt-4">
             <div class="card-header text-white d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Recent Activities</h5>
-                <span class="badge bg-light text-dark">{{ $recentActivities->count() }} total</span>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-dark">{{ $recentActivities->count() }} total</span>
+
+                    <form id="deleteAllForm" action="{{ route('recent-activities.deleteAll') }}" method="POST" class="m-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-sm btn-danger" id="deleteAllBtn">
+                            Clear
+                        </button>
+                    </form>
+                </div>
             </div>
+
+
 
             <div class="card-body table-responsive-sm">
                 <table id="activityTable" class="display table table-bordered table-striped table-sm">
@@ -111,4 +123,24 @@
         });
     });
 </script>
+<!-- delete all function for the recent activities -->
+<script>
+document.getElementById('deleteAllBtn').addEventListener('click', function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This will delete all recent activities.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete all',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('deleteAllForm').submit();
+        }
+    });
+});
+</script>
+
 @endpush

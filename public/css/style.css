@@ -108,6 +108,7 @@
             z-index: 2;
         }
         .hero-fallback-img {
+            display: none;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -118,15 +119,15 @@
             z-index: 1;
         }
 
-/* iOS detection */
-@supports (-webkit-touch-callout: none) and (not (hover: hover)) {
-    .hero-video {
-        display: none; /* hide video on iOS */
-    }
-    .hero-fallback-img {
-        display: block; /* show fallback image on iOS */
-    }
-}
+        /* iOS detection */
+        @supports (-webkit-touch-callout: none) and (not (hover: hover)) {
+            .hero-video {
+                display: none; /* hide video on iOS */
+            }
+            .hero-fallback-img {
+                display: block; /* show fallback image on iOS */
+            }
+        }
         .hero-overlay {
             position: absolute;
             top: 0;

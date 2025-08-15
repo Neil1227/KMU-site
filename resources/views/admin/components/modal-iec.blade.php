@@ -18,11 +18,6 @@
             <input type="text" name="title" class="form-control" id="edit_iec_title" required>
           </div>
 
-          <div class="mb-3">
-            <label for="edit_iec_description" class="form-label">Description</label>
-            <textarea name="description" class="form-control" id="edit_iec_description" rows="3" required></textarea>
-          </div>
-
             <div id="current_thumbnail" class="mb-2"></div>
 
           <div class="row mb-3">

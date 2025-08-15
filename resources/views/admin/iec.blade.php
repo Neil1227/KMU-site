@@ -20,11 +20,6 @@
                                 <input type="text" class="form-control" id="edit_title" name="title" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description *</label>
-                                <textarea class="form-control" id="edit_description" name="description" rows="3" required></textarea>
-                            </div>
-
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="modulues-pdf" class="form-label">Upload PDF</label>

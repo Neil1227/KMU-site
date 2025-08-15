@@ -2,7 +2,11 @@
         <div class="col-md-2 sidebar sidebar-wrapper p-3" id="sidebar" >
             <h3 class="text-white">Admin Panel</h3>
             <small class="d-block mb-4">Content Management</small>
+                <div class="total-site-views ">
+                    <i class="fa fa-eye"></i> {{ number_format($totalPageViews) }} Total Visitors
+                </div>
             <hr>
+
             <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">Dashboard</a>
             
             <a href="{{ route('ictv-table') }}" 
@@ -38,5 +42,10 @@
             <a href="{{ route('admin.recent-activities') }}" 
             class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
             Recent Activities
+            </a>
+            
+            <a href="#" 
+            class="#">
+            Technology Profile
             </a>
         </div>

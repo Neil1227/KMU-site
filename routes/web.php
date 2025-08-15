@@ -100,6 +100,7 @@ Route::put('/admin/podcasts/{id}', [PodcastController::class, 'update'])->name('
 // recent activities
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
 Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
+Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteAll'])->name('recent-activities.deleteAll');
 
 
 // Static page: no logic or data passed, just a Blade file

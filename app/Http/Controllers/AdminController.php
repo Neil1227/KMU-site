@@ -70,6 +70,20 @@ class AdminController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function deleteAll()
+    {
+        // Get IDs of the latest 3 records
+        $keepIds = RecentActivity::orderBy('created_at', 'desc')
+            ->take(3)
+            ->pluck('id');
+
+        // Delete all except those IDs
+        RecentActivity::whereNotIn('id', $keepIds)->delete();
+
+        return redirect()->back()->with('success', 'All recent activities except the latest 3 have been deleted.');
+    }
+
+
 // ----------note: for accessing different page, it needs to declare the eloquet 
 
     // dashboard only
@@ -82,7 +96,9 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $recentActivities = RecentActivity::latest()->take(3)->get();
-        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','podcast','recentActivities'));
+        $totalPageViews = \DB::table('page_views')->count();
+
+        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','podcast','recentActivities', 'totalPageViews'));
     }
 
     // ictv only

@@ -30,7 +30,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
-                        <th>Description</th>
                         <th>PDF File</th>
                         <th>Image</th>
                         <th>Created At</th>
@@ -42,7 +41,6 @@
                         <tr>
                             <td>{{ $material->id }}</td>
                             <td>{{ $material->title }}</td>
-                            <td>{{ $material->description }}</td>
                             
                             <td>
                                 @if ($material->file)
@@ -102,7 +100,7 @@
             lengthChange: true,
             lengthMenu: [5, 8, 10, 15, 20],
             autoWidth: false,
-            order: [[5, 'asc']]
+            order: [[4, 'asc']]
         });
     });
 </script>

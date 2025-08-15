@@ -11,7 +11,6 @@ class IECMaterial extends Model
 
     protected $fillable = [
         'title',
-        'description',
         'file',
         'png',
     ];
