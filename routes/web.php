@@ -17,8 +17,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
-
-
+use App\Http\Controllers\TechnologyProductController;
 
 
 // These routes are only accessible if NOT logged in
@@ -101,6 +100,12 @@ Route::put('/admin/podcasts/{id}', [PodcastController::class, 'update'])->name('
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
 Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
 Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteAll'])->name('recent-activities.deleteAll');
+
+
+
+
+Route::get('/technology-product', [TechnologyProductController::class, 'index'])
+    ->name('technology.product');
 
 
 // Static page: no logic or data passed, just a Blade file

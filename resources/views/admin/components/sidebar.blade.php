@@ -1,11 +1,15 @@
         {{-- Sidebar --}}
-        <div class="col-md-2 sidebar sidebar-wrapper p-3" id="sidebar" >
-            <h3 class="text-white">Admin Panel</h3>
-            <small class="d-block mb-4">Content Management</small>
-                <div class="total-site-views ">
-                    <i class="fa fa-eye"></i> {{ number_format($totalPageViews) }} Total Visitors
-                </div>
-            <hr>
+<div class="col-md-2 sidebar sidebar-wrapper p-4 " id="sidebar" 
+     style=" min-height: 100vh; color: #fff;">
+
+        <!-- Logo -->
+        <div class="mb-3 text-center d-flex flex-column align-items-center">
+            <img src="../assets/img/kmlogo.png" alt="Logo" class="mobile-logo mb-2" style="height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+            <h3 class="fw-bold text-white" style="font-size: 1.25rem; letter-spacing: 0.5px;">Admin Panel</h3>
+            <small class="text-secondary d-block">Content Management</small>
+        </div>
+
+        <hr class="border-secondary w-100">
 
             <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">Dashboard</a>
             

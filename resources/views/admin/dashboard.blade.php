@@ -13,17 +13,17 @@
             </div> -->
 
             <div class="row g-4 mb-3 mt-2 mx-1">
-                <div class="col-md-4 col-sm-6  ">
+                <div class="col-md-3 col-sm-6  ">
                     <div class="dashboard-card" style="background-color:#e1f1ff;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>ICTV Episodes</strong></div>
                             <i class="fa-solid fa-tv card-icon" style="color:#1e90ff;" ></i>
                         </div>
                         <h1>{{ $episodes->count() }}</h1>
-                        <small>Total Content</small>
+                        <small>Total Episodes</small>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
+                <div class="col-md-3 col-sm-6 ">
                     <div class="dashboard-card" style="background-color:#ffe1e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>IEC Materials</strong></div>
@@ -33,7 +33,7 @@
                         <small>Total IEC Materials</small>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
+                <div class="col-md-3 col-sm-6 ">
                     <div class="dashboard-card" style="background-color:#f0f0f0;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Modules</strong></div>
@@ -44,7 +44,7 @@
                         <small>Total Modules</small>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
+                <div class="col-md-3 col-sm-6 ">
                     <div class="dashboard-card" style="background-color:#e1f9e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Newsletters</strong></div>
@@ -54,7 +54,7 @@
                         <small>Total Newsletters</small>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
+                <div class="col-md-3 col-sm-6 ">
                     <div class="dashboard-card" style="background-color:#fff9e1;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Promotional Activities</strong></div>
@@ -64,7 +64,7 @@
                         <small>Total Activities</small>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 ">
+                <div class="col-md-3 col-sm-6 ">
                     <div class="dashboard-card" style="background-color:#d5fafa;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Podcast</strong></div>
@@ -74,9 +74,27 @@
                         <small>Total Podcast</small>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#E6CCFF;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><strong>Technologies</strong></div>
+                            <i class="fa-solid fa-microchip card-icon" style="color:#9370DB;"></i>
+                        </div>
+                        <h1>#</h1>
+                        <small>Total Technologies</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 ">
+                    <div class="dashboard-card" style="background-color:#FFFAFA;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><strong>Visitors</strong></div>
+                            <i class="fa fa-eye" style="color:#2F4F4F;"></i>
+                        </div>
+                        <h1>{{ number_format($totalPageViews) }}</h1>
+                        <small>Total Visitors</small>
+                    </div>
+                </div>
             </div>
-
-
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="dashboard-card">

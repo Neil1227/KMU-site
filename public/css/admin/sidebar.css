@@ -14,7 +14,9 @@
 .sidebar a {
     color: white;
     text-decoration: none;
-    padding: 12px 16px;
+    padding: 10px 16px;
+    margin: 5px;
+    border-radius: 10px;
     display: block;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -22,6 +24,7 @@
 .sidebar a:hover,
 .sidebar a.active {
     background-color: var(--primary-color);
+    border-radius: 8px;
     color: #fff;
 }
 .km-header {
