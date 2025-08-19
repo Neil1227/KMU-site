@@ -65,8 +65,8 @@
             </div>
         </a>
     </div>
-        <div class="col-md-4">
-        <a href="{{ route('admin.podcast-table') }}" class="text-decoration-none text-dark">
+    <div class="col-md-4">
+            <a href="{{ route('admin.podcast-table') }}" class="text-decoration-none text-dark">
             <div class="dashboard-card {{ Route::currentRouteName() === 'admin.newsletter' ? 'active' : '' }}">
                 
                 <h3 class="d-flex justify-content-center align-items-center">{{ $podcast->count() }}</h3>
@@ -76,5 +76,19 @@
                 </div>
             </div>
         </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ route('admin.technology-table') }}" class="text-decoration-none text-dark">
+            <div class="dashboard-card {{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
+                
+                <h3 class="d-flex justify-content-center align-items-center">{{ $technologies->count() }}</h3>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div><strong>Technologies</strong></div>
+                    <!-- <i class="fa fa-cogs card-icon"></i> -->
+                </div>
+            </div>
+        </a>
+    </div>
+
     </div>
 </div>

@@ -75,12 +75,12 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 ">
-                    <div class="dashboard-card" style="background-color:#E6CCFF;">
+                    <div class="dashboard-card" style="background-color:#E6DAFA;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Technologies</strong></div>
                             <i class="fa-solid fa-microchip card-icon" style="color:#9370DB;"></i>
                         </div>
-                        <h1>#</h1>
+                        <h1>{{ $technologies->count() }}</h1>
                         <small>Total Technologies</small>
                     </div>
                 </div>

@@ -48,8 +48,9 @@
             Recent Activities
             </a>
             
-            <a href="#" 
-            class="#">
-            Technology Profile
+
+            <a href="{{ route('admin.technology-table') }}" 
+            class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
+            Technology Table
             </a>
         </div>

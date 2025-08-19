@@ -3,10 +3,10 @@
 @section('title', 'Technology Products')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}"> 
-    <link rel="stylesheet" href="{{ asset('css/research.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/ictv.css') }}">
+<link rel="stylesheet" href="{{ asset('css/global.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}"> 
+<link rel="stylesheet" href="{{ asset('css/research.css') }}">
+<link rel="stylesheet" href="{{ asset('css/technology.css') }}">
 @endpush
 
 @section('content')
@@ -24,16 +24,46 @@
     <section class="container-page mb-5" id="technology">
         <div class="row justify-content-center g-4 mt-4" id="technologyCards">
             @forelse ($technologies as $index => $technology)
-                <div class="col-md-4 mb-4 transition-card technology-card {{ $index >= 6 ? 'd-none' : '' }}">
-                    <div class="card">
-                        <img src="{{ asset('storage/technology_thumbnail/' . $technology->png) }}" 
-                             class="card-img media-img" 
-                             alt="{{ $technology->title }}">
-                        <div class="card-body">
-                            <h5 class="ictv-card-title">{{ $technology->title }}</h5>
-                            <p class="card-text">{{ $technology->description }}</p>
-                            <a href="{{ $technology->link }}" target="_blank" class="btn watch-btn">View Product</a>
+                <div class="col-md-4 mb-4 transition-card  {{ $index >= 6 ? 'd-none' : '' }}">
+                    <div class="technology-card h-100">
+                        {{-- Technology Image --}}
+                        <img 
+                            src="{{ $technology->poster && file_exists(storage_path('app/public/technologies/' . $technology->poster)) 
+                                    ? asset('storage/technologies/' . $technology->poster) 
+                                    : asset('assets/img/kmlogo.png') }}" 
+                            class="card-img media-img" 
+                            alt="{{ $technology->product ?? 'Technology Product' }}">
+
+
+                        <div class="card-body d-flex flex-column">
+                            {{-- Product Title --}}
+                            <h5 class="tech-card-title">{{ $technology->product ?? 'Untitled Product' }}</h5>
+
+                            {{-- Net Present Value --}}
+                            @if($technology->net)
+                                <p class="card-text mb-1">Net Present Value: ₱{{ number_format($technology->net, 2) }}</p>
+                            @endif
+
+                            {{-- IP Status --}}
+                            @if($technology->ip_status)
+                                <p class="card-text mb-2">IP Status: {{ $technology->ip_status }}</p>
+                            @endif
+
+                            {{-- Buttons --}}
+                            <div class="mt-auto d-flex gap-2 flex-wrap">
+                                {{-- External link --}}
+                                @if($technology->link)
+                                    <a href="{{ $technology->link }}" target="_blank" class="btn watch-btn">View Product</a>
+                                @endif
+
+                            {{-- Redirect to internal product page --}}
+                            <a href="{{ route('technologies.show', $technology->id) }}" class="btn watch-btn">See Details</a>
+
+
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             @empty

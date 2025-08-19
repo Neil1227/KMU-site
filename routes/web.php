@@ -17,7 +17,8 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
-use App\Http\Controllers\TechnologyProductController;
+use App\Http\Controllers\TechnologyController;
+
 
 
 // These routes are only accessible if NOT logged in
@@ -41,6 +42,8 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     Route::get('newsletter', [AdminController::class, 'newsletter'])->name('admin.newsletter');
     Route::get('promotional', [AdminController::class, 'promotional'])->name('admin.promotional');
     Route::get('podcast', [AdminController::class, 'podcast'])->name('admin.podcast');
+    Route::get('technology', [AdminController::class, 'technology'])->name('admin.technology');
+
     // Add if any(url/controller class/routename in the blade) 
 });
 
@@ -101,11 +104,20 @@ Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteR
 Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
 Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteAll'])->name('recent-activities.deleteAll');
 
+//technology admin
+Route::get('/technology-table', [TechnologyController::class, 'table'])->name('admin.technology-table');
+Route::post('/technology/upload', [TechnologyController::class, 'upload'])->name('technology.upload');
+Route::delete('/technologies/{id}', [TechnologyController::class, 'delete'])->name('technologies.delete');
 
 
 
-Route::get('/technology-product', [TechnologyProductController::class, 'index'])
-    ->name('technology.product');
+
+
+// Technology list page
+Route::get('/technologies', [TechnologyController::class, 'index'])->name('technologies.index');
+// Technology detail page
+Route::get('/technologies/{id}', [TechnologyController::class, 'show'])->name('technologies.show');
+
 
 
 // Static page: no logic or data passed, just a Blade file
@@ -113,7 +125,7 @@ Route::view('/', 'index')->name('index');
 Route::redirect('/home', '/homepage')->name('home');
 
 Route::view('/homepage', 'homepage')->name('homepage');
-Route::view('/technology', 'technology')->name('technology');
+
 Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');

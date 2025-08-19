@@ -11,6 +11,7 @@ use App\Models\Newsletter;
 use App\Models\PromotionalActivity;
 use App\Models\RecentActivity;
 use App\Models\Podcast;
+use App\Models\Technology;
 
 use App\Models\Admin;
 
@@ -85,7 +86,6 @@ class AdminController extends Controller
 
 
 // ----------note: for accessing different page, it needs to declare the eloquet 
-
     // dashboard only
     public function dashboard()
     {
@@ -95,11 +95,23 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
+        $technologies = Technology::latest()->get(); // ✅ Added technologies
         $recentActivities = RecentActivity::latest()->take(3)->get();
         $totalPageViews = \DB::table('page_views')->count();
 
-        return view('admin.dashboard', compact('episodes', 'iecMaterials', 'modules', 'newsletter','promotional','podcast','recentActivities', 'totalPageViews'));
+        return view('admin.dashboard', compact(
+            'episodes',
+            'iecMaterials',
+            'modules',
+            'newsletter',
+            'promotional',
+            'podcast',
+            'technologies', // ✅ Pass technologies to view
+            'recentActivities',
+            'totalPageViews'
+        ));
     }
+
 
     // ictv only
     public function ictv()
@@ -110,7 +122,8 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast')); // Pass them to view
+        $technologies = Technology::latest()->get();
+        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast','technologies',)); // Pass them to view
     }
 
     //iec only
@@ -121,7 +134,8 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast'));
+        $technologies = Technology::latest()->get();
+        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast','technologies',));
     }
 
     //modules only
@@ -132,7 +146,8 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules','newsletter','promotional','podcast'));
+        $technologies = Technology::latest()->get();
+        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules','newsletter','promotional','podcast','technologies',));
     }
 
     //Newsletter only
@@ -143,7 +158,8 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.newsletter', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
+        $technologies = Technology::latest()->get();
+        return view('admin.newsletter', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
     }
 
     //Promotional activities only
@@ -154,7 +170,8 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
+        $technologies = Technology::latest()->get();
+        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
     }
 
     //Podcast Only
@@ -165,6 +182,31 @@ class AdminController extends Controller
         $newsletter = Newsletter::latest()->get();
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
-        return view('admin.podcast', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast'));
+        $technologies = Technology::latest()->get();
+        return view('admin.podcast', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
     }
+
+    // Technology Only
+    public function technology()
+    {
+        $iecMaterials = IECMaterial::latest()->get();
+        $episodes = Ictv::all();
+        $modules = Module::latest()->get();
+        $newsletter = Newsletter::latest()->get();
+        $promotional = PromotionalActivity::latest()->get();
+        $podcast = Podcast::latest()->get();
+        $technologies = Technology::latest()->get();
+        $technologies = Technology::latest()->get();
+
+        return view('admin.technology', compact(
+            'iecMaterials',
+            'episodes',
+            'modules',
+            'newsletter',
+            'promotional',
+            'podcast',
+            'technologies'
+        ));
+    }
+
 }

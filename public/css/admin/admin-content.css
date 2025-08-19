@@ -186,4 +186,14 @@ a .dashboard-card:hover {
     font-family: sans-serif;
     text-align: center;
 }
+.btn-outline-lavender {
+    color: #9370DB; /* text color */
+    border-color: #9370DB; /* border color */
+}
 
+.btn-outline-lavender:hover,
+.btn-outline-lavender:focus {
+    background-color: #9370DB; /* light lavender on hover */
+    color: #fff;
+    border-color: #9370DB;
+}

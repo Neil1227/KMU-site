@@ -204,7 +204,6 @@ $staticPages = [
 
     // Search in IEC
     $iecResults = IECMaterial::where('title', 'like', "%$query%")
-        ->orWhere('description', 'like', "%$query%")
         ->get()
         ->map(function ($item) {
             return [
@@ -213,6 +212,7 @@ $staticPages = [
                 'url' => url('/iec/'),
             ];
         });
+
 
     // Search for promotional Activity
     $promotionalResults = PromotionalActivity::where('title', 'like', "%$query%")
