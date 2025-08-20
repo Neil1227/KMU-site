@@ -108,9 +108,7 @@ Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteA
 Route::get('/technology-table', [TechnologyController::class, 'table'])->name('admin.technology-table');
 Route::post('/technology/upload', [TechnologyController::class, 'upload'])->name('technology.upload');
 Route::delete('/technologies/{id}', [TechnologyController::class, 'delete'])->name('technologies.delete');
-
-
-
+Route::put('/admin/technology/{id}', [TechnologyController::class, 'update'])->name('admin.technology.update');
 
 
 // Technology list page

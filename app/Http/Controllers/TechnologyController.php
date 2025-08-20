@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Technology;
 use App\Models\RecentActivity;
+use Illuminate\Support\Facades\Storage;
 
 class TechnologyController extends Controller
 {
@@ -102,35 +103,85 @@ class TechnologyController extends Controller
         return redirect()->back()->with('success', 'Technology uploaded successfully!');
     }
 
-public function delete($id)
+    public function delete($id)
+    {
+        $technology = Technology::findOrFail($id);
+
+        // Delete image file if exists
+        if ($technology->image && \Storage::disk('public')->exists('technologies/' . $technology->image)) {
+            \Storage::disk('public')->delete('technologies/' . $technology->image);
+        }
+
+        // Delete poster file if exists
+        if ($technology->poster && \Storage::disk('public')->exists('technologies/' . $technology->poster)) {
+            \Storage::disk('public')->delete('technologies/' . $technology->poster);
+        }
+
+        // Log recent activity
+        RecentActivity::create([
+            'action' => 'deleted',
+            'title' => $technology->product,
+            'source' => 'Technology',
+        ]);
+
+        // Delete the record
+        $technology->delete();
+
+        // ✅ Return JSON response
+        return response()->json([
+            'success' => 'Technology deleted successfully!'
+        ]);
+    }
+public function update(Request $request, $id)
 {
+    $request->validate([
+        'product' => 'required|string|max:255',
+        'desc' => 'nullable|string',
+        'net' => 'nullable|numeric',
+        'profit' => 'nullable|numeric',
+        'inventors' => 'nullable|string',
+        'ip_status' => 'nullable|string',
+        'proposition' => 'nullable|string',
+        'benefits' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'poster' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+    ]);
+
     $technology = Technology::findOrFail($id);
 
-    // Delete image file if exists
-    if ($technology->image && \Storage::disk('public')->exists('technologies/' . $technology->image)) {
-        \Storage::disk('public')->delete('technologies/' . $technology->image);
+    $technology->product = $request->product;
+    $technology->desc = $request->desc;
+    $technology->net = $request->net;
+    $technology->profit = $request->profit;
+    $technology->inventors = $request->inventors ? explode(',', $request->inventors) : [];
+    $technology->ip_status = $request->ip_status;
+    $technology->proposition = $request->proposition ? explode(',', $request->proposition) : [];
+    $technology->benefits = $request->benefits ? explode(',', $request->benefits) : [];
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('technologies', 'public');
+        $technology->image = basename($imagePath);
     }
 
-    // Delete poster file if exists
-    if ($technology->poster && \Storage::disk('public')->exists('technologies/' . $technology->poster)) {
-        \Storage::disk('public')->delete('technologies/' . $technology->poster);
+    if ($request->hasFile('poster')) {
+        $posterPath = $request->file('poster')->store('technologies', 'public');
+        $technology->poster = basename($posterPath);
     }
 
-    // Log recent activity
+    $technology->save();
+
+    // ✅ Log recent activity with correct field
     RecentActivity::create([
-        'action' => 'deleted',
-        'title' => $technology->product,
+        'action' => 'updated',
+        'title' => $technology->product, // use "product" as the title
         'source' => 'Technology',
     ]);
 
-    // Delete the record
-    $technology->delete();
-
-    // ✅ Return JSON response
-    return response()->json([
-        'success' => 'Technology deleted successfully!'
-    ]);
+    return back()->with('success', 'Technology updated successfully!');
 }
+
+
+
 
 
 

@@ -42,7 +42,7 @@
 
         <!-- Profit & Button for medium and up -->
         <div class="d-none d-md-flex align-items-center gap-3 mt-3">
-            <a href="#" class="profit-btn">Earn {{ $technology->profit ?? 'N/A' }} Profit!</a>
+            <a href="#" class="profit-btn">Earn {{ $technology->profit ?? 'N/A' }}% Profit!</a>
 
             <button type="button" 
                     class="btn btn-light d-flex align-items-center gap-2 shadow-sm rounded-3 px-3 py-2"

@@ -5,7 +5,7 @@
       
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="downloadModalLabel">{{ $technology->product ?? 'Technology Details' }}</h5>
+        <h5 class="modal-title highlight" id="downloadModalLabel">{{ $technology->product ?? 'Technology Details' }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 

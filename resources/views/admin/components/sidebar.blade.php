@@ -43,14 +43,14 @@
             Podcast Table
             </a>
 
+            <a href="{{ route('admin.technology-table') }}" 
+            class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
+            Technology Table
+            </a>
+
             <a href="{{ route('admin.recent-activities') }}" 
             class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
             Recent Activities
             </a>
             
-
-            <a href="{{ route('admin.technology-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
-            Technology Table
-            </a>
         </div>
