@@ -128,7 +128,7 @@
 
 .badge {
   padding: 5px 12px;
-  border-radius: 12px;
+  border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -139,6 +139,6 @@
 }
 
 .badge.paid {
-  background-color: #007bff; /* blue */
+  background-color: var(--secondary-color); /* blue */
   color: white;
 }
