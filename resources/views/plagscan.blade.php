@@ -4,8 +4,8 @@
 
 @push('css')
 
-<link rel="stylesheet" href="{{ asset('css/plagscan.css') }}">
 <link rel="stylesheet" href="{{ asset('css/global.css') }}">
+<link rel="stylesheet" href="{{ asset('css/plagscan.css') }}">
 <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
@@ -20,54 +20,109 @@
 @include('layouts.components.navbar')
 
 <section class="container-page mt-3">
-    <h2 class="text-center mb-3 section-title" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="text-center section-title" data-aos="fade-up" data-aos-duration="1500">
         Plagiarism <span class="title-highlight"> Check Roadmap</span>
     </h2>
-    <div class="roadmap" data-aos="fade-up" data-aos-duration="1500">
-        <div class="step completed">
-            <div class="step-circle">1</div>
-            <div class="card">
-                <h2>Submit via Form, QR, or Email</h2>
-                <p>Fill out the Google form <strong><a class="text-decoration-none" style="color: #f85e0a" href="https://docs.google.com/forms/d/e/1FAIpQLSfMYKBGAQRT-RNDej52Xzu7qGVn94pcs9P-_CkxBTRyDYONaQ/viewform">(bit.ly/kmc-plagscan)</a></strong> to request a PlagScan, scan the QR code, or email your paper to <strong>kmc@psau.edu.ph</strong>.</p>
-                <div class="qr">
-                    <img src="{{ asset('assets/img/qr.png') }}" alt="QR Code" />
-                </div>
-            </div>
-        </div>
+    <p class="text-muted text-center  mb-3"><em>Plagiarism is aFollow these 4 simple steps to get your anti-plagiarism certificate.</em></p>
 
-        <div class="step completed">
-            <div class="step-circle">2</div>
-            <div class="card">
-                <h2>Wait for KMC Feedback</h2>
-                <p>Expect an email from the Knowledge Management Center regarding the similarity index, status of your paper, and your overall score.</p>
-            </div>
+<div class="steps-container mb-5">
+  <!-- Step 1 -->
+  <div class="step-card">
+    <div class="step-icon-wrap">
+      <div class="step-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <span class="step-number">1</span>
+    </div>
+    <h4 class="highlight">Submit Your Paper</h4>
+    <p class="desc">
+      Fill out the Google form, scan the QR code, or email your paper to
+      kmc@psau.edu.ph
+    </p>
+    <div class="qr-box mt-3 p-3">
+        <div class="qr-grid">
+        <!-- Left: QR Code -->
+        <div class="qr-img">
+            <img src="{{ asset('assets/img/qr.png') }}" alt="QR Code">
         </div>
-
-        <div class="step completed">
-            <div class="step-circle">3</div>
-            <div class="card">
-                <h2>Final Check: Approval or Editing</h2>
-                <p>If the paper passes the criteria, you’ll be asked to pick up your anti-plagiarism certificate. Otherwise, you’ll receive feedback via email for revisions.</p>
-            </div>
+        <!-- Right: Text + Button -->
+        <div class="qr-content">
+            <p class="small mb-2">Quick Access</p>
+            <button class="btn-qr btn-sm">Open Form</button>
         </div>
-
-        <div class="step completed mb-5">
-            <div class="step-circle">4</div>
-            <div class="card">
-                <h2>Final Step: Claim Your Certificate</h2>
-                <p>Claim your certificate from the ICTRD office beside the College of Business, Economics and Entrepreneurship (CBEE) building. <br>
-                Before we issue the Anti-Plagiarism Testing Certificate, please proceed to the Cashier's Office for your payment:
-                <ul>
-                    <li><strong>Undergraduate students:</strong> Free</li>
-                    <li><strong>Masterate students:</strong> Php 700.00</li>
-                    <li><strong>Doctorate students:</strong> Php 1,000.00</li>
-                    <li><strong>Non-PSAU clients:</strong> Php 700.00</li>
-                </ul>
-                   
-                <p>Present your student ID and reciept upon claiming for clients who needs to settle payment.</p>
-            </div>
         </div>
     </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-card">
+    <div class="step-icon-wrap">
+      <div class="step-icon">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <span class="step-number">2</span>
+    </div>
+    <h4 class="highlight">Receive KMC Feedback</h4>
+    <p class="desc">
+      Expect an email from the Knowledge Management Center regarding the similarity index, status of your paper, and your overall score.
+    </p>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-card">
+    <div class="step-icon-wrap">
+      <div class="step-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <span class="step-number">3</span>
+    </div>
+    <h4 class="highlight">Final Review</h4>
+    <p class="desc">
+      If the paper passes the criteria, you’ll be asked to pick up your anti-plagiarism certificate. Otherwise, you’ll receive feedback via email for revisions.
+    </p>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step-card">
+    <div class="step-icon-wrap">
+      <div class="step-icon">
+        <i class="fas fa-certificate"></i>
+      </div>
+      <span class="step-number">4</span>
+    </div>
+    <h4 class="highlight">Claim Certificate</h4>
+    <p class="desc">
+      Visit ICTRD office beside CBEE building. <strong> Before we issue the Anti-Plagiarism Testing Certificate, please pay fees at Cashier’s Office if applicable.</strong>
+    </p>
+
+    <div class="fees small">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">Undergraduate students</span>
+        <span class="badge free">Free</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">Masterate students</span>
+        <span class="badge paid">₱700.00</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">Doctorate students</span>
+        <span class="badge paid">₱1,000.00</span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-muted">Non-PSAU clients</span>
+        <span class="badge paid">₱700.00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <h5 class="text-center section-title" data-aos="fade-up" data-aos-duration="1500">
+        Need <span class="title-highlight">help?</span>
+    </h5>
+    <p class="text-muted text-center"><em>Contact the Knowledge Management Center for assistance</em></p>
+    <p class="text-muted text-center mb-5"><em>kmc@psau.edu.ph</em></p>
+
+
 
 
 </section>
