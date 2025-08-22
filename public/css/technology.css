@@ -134,3 +134,17 @@ a.profit-btn:hover {
 .tech-card-title {
   color: var(--primary-color);
 }
+/* Toggle Button */
+#toggleIctvBtn.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white-text);
+  font-weight: 600;
+  padding: 8px 24px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#toggleIctvBtn.btn-primary:hover {
+  background-color: #d84c00;
+  transform: translateY(-1px);
+}

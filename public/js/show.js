@@ -72,3 +72,24 @@ document.getElementById('togglePodcastBtn')?.addEventListener('click', function 
 
     this.textContent = isHidden ? 'Show Less' : 'Show More';
 });
+// technology
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('#technologyCards .transition-card');
+    const toggleBtn = document.getElementById('toggleTechnologyBtn');
+    let expanded = false;
+
+    toggleBtn?.addEventListener('click', function () {
+        cards.forEach((card, index) => {
+            if (index >= 6) {
+                card.classList.toggle('d-none');
+            }
+        });
+
+        expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
+
+        if (!expanded) {
+            document.getElementById('technologyCards').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});

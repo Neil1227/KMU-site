@@ -74,13 +74,14 @@
         {{-- Toggle Button --}}
         @if ($technologies->count() > 6)
             <div class="text-center mt-4">
-                <button id="toggleTechnologyBtn" class="btn btn-primary">Show More</button>
+                   <button id="toggleIctvBtn" class="btn btn-primary">Show More</button>
             </div>
         @endif
     </section>
 
     @push('scripts')
         <script src="{{ asset('js/show.js') }}"></script>
+        <script src="{{ asset('js/navbar.js') }}"></script>
     @endpush
 
     {{-- Only show sub-footer on this page --}}

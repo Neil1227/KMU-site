@@ -164,9 +164,25 @@
   }
   .navbar-toggler {
     margin-left: auto;
-    border: none;
     background: transparent;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
+
+  /* When button is focused (clicked) */
+  .navbar-toggler:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* When navbar is expanded (active state) */
+  .navbar-toggler[aria-expanded="true"] {
+    background: transparent !important; /* or pick a color if you want */
+  }
+
   .navbar-nav {
     flex-direction: column;
     width: 100%;
@@ -182,6 +198,36 @@
   .modern-search {
     margin: 0 auto;
   }
+  .navbar-toggler {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0.25rem 0.75rem;
+}
+
+.toggler-icon {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff; /* your color */
+  transition: all 0.3s ease-in-out;
+  border-radius: 2px;
+}
+
+/* Animate to "X" */
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 5px);
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -5px);
+}
+
 }
 
 /* ===============================

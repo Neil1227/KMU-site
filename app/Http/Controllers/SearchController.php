@@ -9,6 +9,8 @@ use App\Models\Newsletter;
 use App\Models\Module;
 use App\Models\PromotionalActivity;
 use App\Models\Podcast;
+use App\Models\Technology;
+
 
 use Illuminate\Support\Str;
 
@@ -257,6 +259,19 @@ $staticPages = [
             'url' => url('/modules/'),
         ];
     });
+    // Search in Technology
+    $technologyResults = Technology::where('product', 'like', "%$query%")
+        ->orWhere('desc', 'like', "%$query%")
+        ->get()
+        ->map(function ($item) {
+            return [
+                'title' => $item->product,
+                'snippet' => Str::limit($item->desc, 100),
+                'url' => url('/technologies/' . $item->id), // now links like /technologies/1
+            ];
+        });
+
+
     // Combine all results
     $allResults = $results
         ->merge($ictvResults)
@@ -264,7 +279,8 @@ $staticPages = [
         ->merge($promotionalResults)
         ->merge($podcastResults)
         ->merge($moduleResults)
-        ->merge($newsletterResults);
+        ->merge($newsletterResults)
+        ->merge($technologyResults);
 
     return view('search-results', ['results' => $allResults]);
 }

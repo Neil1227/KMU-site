@@ -3,11 +3,10 @@
 @section('title', 'Contact Us')
 
 @push('css')
-
-<link rel="stylesheet" href="{{ asset('css/contact.css') }}">
 <link rel="stylesheet" href="{{ asset('css/global.css') }}">
-<link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
 <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 @endpush
@@ -111,9 +110,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="{{ asset('message.js') }}"></script>
+
 <script src="{{ asset('js/navbar.js') }}"></script>
 <script src="{{ asset('js/email.js') }}"></script>
 
