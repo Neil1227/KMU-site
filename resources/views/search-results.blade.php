@@ -19,7 +19,8 @@
 {{-- Search Results Section --}}
 <section class="search-results text-center py-5">
   <h2 class="section-title mb-4" data-aos="fade-in">
-    Search Results for: "{{ request('query') }}"
+        Search Results for: "{{ $query }}" 
+    ({{ $totalResults }} found)
     <hr class="hr">
   </h2>
 

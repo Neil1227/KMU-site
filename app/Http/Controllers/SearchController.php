@@ -10,15 +10,13 @@ use App\Models\Module;
 use App\Models\PromotionalActivity;
 use App\Models\Podcast;
 use App\Models\Technology;
-
-
 use Illuminate\Support\Str;
 
 class SearchController extends Controller
 {
-public function search(Request $request)
-{
-    $query = $request->input('query');
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
 
 // Static Pages
 $staticPages = [
@@ -165,125 +163,107 @@ $staticPages = [
     // add more here when sdgs5-17 is posted
 ];
 
+        $results = collect($staticPages)
+            ->filter(function ($page) use ($query) {
+                return str_contains(strtolower($page['title'].' '.$page['content']), strtolower($query));
+            })
+            ->map(function ($page) use ($query) {
+                $content = $page['content'];
+                $lowerContent = strtolower($content);
+                $lowerQuery = strtolower($query);
+                $matchPos = strpos($lowerContent, $lowerQuery);
 
+                if ($matchPos !== false) {
+                    $start = max(0, $matchPos - 50);
+                    $snippet = Str::limit(substr($content, $start, 100), 100, '...');
+                } else {
+                    $snippet = Str::limit($content, 100);
+                }
 
-    $results = collect($staticPages)->filter(function ($page) use ($query) {
-        return str_contains(strtolower($page['title'] . ' ' . $page['content']), strtolower($query));
-    })->map(function ($page) use ($query) {
-        $content = $page['content'];
-        $lowerContent = strtolower($content);
-        $lowerQuery = strtolower($query);
-        
-        $matchPos = strpos($lowerContent, $lowerQuery);
+                return [
+                    'title'   => $page['title'],
+                    'snippet' => $snippet,
+                    'url'     => $page['url'].'?query='.urlencode($query),
+                ];
+            });
 
-        if ($matchPos !== false) {
-            // Center snippet around match
-            $start = max(0, $matchPos - 50);
-            $snippet = Str::limit(substr($content, $start, 100), 100, '...');
-        } else {
-            // Fallback: first 100 chars
-            $snippet = Str::limit($content, 100);
-        }
-
-        return [
-            'title' => $page['title'],
-            'snippet' => $snippet,
-            'url' => $page['url'] . '?query=' . urlencode($query), // pass query to target
-        ];
-    });
-
-    // Search in ICTV
-    $ictvResults = Ictv::where('title', 'like', "%$query%")
-        ->orWhere('description', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->title,
+        // --- Database Results ---
+        $ictvResults = Ictv::where('title', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/ictv/'), // Adjust if you have a detail page
-            ];
-        });
+                'url'     => url('/ictv/'.$item->id), // assuming detail page
+            ]);
 
-    // Search in IEC
-    $iecResults = IECMaterial::where('title', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->title,
+        $iecResults = IECMaterial::where('title', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/iec/'),
-            ];
-        });
+                'url'     => url('/iec/'.$item->id),
+            ]);
 
+        $promotionalResults = PromotionalActivity::where('title', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
+                'snippet' => Str::limit($item->description, 100),
+                'url'     => url('/promotional/'.$item->id),
+            ]);
 
-    // Search for promotional Activity
-    $promotionalResults = PromotionalActivity::where('title', 'like', "%$query%")
-        ->orWhere('description', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->title,
+        $podcastResults = Podcast::where('title', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/promotional/'),
-            ];
-        });
+                'url'     => url('/podcast/'.$item->id),
+            ]);
 
-    // Search for Podcast 
-    $podcastResults = Podcast::where('title', 'like', "%$query%")
-        ->orWhere('description', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->title,
+        $newsletterResults = Newsletter::where('title', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/podcast/'),
-            ];
-        });
-    // Search in Newsletters
-    $newsletterResults = Newsletter::where('title', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->title,
+                'url'     => url('/newsletter/'.$item->id),
+            ]);
+
+        $moduleResults = Module::where('title', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/newsletter/'),
-            ];
-        });
-    // Search for Modules 
-    $moduleResults = Module::where('title', 'like', "%$query%")
-    ->get()
-    ->map(function ($item) {
-        return [
-            'title' => $item->title,
-            'snippet' => Str::limit($item->description, 100),
-            'url' => url('/modules/'),
-        ];
-    });
-    // Search in Technology
-    $technologyResults = Technology::where('product', 'like', "%$query%")
-        ->orWhere('desc', 'like', "%$query%")
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->product,
+                'url'     => url('/modules/'.$item->id),
+            ]);
+
+        $technologyResults = Technology::where('product', 'like', "%$query%")
+            ->orWhere('desc', 'like', "%$query%")
+            ->get()
+            ->map(fn ($item) => [
+                'title'   => $item->product,
                 'snippet' => Str::limit($item->desc, 100),
-                'url' => url('/technologies/' . $item->id), // now links like /technologies/1
-            ];
-        });
+                'url'     => url('/technologies/'.$item->id),
+            ]);
 
+        // --- Merge all results ---
+        $allResults = $results
+            ->merge($ictvResults)
+            ->merge($iecResults)
+            ->merge($promotionalResults)
+            ->merge($podcastResults)
+            ->merge($moduleResults)
+            ->merge($newsletterResults)
+            ->merge($technologyResults);
 
-    // Combine all results
-    $allResults = $results
-        ->merge($ictvResults)
-        ->merge($iecResults)
-        ->merge($promotionalResults)
-        ->merge($podcastResults)
-        ->merge($moduleResults)
-        ->merge($newsletterResults)
-        ->merge($technologyResults);
+        $totalResults = $allResults->count();
 
-    return view('search-results', ['results' => $allResults]);
-}
-
-
+        return view('search-results', [
+            'results'      => $allResults,
+            'totalResults' => $totalResults,
+            'query'        => $query,
+        ]);
+    }
 }
