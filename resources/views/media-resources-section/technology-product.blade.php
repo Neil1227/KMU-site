@@ -74,7 +74,7 @@
         {{-- Toggle Button --}}
         @if ($technologies->count() > 6)
             <div class="text-center mt-4">
-                   <button id="toggleIctvBtn" class="btn btn-primary">Show More</button>
+                   <button id="toggleTechnologyBtn" class="btn btn-primary">Show More</button>
             </div>
         @endif
     </section>

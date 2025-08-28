@@ -135,7 +135,7 @@ a.profit-btn:hover {
   color: var(--primary-color);
 }
 /* Toggle Button */
-#toggleIctvBtn.btn-primary {
+#toggleTechnologyBtn.btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: var(--white-text);
@@ -144,7 +144,7 @@ a.profit-btn:hover {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#toggleIctvBtn.btn-primary:hover {
+#toggleTechnologyBtn.btn-primary:hover {
   background-color: #d84c00;
   transform: translateY(-1px);
 }
