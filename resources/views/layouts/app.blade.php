@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/preloader.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
 
 </head>
 
@@ -26,10 +26,10 @@
 
     <main class="page-wrapper">
         @yield('content')
-        <div class="loader-wrapper " id="preloader">
-            <div class="loader"></div>       
-        </div>
-
+            <div class="loader-wrapper " id="preloader">
+                <div class="loader"></div>       
+            </div>
+        @include('layouts.components.chatbox')
     </main>
 
     <!-- Shared JS -->

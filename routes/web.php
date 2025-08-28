@@ -10,6 +10,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SearchController;
 
+
 //Uploading Controllers
 use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
@@ -18,6 +19,23 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TechnologyController;
+
+// AI chatbox for openai
+// use App\Http\Controllers\ChatController;
+// Route::post('/chatbot/send', [ChatController::class, 'send']);
+
+// for gemini
+// use App\Http\Controllers\ChatBoxController; 
+
+// gemini chatbot
+// use App\Http\Controllers\GeminiChatController;
+
+// Route::post('/chatbot/send', [GeminiChatController::class, 'send']);
+
+use App\Http\Controllers\ChatBoxController;
+
+Route::post('/chat', [ChatBoxController::class, 'send']);
+
 
 
 
