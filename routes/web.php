@@ -32,11 +32,8 @@ use App\Http\Controllers\TechnologyController;
 
 // Route::post('/chatbot/send', [GeminiChatController::class, 'send']);
 
-use App\Http\Controllers\ChatBoxController;
-
-Route::post('/chat', [ChatBoxController::class, 'send']);
-
-
+// use App\Http\Controllers\ChatBoxController;
+// Route::post('/chat', [ChatBoxController::class, 'send']);
 
 
 // These routes are only accessible if NOT logged in

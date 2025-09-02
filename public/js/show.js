@@ -93,3 +93,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+//Promo. Activity
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('#promoCards .transition-card');
+    const toggleBtn = document.getElementById('togglePromoBtn');
+    let expanded = false;
+
+    toggleBtn?.addEventListener('click', function () {
+        cards.forEach((card, index) => {
+            if (index >= 6) {
+                card.classList.toggle('d-none');
+            }
+        });
+
+        expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
+
+        if (!expanded) {
+            document.getElementById('promoCards').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+//iec materials
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('#brochureCards .transition-card');
+    const toggleBtn = document.getElementById('toggleBrochureBtn');
+    let expanded = false;
+
+    toggleBtn?.addEventListener('click', function () {
+        cards.forEach((card, index) => {
+            if (index >= 6) {
+                card.classList.toggle('d-none');
+            }
+        });
+
+        expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
+
+        if (!expanded) {
+            document.getElementById('brochureCards').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});

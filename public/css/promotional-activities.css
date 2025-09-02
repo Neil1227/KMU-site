@@ -58,7 +58,7 @@
 }
 
 /* Toggle Button */
-#toggleIctvBtn.btn-primary {
+#togglePromoBtn {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: var(--white-text);
@@ -67,7 +67,7 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#toggleIctvBtn.btn-primary:hover {
+#togglePromoBtn:hover {
   background-color: #d84c00;
   transform: translateY(-1px);
 }

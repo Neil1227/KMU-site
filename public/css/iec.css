@@ -66,14 +66,19 @@
     color: var(--gray-complement);
 }
 
-/* Button Styling */
-.btn-primary {
-  background-color: var(--btn-gold);
-  border: none;
+/* Toggle Button */
+#toggleBrochureBtn {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white-text);
+  font-weight: 600;
+  padding: 8px 24px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-primary:hover {
-  background-color: var(--btn-hover-gold);
+#toggleBrochureBtn:hover {
+  background-color: #d84c00;
+  transform: translateY(-1px);
 }
 
 

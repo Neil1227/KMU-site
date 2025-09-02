@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $promo->title }}</h5>
                         <p class="card-text">{{ $promo->description }}</p>
-                        <a href="{{ $promo->link }}" target="_blank" class="btn watch-btn">Learn More</a>
+                        <a href="{{ $promo->link }}" target="_blank" class="btn watch-btn">Watch Episode</a>
                     </div>
                 </div>
             </div>

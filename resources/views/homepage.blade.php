@@ -61,26 +61,6 @@
   </div>
 </section>
 
-<!-- KMU Cards (Insert Here) -->
-<!-- <section class="kmu-section mt-4">
-  <div class="absolute-cards-container">
-    <div class="card-box transparent-card" data-aos="fade-up" data-aos-duration="1500">
-      <i class="fa-solid fa-magnifying-glass card-icon"></i>
-      <h5 class="text-white">Acquiring</h5>
-      <p><em>Learn. Discover. Collect.</em></p>
-    </div>
-    <div class="card-box primary-card" data-aos="fade-up" data-aos-duration="1500">
-      <i class="fa-solid fa-bullhorn card-icon"></i>
-      <h5 class="text-white">Promoting</h5>
-      <p><em>Highlight. Inspire. Engage.</em></p>
-    </div>
-    <div class="card-box secondary-card" data-aos="fade-up" data-aos-duration="1500">
-      <i class="fa-solid fa-share-nodes card-icon"></i>
-      <h5 class="text-white">Sharing</h5>
-      <p><em>Spread. Connect. Empower.</em></p>
-    </div>
-  </div>
-</section> -->
 <!-- Media Resources -->
 <section id="media-resources" class="py-5">
   <h2 class="text-center mb-2 section-title">
@@ -193,7 +173,6 @@
 
   <div class="container-page">
     <div class="row g-0">
-
       <div class="col-md-3 p-2 d-flex" data-aos="fade-in" data-aos-delay="900" data-aos-duration="1000">
         <a href="{{ url('agriculture') }}" class="text-decoration-none w-100 h-100">
           <div class="new_research-card h-100">

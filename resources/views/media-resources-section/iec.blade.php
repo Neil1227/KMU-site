@@ -21,35 +21,46 @@
 
 @include('layouts.components.generic-background')
 
-<div class="container-page mb-5">
-    <div class="row justify-content-center g-4 mt-4">
-        @foreach ($brochures as $brochure)
-            <div class="col-md-4 col-lg-4 transition-card">
+{{-- IEC Brochures Cards --}}
+<section class="container-page mb-5">
+    <div class="row justify-content-center g-4 mt-4" id="brochureCards">
+        @forelse ($brochures as $index => $brochure)
+            <div class="col-md-4 col-lg-4 mb-4 transition-card {{ $index >= 6 ? 'd-none' : '' }}">
                 <div class="card">
                     <div class="image-container">
                         <img src="{{ asset('storage/iec_thumbnail/' . $brochure->png) }}" 
                             alt="{{ $brochure->title }}" 
                             class="card-img" 
                             loading="lazy">
-                        <!-- <div class="overlay">
-                            <i class="fa fa-eye" style="font-size: 24px;"></i>
-                        </div> -->
                     </div>
                     <div class="card-body">
                         <h5 class="card-title-iec">{{ $brochure->title }}</h5>
                         <a href="{{ asset('storage/iec_brochure/' . $brochure->file) }}" 
-                        target="_blank" 
-                        class="btn watch-btn mt-2">
+                           target="_blank" 
+                           class="btn watch-btn mt-2">
                             View Brochure
                         </a>
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-12 text-center">
+                <p>No brochures available at the moment.</p>
+            </div>
+        @endforelse
     </div>
-</div>
 
+    {{-- Toggle Button --}}
+    @if (count($brochures) > 6)
+    <div class="text-center mt-4">
+        <button id="toggleBrochureBtn" class="btn btn-primary">Show More</button>
+    </div>
+    @endif
+</section>
 
+@push('scripts')
+<script src="{{ asset('js/show.js') }}"></script>
+@endpush
 
 {{-- Footer --}}
 @include('layouts.components.sub-footer')
