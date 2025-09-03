@@ -239,14 +239,23 @@ $staticPages = [
                 'url'     => url('/modules/'.$item->id),
             ]);
 
-        $technologyResults = Technology::where('product', 'like', "%$query%")
-            ->orWhere('desc', 'like', "%$query%")
+        $columns = \Schema::getColumnListing('technologies');
+
+        $technologyResults = Technology::query()
+            ->where(function ($q) use ($columns, $query) {
+                foreach ($columns as $column) {
+                    $q->orWhereRaw("LOWER(`$column`) LIKE ?", ['%' . strtolower($query) . '%']);
+                }
+            })
             ->get()
             ->map(fn ($item) => [
                 'title'   => $item->product,
                 'snippet' => Str::limit($item->desc, 100),
                 'url'     => url('/technologies/'.$item->id),
             ]);
+
+
+
 
         // --- Merge all results ---
         $allResults = $results
@@ -266,4 +275,32 @@ $staticPages = [
             'query'        => $query,
         ]);
     }
+    // for future use of lower case sensitive search
+    // private function searchModel($model, $table, $query, $urlPrefix, $titleField = 'title', $descField = 'description')
+    // {
+    //     $columns = \Schema::getColumnListing($table);
+
+    //     return $model::query()
+    //         ->where(function ($q) use ($columns, $query) {
+    //             foreach ($columns as $column) {
+    //                 $q->orWhereRaw("LOWER(`$column`) LIKE ?", ['%' . strtolower($query) . '%']);
+    //             }
+    //         })
+    //         ->get()
+    //         ->map(fn ($item) => [
+    //             'title'   => $item->$titleField,
+    //             'snippet' => Str::limit($item->$descField ?? '', 100),
+    //             'url'     => url("/{$urlPrefix}/".$item->id),
+    //         ]);
+    //             $ictvResults = $this->searchModel(Ictv::class, 'ictvs', $query, 'ictv');
+    // $iecResults = $this->searchModel(IECMaterial::class, 'i_e_c_materials', $query, 'iec');
+    // $promotionalResults = $this->searchModel(PromotionalActivity::class, 'promotional_activities', $query, 'promotional');
+    // $podcastResults = $this->searchModel(Podcast::class, 'podcasts', $query, 'podcast');
+    // $newsletterResults = $this->searchModel(Newsletter::class, 'newsletters', $query, 'newsletter');
+    // $moduleResults = $this->searchModel(Module::class, 'modules', $query, 'modules');
+    // $technologyResults = $this->searchModel(Technology::class, 'technologies', $query, 'technologies', 'product', 'desc');
+
+    // }
+
+
 }
