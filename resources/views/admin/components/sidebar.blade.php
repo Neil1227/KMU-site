@@ -11,46 +11,50 @@
 
         <hr class="border-secondary w-100">
 
-            <a href="{{ route('admin.dashboard') }}" class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">Dashboard</a>
-            
-            <a href="{{ route('ictv-table') }}" 
-            class="{{ Route::currentRouteName() === 'ictv-table' ? 'active' : '' }}">
-            ICTV Table
-            </a>
+<a href="{{ route('admin.dashboard') }}" 
+   class="{{ Route::currentRouteName() === 'admin.dashboard' ? 'active' : '' }}">
+   <i class="bi bi-grid me-2"></i> Dashboard
+</a>
 
-            <a href="{{ route('admin.iec-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.iec-table' ? 'active' : '' }}">
-            IEC Table
-            </a>
+<a href="{{ route('ictv-table') }}" 
+   class="{{ Route::currentRouteName() === 'ictv-table' ? 'active' : '' }}">
+   <i class="bi bi-tv me-2"></i> ICTV Table
+</a>
 
-            <a href="{{ route('admin.modules-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.modules-table' ? 'active' : '' }}">
-            Modules Table
-            </a>
+<a href="{{ route('admin.iec-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.iec-table' ? 'active' : '' }}">
+   <i class="bi bi-file-earmark-text me-2"></i> IEC Table
+</a>
 
-            <a href="{{ route('admin.newsletter-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.newsletter-table' ? 'active' : '' }}">
-            Newsletter Table
-            </a>
+<a href="{{ route('admin.modules-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.modules-table' ? 'active' : '' }}">
+   <i class="bi bi-journal-text me-2"></i> Modules Table
+</a>
 
-            <a href="{{ route('admin.promotionalactivities-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.promotionalactivities-table' ? 'active' : '' }}">
-            Promotional Table
-            </a>
+<a href="{{ route('admin.newsletter-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.newsletter-table' ? 'active' : '' }}">
+   <i class="bi bi-envelope me-2"></i> Newsletter Table
+</a>
 
-            <a href="{{ route('admin.podcast-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.podcast-table' ? 'active' : '' }}">
-            Podcast Table
-            </a>
+<a href="{{ route('admin.promotionalactivities-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.promotionalactivities-table' ? 'active' : '' }}">
+   <i class="bi bi-megaphone me-2"></i> Promotional Table
+</a>
 
-            <a href="{{ route('admin.technology-table') }}" 
-            class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
-            Technology Table
-            </a>
+<a href="{{ route('admin.podcast-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.podcast-table' ? 'active' : '' }}">
+   <i class="bi bi-headphones me-2"></i> Podcast Table
+</a>
 
-            <a href="{{ route('admin.recent-activities') }}" 
-            class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
-            Recent Activities
-            </a>
+<a href="{{ route('admin.technology-table') }}" 
+   class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
+   <i class="bi bi-cpu me-2"></i> Technology Table
+</a>
+
+<a href="{{ route('admin.recent-activities') }}" 
+   class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
+   <i class="bi bi-activity me-2"></i> Recent Activities
+</a>
+
             
         </div>
