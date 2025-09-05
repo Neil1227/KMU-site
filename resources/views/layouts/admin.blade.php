@@ -120,36 +120,6 @@
     });
     </script>
 
-<!-- Large File JS Loader (Update) continue this -->
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const updateForms = document.querySelectorAll('form[data-show-update-loader]');
-
-    if (updateForms.length > 0) {
-        updateForms.forEach(form => {
-            form.addEventListener("submit", function () {
-                const loader = document.getElementById("update-loader");
-                if (!loader) return;
-
-                loader.style.display = "flex";
-
-                const startTime = Date.now();
-                form.addEventListener("ajaxComplete", function () {
-                    const elapsed = Date.now() - startTime;
-                    const remaining = 800 - elapsed;
-                    setTimeout(() => {
-                        loader.style.display = "none";
-                    }, remaining > 0 ? remaining : 0);
-                });
-            });
-        });
-    }
-});
-</script> -->
-
-
-
-
     <script>
         AOS.init();
     </script>

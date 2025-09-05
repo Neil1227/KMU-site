@@ -175,43 +175,61 @@
 
 <!-- edit success with timer for MODULE using axios -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const saveBtn = document.getElementById("saveEditBtn");
+document.addEventListener("DOMContentLoaded", function () {
+    const saveBtn = document.getElementById("saveEditBtn");
+    const loader = document.getElementById("upload-loader"); // reuse the same loader
+    
+    saveBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-        saveBtn.addEventListener("click", function (e) {
-            e.preventDefault();
+        const form = document.getElementById("editModuleForm");
+        const formData = new FormData(form);
 
-            const form = document.getElementById("editModuleForm");
-            const formData = new FormData(form);
-            const id = document.getElementById("edit-id").value;
+        // force PUT for updates
+        formData.append("_method", "PUT");
 
-            formData.append('_method', 'PUT');
+        // get the hidden id
+        const id = document.getElementById("edit-id").value;
+        const url = `/admin/modules/${id}`;
 
-            axios.post(`/admin/modules/${id}`, formData, {
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Content-Type': 'multipart/form-data',
-                }
-            })
-            .then(response => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: response.data.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    location.reload();
-                });
-            })
-            .catch(error => {
-                console.error("Update error:", error.response || error);
-                Swal.fire("Error", "Something went wrong while updating.", "error");
+        // 🔥 Show loader before sending request
+        if (loader) loader.style.display = "flex";
+        const startTime = Date.now();
+
+        axios.post(url, formData, {
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                "Content-Type": "multipart/form-data",
+            }
+        })
+        .then(response => {
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: response.data.message,
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                location.reload();
             });
+        })
+        .catch(error => {
+            console.error("Update error:", error.response || error);
+            Swal.fire("Error", "Something went wrong while updating.", "error");
+        })
+        .finally(() => {
+            // 🔥 Ensure loader hides after at least 800ms
+            const elapsed = Date.now() - startTime;
+            const remaining = 800 - elapsed;
+            setTimeout(() => {
+                if (loader) loader.style.display = "none";
+            }, remaining > 0 ? remaining : 0);
         });
     });
-
+});
 </script>
+
+
 
 
 

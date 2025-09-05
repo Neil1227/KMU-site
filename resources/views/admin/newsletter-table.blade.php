@@ -223,44 +223,59 @@
 
 </script>
 
-<!-- Edit Save for Newsletter with SweetAlert + Axios -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const saveNewsletterBtn = document.getElementById("saveEditNewsletterBtn");
+<!-- Edit Save for Newsletter with SweetAlert + Loader + Axios -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const saveBtn = document.getElementById("saveEditNewsletterBtn");
+        const loader = document.getElementById("upload-loader"); // reuse the same loader overlay
 
-            saveNewsletterBtn.addEventListener("click", function (e) {
-                e.preventDefault();
+        saveBtn.addEventListener("click", function (e) {
+            e.preventDefault();
 
-                const form = document.getElementById("editNewsletterForm");
-                const formData = new FormData(form);
-                const id = document.getElementById("edit-newsletter-id").value;
+            const form = document.getElementById("editNewsletterForm");
+            const formData = new FormData(form);
+            const id = document.getElementById("edit-newsletter-id").value;
 
-                formData.append('_method', 'PUT');
+            formData.append("_method", "PUT");
+            const url = `/admin/newsletters/${id}`;
 
-                axios.post(`/admin/newsletters/${id}`, formData, {
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Content-Type': 'multipart/form-data',
-                    }
-                })
-                .then(response => {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Success",
-                        text: response.data.message,
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        location.reload();
-                    });
-                })
-                .catch(error => {
-                    console.error("Newsletter update error:", error.response || error);
-                    Swal.fire("Error", "Something went wrong while updating.", "error");
+            // 🔥 Show loader before sending request
+            if (loader) loader.style.display = "flex";
+            const startTime = Date.now();
+
+            axios.post(url, formData, {
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                    "Content-Type": "multipart/form-data",
+                }
+            })
+            .then(response => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: response.data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload();
                 });
+            })
+            .catch(error => {
+                console.error("Newsletter update error:", error.response || error);
+                Swal.fire("Error", "Something went wrong while updating.", "error");
+            })
+            .finally(() => {
+                // 🔥 Ensure loader hides after at least 800ms
+                const elapsed = Date.now() - startTime;
+                const remaining = 800 - elapsed;
+                setTimeout(() => {
+                    if (loader) loader.style.display = "none";
+                }, remaining > 0 ? remaining : 0);
             });
         });
-    </script>
+    });
+</script>
+
 
 <!-- SweetAlert for delete and its function (Newsletter) -->
 <script>

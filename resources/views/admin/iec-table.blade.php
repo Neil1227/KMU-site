@@ -197,54 +197,67 @@
 
 <!-- edit success with timer -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const saveBtn = document.getElementById("saveEditBtn");
+document.addEventListener("DOMContentLoaded", function () {
+    const saveBtn = document.getElementById("saveEditBtn");
+    const loader = document.getElementById("upload-loader"); // reuse the same loader
+    
+    saveBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-        saveBtn.addEventListener("click", function (e) {
-            e.preventDefault();
+        const form = document.getElementById("editIECForm");
+        const formData = new FormData(form);
 
-            const form = document.getElementById("editIECForm");
-            const formData = new FormData(form);
+        formData.append("_method", "PUT");
+        const id = saveBtn.getAttribute("data-id");
+        const url = `/iec-materials/${id}`;
 
-            formData.append("_method", "PUT");
-            const id = saveBtn.getAttribute("data-id");
-            const url = `/iec-materials/${id}`;
+        // 🔥 Show loader before sending request
+        if (loader) loader.style.display = "flex";
+        const startTime = Date.now();
 
-            fetch(url, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-            })
-            .then(async (response) => {
-                if (!response.ok) {
-                    const text = await response.text();
-                    console.error("Server Error (HTML):", text);
-                    throw new Error("Update failed");
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                Swal.fire({
-                    icon: "success",
-                    title: "Success",
-                    text: data.message,
-                    timer: 1500,
-                    showConfirmButton: false
-                }).then(() => {
-                    location.reload();
-                });
-            })
-            .catch(error => {
-                console.error("Update error:", error);
-                Swal.fire("Error", "Something went wrong while updating.", "error");
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+        })
+        .then(async (response) => {
+            if (!response.ok) {
+                const text = await response.text();
+                console.error("Server Error (HTML):", text);
+                throw new Error("Update failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: data.message,
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                location.reload();
             });
+        })
+        .catch(error => {
+            console.error("Update error:", error);
+            Swal.fire("Error", "Something went wrong while updating.", "error");
+        })
+        .finally(() => {
+            // 🔥 Ensure loader hides after at least 800ms
+            const elapsed = Date.now() - startTime;
+            const remaining = 800 - elapsed;
+            setTimeout(() => {
+                if (loader) loader.style.display = "none";
+            }, remaining > 0 ? remaining : 0);
         });
     });
-</script>
+});
 
+</script>
 <!-- sweet alert for delete and its function -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {

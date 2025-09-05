@@ -1,7 +1,7 @@
 <!-- Edit Module Modal -->
 <div class="modal fade" id="editModuleModal" tabindex="-1" aria-labelledby="editModuleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form id="editModuleForm" method="POST" enctype="multipart/form-data" data-upload-loader>
+    <form id="editModuleForm" method="POST" enctype="multipart/form-data" >
       @csrf
     
       <div class="modal-content">
