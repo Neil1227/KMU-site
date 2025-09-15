@@ -1,0 +1,133 @@
+/* ===================== Video Page Layout ===================== */
+.video-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+.card-body .card-title{
+    color: var(--primary-color);
+}
+/* ===================== Featured Video ===================== */
+.video-featured .card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-featured .card-body {
+    background-color: rgba(255,255,255,0.15); 
+    backdrop-filter: blur(10px); 
+    border-radius:8px; 
+    border:1px solid rgba(255,255,255,0.3);
+    padding: 1.25rem;
+}
+
+.video-featured h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.video-featured p {
+    margin: 0;
+    color: #6b7280; /* muted gray */
+}
+
+/* ===================== Playlist Sidebar (Thumbnail Left, Text Right) ===================== */
+.video-playlist {
+    margin-top: 1rem;
+}
+
+.video-playlist h5 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.video-playlist .list-group-item {
+    display: flex;
+    align-items: center;      /* vertically center content */
+    gap: 0.75rem;             /* space between thumbnail and text */
+    border: none;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.2s ease-in-out;
+    height: 100px;            /* fixed height */
+    min-height: 100px;        /* ensure minimum height */
+}
+
+.video-playlist .list-group-item:hover {
+    background: #f1f5f9;
+}
+.playlist-scrollable {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+
+    /* Use secondary color with transparency for glass effect */
+    background-color: rgba(var(--secondary-color-rgb, 255, 255, 255), 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(var(--secondary-color-rgb, 255, 255, 255), 0.2);
+}
+
+/* Optional: custom scrollbar */
+.playlist-scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-scrollable::-webkit-scrollbar-track {
+    background: rgba(var(--secondary-color-rgb, 255, 255, 255), 0.05);
+    border-radius: 8px;
+}
+
+.playlist-scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--secondary-color-rgb, 255, 255, 255), 0.3);
+    border-radius: 8px;
+}
+/* Default (desktop) */
+.item-title,
+.item-date {
+  color: #fff; /* white for larger screens */
+}
+
+/* Smaller screens (≤ 768px for tablets/phones) */
+@media (max-width: 768px) {
+  .item-title{
+    color: var(--primary-color);
+  }
+  .item-date {
+    color: #212529; /* dark text */
+  }
+}
+
+
+/* Sidebar thumbnail */
+.video-playlist .video-thumb {
+    width: 150px;        /* slightly bigger than 120px */
+    min-width: 150px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.video-playlist .video-thumb iframe {
+    width: 100%;
+    height: 300px;       /* increase height proportionally */
+    pointer-events: none;
+    border-radius: 6px;
+}
+
+
+/* Playlist text */
+.video-playlist h6 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.video-playlist small {
+    font-size: 0.8rem;
+    color: #6b7280;
+}

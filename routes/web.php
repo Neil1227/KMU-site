@@ -9,7 +9,7 @@ use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SearchController;
-
+use App\Http\Controllers\VideoController;
 
 //Uploading Controllers
 use App\Http\Controllers\ICTVController;
@@ -71,6 +71,7 @@ Route::post('/admin/logout', function (Request $request) {
     return redirect()->route('admin.login');
 })->name('admin.logout');
 
+Route::get('/videos/{type}/{id?}', [VideoController::class, 'show'])->name('video.show');
 
 
 //Uploads for ICTV
@@ -111,7 +112,8 @@ Route::put('/admin/promotional/{id}', [PromotionalActivityController::class, 'up
 Route::post('/admin/podcasts/store', [PodcastController::class, 'store'])->name('admin.podcast.store');
 Route::get('/podcast-table', [PodcastController::class, 'table'])->name('admin.podcast-table');
 Route::delete('/podcasts/{id}', [PodcastController::class, 'destroy'])->name('podcast.destroy');
-Route::put('/admin/podcasts/{id}', [PodcastController::class, 'update'])->name('podcasts.update');
+Route::put('/admin/podcast/{id}', [PodcastController::class, 'update'])->name('admin.podcast.update');
+
 
 
 // recent activities

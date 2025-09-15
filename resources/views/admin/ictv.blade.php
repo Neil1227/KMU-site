@@ -27,9 +27,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="link" class="form-label">Link URL</label>
-                    <input type="url" class="form-control" id="link" name="link" required>
+                    <label for="link" class="form-label">Embed Code</label>
+                    <textarea class="form-control" id="link" name="link" rows="4" required>{{ old('link') }}</textarea>
                 </div>
+
 
                 <div class="row mb-3">
                     <div class="col-md-12">

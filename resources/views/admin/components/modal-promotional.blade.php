@@ -25,9 +25,11 @@
           </div>
 
           <div class="mb-3">
-            <label for="promo_edit_link" class="form-label">Link</label>
-            <input type="url" name="link" class="form-control" id="promo_edit_link">
+              <label for="promo_edit_link" class="form-label">Embed Code</label>
+              <textarea name="link" class="form-control" id="promo_edit_link" rows="3" placeholder="Paste iframe code here"></textarea>
           </div>
+
+
 
           <div id="promo_current_thumbnail" class="mb-2"></div>
 

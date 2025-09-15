@@ -31,7 +31,6 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Link</th>
                             <th>Thumbnail</th>
                             <th>Created At</th>
                             <th>Action</th>
@@ -43,15 +42,6 @@
                                 <td>{{ $activity->id }}</td>
                                 <td>{{ $activity->title }}</td>
                                 <td>{{ $activity->description }}</td>
-                                <td>
-                                    @if ($activity->link)
-                                        <a href="{{ $activity->link }}" target="_blank" class="btn btn-sm btn-primary">
-                                            View Link
-                                        </a>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
                                 <td>
                                     @if ($activity->png)
                                         <img src="{{ asset('storage/promotional_thumbnail/' . $activity->png) }}" width="60" alt="Thumbnail">

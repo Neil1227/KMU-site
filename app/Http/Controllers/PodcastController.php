@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Podcast;
 use App\Models\RecentActivity;
+use Illuminate\Support\Facades\Storage;
 
 class PodcastController extends Controller
 {
@@ -14,24 +14,23 @@ class PodcastController extends Controller
         return view('admin.podcast-table', compact('podcasts'));
     }
 
-    // Store podcast
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url|max:2048', // Optional podcast link
-            'png' => 'nullable|image', // Only PNG files
+            'link' => 'nullable|string',
+            'png' => 'nullable|image|mimes:png,jpg,jpeg,gif',
         ]);
 
         $pngFileName = null;
-
         if ($request->hasFile('png')) {
-            $pngFileName = time() . '_' . $request->file('png')->getClientOriginalName();
-            $request->file('png')->storeAs('podcast_thumbnail', $pngFileName);
+            $file = $request->file('png');
+            $pngFileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('podcast_thumbnail', $pngFileName);
         }
 
-        Podcast::create([
+        $podcast = Podcast::create([
             'title' => $request->title,
             'description' => $request->description,
             'link' => $request->link,
@@ -40,74 +39,77 @@ class PodcastController extends Controller
 
         RecentActivity::create([
             'action' => 'added',
-            'title' => $request->title,
+            'title' => $podcast->title,
             'source' => 'Podcast',
         ]);
 
         return back()->with('success', 'Podcast uploaded successfully!');
     }
 
-    // Delete Podcast
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'link' => 'nullable|string',
+        'png' => 'nullable|image|mimes:png,jpg,jpeg,gif',
+    ]);
+
+    $podcast = Podcast::findOrFail($id);
+
+    $pngFileName = $podcast->png; // keep existing
+
+    // Handle thumbnail
+    if ($request->hasFile('png')) {
+        // Delete old file if exists
+        if ($pngFileName && Storage::exists('podcast_thumbnail/' . $pngFileName)) {
+            Storage::delete('podcast_thumbnail/' . $pngFileName);
+        }
+
+        // Save new file
+        $file = $request->file('png');
+        $pngFileName = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('podcast_thumbnail', $pngFileName);
+    }
+
+    // Update all fields including png
+    $podcast->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'link' => $request->link,
+        'png' => $pngFileName, // make sure to include this
+    ]);
+
+    RecentActivity::create([
+        'action' => 'updated',
+        'title' => $podcast->title,
+        'source' => 'Podcast',
+    ]);
+
+    return response()->json([
+    'message' => 'Podcast updated successfully!',
+]);
+
+}
+
+
     public function destroy($id)
     {
         $podcast = Podcast::findOrFail($id);
 
-        // Delete thumbnail file if exists
-        if ($podcast->thumbnail && \Storage::exists('podcast_thumbnail/' . $podcast->thumbnail)) {
-            \Storage::delete('podcast_thumbnail/' . $podcast->thumbnail);
+        if ($podcast->png && Storage::exists('podcast_thumbnail/' . $podcast->png)) {
+            Storage::delete('podcast_thumbnail/' . $podcast->png);
         }
 
         $title = $podcast->title;
-
         $podcast->delete();
 
-        // Log to recent activities
         RecentActivity::create([
             'action' => 'deleted',
             'title' => $title,
             'source' => 'Podcast',
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Podcast deleted successfully.']);
+        return response()->json(['success' => true]);
     }
-
-    public function update(Request $request, $id)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'link' => 'nullable|url|max:2048',
-        'png' => 'nullable|image',
-    ]);
-
-    $podcast = Podcast::findOrFail($id);
-
-    $pngFileName = $podcast->png;
-
-    if ($request->hasFile('png')) {
-        // Delete old thumbnail if exists
-        if ($pngFileName && \Storage::exists('podcast_thumbnail/' . $pngFileName)) {
-            \Storage::delete('podcast_thumbnail/' . $pngFileName);
-        }
-
-        $pngFileName = time() . '_' . $request->file('png')->getClientOriginalName();
-        $request->file('png')->storeAs('podcast_thumbnail', $pngFileName);
-    }
-
-    $podcast->update([
-        'title' => $request->title,
-        'description' => $request->description,
-        'link' => $request->link,
-        'png' => $pngFileName,
-    ]);
-
-    // Log to recent activity
-    RecentActivity::create([
-        'action' => 'updated',
-        'title' => $request->title,
-        'source' => 'Podcast',
-    ]);
-
-    return back()->with('success', 'Podcast updated successfully!');
-}
 }

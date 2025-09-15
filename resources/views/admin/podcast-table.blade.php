@@ -32,7 +32,6 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Link</th>
                             <th>Thumbnail</th>
                             <th>Created At</th>
                             <th>Action</th>
@@ -44,15 +43,6 @@
                                 <td>{{ $podcast->id }}</td>
                                 <td>{{ $podcast->title }}</td>
                                 <td>{{ $podcast->description }}</td>
-                                <td>
-                                    @if ($podcast->link)
-                                        <a href="{{ $podcast->link }}" target="_blank" class="btn btn-sm btn-primary">
-                                            View Link
-                                        </a>
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
                                 <td>
                                     @if ($podcast->png)
                                         <img src="{{ asset('storage/podcast_thumbnail/' . $podcast->png) }}" width="60" alt="Thumbnail">
@@ -149,7 +139,7 @@
 
             formData.append('_method', 'PUT');
 
-            axios.post(`/admin/podcasts/${id}`, formData, {
+            axios.post(`/admin/podcast/${id}`, formData, {
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Content-Type': 'multipart/form-data',

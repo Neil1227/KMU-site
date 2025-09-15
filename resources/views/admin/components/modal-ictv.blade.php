@@ -24,9 +24,10 @@
           </div>
 
           <div class="mb-3">
-            <label for="edit_link" class="form-label">Link</label>
-            <input type="url" name="link" class="form-control" id="edit_link" required>
+              <label for="edit_link" class="form-label">Link / Embed Code</label>
+              <textarea name="link" class="form-control" id="edit_link" rows="4" required>{{ old('link', $episode->link) }}</textarea>
           </div>
+
 
           <div id="current_thumbnail" class=" mb-2"></div>
 

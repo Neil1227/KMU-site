@@ -31,7 +31,6 @@
                             <th>ID</th>
                             <th>Episode</th>
                             <th>Description</th>
-                            <th>Link</th>
                             <th>Image</th>
                             <th>Created At</th>
                             <th>Actions</th>
@@ -43,11 +42,6 @@
                                 <td>{{ $episode->id }}</td>
                                 <td>{{ $episode->title }}</td>
                                 <td>{{ $episode->description }}</td>
-                                <td>
-                                    <a href="{{ $episode->link }}" target="_blank" class="btn btn-sm btn-primary">
-                                        View Episode
-                                    </a>
-                                </td>
                                 <td>
                                     @if ($episode->png)
                                         <img src="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}" width="60" alt="png">
@@ -62,15 +56,16 @@
                                             class="btn btn-sm btn-success edit-btn"
                                             title="Edit"
                                             data-id="{{ $episode->id }}"
-                                            data-title="{{ $episode->title }}"
-                                            data-description="{{ $episode->description }}"
-                                            data-link="{{ $episode->link }}"
+                                            data-title="{{ e($episode->title) }}"
+                                            data-description="{{ e($episode->description) }}"
+                                            data-link="{{ e($episode->link) }}"
                                             data-thumbnail-webp="{{ asset('storage/ictv_thumbnail/' . $episode->webp) }}"
                                             data-thumbnail-png="{{ asset('storage/ictv_thumbnail/' . $episode->png) }}"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#editModal">
+                                            data-bs-target="#editEpisodeModal">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
+
 
                                     <!-- Delete Button -->
                                     <button type="button"
@@ -104,7 +99,7 @@
             lengthChange: true,
             lengthMenu: [5, 8, 10, 15, 20],
             autoWidth: false,
-            order: [[5, 'desc']]
+            order: [[4, 'desc']]
         });
     });
 </script>
@@ -149,33 +144,36 @@
 
 <!-- Edit Modal Population -->
 <script>
-    $(document).ready(function () {
-        $('.edit-btn').on('click', function () {
-            const episodeId = $(this).data('id');
-            const title = $(this).data('title');
-            const description = $(this).data('description');
-            const link = $(this).data('link');
-            const thumbnailPng = $(this).data('thumbnail-png');
+$(document).ready(function () {
+    $('#ictvTable').on('click', '.edit-btn', function () {
+        const episodeId = $(this).attr('data-id');
+        const title = $(this).attr('data-title');
+        const description = $(this).attr('data-description');
+        const link = $(this).attr('data-link');
+        const thumbnailPng = $(this).attr('data-thumbnail-png');
 
-            $('#edit_id').val(episodeId);
-            $('#edit_title').val(title);
-            $('#edit_description').val(description);
-            $('#edit_link').val(link);
-            $('#editEpisodeForm').attr('action', `/admin/ictv/${episodeId}`);
+        $('#edit_id').val(episodeId);
+        $('#edit_title').val(title);
+        $('#edit_description').val(description);
+        $('#edit_link').val(link);
+        $('#editEpisodeForm').attr('action', `/admin/ictv/${episodeId}`);
 
-            let previewHTML = '';
-            if (thumbnailPng) {
-                previewHTML += `
-                    <div style="display:inline-block; text-align:center;">
-                        <small>PNG</small><br>
-                        <img src="${thumbnailPng}" alt="PNG Thumbnail" width="80" class="img-thumbnail">
-                    </div>`;
-            }
+        let previewHTML = '';
+        if (thumbnailPng) {
+            previewHTML = `
+                <div style="display:inline-block; text-align:center;">
+                    <small>PNG</small><br>
+                    <img src="${thumbnailPng}" alt="PNG Thumbnail" width="80" class="img-thumbnail">
+                </div>`;
+        }
+        $('#current_thumbnail').html(previewHTML);
 
-            $('#current_thumbnail').html(previewHTML);
-            $('#editEpisodeModal').modal('show');
-        });
+        // Show modal
+        $('#editEpisodeModal').modal('show');
     });
+});
+
+
 </script>
 
 

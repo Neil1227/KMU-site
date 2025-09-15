@@ -25,8 +25,9 @@
           </div>
 
           <div class="mb-3">
-            <label for="podcast_edit_link" class="form-label">Link</label>
-            <input type="url" name="link" class="form-control" id="podcast_edit_link">
+              <label for="podcast_edit_link" class="form-label">Embed Code</label>
+              <textarea name="link" class="form-control" id="podcast_edit_link" rows="3"
+                        placeholder="Paste the iframe embed code here"></textarea>
           </div>
 
           <div id="podcast_current_thumbnail" class="mb-3"></div>

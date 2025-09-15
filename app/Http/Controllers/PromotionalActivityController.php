@@ -23,7 +23,7 @@ class PromotionalActivityController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable|string',
             'png' => 'nullable|image', // ✅ match the db column
         ]);
 
@@ -56,7 +56,7 @@ class PromotionalActivityController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url',
+            'link' => 'nullable|string',
             'png' => 'nullable|image',
         ]);
 

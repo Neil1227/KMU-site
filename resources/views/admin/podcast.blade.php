@@ -27,9 +27,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="link" class="form-label">Link URL</label>
-                    <input type="url" class="form-control" id="link" name="link">
+                    <label for="link" class="form-label">Embed Code</label>
+                    <textarea class="form-control" id="link" name="link" rows="3"
+                            placeholder="Paste the iframe embed code here"></textarea>
                 </div>
+
 
                 <div class="mb-3">
                     <label for="thumbnail" class="form-label">PNG Thumbnail</label>

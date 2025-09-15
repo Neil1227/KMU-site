@@ -29,7 +29,11 @@
                     <div class="card-body">
                         <h5 class="ictv-card-title">{{ $podcast->title }}</h5>
                         <p class="card-text">{{ $podcast->description }}</p>
-                        <a href="{{ $podcast->link }}" target="_blank" class="btn watch-btn">Watch Episode</a>
+                        <a href="{{ route('video.show', ['type' => 'podcast', 'id' => $podcast->id]) }}" 
+                        class="btn watch-btn">
+                        Watch Episode
+                        </a>
+
                     </div>
                 </div>
             </div>
