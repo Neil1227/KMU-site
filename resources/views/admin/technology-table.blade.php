@@ -99,48 +99,51 @@
         });
     });
 </script>
-<!-- drag and drop upload for Technology -->
+<!-- Drag and Drop Upload for Technology -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('#editTechnologyModal .drop-area').forEach(area => {
-      const input = area.querySelector('.file-input');
-      const text = area.querySelector('.upload-text');
+    // Initialize all drop areas inside the Technology modal
+    document.querySelectorAll("#editTechnologyModal .drop-area").forEach(area => {
+        const input = area.querySelector(".file-input");
+        const text = area.querySelector(".upload-text");
 
-      // Click to open file input
-      area.addEventListener('click', () => input.click());
+        // Click to open file dialog
+        area.addEventListener("click", () => input.click());
 
-      // Show selected file
-      input.addEventListener('change', () => {
-          if (input.files.length > 0) {
-              text.textContent = input.files[0].name;
-          }
-      });
+        // File input change
+        input.addEventListener("change", () => {
+            if (input.files.length > 0) {
+                text.textContent = input.files[0].name;
+            } else {
+                text.textContent = "Drag & drop or click to upload";
+            }
+        });
 
-      // Drag over
-      area.addEventListener('dragover', e => {
-          e.preventDefault();
-          area.classList.add('drag-over');
-      });
+        // Drag over effect
+        area.addEventListener("dragover", e => {
+            e.preventDefault();
+            area.classList.add("drag-over");
+        });
 
-      // Drag leave
-      area.addEventListener('dragleave', () => {
-          area.classList.remove('drag-over');
-      });
+        // Remove effect
+        ["dragleave", "drop"].forEach(evt => {
+            area.addEventListener(evt, () => area.classList.remove("drag-over"));
+        });
 
-      // Drop file
-      area.addEventListener('drop', e => {
-          e.preventDefault();
-          area.classList.remove('drag-over');
-
-          const droppedFile = e.dataTransfer.files[0];
-          if (droppedFile) {
-              input.files = e.dataTransfer.files;
-              text.textContent = droppedFile.name;
-          }
-      });
-  });
+        // Handle file drop
+        area.addEventListener("drop", e => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                input.files = e.dataTransfer.files;
+                text.textContent = file.name;
+            }
+        });
+    });
 });
 </script>
+
+
 
 <!-- Edit Modal Population -->
 <script>

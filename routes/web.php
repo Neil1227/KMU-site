@@ -11,6 +11,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VideoController;
 
+use App\Http\Controllers\CommodityController;
+
 //Uploading Controllers
 use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
@@ -156,9 +158,25 @@ Route::get('/learn-more', function () {
     return redirect('/home');
 });
 
+//For Commodity Database
+
+Route::get('/commodities', [CommodityController::class, 'index']);
+
+Route::get('/admin/database/commodities', [CommodityController::class, 'index'])
+    ->name('admin.database.commodities');
+
+Route::get('/commodities', [CommodityController::class, 'index'])->name('commodities.index');
+Route::get('/commodities/{commodity}', [CommodityController::class, 'show'])->name('commodities.show');
+
+Route::get('/admin/database/commodities/{commodity}', [CommodityController::class, 'show'])
+    ->name('admin.database.commodities.show');
+
+Route::post('/commodities', [CommodityController::class, 'store'])->name('commodities.store');
+Route::put('/commodities/update/{id}', [CommodityController::class, 'update'])->name('commodities.update');
+Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->name('commodities.destroy');
 
 
-
+    
 // for redirect using the secret code
 Route::get('/143123', function () {
     return redirect()->route('admin.login'); // if you named the admin login route

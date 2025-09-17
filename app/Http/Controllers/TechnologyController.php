@@ -24,7 +24,7 @@ class TechnologyController extends Controller
     }
 
     // ====================admin========================
-        public function table()
+    public function table()
     {
          // fetch all technologies from the DB
         $technologies = Technology::all();
@@ -132,59 +132,74 @@ class TechnologyController extends Controller
             'success' => 'Technology deleted successfully!'
         ]);
     }
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'product' => 'required|string|max:255',
-        'desc' => 'nullable|string',
-        'net' => 'nullable|numeric',
-        'profit' => 'nullable|numeric',
-        'inventors' => 'nullable|string',
-        'ip_status' => 'nullable|string',
-        'proposition' => 'nullable|string',
-        'benefits' => 'nullable|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'poster' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-    ]);
 
-    $technology = Technology::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'product' => 'required|string|max:255',
+            'desc' => 'nullable|string',
+            'net' => 'nullable|numeric',
+            'profit' => 'nullable|numeric',
+            'inventors' => 'nullable|string',
+            'ip_status' => 'nullable|string',
+            'proposition' => 'nullable|string',
+            'benefits' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'poster' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
 
-    $technology->product = $request->product;
-    $technology->desc = $request->desc;
-    $technology->net = $request->net;
-    $technology->profit = $request->profit;
-    $technology->inventors = $request->inventors ? explode(',', $request->inventors) : [];
-    $technology->ip_status = $request->ip_status;
-    $technology->proposition = $request->proposition ? explode(',', $request->proposition) : [];
-    $technology->benefits = $request->benefits ? explode(',', $request->benefits) : [];
+        $technology = Technology::findOrFail($id);
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('technologies', 'public');
-        $technology->image = basename($imagePath);
+        $technology->product = $request->product;
+        $technology->desc = $request->desc;
+        $technology->net = $request->net;
+        $technology->profit = $request->profit;
+        $technology->inventors = $request->inventors ? array_map('trim', explode(',', $request->inventors)) : [];
+        $technology->ip_status = $request->ip_status;
+        $technology->proposition = $request->proposition ? array_map('trim', explode(',', $request->proposition)) : [];
+        $technology->benefits = $request->benefits ? array_map('trim', explode(',', $request->benefits)) : [];
+
+        // Reuse the same file storage logic
+        $storeFile = function ($file, $folder) {
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $originalName . '.' . $extension;
+            $counter = 1;
+
+            while (\Storage::disk('public')->exists($folder . '/' . $filename)) {
+                $filename = $originalName . '(' . $counter . ').' . $extension;
+                $counter++;
+            }
+
+            $file->storeAs($folder, $filename, 'public');
+
+            return $filename;
+        };
+
+        if ($request->hasFile('image')) {
+            // optionally delete old image
+            if ($technology->image && \Storage::disk('public')->exists('technologies/' . $technology->image)) {
+                \Storage::disk('public')->delete('technologies/' . $technology->image);
+            }
+            $technology->image = $storeFile($request->file('image'), 'technologies');
+        }
+
+        if ($request->hasFile('poster')) {
+            if ($technology->poster && \Storage::disk('public')->exists('technologies/' . $technology->poster)) {
+                \Storage::disk('public')->delete('technologies/' . $technology->poster);
+            }
+            $technology->poster = $storeFile($request->file('poster'), 'technologies');
+        }
+
+        $technology->save();
+
+        RecentActivity::create([
+            'action' => 'updated',
+            'title' => $technology->product,
+            'source' => 'Technology',
+        ]);
+
+        return back()->with('success', 'Technology updated successfully!');
     }
-
-    if ($request->hasFile('poster')) {
-        $posterPath = $request->file('poster')->store('technologies', 'public');
-        $technology->poster = basename($posterPath);
-    }
-
-    $technology->save();
-
-    // ✅ Log recent activity with correct field
-    RecentActivity::create([
-        'action' => 'updated',
-        'title' => $technology->product, // use "product" as the title
-        'source' => 'Technology',
-    ]);
-
-    return back()->with('success', 'Technology updated successfully!');
-}
-
-
-
-
-
-
-
 }
 
