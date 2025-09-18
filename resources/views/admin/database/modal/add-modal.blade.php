@@ -88,7 +88,7 @@
         <div class="col-md-3">
           <label class="form-label">TRL Level</label>
           <select name="trl_level" class="form-select">
-            @for($i=0; $i<=9; $i++)
+            @for($i=1; $i<=9; $i++)
               <option value="{{ $i }}">{{ $i }}</option>
             @endfor
           </select>
