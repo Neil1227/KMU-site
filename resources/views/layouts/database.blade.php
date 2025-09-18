@@ -37,6 +37,9 @@
     <div class="container-fluid">
         <div class="row d-flex " id="admin-wrapper">
             @yield('content')
+        <!-- Include Modal Here -->
+        @include('admin.database.modal.add-modal')
+        
         </div>
     </div>
 

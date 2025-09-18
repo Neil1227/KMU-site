@@ -13,7 +13,36 @@
 <div class="container">
     <!-- Overview -->
     <div class="card commodity-overview">
-        <h2>Commodities Overview</h2>
+        <h2>Technology Summary</h2>
+        <!-- Top Action Cards -->
+        <div class="commodity-grid" id="actionCards" style="margin-bottom: 1.5rem;">
+            <div class="commodity-card">
+                <h3>Graphs</h3>
+                <p>View graphical summaries</p>
+                <a href="" class="btn btn-outline">
+                    View Graphs
+                </a>
+            </div>
+
+            <div class="commodity-card">
+                <h3>All Records</h3>
+                <p>See all commodity records</p>
+                <a href="" class="btn btn-outline">
+                    View Records
+                </a>
+            </div>
+
+            <div class="commodity-card">
+                <h3>View Site</h3>
+                <p>Go to the public site</p>
+                <a href="{{ url('/') }}" target="_blank" class="btn btn-outline">
+                    Visit Site
+                </a>
+            </div>
+        </div>
+
+        <!-- Commodity Cards -->
+                 <h2>Commodities Overview</h2>
         <div class="commodity-grid" id="commodityGrid">
             @foreach($commodities as $commodity)
             <div class="commodity-card">
@@ -31,71 +60,11 @@
     </div>
 </div>
 
+
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- sweet alert for success on adding new commodity -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('commodityForm');
-    if(!form) return;
 
-    const saveBtn = document.getElementById('saveCommodityBtn');
-    saveBtn.addEventListener('click', async () => {
-        const formData = new FormData(form);
-        const url = "{{ route('commodities.store') }}";
-
-        try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                body: formData
-            });
-
-            const data = await res.json();
-
-            if(data.success){
-                // Close modal
-                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('addCommodityModal'));
-                modal.hide();
-
-                // Reset form
-                form.reset();
-
-                // SweetAlert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: data.message,
-                    timer: 2500,
-                    showConfirmButton: false
-                });
-
-                // Append new commodity card dynamically
-                const grid = document.getElementById('commodityGrid');
-                const div = document.createElement('div');
-                div.classList.add('commodity-card');
-                div.innerHTML = `
-                    <h3>${data.data.commodity}</h3>
-                    <p>1 research record(s)</p>
-                    <a href="/admin/database/commodities/${data.data.commodity.toLowerCase()}" class="btn btn-outline mt-2">View Records</a>
-                `;
-                grid.appendChild(div);
-            }
-        } catch(err){
-            console.error(err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Something went wrong. Please try again.'
-            });
-        }
-    });
-});
-</script>
 
 @endpush
 

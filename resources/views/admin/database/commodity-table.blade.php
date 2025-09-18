@@ -106,6 +106,7 @@
             </tbody>
         </table>
     @include('admin.database.modal.edit-modal')
+    
     <!-- modal for custom table -->
     <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
