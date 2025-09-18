@@ -1,4 +1,6 @@
-/* Container */
+/* ==============================
+   Container & Header
+============================== */
 .container {
     max-width: 1200px;
     margin: 1rem auto;
@@ -6,7 +8,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -15,50 +16,49 @@
 }
 
 .header h1 {
-    font-size: 1.4rem; /* smaller title */
+    font-size: 1.4rem;
     font-weight: 600;
     margin: 0;
 }
 
-/* Buttons */
+/* ==============================
+   Buttons
+============================== */
 .btn {
-    padding: 0.3rem 0.6rem; /* smaller buttons */
+    padding: 0.3rem 0.6rem;
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    transition: 0.2s ease;
-    font-size: 0.75rem; /* smaller font */
+    font-size: 0.75rem;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
-.btn-back {
-    background-color: #6c757d;
-    color: #fff;
-}
+/* Variants */
+.btn-back   { background-color: #6c757d; color: #fff; }
+.btn-add    { background-color: #4f46e5; color: #fff; }
 
-.btn-back:hover {
-    background-color: #5a6268;
-}
+.btn-back:hover { background-color: #5a6268; }
+.btn-add:hover  { background-color: #4338ca; }
 
-.btn-add {
-    background-color: #4f46e5;
-    color: #fff;
-}
-
-.btn-add:hover {
-    background-color: #4338ca;
-}
-
-/* Compact DataTable */
+/* ==============================
+   Table (Compact DataTable)
+============================== */
 .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.7rem; /* smaller font for compact look */
+    font-size: 0.7rem;
+    table-layout: fixed;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     border: 1px solid #ddd;
-    padding: 0.2rem 0.4rem; /* minimal padding */
+    padding: 0.2rem 0.4rem;
     text-align: left;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .table th {
@@ -66,31 +66,33 @@
     font-weight: 600;
 }
 
-.table tr:nth-child(even) {
-    background-color: #fafafa;
-}
+.table tr:nth-child(even) { background-color: #fafafa; }
+.table tr:hover          { background-color: #f0f0ff; }
 
-.table tr:hover {
-    background-color: #f0f0ff;
-}
+/* Wrapper for many columns */
+.table-wrapper { overflow-x: auto; }
 
-/* Action buttons smaller with spacing */
+/* ==============================
+   Action Buttons (row-level)
+============================== */
 .actions button {
-    margin: 0.2rem; /* increased space between buttons */
-    padding: 0.35rem 0.5rem; /* slightly smaller padding */
-    font-size: 0.7rem; /* adjust font size for compactness */
+    margin: 0.2rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
     border-radius: 3px;
+    color: #fff;
 }
 
-/* Action button colors */
-.actions button.view { background-color: #3b82f6; color: #fff; }
-.actions button.edit { background-color: #f59e0b; color: #fff; }
-.actions button.publish { background-color: #10b981; color: #fff; }
-.actions button.delete { background-color: #ef4444; color: #fff; }
+.actions button.view    { background-color: #3b82f6; }
+.actions button.edit    { background-color: #f59e0b; }
+.actions button.publish { background-color: #10b981; }
+.actions button.delete  { background-color: #ef4444; }
 
-.actions button:hover {
-    opacity: 0.85;
-}
+.actions button:hover { opacity: 0.85; }
+
+/* ==============================
+   Editable Inputs
+============================== */
 .editable-input {
     width: 100%;
     min-height: 40px;
@@ -100,7 +102,7 @@
     border-radius: 4px;
     background-color: #fff;
     box-sizing: border-box;
-    resize: vertical; /* allow resizing */
+    resize: vertical;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -110,12 +112,9 @@
     box-shadow: 0 0 4px rgba(79, 70, 229, 0.4);
 }
 
-/* Responsive scroll for many columns */
-.table-wrapper {
-    overflow-x: auto;
-}
-/* Style the search input */
-/* DataTables toolbar layout */
+/* ==============================
+   DataTables Styling
+============================== */
 .dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_filter {
     display: inline-flex;
@@ -123,38 +122,22 @@
     margin-bottom: 1rem;
 }
 
-/* Push search to the right */
-.dataTables_wrapper .dataTables_filter {
-    float: right;
-}
+.dataTables_wrapper .dataTables_filter { float: right; }
 
-/* Style the dropdown */
-.dataTables_wrapper .dataTables_length select {
-    padding: 0.4rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 0.85rem;
-    margin-left: 0.25rem;
-}
-
-/* Style the search input */
+/* Inputs & Selects */
+.dataTables_wrapper .dataTables_length select,
 .dataTables_wrapper .dataTables_filter input {
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 0.85rem;
-    margin-left: 0.5rem;
-}
-
-/* DataTables styling */
-.dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_length select {
-    border-radius: 4px;
     padding: 0.2rem 0.4rem;
+    border-radius: 4px;
     border: 1px solid #ddd;
     font-size: 0.7rem;
 }
 
+/* Dropdown spacing */
+.dataTables_wrapper .dataTables_length select { margin-left: 0.25rem; }
+.dataTables_wrapper .dataTables_filter input  { margin-left: 0.5rem; }
+
+/* Pagination */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     border-radius: 4px;
     padding: 0.2rem 0.4rem;
