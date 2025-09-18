@@ -4,12 +4,10 @@
     <div class="navbar-left">
         <div class="d-flex align-items-center mb-3">
     <!-- Logo -->
-<img src="{{ asset('assets/img/logo.png') }}" alt="Logo" style="height: 50px; margin-right: 10px;">
-
-
-    <!-- Heading -->
-    <h2 class="m-0">Database Management</h2>
-</div>
+    <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" style="height: 50px; margin-right: 10px;">
+        <!-- Heading -->
+        <h2 class="m-0">Database Management</h2>
+    </div>
 
     </div>
     <div class="navbar-right">

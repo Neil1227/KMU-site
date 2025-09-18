@@ -22,6 +22,16 @@ use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TechnologyController;
 
+use App\Http\Controllers\DatabaseController;
+
+// All records page
+Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
+    ->name('admin.database.records');
+// Update record
+Route::put('admin/database/records/{id}', [DatabaseController::class, 'updateRecord'])
+    ->name('admin.database.update');
+
+
 // AI chatbox for openai
 // use App\Http\Controllers\ChatController;
 // Route::post('/chatbot/send', [ChatController::class, 'send']);
@@ -161,16 +171,12 @@ Route::get('/learn-more', function () {
 //For Commodity Database
 
 Route::get('/commodities', [CommodityController::class, 'index']);
-
 Route::get('/admin/database/commodities', [CommodityController::class, 'index'])
     ->name('admin.database.commodities');
-
 Route::get('/commodities', [CommodityController::class, 'index'])->name('commodities.index');
 Route::get('/commodities/{commodity}', [CommodityController::class, 'show'])->name('commodities.show');
-
 Route::get('/admin/database/commodities/{commodity}', [CommodityController::class, 'show'])
     ->name('admin.database.commodities.show');
-
 Route::post('/commodities', [CommodityController::class, 'store'])->name('commodities.store');
 Route::put('/commodities/update/{id}', [CommodityController::class, 'update'])->name('commodities.update');
 Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->name('commodities.destroy');

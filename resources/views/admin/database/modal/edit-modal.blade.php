@@ -24,7 +24,7 @@
             <div class="row g-3 mb-4">
             <div class="col-md-6">
               <label class="form-label">Commodity</label>
-              <select name="commodity" id="commodityEdit" class="form-select">
+              <select name="commodity" id="commodityEdit" class="form-select" required>
                   <option value="other">New Commodity</option>
                   <option value="For Checking">For Checking</option>
 

@@ -27,9 +27,7 @@
             <div class="commodity-card">
                 <h3>All Records</h3>
                 <p>See all commodity records</p>
-                <a href="" class="btn btn-outline">
-                    View Records
-                </a>
+                <a href="{{ route('admin.database.records') }}" class="btn btn-outline">All Records</a>
             </div>
 
             <div class="commodity-card">
