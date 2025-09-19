@@ -19,7 +19,7 @@
             <div class="commodity-card">
                 <h3>Graphs</h3>
                 <p>View graphical summaries</p>
-                <a href="" class="btn btn-outline">
+                <a href="{{ route('admin.database.graphs') }}" class="btn btn-outline">
                     View Graphs
                 </a>
             </div>

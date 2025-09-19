@@ -190,6 +190,12 @@ Route::delete('/activities/{id}', [CommodityController::class, 'deleteActivity']
 // Clear all activities
 Route::delete('/activities', [CommodityController::class, 'clearAllActivities'])->name('activities.clearAll');
 
+//Graphs
+
+//Graphs
+Route::get('/admin/database/graphs', [CommodityController::class, 'graphs'])
+    ->name('admin.database.graphs');
+
 
 
     

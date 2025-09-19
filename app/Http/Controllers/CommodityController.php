@@ -256,4 +256,50 @@ class CommodityController extends Controller
             'message' => 'Old activities cleared, latest 3 kept.',
         ]);
     }
+
+public function graphs()
+{
+    $data = Commodity::select('commodity')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('commodity')
+        ->pluck('total', 'commodity');
+
+    $techTypes = Commodity::select('type_of_technology')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('type_of_technology')
+        ->pluck('total', 'type_of_technology');
+
+    $ipStatuses = Commodity::select('ip_status')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('ip_status')
+        ->pluck('total', 'ip_status');
+
+    $trlLevels = Commodity::select('trl_level')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('trl_level')
+        ->pluck('total', 'trl_level');
+
+    $priorities = Commodity::select('priority_area')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('priority_area')
+        ->pluck('total', 'priority_area');
+
+    $commodities = Commodity::select('commodity')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('commodity')
+        ->get();
+
+    return view('admin.database.graphs', compact(
+        'data',
+        'techTypes',
+        'ipStatuses',
+        'trlLevels',
+        'priorities',
+        'commodities'
+    ));
+}
+
+
+
+
 }
