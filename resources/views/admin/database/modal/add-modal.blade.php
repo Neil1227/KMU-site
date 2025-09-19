@@ -70,9 +70,9 @@
             <option value="Non-Food">Non-Food</option>
             <option value="N/A">N/A</option>
             <optgroup label="Non-Food">
-              <option value="Non-Food(Chemical)">Non-Food (Chemical)</option>
-              <option value="Non-Food(Software)">Non-Food (Software)</option>
-              <option value="Non-Food(Equipment)">Non-Food (Equipment)</option>
+              <option value="Non-Food (Chemical)">Non-Food (Chemical)</option>
+              <option value="Non-Food (Software)">Non-Food (Software)</option>
+              <option value="Non-Food (Equipment)">Non-Food (Equipment)</option>
             </optgroup>
           </select>
         </div>

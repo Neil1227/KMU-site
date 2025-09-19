@@ -15,17 +15,23 @@
 <div class="container">
     @include('admin.database.navbar')
 
-    <div class="header pt-5">
-        <a href="{{ route('admin.database.commodities') }}" class="btn btn-back">← Back</a>
-        <h1>{{ strtoupper($commodity) }} - RESEARCH RECORDS</h1>
-        <button class="btn btn-add">Add Record</button>
-    </div>
+<div class="header pt-5 mb-5 d-flex align-items-center justify-content-between position-relative">
+    <!-- Back button on the left -->
+    <a href="{{ route('admin.database.commodities') }}" class="btn btn-back">← Back</a>
+
+    <!-- Centered heading -->
+    <h1 class="position-absolute start-50 translate-middle-x text-center m-0">
+        {{ strtoupper($commodity) }} - RESEARCH RECORDS
+    </h1>
+
+</div>
+
 
     <div class="table-wrapper">
 <table class="table table-sm table-striped table-hover nowrap" style="width:100%">
 
 
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>Thesis Title</th>
                     <th>Technologies</th>
@@ -49,11 +55,60 @@
                     <td>{{ $record->technologies }}</td>
                     <td>{!! $record->technology_generator !!}</td>
                     <td>{{ $record->contact_info }}</td>
-                    <td>{{ $record->type_of_technology }}</td>
-                    <td>{{ $record->ip_status }}</td>
-                    <td>{{ $record->trl_level }}</td>
+                    @php
+                        $techClasses = [
+                            'Food' => 'badge-tech-food',
+                            'Non-Food' => 'badge-tech-nonfood',
+                            'N/A' => 'badge-tech-na',
+                            'Non-Food (Chemical)' => 'badge-tech-nonfood-chemical',
+                            'Non-Food (Software)' => 'badge-tech-nonfood-software',
+                            'Non-Food (Equipment)' => 'badge-tech-nonfood-equipment',
+                        ];
+                    @endphp
+
+                    <td>
+                        @if(!empty($record->type_of_technology))
+                            <span class="badge {{ $techClasses[$record->type_of_technology] ?? 'badge-tech-na' }}">
+                                {{ $record->type_of_technology }}
+                            </span>
+                        @endif
+                    </td>
+                    <td>
+                        @php
+                            switch($record->ip_status) {
+                                case 'Non-IP Applied': $badgeClass = 'badge-ip-non'; break;
+                                case 'IP Applied': $badgeClass = 'badge-ip-applied'; break;
+                                case 'Registered': $badgeClass = 'badge-ip-registered'; break;
+                                case 'N/A': $badgeClass = 'badge-ip-na'; break;
+                                default: $badgeClass = 'badge bg-light text-dark';
+                            }
+                        @endphp
+                        <span class="badge {{ $badgeClass }}">{{ $record->ip_status }}</span>
+                    </td>
+
+                    <td><span class="badge bg-warning text-dark">{{ $record->trl_level }}</span></td>
                     <td>{{ $record->sdgs }}</td>
-                    <td>{{ $record->remarks }}</td>
+                    @php
+                        $remarksClasses = [
+                            'For Product Development' => 'badge-remarks-product',
+                            'For Incubation' => 'badge-remarks-incubation',
+                            'For Commercialization' => 'badge-remarks-commercialization',
+                            'For IP Application' => 'badge-remarks-ip',
+                            'For Deployment' => 'badge-remarks-deployment',
+                            'For Extention' => 'badge-remarks-extension',
+                            'N/A' => 'badge-remarks-na'
+                        ];
+                    @endphp
+
+                    <td>
+                        @if($record->remarks)
+                            <span class="badge {{ $remarksClasses[$record->remarks] ?? 'badge-remarks-na' }}">
+                                {{ $record->remarks }}
+                            </span>
+                        @endif
+                    </td>
+
+
                     <td>{{ $record->recommendations }}</td>
                     <td>
                         <a href="{{ $record->link }}" target="_blank">

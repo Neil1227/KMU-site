@@ -29,6 +29,15 @@
                 <p>See all commodity records</p>
                 <a href="{{ route('admin.database.records') }}" class="btn btn-outline">All Records</a>
             </div>
+            <div class="commodity-card">
+                <h3>Activities</h3>
+                <p>Track all activities</p>
+                <a href="{{ route('admin.database.activity') }}" class="btn btn-outline">
+                    Recent Activities
+                </a>
+
+
+            </div>
 
             <div class="commodity-card">
                 <h3>View Site</h3>

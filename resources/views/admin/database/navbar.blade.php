@@ -23,10 +23,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('commodityForm');
-    if(!form) return;
-
     const saveBtn = document.getElementById('saveCommodityBtn');
-    saveBtn.addEventListener('click', async () => {
+
+    // Only attach event if both exist
+    if(!form || !saveBtn) return;
+
+    saveBtn.addEventListener('click', async (e) => {
+        e.preventDefault(); // prevent default form submission
         const formData = new FormData(form);
         const url = "{{ route('commodities.store') }}";
 
@@ -59,16 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     showConfirmButton: false
                 });
 
-                // Append new commodity card dynamically
+                // Append new commodity card dynamically if grid exists
                 const grid = document.getElementById('commodityGrid');
-                const div = document.createElement('div');
-                div.classList.add('commodity-card');
-                div.innerHTML = `
-                    <h3>${data.data.commodity}</h3>
-                    <p>1 research record(s)</p>
-                    <a href="/admin/database/commodities/${data.data.commodity.toLowerCase()}" class="btn btn-outline mt-2">View Records</a>
-                `;
-                grid.appendChild(div);
+                if(grid){
+                    const div = document.createElement('div');
+                    div.classList.add('commodity-card');
+                    div.innerHTML = `
+                        <h3>${data.data.commodity}</h3>
+                        <p>1 research record(s)</p>
+                        <a href="/admin/database/commodities/${data.data.commodity.toLowerCase()}" class="btn btn-outline mt-2">View Records</a>
+                    `;
+                    grid.appendChild(div);
+                }
             }
         } catch(err){
             console.error(err);
@@ -80,4 +85,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 </script>

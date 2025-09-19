@@ -181,6 +181,16 @@ Route::post('/commodities', [CommodityController::class, 'store'])->name('commod
 Route::put('/commodities/update/{id}', [CommodityController::class, 'update'])->name('commodities.update');
 Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->name('commodities.destroy');
 
+    // 👇 Add this for activity log
+Route::get('/admin/database/activities', [CommodityController::class, 'activities'])
+    ->name('admin.database.activity');
+// Delete single activity
+Route::delete('/activities/{id}', [CommodityController::class, 'deleteActivity'])->name('activities.delete');
+
+// Clear all activities
+Route::delete('/activities', [CommodityController::class, 'clearAllActivities'])->name('activities.clearAll');
+
+
 
     
 // for redirect using the secret code

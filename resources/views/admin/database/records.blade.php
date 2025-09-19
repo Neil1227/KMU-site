@@ -15,14 +15,18 @@
 <div class="container">
     @include('admin.database.navbar')
 
-    <div class="header pt-5 d-flex justify-content-between align-items-center">
-        <h1>All Research Records</h1>
-        <button class="btn btn-add">Add Record</button>
+    <div class="header pt-5 mb-5 d-flex align-items-center position-relative">
+        <!-- Back button on the left -->
+        <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
+
+        <!-- Centered heading -->
+        <h1 class="mx-auto text-center">All Research Records</h1>
     </div>
+
 
     <div class="table-wrapper m-3">
         <table id="recordsTable" class="table table-sm table-striped table-hover" style="width:100%">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>Commodity</th>
                     <th>Thesis Title</th>
@@ -48,11 +52,61 @@
                     <td>{{ $record->technologies }}</td>
                     <td>{!! $record->technology_generator !!}</td>
                     <td>{{ $record->contact_info }}</td>
-                    <td>{{ $record->type_of_technology }}</td>
-                    <td>{{ $record->ip_status }}</td>
-                    <td>{{ $record->trl_level }}</td>
+                    @php
+                        $techClasses = [
+                            'Food' => 'badge-tech-food',
+                            'Non-Food' => 'badge-tech-nonfood',
+                            'N/A' => 'badge-tech-na',
+                            'Non-Food (Chemical)' => 'badge-tech-nonfood-chemical',
+                            'Non-Food (Software)' => 'badge-tech-nonfood-software',
+                            'Non-Food (Equipment)' => 'badge-tech-nonfood-equipment',
+                        ];
+                    @endphp
+
+                    <td>
+                        @if(!empty($record->type_of_technology))
+                            <span class="badge {{ $techClasses[$record->type_of_technology] ?? 'badge-tech-na' }}">
+                                {{ $record->type_of_technology }}
+                            </span>
+                        @endif
+                    </td>
+
+                    <td>
+                        @php
+                            switch($record->ip_status) {
+                                case 'Non-IP Applied': $badgeClass = 'badge-ip-non'; break;
+                                case 'IP Applied': $badgeClass = 'badge-ip-applied'; break;
+                                case 'Registered': $badgeClass = 'badge-ip-registered'; break;
+                                case 'N/A': $badgeClass = 'badge-ip-na'; break;
+                                default: $badgeClass = 'badge bg-light text-dark';
+                            }
+                        @endphp
+                        <span class="badge {{ $badgeClass }}">{{ $record->ip_status }}</span>
+                    </td>
+
+                    <td><span class="badge bg-warning text-dark">{{ $record->trl_level }}</span></td>
                     <td>{{ $record->sdgs }}</td>
-                    <td>{{ $record->remarks }}</td>
+                    @php
+                        $remarksClasses = [
+                            'For Product Development' => 'badge-remarks-product',
+                            'For Incubation' => 'badge-remarks-incubation',
+                            'For Commercialization' => 'badge-remarks-commercialization',
+                            'For IP Application' => 'badge-remarks-ip',
+                            'For Deployment' => 'badge-remarks-deployment',
+                            'For Extention' => 'badge-remarks-extension',
+                            'N/A' => 'badge-remarks-na'
+                        ];
+                    @endphp
+
+                    <td>
+                        @if(!empty($record->remarks))
+                            <span class="badge {{ $remarksClasses[$record->remarks] ?? 'badge-remarks-na' }}">
+                                {{ $record->remarks }}
+                            </span>
+                        @endif
+                    </td>
+
+
                     <td>{{ $record->recommendations }}</td>
                     <td>
                         <a href="{{ $record->link }}" target="_blank">{{ $record->link }}</a>
@@ -118,152 +172,199 @@
 @endsection
 
 @push('scripts')
-<!-- modal responsiveness and modal display for records.blade.php -->
- <!-- modal edit -->
-
   <!-- trigger and populate the edit modal -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".edit").forEach(button => {
-        button.addEventListener("click", function () {
-            const record = this.dataset;
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".edit").forEach(button => {
+            button.addEventListener("click", function () {
+                const record = this.dataset;
 
-            // Populate "Type of Technology" <select>
-            const typeSelect = document.getElementById("edit_type_of_technology");
-            if (typeSelect) {
-                Array.from(typeSelect.options).forEach(option => {
-                    option.selected = option.value === record.type_of_technology;
-                });
-            }
+                // Populate "Type of Technology" <select>
+                const typeSelect = document.getElementById("edit_type_of_technology");
+                if (typeSelect) {
+                    Array.from(typeSelect.options).forEach(option => {
+                        option.selected = option.value === record.type_of_technology;
+                    });
+                }
 
-            // Fill input fields
-            document.getElementById("edit_id").value = record.id;
-            document.getElementById("commodityEdit").value = record.commodity;
-            document.getElementById("edit_thesis_title").value = record.thesis_title;
-            document.getElementById("edit_technologies").value = record.technologies;
-            document.getElementById("edit_technology_generator").value = record.technology_generator;
-            document.getElementById("edit_contact_info").value = record.contact_info;
-            document.getElementById("edit_ip_status").value = record.ip_status;
-            document.getElementById("edit_trl_level").value = record.trl_level;
-            document.getElementById("edit_sdgs").value = record.sdgs;
-            document.getElementById("edit_remarks").value = record.remarks;
-            document.getElementById("edit_recommendations").value = record.recommendations;
-            document.getElementById("edit_link").value = record.link;
-            document.getElementById("edit_priority_area").value = record.priority_area;
+                // Fill input fields
+                document.getElementById("edit_id").value = record.id;
+                document.getElementById("commodityEdit").value = record.commodity;
+                document.getElementById("edit_thesis_title").value = record.thesis_title;
+                document.getElementById("edit_technologies").value = record.technologies;
+                document.getElementById("edit_technology_generator").value = record.technology_generator;
+                document.getElementById("edit_contact_info").value = record.contact_info;
+                document.getElementById("edit_ip_status").value = record.ip_status;
+                document.getElementById("edit_trl_level").value = record.trl_level;
+                document.getElementById("edit_sdgs").value = record.sdgs;
+                document.getElementById("edit_remarks").value = record.remarks;
+                document.getElementById("edit_recommendations").value = record.recommendations;
+                document.getElementById("edit_link").value = record.link;
+                document.getElementById("edit_priority_area").value = record.priority_area;
 
-            // Show/hide "other" commodity input
-            const otherInput = document.getElementById("edit_commodityOther");
-            if (otherInput) {
-                otherInput.style.display = record.commodity === "other" ? "block" : "none";
-            }
+                // Show/hide "other" commodity input
+                const otherInput = document.getElementById("edit_commodityOther");
+                if (otherInput) {
+                    otherInput.style.display = record.commodity === "other" ? "block" : "none";
+                }
 
-            // Open modal
-            const modal = new bootstrap.Modal(document.getElementById("editCommodityModal"));
-            modal.show();
+                // Open modal
+                const modal = new bootstrap.Modal(document.getElementById("editCommodityModal"));
+                modal.show();
+            });
         });
+
+        // Toggle "other" commodity field when user changes dropdown
+        const commoditySelect = document.getElementById("commodityEdit");
+        if (commoditySelect) {
+            commoditySelect.addEventListener("change", function () {
+                const otherInput = document.getElementById("edit_commodityOther");
+                if (otherInput) {
+                    otherInput.style.display = this.value === "other" ? "block" : "none";
+                }
+            });
+        }
     });
-
-    // Toggle "other" commodity field when user changes dropdown
-    const commoditySelect = document.getElementById("commodityEdit");
-    if (commoditySelect) {
-        commoditySelect.addEventListener("change", function () {
-            const otherInput = document.getElementById("edit_commodityOther");
-            if (otherInput) {
-                otherInput.style.display = this.value === "other" ? "block" : "none";
-            }
-        });
-    }
-});
 </script>
 
 <!-- updating records -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Handle edit button click to populate modal
-    document.querySelectorAll(".edit").forEach(button => {
-        button.addEventListener("click", function () {
-            const record = this.dataset;
-            const form = document.getElementById("editCommodityForm");
+    document.addEventListener("DOMContentLoaded", () => {
+        // Handle edit button click to populate modal
+        document.querySelectorAll(".edit").forEach(button => {
+            button.addEventListener("click", function () {
+                const record = this.dataset;
+                const form = document.getElementById("editCommodityForm");
 
-            form.action = `/admin/database/records/${record.id}`;
+                form.action = `/admin/database/records/${record.id}`;
 
-            // Populate fields
-            document.getElementById("edit_id").value = record.id;
-            document.getElementById("edit_commodity").value = record.commodity;
-            document.getElementById("edit_thesis_title").value = record.thesis_title;
-            document.getElementById("edit_technologies").value = record.technologies;
-            document.getElementById("edit_technology_generator").value = record.technology_generator;
-            document.getElementById("edit_contact_info").value = record.contact_info;
-            document.getElementById("edit_type_of_technology").value = record.type_of_technology;
-            document.getElementById("edit_ip_status").value = record.ip_status;
-            document.getElementById("edit_trl_level").value = record.trl_level;
-            document.getElementById("edit_sdgs").value = record.sdgs;
-            document.getElementById("edit_remarks").value = record.remarks;
-            document.getElementById("edit_recommendations").value = record.recommendations;
-            document.getElementById("edit_link").value = record.link;
-            document.getElementById("edit_priority_area").value = record.priority_area;
+                // Populate fields
+                document.getElementById("edit_id").value = record.id;
+                document.getElementById("edit_commodity").value = record.commodity;
+                document.getElementById("edit_thesis_title").value = record.thesis_title;
+                document.getElementById("edit_technologies").value = record.technologies;
+                document.getElementById("edit_technology_generator").value = record.technology_generator;
+                document.getElementById("edit_contact_info").value = record.contact_info;
+                document.getElementById("edit_type_of_technology").value = record.type_of_technology;
+                document.getElementById("edit_ip_status").value = record.ip_status;
+                document.getElementById("edit_trl_level").value = record.trl_level;
+                document.getElementById("edit_sdgs").value = record.sdgs;
+                document.getElementById("edit_remarks").value = record.remarks;
+                document.getElementById("edit_recommendations").value = record.recommendations;
+                document.getElementById("edit_link").value = record.link;
+                document.getElementById("edit_priority_area").value = record.priority_area;
 
-            // Show/hide "other" commodity input
-            const otherInput = document.getElementById("edit_commodityOther");
-            if (otherInput) otherInput.style.display = record.commodity === "other" ? "block" : "none";
+                // Show/hide "other" commodity input
+                const otherInput = document.getElementById("edit_commodityOther");
+                if (otherInput) otherInput.style.display = record.commodity === "other" ? "block" : "none";
 
-            // Show modal
-            const modal = new bootstrap.Modal(document.getElementById("editCommodityModal"));
-            modal.show();
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById("editCommodityModal"));
+                modal.show();
+            });
+        });
+
+        // Toggle "other" commodity input dynamically
+        const commoditySelect = document.getElementById("edit_commodity");
+        if (commoditySelect) {
+            commoditySelect.addEventListener("change", function () {
+                const otherInput = document.getElementById("edit_commodityOther");
+                if (otherInput) otherInput.style.display = this.value === "other" ? "block" : "none";
+            });
+        }
+
+        // Handle form submit
+        const form = document.getElementById("editCommodityForm");
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST", // PUT is spoofed via @method('PUT') in Blade
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Updated!",
+                        text: data.message,
+                        showConfirmButton: true
+                    }).then(() => {
+                        // Hide modal and reload after user clicks OK
+                        bootstrap.Modal.getInstance(document.getElementById("editCommodityModal")).hide();
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire("Error", data.message, "error");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                Swal.fire("Error", "Something went wrong.", "error");
+            });
         });
     });
-
-    // Toggle "other" commodity input dynamically
-    const commoditySelect = document.getElementById("edit_commodity");
-    if (commoditySelect) {
-        commoditySelect.addEventListener("change", function () {
-            const otherInput = document.getElementById("edit_commodityOther");
-            if (otherInput) otherInput.style.display = this.value === "other" ? "block" : "none";
-        });
-    }
-
-    // Handle form submit
-    const form = document.getElementById("editCommodityForm");
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-
-        fetch(form.action, {
-            method: "POST", // PUT is spoofed via @method('PUT') in Blade
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Updated!",
-                    text: data.message,
-                    showConfirmButton: true
-                }).then(() => {
-                    // Hide modal and reload after user clicks OK
-                    bootstrap.Modal.getInstance(document.getElementById("editCommodityModal")).hide();
-                    location.reload();
-                });
-            } else {
-                Swal.fire("Error", data.message, "error");
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            Swal.fire("Error", "Something went wrong.", "error");
-        });
-    });
-});
 </script>
 
+<!-- delete for the record -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".delete").forEach(button => {
+        button.addEventListener("click", function () {
+            const id = this.dataset.id;
 
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This will permanently delete the record.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const res = await fetch(`/commodities/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                "Accept": "application/json"
+                            }
+                        });
 
+                        const data = await res.json();
 
+                        if (data.success) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Deleted!",
+                                text: data.message,
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+
+                            // Remove row from table without reload
+                            this.closest("tr").remove();
+                        } else {
+                            Swal.fire("Error", data.message, "error");
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        Swal.fire("Error", "Something went wrong.", "error");
+                    }
+                }
+            });
+        });
+    });
+    });
+
+</script>
 
 <!-- responsive modal script for records (paste after DataTables scripts) -->
 <script>
