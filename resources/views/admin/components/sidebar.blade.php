@@ -55,6 +55,13 @@
             class="{{ Route::currentRouteName() === 'admin.recent-activities' ? 'active' : '' }}">
             <i class="bi bi-activity me-2"></i> Recent Activities
          </a>
+<a href="{{ route('admin.notifications') }}" 
+   class="{{ Route::currentRouteName() === 'admin.notifications' ? 'active' : '' }}">
+   <i class="bi bi-bell me-2"></i> Notifications
+</a>
+
+
+
          <a href="{{ route('admin.database.commodities') }}" 
             class="{{ Route::currentRouteName() === 'admin.database.commodities' ? 'active' : '' }}">
             <i class="bi bi-database me-2"></i> Manage Database

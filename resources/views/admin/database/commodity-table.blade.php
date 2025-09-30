@@ -145,7 +145,12 @@
                         <button class="save btn btn-success btn-sm" style="display:none;">
                             <i class="bi bi-check-lg"></i>
                         </button>
-                        <button class="push btn btn-primary btn-sm">
+                            <!-- Push to Notifications -->
+                        <button 
+                            class="push-to-notif btn btn-sm btn-primary" 
+                            data-id="{{ $record->id }}" 
+                            data-url="{{ route('notifications.push', $record->id) }}"
+                        >
                             <i class="bi bi-check2-circle"></i>
                         </button>
                         <button 
@@ -180,7 +185,7 @@
 @endsection
 
 @push('scripts')
-
+<script src="{{ asset('js/pushcontent.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/dark/1.13.6/js/dataTables.dark.min.js"></script>
@@ -420,5 +425,6 @@
         });
     });
 </script>
+
 
 @endpush

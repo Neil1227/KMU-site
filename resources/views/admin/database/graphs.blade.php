@@ -61,7 +61,7 @@
         <!-- Type of Technology -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
             <div class="chart-card">
-                <h5 class="card-title text-center">Records by Type of Technology</h5>
+                <h5 class="card-title text-center mb-2">Records by Type of Technology</h5>
                 <canvas id="techTypeChart"></canvas>
             </div>
         </div>
@@ -69,7 +69,7 @@
         <!-- IP Status -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
             <div class="chart-card">
-                <h5 class="card-title text-center">Records by IP Status</h5>
+                <h5 class="card-title text-center mb-2">Records by IP Status</h5>
                 <canvas id="ipStatusChart"></canvas>
             </div>
         </div>
@@ -79,7 +79,7 @@
         <!-- TRL Level -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
             <div class="chart-card">
-                <h5 class="card-title text-center">Records by TRL Level</h5>
+                <h5 class="card-title text-center mb-2">Records by TRL Level</h5>
                 <canvas id="trlLevelChart"></canvas>
             </div>
         </div>
@@ -87,7 +87,7 @@
         <!-- Priority Area -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
             <div class="chart-card">
-                <h5 class="card-title text-center">Records by Priority Area</h5>
+                <h5 class="card-title text-center mb-2">Records by Priority Area</h5>
                 <canvas id="priorityChart"></canvas>
             </div>
         </div>

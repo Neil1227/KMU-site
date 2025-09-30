@@ -9,7 +9,7 @@ class CommoditiesSeeder extends Seeder
 {
 public function run(): void
 {
-    $path = storage_path('app/for-csv.csv');
+    $path = storage_path('app/csv2.csv');
     $handle = fopen($path, 'r');
 
     // Read header row

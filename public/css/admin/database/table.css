@@ -58,12 +58,17 @@
     vertical-align: middle;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+        white-space: normal !important; /* allow text to wrap */
+    word-break: break-word;          /* break long words */
 }
 
 .table th {
     background-color: #f4f4f4;
     font-weight: 600;
+}
+.table .dropdown-menu {
+    z-index: 2000 !important;  /* float above */
+    position: absolute !important;
 }
 
 .table tr:nth-child(even) { background-color: #fafafa; }

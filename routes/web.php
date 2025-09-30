@@ -180,6 +180,8 @@ Route::get('/admin/database/commodities/{commodity}', [CommodityController::clas
 Route::post('/commodities', [CommodityController::class, 'store'])->name('commodities.store');
 Route::put('/commodities/update/{id}', [CommodityController::class, 'update'])->name('commodities.update');
 Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->name('commodities.destroy');
+Route::delete('/admin/notifications/{id}', [NotificationController::class, 'destroy'])
+    ->name('notifications.destroy');
 
     // 👇 Add this for activity log
 Route::get('/admin/database/activities', [CommodityController::class, 'activities'])
@@ -191,10 +193,27 @@ Route::delete('/activities/{id}', [CommodityController::class, 'deleteActivity']
 Route::delete('/activities', [CommodityController::class, 'clearAllActivities'])->name('activities.clearAll');
 
 //Graphs
-
-//Graphs
 Route::get('/admin/database/graphs', [CommodityController::class, 'graphs'])
     ->name('admin.database.graphs');
+    
+
+// View page for commodities
+Route::get('/admin/database/view', [CommodityController::class, 'view'])
+    ->middleware('guest') // Only guests can access
+    ->name('admin.database.view');
+
+// ---------------------------------------------------------------------------notif
+use App\Http\Controllers\NotificationController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
+   Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+});
+
+
+
+
 
 
 
