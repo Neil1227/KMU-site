@@ -38,21 +38,34 @@
             <div class="commodity-card">
                 <h3>IP Applied</h3>
                 <p>See all IP-Applied commodity records.</p>
-                <a href="{{ route('admin.database.view') }}" target="_blank" class="btn btn-outline mt-3">Visit IP Records</a>
+                <a href="{{ route('admin.database.view-ip-applied') }}" target="_blank" class="btn btn-outline mt-3">Visit IP Records</a>
             </div>
         </div>
 
         <!-- Commodities Overview -->
         <h2 class="mt-5">Commodities Overview</h2>
-        <div class="commodity-grid">
-            @foreach($commodities as $commodity)
-            <div class="commodity-card">
-                <h3>{{ $commodity->commodity }}</h3>
-                <p>{{ $commodity->total }} research record(s)</p>
-                <a href="{{ route('admin.database.commodities.show', ['commodity' => strtolower($commodity->commodity)]) }}" class="btn btn-outline mt-3">View Records</a>
-            </div>
-            @endforeach
+<div class="commodity-grid">
+    @php
+        $sortedCommodities = $commodities->sort(function($a, $b) {
+            // Always put "For Checking" first
+            if ($a->commodity === 'For Checking') return -1;
+            if ($b->commodity === 'For Checking') return 1;
+
+            // Otherwise, sort by updated_at descending
+            return strtotime($b->updated_at) <=> strtotime($a->updated_at);
+        });
+    @endphp
+
+    @foreach($sortedCommodities as $commodity)
+        <div class="commodity-card">
+            <h3>{{ $commodity->commodity }}</h3>
+            <p>{{ $commodity->total }} research record(s)</p>
+            <a href="{{ route('admin.database.commodities.show', ['commodity' => strtolower($commodity->commodity)]) }}" class="btn btn-outline mt-3">{{ $commodity->commodity }} Records</a>
         </div>
+    @endforeach
+</div>
+
+
 
         <!-- Include Add Modal -->
         @include('admin.database.modal.add-modal')

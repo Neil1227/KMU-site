@@ -36,37 +36,42 @@
                     <th>Action</th> 
                 </tr>
             </thead>
-            <tbody>
-                @forelse ($activities as $activity)
-                    <tr id="activity-{{ $activity->id }}">
-                        <td>
-                        <span class="badge 
-                            @if($activity->action === 'created') bg-success
-                            @elseif($activity->action === 'updated') bg-primary
-                            @elseif($activity->action === 'deleted') bg-danger
-                            @else bg-secondary
-                            @endif">
-                            {{ ucfirst($activity->action) }}
-                        </span>
-                    </td>
+<tbody>
+    @php
+        $sortedActivities = $activities->sortByDesc(function($activity) {
+            return $activity->updated_at ?? $activity->created_at;
+        });
+    @endphp
 
-                        <td>{{ $activity->thesis_title }}</td>
-                        <td>{{ $activity->technology }}</td>
-                        <td>{{ $activity->ip_status }}</td>
-                        <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger delete-activity" data-id="{{ $activity->id }}">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                            
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No activities found.</td>
-                    </tr>
-                @endforelse
-            </tbody>
+    @forelse ($sortedActivities as $activity)
+        <tr id="activity-{{ $activity->id }}">
+            <td>
+                <span class="badge 
+                    @if($activity->action === 'created') bg-success
+                    @elseif($activity->action === 'updated') bg-primary
+                    @elseif($activity->action === 'deleted') bg-danger
+                    @else bg-secondary
+                    @endif">
+                    {{ ucfirst($activity->action) }}
+                </span>
+            </td>
+            <td>{{ $activity->thesis_title }}</td>
+            <td>{{ $activity->technology }}</td>
+            <td>{{ $activity->ip_status }}</td>
+            <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
+            <td>
+                <button class="btn btn-sm btn-danger delete-activity" data-id="{{ $activity->id }}">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="6" class="text-center">No activities found.</td>
+        </tr>
+    @endforelse
+</tbody>
+
         </table>
     </div>
 </div>
@@ -76,16 +81,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function () {
-    var table = $('#activitiesTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50],
-        responsive: true,
-        autoWidth: false,
-        language: {
-            search: "_INPUT_",
-            searchPlaceholder: "Search activities..."
-        }
-    });
+var table = $('#activitiesTable').DataTable({
+    pageLength: 10,
+    lengthMenu: [5, 10, 25, 50],
+    responsive: true,
+    autoWidth: false,
+    order: [[4, 'asc']], // Sort by Date column ascending
+    language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search activities..."
+    }
+});
+
 
     // Row-level delete
     $('.delete-activity').click(function() {

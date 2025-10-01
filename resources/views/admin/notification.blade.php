@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manage Notifications')
+@section('title', 'Manage Application')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/admin/ictv-table.css') }}">
@@ -56,12 +56,18 @@
                             </td>
                             <td data-full="{{ $commodity->priority_area ?? '—' }}">{{ $commodity->priority_area ?? '—' }}</td>
                             <td class="text-center">
-                                <button class="btn btn-primary btn-sm push-to-notif" data-id="{{ $commodity->id }}">
+                                <button class="btn btn-primary btn-sm push-to-registered"
+                                data-id="{{ $notification->id }}"
+                                    data-technology="{{ $commodity->technologies }}"
+                                    data-generator="{{ $commodity->technology_generator }}"
+                                    data-link="{{ $commodity->link }}">
                                     <i class="bi bi-send"></i>
                                 </button>
-<button class="btn btn-danger btn-sm delete-notif" data-id="{{ $notification->id }}">
-    <i class="bi bi-trash"></i>
-</button>
+
+
+                                <button class="btn btn-danger btn-sm delete-notif" data-id="{{ $notification->id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
 
                             </td>
                         </tr>
@@ -75,6 +81,46 @@
         </div>
     </div>
 </div>
+<!-- Push to Registered Modal -->
+<!-- Push Technology Modal -->
+<div class="modal fade" id="pushTechnologyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="pushTechnologyForm" method="POST" action="{{ route('admin.registered-technology.store') }}">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Push Technology</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="technology_generator" id="techGenerator">
+                    
+                    <div class="mb-3">
+                        <label for="technology" class="form-label">Technology</label>
+                        <input type="text" class="form-control" name="technology" id="technology" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="link" class="form-label">New Link</label>
+                        <input type="url" class="form-control" name="link" id="link" placeholder="https://example.com" required>
+                    </div>
+                    <input type="hidden" name="notification_id" id="notificationId">
+
+                        <input type="hidden" name="notification_id" id="notificationId">
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description of the Product</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Push</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true">
@@ -151,52 +197,98 @@ $(document).on('click', '.delete-notif', function () {
 });
 </script>
 
-
+<!-- push to registered -->
 <script>
-$(document).ready(function() {
-    $('#notificationTable').DataTable({
-        responsive: {
-            details: {
-                display: function(row, update) {
-                    if (!update) {
-                        const tr = row.node();
-                        const dl = $('<dl class="row"/>');
 
-                        $(tr).find('td').each(function(i){
-                            const title = $('#notificationTable thead th').eq(i).text();
-                            if(title !== 'Actions') {
-                                dl.append(`<dt class="col-sm-3 fw-bold">${title}:</dt>
-                                           <dd class="col-sm-9">${$(this).attr('data-full') || $(this).text()}</dd>`);
-                            }
-                        });
+    // Push to Registered Modal
+        $(document).on('click', '.push-to-registered', function(){
+            $('#technology').val($(this).data('technology'));
+            $('#techGenerator').val($(this).data('generator'));
+            $('#description').val('');
+            $('#link').val(''); // clear it so user must enter new link
+            $('#notificationId').val($(this).data('id'));
+            $('#pushTechnologyModal').modal('show');
+        });
 
-                        $('#customModal .modal-title').html(`Details for <span class="text-primary fw-bold">${$(tr).find('td').eq(0).attr('data-full')}</span>`);
-                        $('#customModal .modal-body').html(dl);
-                        $('#customModal').modal('show');
-                    }
-                },
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll({ tableClass: 'table table-sm' })
-            }
+
+    // Push Technology AJAX with delete
+$('#pushTechnologyForm').on('submit', function(e){
+    e.preventDefault();
+    let notificationId = $('#notificationId').val(); // now this is correct
+    let row = $(`tr[data-id="${notificationId}"]`);
+
+    $.ajax({
+        url: "{{ route('admin.registered-technology.store') }}",
+        type: "POST",
+        data: $(this).serialize(),
+        success: function(response){
+            Swal.fire({icon:'success', title:'Success', text: response.message});
+            $('#pushTechnologyModal').modal('hide');
+
+            // Remove the row from the table
+            row.fadeOut(300, function(){ $(this).remove(); });
         },
-        columnDefs: [
-            { orderable: false, targets: -1 }
-        ],
-        columns: [
-            { responsivePriority: 1, className: "all" },
-            { responsivePriority: 2, className: "all" },
-            { className: "all" },
-            { className: "none" },
-            { className: "all" },
-            { className: "none" },
-            { className: "none" },
-            { className: "none" },
-            { responsivePriority: 3, className: "all" }
-        ],
-        pageLength: 10,
-        lengthMenu: [5,10,25,50],
-        autoWidth: false,
-        language: { search: "_INPUT_", searchPlaceholder: "Search notifications..." }
+        error: function(xhr){
+            Swal.fire({icon:'error', title:'Error', text: xhr.responseJSON?.message || 'Something went wrong'});
+        }
     });
 });
+
+
+
+
+
+
 </script>
+
+<!-- table config -->
+<script>
+    $(document).ready(function() {
+        $('#notificationTable').DataTable({
+            responsive: {
+                details: {
+                    display: function(row, update) {
+                        if (!update) {
+                            const tr = row.node();
+                            const dl = $('<dl class="row"/>');
+
+                            $(tr).find('td').each(function(i){
+                                const title = $('#notificationTable thead th').eq(i).text();
+                                if(title !== 'Actions') {
+                                    dl.append(`<dt class="col-sm-3 fw-bold">${title}:</dt>
+                                            <dd class="col-sm-9">${$(this).attr('data-full') || $(this).text()}</dd>`);
+                                }
+                            });
+
+                            $('#customModal .modal-title').html(`Details for <span class="text-primary fw-bold">${$(tr).find('td').eq(0).attr('data-full')}</span>`);
+                            $('#customModal .modal-body').html(dl);
+                            $('#customModal').modal('show');
+                        }
+                    },
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({ tableClass: 'table table-sm' })
+                }
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ],
+            columns: [
+                { responsivePriority: 1, className: "all" },
+                { responsivePriority: 2, className: "all" },
+                { className: "all" },
+                { className: "none" },
+                { className: "all" },
+                { className: "none" },
+                { className: "all" },
+                { className: "none" },
+                { responsivePriority: 3, className: "all" }
+            ],
+            pageLength: 10,
+            lengthMenu: [5,10,25,50],
+            autoWidth: false,
+            language: { search: "_INPUT_", searchPlaceholder: "Search notifications..." }
+        });
+    });
+</script>
+
+
 @endpush

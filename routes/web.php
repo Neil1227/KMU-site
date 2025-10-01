@@ -23,6 +23,8 @@ use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TechnologyController;
 
 use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RegisteredController;
 
 // All records page
 Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
@@ -198,21 +200,31 @@ Route::get('/admin/database/graphs', [CommodityController::class, 'graphs'])
     
 
 // View page for commodities
-Route::get('/admin/database/view', [CommodityController::class, 'view'])
-    ->middleware('guest') // Only guests can access
-    ->name('admin.database.view');
+Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view'])
+    ->middleware('guest')
+    ->name('admin.database.view-ip-applied');
+
 
 // ---------------------------------------------------------------------------notif
-use App\Http\Controllers\NotificationController;
+
+//For Application
 
 Route::prefix('admin')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-   Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
+    Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 
 
-
+//applied
+Route::get('/admin/registered-technology', [RegisteredController::class, 'index'])
+    ->name('admin.registered-technology');
+//pushing applied
+Route::post('/admin/registered-technology/store', [RegisteredController::class, 'store'])
+    ->name('admin.registered-technology.store');
+// destroy applied
+Route::delete('/admin/registered-technology/{id}', [RegisteredController::class, 'destroy'])
+    ->name('admin.registered-technology.destroy');
 
 
 

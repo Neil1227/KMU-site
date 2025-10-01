@@ -27,12 +27,3 @@
     border-radius: 8px;
     color: #fff;
 }
-.km-header {
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-
-}
-.km-header i:hover {
-    color: #dc3545;
-    cursor: pointer;
-}

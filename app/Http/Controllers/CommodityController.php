@@ -304,7 +304,7 @@ class CommodityController extends Controller
         // Only fetch commodities with IP Applied
         $commodities = Commodity::where('ip_status', 'IP Applied')->latest()->get();
 
-        return view('admin.database.view', compact('commodities'));
+        return view('admin.database.view-ip-applied', compact('commodities'));
     }
 
 

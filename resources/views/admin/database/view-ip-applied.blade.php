@@ -19,7 +19,7 @@
     @if(session('admin_logged_in'))
         <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
     @endif
-    <h1 class="mx-auto text-center">View Commodities</h1>
+    <h1 class="mx-auto text-center">View IP Applied</h1>
 </div>
 
 

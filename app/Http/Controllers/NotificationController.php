@@ -25,29 +25,27 @@ class NotificationController extends Controller
     /**
      * Push a commodity record into notifications.
      */
-    public function pushFromCommodity($id)
-    {
-        $record = Commodity::findOrFail($id);
+public function pushToRegistered(Request $request, $id)
+{
+    $notification = Notification::findOrFail($id);
+    $commodity = $notification->commodity;
 
-        // check if already pushed
-        $exists = Notification::where('commodity_id', $record->id)->exists();
-        if ($exists) {
-            return response()->json([
-                'success' => false,
-                'message' => 'This commodity is already in notifications.'
-            ], 409);
-        }
+    $tech = RegisteredTechnology::create([
+        'technology' => $request->input('technology'),
+        'technology_generator' => $request->input('technology_generator'),
+        'description' => $request->input('description'),
+        'link' => $request->input('link'), // <-- use the new link
+    ]);
 
-        // create only with foreign key
-        Notification::create([
-            'commodity_id' => $record->id,
-        ]);
+    $notification->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Commodity pushed to notifications!'
-        ]);
-    }
+    return response()->json([
+        'success' => true,
+        'message' => 'Technology pushed to registered and removed from notifications!',
+        'data' => $tech,
+    ]);
+}
+
 
     /**
      * Delete a notification.
@@ -62,4 +60,6 @@ class NotificationController extends Controller
             'message' => 'Notification deleted successfully.'
         ]);
     }
+
+
 }
