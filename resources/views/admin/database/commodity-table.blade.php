@@ -46,6 +46,7 @@
                     <th>Link</th>
                     <th>Priority Area</th>
                     <th>Actions</th>
+                     <th style="display:none">Created At</th>
                 </tr>
             </thead>
             <tbody>
@@ -158,6 +159,7 @@
                         </button>
 
                     </td>
+                    <td style="display:none">{{ $record->created_at }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -358,101 +360,70 @@
 
 <!-- modal responsiveness and modal display for all the table  -->
 <script>
-    $(document).ready(function() {
-        $('.table').DataTable({
-            responsive: {
-                details: {
-                    // Custom modal display with <dl> layout
-                    display: function(row, update, render) {
-                        if (!update) {
-                            var data = row.data();
-
-                            let detailsDL = `
-                                <dl class="row">
-                                    <dt class="col-sm-3 fw-bold">Thesis Title:</dt><dd class="col-sm-9">${data[0]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Technologies:</dt><dd class="col-sm-9">${data[1]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Technology Generator:</dt><dd class="col-sm-9">${data[2]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Contact Info:</dt><dd class="col-sm-9">${data[3]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Type of Technology:</dt><dd class="col-sm-9">${data[4]}</dd>
-                                    <dt class="col-sm-3 fw-bold">IP Status:</dt><dd class="col-sm-9">${data[5]}</dd>
-                                    <dt class="col-sm-3 fw-bold">TRL Level:</dt><dd class="col-sm-9">${data[6]}</dd>
-                                    <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[7]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[8]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[9]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9"><a href='${data[10]}' target='_blank'>${data[10]}</a></dd>
-                                    <dt class="col-sm-3 fw-bold">Priority Area:</dt><dd class="col-sm-9">${data[11]}</dd>
-                                </dl>
-                            `;
-
-                            $('#customModal .modal-title').html(`Details for <span class="text-primary fw-bold">${data[0]}</span>`);
-                            $('#customModal .modal-body').html(detailsDL);
-                            $('#customModal').modal('show');
-                        }
-                    },
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table table-sm'
-                    })
-                }
-            },
-            pageLength: 10,
-            lengthMenu: [5, 10, 25, 50],
-            autoWidth: false,
-            columnDefs: [{
-                    orderable: false,
-                    targets: -1
-                } // Actions column
-            ],
-            columns: [{
-                    responsivePriority: 1,
-                    className: "all"
-                }, // Thesis Title
-                {
-                    responsivePriority: 2,
-                    className: "all"
-                }, // Technologies
-                {
-                    className: "all"
-                }, // Tech Generator
-                {
-                    className: "all"
-                }, // Contact Info
-                {
-                    className: "all"
-                }, // Type of Technology
-                {
-                    className: "all"
-                }, // IP Status
-                {
-                    className: "none"
-                }, // TRL Level
-                {
-                    className: "none"
-                }, // SDGs
-                {
-                    responsivePriority: 3,
-                    className: "all"
-                }, // Remarks
-                {
-                    className: "all"
-                }, // Recommendations
-                {
-                    className: "none"
-                }, // Link
-                {
-                    className: "none"
-                }, // Priority Area
-                {
-                    responsivePriority: 4,
-                    className: "all"
-                } // Actions
-            ],
-
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records..."
+$(document).ready(function() {
+    $('.table').DataTable({
+        responsive: {
+            details: {
+                display: function(row, update, render) {
+                    if (!update) {
+                        var data = row.data();
+                        let detailsDL = `
+                            <dl class="row">
+                                <dt class="col-sm-3 fw-bold">Thesis Title:</dt><dd class="col-sm-9">${data[0]}</dd>
+                                <dt class="col-sm-3 fw-bold">Technologies:</dt><dd class="col-sm-9">${data[1]}</dd>
+                                <dt class="col-sm-3 fw-bold">Technology Generator:</dt><dd class="col-sm-9">${data[2]}</dd>
+                                <dt class="col-sm-3 fw-bold">Contact Info:</dt><dd class="col-sm-9">${data[3]}</dd>
+                                <dt class="col-sm-3 fw-bold">Type of Technology:</dt><dd class="col-sm-9">${data[4]}</dd>
+                                <dt class="col-sm-3 fw-bold">IP Status:</dt><dd class="col-sm-9">${data[5]}</dd>
+                                <dt class="col-sm-3 fw-bold">TRL Level:</dt><dd class="col-sm-9">${data[6]}</dd>
+                                <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[7]}</dd>
+                                <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[8]}</dd>
+                                <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[9]}</dd>
+                                <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9"><a href='${data[10]}' target='_blank'>${data[10]}</a></dd>
+                                <dt class="col-sm-3 fw-bold">Priority Area:</dt><dd class="col-sm-9">${data[11]}</dd>
+                            </dl>
+                        `;
+                        $('#customModal .modal-title').html(`Details for <span class="text-primary fw-bold">${data[0]}</span>`);
+                        $('#customModal .modal-body').html(detailsDL);
+                        $('#customModal').modal('show');
+                    }
+                },
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table table-sm'
+                })
             }
-        });
+        },
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50],
+        autoWidth: false,
+        order: [[13, 'desc']], // ✅ Sort by Created At column (hidden)
+        columnDefs: [
+            { orderable: false, targets: -2 }, // Actions column
+            { visible: false, targets: 13 }    // Hide Created At column
+        ],
+        columns: [
+            { responsivePriority: 1, className: "all" },
+            { responsivePriority: 2, className: "all" },
+            { className: "all" },
+            { className: "all" },
+            { className: "all" },
+            { className: "all" },
+            { className: "none" },
+            { className: "none" },
+            { responsivePriority: 3, className: "all" },
+            { className: "all" },
+            { className: "none" },
+            { className: "none" },
+            { responsivePriority: 4, className: "all" },
+            { visible: false } // Hidden Created At column
+        ],
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records..."
+        }
     });
+});
+
 </script>
 
 

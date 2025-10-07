@@ -15,10 +15,12 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::select('commodity')
-            ->selectRaw('COUNT(*) as total')
-            ->groupBy('commodity')
-            ->get();
+    $commodities = Commodity::selectRaw('TRIM(commodity) as commodity, COUNT(*) as total')
+        ->whereNotNull('commodity')
+        ->groupBy('commodity')
+        ->orderBy('commodity', 'asc')
+        ->get();
+
 
         return view('admin.database.commodities', compact('commodities'));
     }
