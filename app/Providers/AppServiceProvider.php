@@ -30,5 +30,9 @@ public function boot(): void
 
         $view->with(compact('newApplicationsCount', 'newRegisteredCount'));
     });
+    // Share total page views globally to all Blade views
+    $totalPageViews = DB::table('page_views')->sum('count');
+
+    View::share('totalPageViews', $totalPageViews);
 }
 }

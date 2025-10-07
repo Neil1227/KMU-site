@@ -41,6 +41,7 @@
           <img src="https://hitwebcounter.com/counter/counter.php?page=21316161&style=0006&nbdigits=6&type=page&initCount=0" 
           title="Counter Widget" Alt="Visit counter For Websites"   border="0" /></a>        -->
             <i class="fa fa-eye sm"></i> {{ number_format($totalPageViews) }} Total Visitors
+
         </div>
       </div>
 

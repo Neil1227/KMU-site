@@ -12,6 +12,10 @@ use App\Models\PromotionalActivity;
 use App\Models\RecentActivity;
 use App\Models\Podcast;
 use App\Models\Technology;
+use App\Models\Notification;
+use App\Models\RegisteredTechnology;
+use Illuminate\Support\Facades\DB;
+
 
 use App\Models\Admin;
 
@@ -103,7 +107,8 @@ class AdminController extends Controller
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get(); // ✅ Added technologies
         $recentActivities = RecentActivity::latest()->take(3)->get();
-        $totalPageViews = \DB::table('page_views')->count();
+        $totalPageViews = DB::table('page_views')->sum('count');
+
 
         return view('admin.dashboard', compact(
             'episodes',
