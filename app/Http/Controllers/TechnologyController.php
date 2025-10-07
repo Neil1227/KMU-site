@@ -69,7 +69,7 @@ class TechnologyController extends Controller
             $counter = 1;
 
             // Check if file exists
-            while (\Storage::disk('public')->exists($folder . '/' . $filename)) {
+            while (Storage::disk('public')->exists($folder . '/' . $filename)) {
                 $filename = $originalName . '(' . $counter . ').' . $extension;
                 $counter++;
             }
@@ -108,13 +108,13 @@ class TechnologyController extends Controller
         $technology = Technology::findOrFail($id);
 
         // Delete image file if exists
-        if ($technology->image && \Storage::disk('public')->exists('technologies/' . $technology->image)) {
-            \Storage::disk('public')->delete('technologies/' . $technology->image);
+        if ($technology->image && Storage::disk('public')->exists('technologies/' . $technology->image)) {
+            Storage::disk('public')->delete('technologies/' . $technology->image);
         }
 
         // Delete poster file if exists
-        if ($technology->poster && \Storage::disk('public')->exists('technologies/' . $technology->poster)) {
-            \Storage::disk('public')->delete('technologies/' . $technology->poster);
+        if ($technology->poster && Storage::disk('public')->exists('technologies/' . $technology->poster)) {
+            Storage::disk('public')->delete('technologies/' . $technology->poster);
         }
 
         // Log recent activity
@@ -166,7 +166,7 @@ class TechnologyController extends Controller
             $filename = $originalName . '.' . $extension;
             $counter = 1;
 
-            while (\Storage::disk('public')->exists($folder . '/' . $filename)) {
+            while (Storage::disk('public')->exists($folder . '/' . $filename)) {
                 $filename = $originalName . '(' . $counter . ').' . $extension;
                 $counter++;
             }
@@ -178,15 +178,15 @@ class TechnologyController extends Controller
 
         if ($request->hasFile('image')) {
             // optionally delete old image
-            if ($technology->image && \Storage::disk('public')->exists('technologies/' . $technology->image)) {
-                \Storage::disk('public')->delete('technologies/' . $technology->image);
+            if ($technology->image && Storage::disk('public')->exists('technologies/' . $technology->image)) {
+                Storage::disk('public')->delete('technologies/' . $technology->image);
             }
             $technology->image = $storeFile($request->file('image'), 'technologies');
         }
 
         if ($request->hasFile('poster')) {
-            if ($technology->poster && \Storage::disk('public')->exists('technologies/' . $technology->poster)) {
-                \Storage::disk('public')->delete('technologies/' . $technology->poster);
+            if ($technology->poster && Storage::disk('public')->exists('technologies/' . $technology->poster)) {
+                Storage::disk('public')->delete('technologies/' . $technology->poster);
             }
             $technology->poster = $storeFile($request->file('poster'), 'technologies');
         }

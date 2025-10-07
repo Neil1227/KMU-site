@@ -44,7 +44,7 @@ public function upload(Request $request)
         $counter = 1;
 
         // Check if file exists and increment if necessary
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
             $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }
@@ -99,7 +99,7 @@ public function update(Request $request, $id)
         $counter = 1;
 
         // Check if file exists and increment if necessary
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
             $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }

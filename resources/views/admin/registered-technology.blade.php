@@ -30,10 +30,16 @@
 <div class="container mt-4">
     <div class="card ictv-card mt-4">
         <!-- Header -->
-        <div class="card-header text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Registered Records</h5>
-            <span class="badge bg-light text-dark">{{ $commodities->count() }} total</span>
-        </div>
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Registered Technology</h5>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-dark">{{ $commodities->count() }} total</span>
+                    <a href="{{ route('admin.database.view-regtech') }}" class="btn btn-sm btn-dark" target="_blank" title="View Page">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>
+            </div>
 
         <!-- Table -->
         <div class="card-body table-responsive-sm">

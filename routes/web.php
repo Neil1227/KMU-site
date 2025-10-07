@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\MediaResourceController;
@@ -32,7 +33,7 @@ Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
 // Update record
 Route::put('admin/database/records/{id}', [DatabaseController::class, 'updateRecord'])
     ->name('admin.database.update');
-
+//notification dot
 Route::get('/admin/dashboard', [AdminController::class, 'dot'])->name('admin.dashboard');
 
 // AI chatbox for openai
@@ -165,7 +166,7 @@ Route::get('/sdgs', function () {
 // By clicking the learn more button from index, it will increment the page view counter and redirect to the homepage
 Route::get('/learn-more', function () {
     // Increment counter
-    \DB::table('page_views')->increment('count');
+    DB::table('page_views')->increment('count');
 
     // Redirect to home
     return redirect('/home');

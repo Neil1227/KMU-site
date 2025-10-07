@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Module;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
@@ -40,7 +41,7 @@ public function upload(Request $request)
 
         $counter = 1;
 
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
             $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }
@@ -81,13 +82,13 @@ public function upload(Request $request)
         $module = Module::findOrFail($id);
 
         // Delete PDF if exists
-        if ($module->file && \Storage::disk('public')->exists('modules/' . $module->file)) {
-            \Storage::disk('public')->delete('modules/' . $module->file);
+        if ($module->file && Storage::disk('public')->exists('modules/' . $module->file)) {
+            Storage::disk('public')->delete('modules/' . $module->file);
         }
 
         // Delete PNG thumbnail if exists
-        if ($module->png && \Storage::disk('public')->exists('modules_thumbnail/' . $module->png)) {
-            \Storage::disk('public')->delete('modules_thumbnail/' . $module->png);
+        if ($module->png && Storage::disk('public')->exists('modules_thumbnail/' . $module->png)) {
+            Storage::disk('public')->delete('modules_thumbnail/' . $module->png);
         }
 
         $deletedTitle = $module->title;
@@ -124,7 +125,7 @@ public function update(Request $request, $id)
 
         $counter = 1;
 
-        while (\Storage::disk('public')->exists($folder . '/' . $fileName)) {
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
             $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }

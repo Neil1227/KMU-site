@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
 use App\Models\Newsletter;
@@ -239,7 +240,7 @@ $staticPages = [
                 'url'     => url('/modules/'.$item->id),
             ]);
 
-        $columns = \Schema::getColumnListing('technologies');
+        $columns = Schema::getColumnListing('technologies');
 
         $technologyResults = Technology::query()
             ->where(function ($q) use ($columns, $query) {

@@ -16,10 +16,17 @@
 <div class="container mt-4">
     <div class="card ictv-card mt-4">
         <!-- Header -->
-        <div class="card-header text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Notifications</h5>
-            <span class="badge bg-light text-dark">{{ $notifications->count() }} total</span>
-        </div>
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Notifications</h5>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-dark">{{ $notifications->count() }} total</span>
+                    <a href="{{ route('admin.database.records') }}" class="btn btn-sm btn-primary" target="_blank" title="View Page">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+
 
         <!-- Table -->
         <div class="card-body table-responsive-sm">
