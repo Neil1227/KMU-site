@@ -17,4 +17,8 @@ class RegisteredTechnology extends Model
         'description',
         'link',
     ];
+    protected $casts = [
+    'is_new' => 'boolean',
+];
+
 }

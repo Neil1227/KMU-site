@@ -17,7 +17,13 @@ use App\Models\Admin;
 
 class AdminController extends Controller
 {
+    public function dot()
+{
+    $newApplicationsCount = Notification::where('is_read', false)->count();
+    $newRegisteredCount = RegisteredTechnology::where('is_new', true)->count();
 
+    return view('admin.dashboard', compact('newApplicationsCount', 'newRegisteredCount'));
+}
     //Logins
     public function login(Request $request)
     {

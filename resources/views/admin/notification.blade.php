@@ -35,6 +35,7 @@
                         <th>Link</th>
                         <th>Priority Area</th>
                         <th class="text-center">Actions</th>
+                        <th style="display:none">Created At</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +71,7 @@
                                 </button>
 
                             </td>
+                            <td style="display:none">{{ $notification->created_at }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -212,9 +214,10 @@ $(document).on('click', '.delete-notif', function () {
 
 
     // Push Technology AJAX with delete
+// Push Technology AJAX with delete
 $('#pushTechnologyForm').on('submit', function(e){
     e.preventDefault();
-    let notificationId = $('#notificationId').val(); // now this is correct
+    let notificationId = $('#notificationId').val();
     let row = $(`tr[data-id="${notificationId}"]`);
 
     $.ajax({
@@ -222,17 +225,33 @@ $('#pushTechnologyForm').on('submit', function(e){
         type: "POST",
         data: $(this).serialize(),
         success: function(response){
-            Swal.fire({icon:'success', title:'Success', text: response.message});
+            Swal.fire({
+                icon:'success', 
+                title:'Success', 
+                text: response.message,
+                timer: 1500,
+                showConfirmButton: false
+            });
             $('#pushTechnologyModal').modal('hide');
 
-            // Remove the row from the table
+            // Optional: fade out the row first
             row.fadeOut(300, function(){ $(this).remove(); });
+
+            // Reload page after a short delay to allow fadeOut animation
+            setTimeout(function() {
+                location.reload();
+            }, 400);
         },
         error: function(xhr){
-            Swal.fire({icon:'error', title:'Error', text: xhr.responseJSON?.message || 'Something went wrong'});
+            Swal.fire({
+                icon:'error', 
+                title:'Error', 
+                text: xhr.responseJSON?.message || 'Something went wrong'
+            });
         }
     });
 });
+
 
 
 
@@ -271,6 +290,7 @@ $('#pushTechnologyForm').on('submit', function(e){
             columnDefs: [
                 { orderable: false, targets: -1 }
             ],
+            order: [[9, 'desc']],
             columns: [
                 { responsivePriority: 1, className: "all" },
                 { responsivePriority: 2, className: "all" },
@@ -280,7 +300,8 @@ $('#pushTechnologyForm').on('submit', function(e){
                 { className: "none" },
                 { className: "all" },
                 { className: "none" },
-                { responsivePriority: 3, className: "all" }
+                { responsivePriority: 3, className: "all" },
+                { className: "none" } 
             ],
             pageLength: 10,
             lengthMenu: [5,10,25,50],

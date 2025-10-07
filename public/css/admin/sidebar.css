@@ -1,29 +1,106 @@
+/* -----------------------------
+   Sidebar container
+------------------------------ */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* full height */
-    width: 250px;  /* set your sidebar width */
+    height: 100vh;
+    width: 250px;
     background-color: #0d3b66;
-    color: white;
-    overflow: hidden; /* prevent scroll inside the sidebar */
-    z-index: 1000; /* ensure it's on top */
+    color: #fff;
+    overflow: hidden;
+    z-index: 1000;
+    padding: 1rem;
 }
 
+/* -----------------------------
+   Sidebar links (main & nested)
+------------------------------ */
 
-.sidebar a {
-    color: white;
+    /* Sidebar section headings */
+.sidebar h5 {
+    font-size: 0.875rem;       /* slightly smaller than main links */
+    font-weight: 600;          /* semi-bold */
+    text-transform: uppercase; /* all caps for emphasis */
+    color: #a0aec0 !important;            /* muted gray/secondary color */
+    margin: 1rem 0 0.5rem 0;   /* spacing above and below */
+    padding-left: 0.75rem;     /* align with sidebar links */
+    letter-spacing: 0.5px;     /* slight spacing for readability */
+    border-left: 3px solid #f85e0a; /* optional accent bar */
+    padding-left: 0.5rem;      /* inner padding with border */
+}
+
+.sidebar a,
+.sidebar-item {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    padding: 10px 16px;
-    margin: 5px;
-    border-radius: 10px;
-    display: block;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    margin: 5px 0;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
 }
 
 .sidebar a:hover,
-.sidebar a.active {
+.sidebar-item:hover {
     background-color: var(--primary-color);
-    border-radius: 8px;
     color: #fff;
+}
+
+.sidebar-item.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* -----------------------------
+   Accordion customization
+------------------------------ */
+
+/* Remove default accordion button styles */
+.accordion-button {
+    background-color: transparent;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Remove default accordion borders */
+.accordion-item {
+    border: none;
+}
+
+/* Show collapse arrow only for Tables */
+.sidebar-accordion-btn:after {
+    filter: invert(1);
+}
+
+/* Hide collapse arrow for all other buttons/links */
+.accordion-button:not(.sidebar-accordion-btn):after {
+    display: none;
+}
+
+/* -----------------------------
+   Nested links inside accordion
+------------------------------ */
+.accordion-body ul li a {
+    color: #ccc;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.accordion-body ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+.badge.bg-danger {
+    font-size: 0.7rem;
+    border-radius: 10px;
+    padding: 2px 6px;
 }

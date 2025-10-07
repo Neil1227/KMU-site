@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use App\Models\Notification;
+use App\Models\RegisteredTechnology;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,11 +21,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-            View::composer('*', function ($view) {
-        $totalViews = DB::table('page_views')->where('id', 1)->value('count');
-        $view->with('totalPageViews', $totalViews);
+public function boot(): void
+{
+    // Make the variables available to the sidebar view
+    View::composer('layouts.admin', function ($view) {
+        $newApplicationsCount = Notification::where('is_read', false)->count();
+        $newRegisteredCount   = RegisteredTechnology::where('is_new', true)->count();
+
+        $view->with(compact('newApplicationsCount', 'newRegisteredCount'));
     });
-    }
+}
 }

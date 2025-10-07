@@ -33,6 +33,7 @@ Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
 Route::put('admin/database/records/{id}', [DatabaseController::class, 'updateRecord'])
     ->name('admin.database.update');
 
+Route::get('/admin/dashboard', [AdminController::class, 'dot'])->name('admin.dashboard');
 
 // AI chatbox for openai
 // use App\Http\Controllers\ChatController;
@@ -213,6 +214,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
     Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+
+    Route::post('/notifications/push/{id}', [NotificationController::class, 'pushToRegistered'])->name('admin.notifications.push');
 });
 
 
@@ -226,6 +229,9 @@ Route::post('/admin/registered-technology/store', [RegisteredController::class, 
 Route::delete('/admin/registered-technology/{id}', [RegisteredController::class, 'destroy'])
     ->name('admin.registered-technology.destroy');
 
+// ✅ This route renders the view
+Route::get('/admin/database/view-regtech', [RegisteredController::class, 'table'])
+->name('admin.database.view-regtech');
 
 
 

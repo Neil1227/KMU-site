@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Commodity; // your model
+use App\Models\Notification;
+use App\Models\RegisteredTechnology;
 
 class DatabaseController extends Controller
 {
@@ -16,6 +18,8 @@ class DatabaseController extends Controller
         return view('admin.database.records', compact('records', 'commodities'));
 
     }
+
+
   // Update record
     public function updateRecord(Request $request, $id)
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Commodity;
 use App\Models\RegisteredTechnology; // ✅ Use RegisteredTechnology model
 
 class RegisteredController extends Controller
@@ -11,13 +12,17 @@ class RegisteredController extends Controller
     /**
      * Show registered technologies
      */
-    public function index()
-    {
-        // Fetch all registered technologies from DB
-        $commodities = RegisteredTechnology::latest()->get();
+        public function index()
+        {
+            // Fetch all registered technologies from DB
+            $commodities = RegisteredTechnology::latest()->get();
 
-        return view('admin.registered-technology', compact('commodities'));
-    }
+            // Mark all as not new
+            RegisteredTechnology::where('is_new', true)->update(['is_new' => false]);
+
+            return view('admin.registered-technology', compact('commodities'));
+        }
+
 
     /**
      * Store pushed technology into registered technologies
@@ -64,4 +69,17 @@ class RegisteredController extends Controller
             'message' => 'Technology successfully deleted.',
         ]);
     }
+public function table()
+{
+    $regTechs = RegisteredTechnology::latest()->get();
+
+    // Fetch commodities with counts for dropdown
+    $commodities = Commodity::select('commodity')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('commodity')
+        ->get();
+
+    return view('admin.database.view-regtech', compact('regTechs', 'commodities'));
+}
+
 }

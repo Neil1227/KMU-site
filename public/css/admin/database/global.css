@@ -52,6 +52,44 @@ body h6 {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
     }
+/* Force 5 equal cards in a row */
+.commodity-summary-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* exactly 5 columns */
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.commodity-card-summary {
+    
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.commodity-card-summary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Responsive: stack cards on smaller screens */
+@media (max-width: 992px) {
+    .commodity-summary-row {
+        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablet */
+    }
+}
+
+@media (max-width: 576px) {
+    .commodity-summary-row {
+        grid-template-columns: 1fr; /* stack on mobile */
+    }
+}
 
     .commodity-card {
         background: #ffffff;
@@ -80,7 +118,17 @@ body h6 {
         margin-bottom: 1rem;
         font-size: 0.95rem;
     }
+    .commodity-card-summary h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: #111827;
+    }
 
+    .commodity-card-summary p {
+        color: #6b7280; /* gray text */
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
     @media (max-width: 768px) {
         .commodity-overview {
             padding: 1rem;

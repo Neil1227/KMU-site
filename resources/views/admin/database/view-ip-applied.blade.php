@@ -39,12 +39,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($commodities as $commodity)
-                <tr data-id="{{ $commodity->id }}">
-                    <td>{{ $commodity->commodity }}</td>
-                    <td>{{ $commodity->thesis_title }}</td>
-                    <td>{{ $commodity->technologies }}</td>
-                    <td>{!! $commodity->technology_generator !!}</td>
+                @foreach($commodityCounts as $commodityCounts)
+                <tr data-id="{{ $commodityCounts->id }}">
+                    <td>{{ $commodityCounts->commodity }}</td>
+                    <td>{{ $commodityCounts->thesis_title }}</td>
+                    <td>{{ $commodityCounts->technologies }}</td>
+                    <td>{!! $commodityCounts->technology_generator !!}</td>
                     @php
                         $techClasses = [
                             'Food' => 'badge-tech-food',
@@ -57,20 +57,20 @@
                     @endphp
 
                     <td>
-                        @if(!empty($commodity->type_of_technology))
-                            <span class="badge {{ $techClasses[$commodity->type_of_technology] ?? 'badge-tech-na' }}">
-                                {{ $commodity->type_of_technology }}
+                        @if(!empty($commodityCounts->type_of_technology))
+                            <span class="badge {{ $techClasses[$commodityCounts->type_of_technology] ?? 'badge-tech-na' }}">
+                                {{ $commodityCounts->type_of_technology }}
                             </span>
                         @endif
                     </td>
 
                     <td>
-                        @if($commodity->ip_status === 'IP Applied')
-                            <span class="badge badge-ip-applied">{{ $commodity->ip_status }}</span>
+                        @if($commodityCounts->ip_status === 'IP Applied')
+                            <span class="badge badge-ip-applied">{{ $commodityCounts->ip_status }}</span>
                         @endif
                     </td>
-                    <td>{{ $commodity->sdgs }}</td>
-                    <td>{{ $commodity->priority_area }}</td>
+                    <td>{{ $commodityCounts->sdgs }}</td>
+                    <td>{{ $commodityCounts->priority_area }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -84,7 +84,6 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/dark/1.13.6/js/dataTables.dark.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
 <script>
 $(document).ready(function () {

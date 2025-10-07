@@ -68,11 +68,8 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-primary btn-sm push-to-notif" data-id="{{ $commodity->id }}">
-                                    <i class="bi bi-send"></i>
-                                </button>
                                 <button class="btn btn-danger btn-sm delete-notif" data-id="{{ $commodity->id }}">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash"></i> Delete
                                 </button>
                             </td>
                         </tr>
@@ -93,35 +90,38 @@
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 <script>
-    $(document).ready(function() {
-        let table = $('#appliedTable').DataTable({
-            responsive: false // disable default responsive so child row works
-        });
-
-        // Toggle details when clicking on Technology cell
-        $('#appliedTable tbody').on('click', 'td.details-toggle', function () {
-            let tr = $(this).closest('tr');
-            let row = table.row(tr);
-
-            if (row.child.isShown()) {
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                let tech = tr.find('td:eq(0)').data('full');
-                let inventors = tr.find('td:eq(1)').data('full');
-                let desc = tr.find('td:eq(2)').data('full');
-
-                row.child(`
-                    <div class="p-3 details-row">
-                        <p><strong>Technology:</strong> ${tech}</p>
-                        <p><strong>Inventor/s:</strong> ${inventors}</p>
-                        <p><strong>Description:</strong> ${desc}</p>
-                    </div>
-                `).show();
-                tr.addClass('shown');
-            }
-        });
+$(document).ready(function() {
+    let table = $('#appliedTable').DataTable({
+        responsive: false,
+        order: [] // disables default ordering, keeps server-side ordering (latest first)
     });
+
+    // Toggle details when clicking on Technology cell
+    $('#appliedTable tbody').on('click', 'td.details-toggle', function () {
+        let tr = $(this).closest('tr');
+        let row = table.row(tr);
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            let tech = tr.find('td:eq(0)').data('full');
+            let inventors = tr.find('td:eq(1)').data('full');
+            let desc = tr.find('td:eq(2)').data('full');
+
+            row.child(`
+                <div class="p-3 details-row">
+                    <p><strong>Technology:</strong> ${tech}</p>
+                    <p><strong>Inventor/s:</strong> ${inventors}</p>
+                    <p><strong>Description:</strong> ${desc}</p>
+                </div>
+            `).show();
+            tr.addClass('shown');
+        }
+    });
+});
+
+
 
     // destroy script
     $(document).on('click', '.delete-notif', function() {

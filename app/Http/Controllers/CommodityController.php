@@ -299,13 +299,26 @@ class CommodityController extends Controller
         ));
     }
 
-    public function view()
-    {
-        // Only fetch commodities with IP Applied
-        $commodities = Commodity::where('ip_status', 'IP Applied')->latest()->get();
+public function view()
+{
+    // Records for table (only IP Applied)
+    $commodityCounts = Commodity::where('ip_status', 'IP Applied')
+        ->latest()
+        ->get();
 
-        return view('admin.database.view-ip-applied', compact('commodities'));
-    }
+    // Grouped counts for modal (all commodities, not just IP Applied)
+    $commodities = Commodity::select('commodity')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('commodity')
+        ->orderBy('commodity')
+        ->get();
+
+    return view('admin.database.view-ip-applied', [
+        'commodities' => $commodities,
+        'commodityCounts' => $commodityCounts
+    ]);
+}
+
 
 
 

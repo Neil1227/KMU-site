@@ -149,7 +149,7 @@
                         <button 
                             class="push-to-notif btn btn-sm btn-primary" 
                             data-id="{{ $record->id }}" 
-                            data-url="{{ route('notifications.push', $record->id) }}"
+                            data-url="{{ route('admin.notifications.push', $record->id) }}"
                         >
                             <i class="bi bi-check2-circle"></i>
                         </button>

@@ -86,7 +86,7 @@ var table = $('#activitiesTable').DataTable({
     lengthMenu: [5, 10, 25, 50],
     responsive: true,
     autoWidth: false,
-    order: [[4, 'asc']], // Sort by Date column ascending
+    order: [[4, 'desc']], // Sort by Date column ascending
     language: {
         search: "_INPUT_",
         searchPlaceholder: "Search activities..."
