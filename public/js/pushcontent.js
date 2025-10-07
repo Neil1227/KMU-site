@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".push-to-notif").forEach(button => {
+    document.querySelectorAll(".push-action").forEach(button => {
         button.addEventListener("click", function () {
             const url = this.dataset.url;
 
@@ -11,11 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => {
                 Swal.fire({
                     icon: "success",
-                    title: "Notification Sent",
-                    text: res.data.message || "Commodity pushed to notifications!",
+                    title: "Success",
+                    text: res.data.message,
                     timer: 2000,
                     showConfirmButton: false
                 });
+
+                // Optional: remove the row after push
+                const row = this.closest("tr");
+                if(row) row.remove();
             })
             .catch(err => {
                 Swal.fire({

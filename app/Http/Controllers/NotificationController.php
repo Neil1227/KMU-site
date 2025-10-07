@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\Commodity;
-
+use App\Models\RegisteredTechnology;
 class NotificationController extends Controller
 {
     /**
@@ -23,40 +23,13 @@ public function index()
 }
 
 
-public function pushToRegistered(Request $request, $id) 
-{
-    // Find the notification
-    $notification = Notification::find($id);
 
-    if (!$notification) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Notification not found!'
-        ], 404);
-    }
 
-    // Create the registered technology record
-    $tech = RegisteredTechnology::create([
-        'technology'           => $request->input('technology'),
-        'technology_generator' => $request->input('technology_generator'),
-        'description'          => $request->input('description'),
-        'link'                 => $request->input('link'),
-    ]);
-
-    // Delete the notification
-    $notification->delete();
-
-    // Return JSON response
-    return response()->json([
-        'success' => true,
-        'message' => 'Technology pushed to registered and removed from notifications!',
-        'data'    => $tech,
-    ]);
-}
 
 
     /**
-     * Push a commodity record into notifications.
+     * Push a commodity record into notifications. 
+     * all records
      */
 public function pushFromCommodity($id)
 {

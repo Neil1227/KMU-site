@@ -147,11 +147,11 @@
                         </button>
                             <!-- Push to Notifications -->
                         <button 
-                            class="push-to-notif btn btn-sm btn-primary" 
+                            class="push-action btn btn-sm btn-primary" 
                             data-id="{{ $record->id }}" 
-                            data-url="{{ route('admin.notifications.push', $record->id) }}"
+                            data-url="{{ route('notifications.push', $record->id) }}"
                         >
-                            <i class="bi bi-check2-circle"></i>
+                            <i class="bi bi-arrow-right-circle"></i>
                         </button>
                         <button 
                             class="delete btn btn-danger btn-sm"
