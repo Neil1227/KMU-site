@@ -4,45 +4,19 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/admin/database/global.css') }}">
-
 @endpush
 
 @section('content')
 @include('admin.database.navbar')
+<!-- Navigation Tabs Section -->
 
-<div class="container py-4">
+
+<div class="container">
     <!-- Overview -->
+    <h2 class="mt-5 d-flex justify-content-center">Commodities Overview</h2>
     <div class="commodity-overview">
 
-        <!-- Top Action Cards -->
-        <h2>Quick Actions</h2>
-        <div class="commodity-summary-row">
-            <div class="commodity-card-summary">
-                <a href="{{ route('admin.database.graphs') }}" class="btn btn-outline">View Graphs</a>
-            </div>
-
-            <div class="commodity-card-summary">
-                <a href="{{ route('admin.database.records') }}" class="btn btn-outline">All Records</a>
-            </div>
-
-            <div class="commodity-card-summary">
-                <a href="{{ route('admin.database.view-ip-applied') }}" target="_blank" class="btn btn-outline">Applied Records</a>
-            </div>
-
-            <div class="commodity-card-summary">
-                <a href="{{ route('admin.database.view-regtech') }}" class="btn btn-outline">Registered Record</a>
-            </div>
-
-            <div class="commodity-card-summary">
-                <a href="{{ route('admin.database.activity') }}" class="btn btn-outline">Recent Activities</a>
-            </div>
-        </div>
-
-
-
-
         <!-- Commodities Overview -->
-        <h2 class="mt-5">Commodities Overview</h2>
         <div class="commodity-grid">
             @php
             $sortedCommodities = $commodities->sort(function($a, $b) {
@@ -72,6 +46,11 @@
 </div>
 
 @push('script')
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 @endsection

@@ -12,7 +12,7 @@
         width: 100%;
         margin: 0 auto;
         padding: 1rem;
-        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         border-radius: 0.5rem;
     }
 
@@ -20,31 +20,35 @@
     .chart-card canvas {
         width: 90% !important;
         height: 350px !important;
-        display: block;      /* make canvas a block element */
-        margin: 0 auto;      /* center it horizontally */
+        display: block;
+        /* make canvas a block element */
+        margin: 0 auto;
+        /* center it horizontally */
     }
 
     /* Only Commodity chart */
     .commodity-chart-card {
-        max-width: 100%; /* occupy full width */
+        max-width: 100%;
+        /* occupy full width */
     }
 
     .commodity-chart-card canvas {
-        height: 500px !important; /* taller */
+        height: 500px !important;
+        /* taller */
     }
-
 </style>
 
 @endpush
 
 @section('content')
-    <div class="container">
-        @include('admin.database.navbar')
+@include('admin.database.navbar')
+<div class="container">
 
-        <div class="header pt-5 mb-5 d-flex align-items-center position-relative">
-            <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
-            <h1 class="mx-auto text-center">Graphs & Analytics</h1>
-        </div>
+
+    <div class="header pt-5 mb-5 d-flex align-items-center position-relative">
+        <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
+        <h1 class="mx-auto text-center">Graphs & Analytics</h1>
+    </div>
 
     <div class="row chart-row">
         <!-- Records by Commodity -->
@@ -122,6 +126,8 @@
         }
     };
 </script>
+
+
 
 <script src="{{ asset('js/graphs.js') }}"></script>
 @endpush

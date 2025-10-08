@@ -100,3 +100,53 @@
     }
 }
 
+   .nav-container {
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        /* background-color: #f8f9fa; */
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .tabs {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 900px;
+        width: 100%;
+        background-color: #e9ecef;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #444;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
+    }
+
+    /* Active tab */
+    .tab.active {
+        background-color: #fff;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--primary-color);
+    }
+
+    /* Hover effect */
+    .tab:hover {
+        background-color: #f1f3f5;
+    }
+
+    /* Responsive: Hide labels on small screens */
+    @media (max-width: 640px) {
+        .tab span {
+            display: none;
+        }
+    }

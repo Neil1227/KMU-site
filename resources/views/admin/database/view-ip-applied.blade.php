@@ -12,15 +12,16 @@
 @endpush
 
 @section('content')
-<div class="container">
-    @include('admin.database.navbar')
+@include('admin.database.navbar')
 
-<div class="header pt-5 mb-5 d-flex align-items-center position-relative">
-    @if(session('admin_logged_in'))
+<div class="container">
+
+    <div class="header pt-5 mb-5 d-flex align-items-center position-relative">
+        @if(session('admin_logged_in'))
         <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
-    @endif
-    <h1 class="mx-auto text-center">View IP Applied</h1>
-</div>
+        @endif
+        <h1 class="mx-auto text-center">View IP Applied</h1>
+    </div>
 
 
     <div class="table-wrapper m-3">
@@ -46,27 +47,27 @@
                     <td>{{ $commodityCounts->technologies }}</td>
                     <td>{!! $commodityCounts->technology_generator !!}</td>
                     @php
-                        $techClasses = [
-                            'Food' => 'badge-tech-food',
-                            'Non-Food' => 'badge-tech-nonfood',
-                            'N/A' => 'badge-tech-na',
-                            'Non-Food (Chemical)' => 'badge-tech-nonfood-chemical',
-                            'Non-Food (Software)' => 'badge-tech-nonfood-software',
-                            'Non-Food (Equipment)' => 'badge-tech-nonfood-equipment',
-                        ];
+                    $techClasses = [
+                    'Food' => 'badge-tech-food',
+                    'Non-Food' => 'badge-tech-nonfood',
+                    'N/A' => 'badge-tech-na',
+                    'Non-Food (Chemical)' => 'badge-tech-nonfood-chemical',
+                    'Non-Food (Software)' => 'badge-tech-nonfood-software',
+                    'Non-Food (Equipment)' => 'badge-tech-nonfood-equipment',
+                    ];
                     @endphp
 
                     <td>
                         @if(!empty($commodityCounts->type_of_technology))
-                            <span class="badge {{ $techClasses[$commodityCounts->type_of_technology] ?? 'badge-tech-na' }}">
-                                {{ $commodityCounts->type_of_technology }}
-                            </span>
+                        <span class="badge {{ $techClasses[$commodityCounts->type_of_technology] ?? 'badge-tech-na' }}">
+                            {{ $commodityCounts->type_of_technology }}
+                        </span>
                         @endif
                     </td>
 
                     <td>
                         @if($commodityCounts->ip_status === 'IP Applied')
-                            <span class="badge badge-ip-applied">{{ $commodityCounts->ip_status }}</span>
+                        <span class="badge badge-ip-applied">{{ $commodityCounts->ip_status }}</span>
                         @endif
                     </td>
                     <td>{{ $commodityCounts->sdgs }}</td>
@@ -86,20 +87,22 @@
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
 <script>
-$(document).ready(function () {
-    $('#viewCommoditiesTable').DataTable({
-        responsive: false,
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50],
-        autoWidth: false,
-        columnDefs: [
-            { orderable: false, targets: -1 } // Actions column not orderable
-        ],
-        language: {
-            search: "_INPUT_",
-            searchPlaceholder: "Search commodities..."
-        }
+    $(document).ready(function() {
+        $('#viewCommoditiesTable').DataTable({
+            responsive: false,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50],
+            autoWidth: false,
+            columnDefs: [{
+                    orderable: false,
+                    targets: -1
+                } // Actions column not orderable
+            ],
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search commodities..."
+            }
+        });
     });
-});
 </script>
 @endpush

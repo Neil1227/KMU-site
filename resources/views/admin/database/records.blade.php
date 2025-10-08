@@ -12,15 +12,15 @@
 @endpush
 
 @section('content')
+@include('admin.database.navbar')
 <div class="container">
-    @include('admin.database.navbar')
 
     <div class="header pt-5 mb-5 d-flex align-items-center position-relative">
         <!-- Back button on the left -->
         <a href="{{ route('admin.database.commodities') }}" class="btn btn-back position-absolute start-0">← Back</a>
 
         <!-- Centered heading -->
-        <h1 class="mx-auto text-center">All Research Records</h1>
+        <h1 class="mx-auto text-center">Research Technologies</h1>
     </div>
 
 
