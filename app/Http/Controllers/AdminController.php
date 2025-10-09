@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Ictv;
-use App\Models\IECMaterial; 
-use App\Models\Module; 
-use App\Models\Newsletter; 
+use App\Models\IECMaterial;
+use App\Models\Module;
+use App\Models\Newsletter;
 use App\Models\PromotionalActivity;
 use App\Models\RecentActivity;
 use App\Models\Podcast;
@@ -22,12 +23,12 @@ use App\Models\Admin;
 class AdminController extends Controller
 {
     public function dot()
-{
-    $newApplicationsCount = Notification::where('is_read', false)->count();
-    $newRegisteredCount = RegisteredTechnology::where('is_new', true)->count();
+    {
+        $newApplicationsCount = Notification::where('is_read', false)->count();
+        $newRegisteredCount = RegisteredTechnology::where('is_new', true)->count();
 
-    return view('admin.dashboard', compact('newApplicationsCount', 'newRegisteredCount'));
-}
+        return view('admin.dashboard', compact('newApplicationsCount', 'newRegisteredCount'));
+    }
     //Logins
     public function login(Request $request)
     {
@@ -45,14 +46,15 @@ class AdminController extends Controller
             // 4. Store login info in session
             Session::put('admin_logged_in', true);
             Session::put('admin_user', $admin->user);
-
+            Session::put('admin_id', $admin->id);
+             Session::put('admin_role', $admin->role);
             return redirect()->route('admin.dashboard'); // Adjust this route
         }
 
         // 5. If login fails
         return back()->withErrors(['user' => 'Invalid credentials.']);
     }
-    
+
     public function logout()
     {
         Session::flush(); // Clears all session data
@@ -95,7 +97,7 @@ class AdminController extends Controller
     }
 
 
-// ----------note: for accessing different page, it needs to declare the eloquet 
+    // ----------note: for accessing different page, it needs to declare the eloquet 
     // dashboard only
     public function dashboard()
     {
@@ -134,11 +136,12 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast','technologies',)); // Pass them to view
+        return view('admin.ictv', compact('episodes', 'iecMaterials', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',)); // Pass them to view
     }
 
     //iec only
-    public function iec() {
+    public function iec()
+    {
         $episodes = Ictv::all();
         $iecMaterials = IECMaterial::latest()->get(); // Make sure this is set
         $modules = Module::latest()->get();
@@ -146,11 +149,12 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules','newsletter','promotional','podcast','technologies',));
+        return view('admin.iec', compact('episodes', 'iecMaterials', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',));
     }
 
     //modules only
-    public function modules() {
+    public function modules()
+    {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::all();
         $modules = Module::latest()->get();
@@ -158,11 +162,12 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules','newsletter','promotional','podcast','technologies',));
+        return view('admin.modules', compact('iecMaterials', 'episodes', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',));
     }
 
     //Newsletter only
-    public function newsletter() {
+    public function newsletter()
+    {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::all();
         $modules = Module::latest()->get();
@@ -170,11 +175,12 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.newsletter', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
+        return view('admin.newsletter', compact('iecMaterials', 'episodes', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',));
     }
 
     //Promotional activities only
-    public function promotional() {
+    public function promotional()
+    {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::all();
         $modules = Module::latest()->get();
@@ -182,11 +188,12 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
+        return view('admin.promotionalactivities', compact('iecMaterials', 'episodes', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',));
     }
 
     //Podcast Only
-    public function podcast() {
+    public function podcast()
+    {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::all();
         $modules = Module::latest()->get();
@@ -194,7 +201,7 @@ class AdminController extends Controller
         $promotional = PromotionalActivity::latest()->get();
         $podcast = Podcast::latest()->get();
         $technologies = Technology::latest()->get();
-        return view('admin.podcast', compact('iecMaterials', 'episodes','modules', 'newsletter','promotional','podcast','technologies',));
+        return view('admin.podcast', compact('iecMaterials', 'episodes', 'modules', 'newsletter', 'promotional', 'podcast', 'technologies',));
     }
 
     // Technology Only
@@ -219,5 +226,4 @@ class AdminController extends Controller
             'technologies'
         ));
     }
-
 }

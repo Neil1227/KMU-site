@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/admin/database/navbar.css') }}">
 <!-- Navbar -->
+@if(session('admin_logged_in') && !request()->routeIs('admin.database.commodities'))
 <nav class="dashboard-navbar">
     <div class="navbar-left">
         <div class="d-flex align-items-center mb-3">
@@ -10,16 +11,14 @@
         </div>
 
     </div>
-    @if(session('admin_logged_in'))
+
     <div class="navbar-right">
-        <a href="{{ route('admin.dashboard') }}" class="btn-back">
+        <a href="{{ route('admin.database.commodities') }}" class="btn-back">
             <span class="btn-back-icon">←</span> Dashboard
         </a>
-        <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
-            <span class="btn-add-icon">+</span> Add Commodity
-        </button>
     </div>
     @endif
+
 
 </nav>
 @if(session('admin_logged_in'))
@@ -37,7 +36,7 @@
             <span>Technologies</span>
         </a>
 
-        <a href="{{ route('admin.database.view-ip-applied') }}" target="_blank" class="tab">
+        <a href="{{ route('admin.database.view-ip-applied') }}" class="tab {{ request()->routeIs('admin.database.view-ip-applied') ? 'active' : '' }}">
             <i data-lucide="file-check"></i>
             <span>IP Applied</span>
         </a>
@@ -54,6 +53,18 @@
             <i data-lucide="activity"></i>
             <span>Activity Logs</span>
         </a>
+        @if(request()->routeIs('admin.database.commodities'))
+        <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
+            <span class="btn-add-icon mx-auto">Add Commodity</span>
+        </button>
+
+        @include('admin.database.modal.add-modal')
+        @else
+        <!-- Fallback disabled button -->
+        <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
+            <span class="btn-add-icon mx-auto">Add Commodity</span>
+        </button>
+        @endif
 
 
     </div>

@@ -23,7 +23,7 @@ body h6 {
 /* ============== Overview Wrapper ============== */
 .commodity-overview {
     max-width: 1200px;
-    margin: 1.5rem auto;   /* auto centers horizontally */
+    margin: 0 auto;   /* auto centers horizontally */
     padding: 1rem;
 
 }
@@ -37,9 +37,6 @@ body h6 {
 }
 
 /* ============== Individual Card ============== */
-   .commodity-overview {
-        padding: 2rem;
-    }
 
     h2 {
         font-weight: 700;

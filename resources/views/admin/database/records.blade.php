@@ -395,7 +395,7 @@
                                     <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[8]}</dd>
                                     <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[9]}</dd>
                                     <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[10]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9">${data[11] ? `<a href="${data[11]}" target="_blank">${data[11]}</a>` : ''}</dd>
+                                    <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9"><a href='${data[11]}' target='_blank'>${data[11]}</a></dd>
                                     <dt class="col-sm-3 fw-bold">Priority Area:</dt><dd class="col-sm-9">${data[12]}</dd>
                                 </dl>
                             `;

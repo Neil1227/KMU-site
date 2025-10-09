@@ -21,18 +21,18 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-public function boot(): void
-{
-    // Make the variables available to the sidebar view
-    View::composer('layouts.admin', function ($view) {
-        $newApplicationsCount = Notification::where('is_read', false)->count();
-        $newRegisteredCount   = RegisteredTechnology::where('is_new', true)->count();
+    public function boot(): void
+    {
+        // Make the notification and registered tech counts available in the admin layout
+        View::composer('layouts.admin', function ($view) {
+            $newApplicationsCount = Notification::where('is_read', false)->count();
+            $newRegisteredCount   = RegisteredTechnology::where('is_new', true)->count();
 
-        $view->with(compact('newApplicationsCount', 'newRegisteredCount'));
-    });
-    // Share total page views globally to all Blade views
-    $totalPageViews = DB::table('page_views')->sum('count');
+            $view->with(compact('newApplicationsCount', 'newRegisteredCount'));
+        });
 
-    View::share('totalPageViews', $totalPageViews);
-}
+        // Share total page views globally to all views
+        $totalPageViews = DB::table('page_views')->sum('count');
+        View::share('totalPageViews', $totalPageViews);
+    }
 }

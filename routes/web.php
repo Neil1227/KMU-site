@@ -26,6 +26,7 @@ use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisteredController;
+use App\Http\Controllers\AccountController;
 
 // All records page
 Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
@@ -35,22 +36,6 @@ Route::put('admin/database/records/{id}', [DatabaseController::class, 'updateRec
     ->name('admin.database.update');
 //notification dot
 Route::get('/admin/dashboard', [AdminController::class, 'dot'])->name('admin.dashboard');
-
-// AI chatbox for openai
-// use App\Http\Controllers\ChatController;
-// Route::post('/chatbot/send', [ChatController::class, 'send']);
-
-// for gemini
-// use App\Http\Controllers\ChatBoxController; 
-
-// gemini chatbot
-// use App\Http\Controllers\GeminiChatController;
-
-// Route::post('/chatbot/send', [GeminiChatController::class, 'send']);
-
-// use App\Http\Controllers\ChatBoxController;
-// Route::post('/chat', [ChatBoxController::class, 'send']);
-
 
 // These routes are only accessible if NOT logged in
 Route::middleware('admin.guest')->group(function () {
@@ -76,6 +61,31 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     Route::get('technology', [AdminController::class, 'technology'])->name('admin.technology');
 
     // Add if any(url/controller class/routename in the blade) 
+});
+
+Route::prefix('admin')->middleware('admin.auth')->group(function () {
+
+    Route::middleware(['role:KMU'])->group(function () {
+        Route::get('manage-accounts', [AccountController::class, 'index'])->name('admin.manage.accounts');
+    });
+
+    Route::middleware(['role:KMU,TBI'])->group(function () {
+        Route::get('notifications', [NotificationController::class, 'index'])->name('admin.notifications');
+        Route::get('registered', [RegisteredController::class, 'index'])->name('admin.registered');
+    });
+
+    Route::middleware(['role:KMU,IPTBM'])->group(function () {
+        Route::get('database/commodities', [CommodityController::class, 'index'])->name('admin.database.commodities');
+    });
+
+    // You can do the same for ICTV, IEC, etc. depending on which roles should access
+});
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/account-settings', [AccountController::class, 'index'])->name('admin.account-settings');
+    Route::post('/account-settings/create', [AccountController::class, 'store'])->name('admin.account.store');
+    Route::put('/account-settings/update', [AccountController::class, 'update'])->name('admin.account.update');
 });
 
 //logout
@@ -187,7 +197,7 @@ Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->nam
 Route::delete('/admin/notifications/{id}', [NotificationController::class, 'destroy'])
     ->name('notifications.destroy');
 
-    // 👇 Add this for activity log
+// 👇 Add this for activity log
 Route::get('/admin/database/activities', [CommodityController::class, 'activities'])
     ->name('admin.database.activity');
 // Delete single activity
@@ -199,7 +209,7 @@ Route::delete('/activities', [CommodityController::class, 'clearAllActivities'])
 //Graphs
 Route::get('/admin/database/graphs', [CommodityController::class, 'graphs'])
     ->name('admin.database.graphs');
-    
+
 
 // View page for commodities
 Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view'])
@@ -213,12 +223,9 @@ Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view
 
 Route::prefix('admin')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-        //all records including the commodities-table
+    //all records including the commodities-table
     Route::post('/notifications/push-from-commodity/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-
-   
-
 });
 
 
@@ -234,11 +241,11 @@ Route::delete('/admin/registered-technology/{id}', [RegisteredController::class,
 
 // ✅ This route renders the view
 Route::get('/admin/database/view-regtech', [RegisteredController::class, 'table'])
-->name('admin.database.view-regtech');
+    ->name('admin.database.view-regtech');
 
 
 
-    
+
 // for redirect using the secret code
 Route::get('/143123', function () {
     return redirect()->route('admin.login'); // if you named the admin login route
@@ -258,7 +265,7 @@ Route::get('/modules', [MediaResourceController::class, 'modules'])->name('modul
 Route::get('/newsletter', [MediaResourceController::class, 'newsletter'])->name('newsletter');
 Route::get('/tech-portfolio', [MediaResourceController::class, 'techPortfolio'])->name('tech-portfolio');
 
-//Services Controller
+// Services Controller
 Route::get('/promotional', [MainController::class, 'promotionalActivities'])->name('promotional');
 Route::get('/podcast', [MainController::class, 'podcast'])->name('podcast');
 
@@ -275,6 +282,3 @@ Route::get('/others', [ResearchController::class, 'others'])->name('others');
 
 // Search Controller
 Route::get('/search', [SearchController::class, 'search'])->name('search');
-
-
-

@@ -111,8 +111,8 @@
 
     .tabs {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        max-width: 900px;
+        grid-template-columns: repeat(7, 1fr);
+        max-width: 1200px;
         width: 100%;
         background-color: #e9ecef;
         border-radius: 6px;

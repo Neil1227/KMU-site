@@ -6,18 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Commodity; // your model
 use App\Models\Notification;
 use App\Models\RegisteredTechnology;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseController extends Controller
 {
-    public function allRecords()
-    {
-        // Fetch all records from the DB
-        $commodities = Commodity::select('commodity')->distinct()->get();
-        $records = Commodity::all();
+public function allRecords()
+{
+    // Get all records
+    $records = Commodity::all();
 
-        return view('admin.database.records', compact('records', 'commodities'));
+    // Get distinct commodities with their counts
+    $commodities = Commodity::select('commodity', DB::raw('COUNT(*) as total'))
+        ->groupBy('commodity')
+        ->get();
 
-    }
+    return view('admin.database.records', compact('records', 'commodities'));
+}
+
 
 
   // Update record

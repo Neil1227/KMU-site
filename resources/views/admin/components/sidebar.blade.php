@@ -2,9 +2,11 @@
 <div class="col-md-2 sidebar p-4 min-vh-100 text-white" id="sidebar">
     <!-- Logo Section -->
     <div class="mb-3 text-center d-flex flex-column align-items-center">
-        <img src="../assets/img/kmlogo.png" alt="Logo" class="mobile-logo mb-2" style="height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
-        <h3 class="fw-bold text-white fs-5" style="letter-spacing: 0.5px;">Admin Panel</h3>
-        <small class="text-secondary d-block">Content Management</small>
+        <img src="{{ asset('assets/img/kmlogo.png') }}" alt="Logo" class="mobile-logo mb-2" style="height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+        <h3 class="fw-bold text-white fs-5" style="letter-spacing: 0.5px;">Admin Panel</h3><small class="text-secondary d-block">
+    {{ session('admin_user') ? 'Welcome! ' . session('admin_user') : '(No admin logged in)' }}
+</small>
+
     </div>
 
     <hr class="border-secondary w-100">
@@ -14,15 +16,15 @@
         {{-- KMU Section --}}
         <h5 class="mt-3 mb-2">KMU</h5>
 
-        {{-- Dashboard --}}
-        <div class="accordion-item bg-transparent border-0">
-            <h2 class="accordion-header" id="headingDashboard">
-                <a href="{{ route('admin.dashboard') }}" 
-                   class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.dashboard' ? '' : 'collapsed' }}">
-                    <i class="bi bi-grid me-2"></i> Dashboard
-                </a>
-            </h2>
-        </div>
+{{-- Dashboard (always visible) --}}
+<div class="accordion-item bg-transparent border-0">
+    <h2 class="accordion-header" id="headingDashboard">
+        <a href="{{ route('admin.dashboard') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.dashboard' ? '' : 'collapsed' }}">
+            <i class="bi bi-grid me-2"></i> Dashboard
+        </a>
+    </h2>
+</div>
 
         {{-- Tables Accordion --}}
         <div class="accordion-item bg-transparent border-0">
@@ -76,25 +78,33 @@
         </a>
 
 
-{{-- TBI Section --}}
-<h5 class="mt-4 mb-2">TBI</h5>
+        {{-- TBI Section --}}
+        <h5 class="mt-4 mb-2">TBI</h5>
 
-<a href="{{ route('admin.notifications') }}" 
-   class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? '' : 'collapsed' }}">
-    <i class="bi bi-bell me-2"></i> For Application
-    @if($newApplicationsCount > 0)
-        <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
-    @endif
-</a>
+        <a href="{{ route('admin.notifications') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? '' : 'collapsed' }}">
+            <i class="bi bi-bell me-2"></i> For Application
+            @if($newApplicationsCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
+            @endif
+        </a>
 
-<a href="{{ route('admin.registered-technology') }}" 
-   class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registered-technology' ? '' : 'collapsed' }}">
-    <i class="bi bi-check2-circle me-2"></i> Registered Technology
-    @if($newRegisteredCount > 0)
-        <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
-    @endif
-</a>
+        <a href="{{ route('admin.registered-technology') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registered-technology' ? '' : 'collapsed' }}">
+            <i class="bi bi-check2-circle me-2"></i> Registered Technology
+            @if($newRegisteredCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
+            @endif
+        </a>
+        {{-- SETTINGS SECTION --}}
+        <h5 class="mt-4 mb-2">SETTINGS</h5>
 
-        
+        <a href="{{ route('admin.account-settings') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.account-settings' ? '' : 'collapsed' }}">
+            <i class="bi bi-person-gear me-2"></i> Account Settings
+        </a>
+
+ 
+
     </div>
 </div>

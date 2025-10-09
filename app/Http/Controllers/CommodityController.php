@@ -15,11 +15,11 @@ class CommodityController extends Controller
      */
     public function index()
     {
-    $commodities = Commodity::selectRaw('TRIM(commodity) as commodity, COUNT(*) as total')
-        ->whereNotNull('commodity')
-        ->groupBy('commodity')
-        ->orderBy('commodity', 'asc')
-        ->get();
+        $commodities = Commodity::selectRaw('TRIM(commodity) as commodity, COUNT(*) as total')
+            ->whereNotNull('commodity')
+            ->groupBy('commodity')
+            ->orderBy('commodity', 'asc')
+            ->get();
 
 
         return view('admin.database.commodities', compact('commodities'));
@@ -301,27 +301,23 @@ class CommodityController extends Controller
         ));
     }
 
-public function view()
-{
-    // Records for table (only IP Applied)
-    $commodityCounts = Commodity::where('ip_status', 'IP Applied')
-        ->latest()
-        ->get();
+    public function view()
+    {
+        // Records for table (only IP Applied)
+        $commodityCounts = Commodity::where('ip_status', 'IP Applied')
+            ->latest()
+            ->get();
 
-    // Grouped counts for modal (all commodities, not just IP Applied)
-    $commodities = Commodity::select('commodity')
-        ->selectRaw('COUNT(*) as total')
-        ->groupBy('commodity')
-        ->orderBy('commodity')
-        ->get();
+        // Grouped counts for modal (all commodities, not just IP Applied)
+        $commodities = Commodity::select('commodity')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('commodity')
+            ->orderBy('commodity')
+            ->get();
 
-    return view('admin.database.view-ip-applied', [
-        'commodities' => $commodities,
-        'commodityCounts' => $commodityCounts
-    ]);
-}
-
-
-
-
+        return view('admin.database.view-ip-applied', [
+            'commodities' => $commodities,
+            'commodityCounts' => $commodityCounts
+        ]);
+    }
 }

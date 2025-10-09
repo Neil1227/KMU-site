@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    
+
     <title>@yield('title', 'KMU Admin')</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/img/kmlogo.png') }}">
 
@@ -25,13 +25,18 @@
     <link rel="stylesheet" href="{{ asset('css/admin/admin-content.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/sidebar.css') }}">
-    
-                <style>
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-                </style>
+
+    <style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -40,26 +45,26 @@
         <div class="row d-flex " id="admin-wrapper">
 
             {{-- Sidebar --}}
-                @include('admin.components.sidebar')
+            @include('admin.components.sidebar')
 
             {{-- Main Content --}}
             <div class="col">
-                 <div class="content-wrapper col" id="main-content">
+                <div class="content-wrapper col" id="main-content">
                     {{-- Header --}}
                     @include('admin.components.header')
 
                     {{-- Dynamic Content --}}
                     <!-- Loader for Large File Overlay -->
-                        <div id="upload-loader">
-                            <div style="
+                    <div id="upload-loader">
+                        <div style="
                                 border:6px solid #f85e0a;
                                 border-top:6px solid #1c366a;
                                 border-radius:50%;
                                 width:60px;
                                 height:60px;
                                 animation:spin 1s linear infinite;"></div>
-                            <p style="margin-top:10px;font-size:16px;color:#333;">Uploading, please wait...</p>
-                        </div>
+                        <p style="margin-top:10px;font-size:16px;color:#333;">Uploading, please wait...</p>
+                    </div>
                     @yield('content')
                 </div>
             </div>
@@ -94,30 +99,30 @@
 
     <!-- Large File js loader -->
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const forms = document.querySelectorAll('form[data-show-loader]');
+        document.addEventListener("DOMContentLoaded", function() {
+            const forms = document.querySelectorAll('form[data-show-loader]');
 
-        if (forms.length > 0) {
-            forms.forEach(form => {
-                form.addEventListener("submit", function () {
-                    const loader = document.getElementById("upload-loader");
-                    if (!loader) return;
+            if (forms.length > 0) {
+                forms.forEach(form => {
+                    form.addEventListener("submit", function() {
+                        const loader = document.getElementById("upload-loader");
+                        if (!loader) return;
 
-                    loader.style.display = "flex";
+                        loader.style.display = "flex";
 
-                    // Minimum display time (e.g., 800ms) to prevent flash
-                    const startTime = Date.now();
-                    form.addEventListener("ajaxComplete", function () {
-                        const elapsed = Date.now() - startTime;
-                        const remaining = 800 - elapsed;
-                        setTimeout(() => {
-                            loader.style.display = "none";
-                        }, remaining > 0 ? remaining : 0);
+                        // Minimum display time (e.g., 800ms) to prevent flash
+                        const startTime = Date.now();
+                        form.addEventListener("ajaxComplete", function() {
+                            const elapsed = Date.now() - startTime;
+                            const remaining = 800 - elapsed;
+                            setTimeout(() => {
+                                loader.style.display = "none";
+                            }, remaining > 0 ? remaining : 0);
+                        });
                     });
                 });
-            });
-        }
-    });
+            }
+        });
     </script>
 
     <script>
@@ -125,11 +130,11 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const toggleBtn = document.getElementById("sidebarToggle");
             const sidebar = document.getElementById("sidebar");
 
-            toggleBtn?.addEventListener("click", function () {
+            toggleBtn?.addEventListener("click", function() {
                 sidebar.classList.toggle("show");
 
                 if (!document.getElementById("sidebar-backdrop")) {
@@ -138,7 +143,7 @@
                     backdrop.id = "sidebar-backdrop";
                     document.body.appendChild(backdrop);
 
-                    backdrop.addEventListener("click", function () {
+                    backdrop.addEventListener("click", function() {
                         sidebar.classList.remove("show");
                         backdrop.remove();
                     });
@@ -150,4 +155,5 @@
     </script>
     @stack('scripts') <!-- Page-specific scripts -->
 </body>
+
 </html>

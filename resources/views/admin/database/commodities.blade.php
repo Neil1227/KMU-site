@@ -1,4 +1,4 @@
-@extends('layouts.database')
+@extends('layouts.admin')
 
 @section('title', 'Database Management')
 
@@ -13,7 +13,7 @@
 
 <div class="container">
     <!-- Overview -->
-    <h2 class="mt-5 d-flex justify-content-center">Commodities Overview</h2>
+    <h2 class="mt-4 d-flex justify-content-center">Commodities Overview</h2>
     <div class="commodity-overview">
 
         <!-- Commodities Overview -->
@@ -33,7 +33,7 @@
                 <div class="commodity-card">
                     <h3>{{ $commodity->commodity }}</h3>
                     <p>{{ $commodity->total }} research record(s)</p>
-                    <a href="{{ route('admin.database.commodities.show', ['commodity' => strtolower($commodity->commodity)]) }}" class="btn btn-outline mt-3">{{ $commodity->commodity }} Records</a>
+                    <a href="{{ route('admin.database.commodities.show', ['commodity' => strtolower($commodity->commodity)]) }}" class="btn btn-outline">{{ $commodity->commodity }} Records</a>
                 </div>
                 @endforeach
         </div>
