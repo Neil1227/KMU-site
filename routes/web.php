@@ -63,23 +63,7 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     // Add if any(url/controller class/routename in the blade) 
 });
 
-Route::prefix('admin')->middleware('admin.auth')->group(function () {
 
-    Route::middleware(['role:KMU'])->group(function () {
-        Route::get('manage-accounts', [AccountController::class, 'index'])->name('admin.manage.accounts');
-    });
-
-    Route::middleware(['role:KMU,TBI'])->group(function () {
-        Route::get('notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-        Route::get('registered', [RegisteredController::class, 'index'])->name('admin.registered');
-    });
-
-    Route::middleware(['role:KMU,IPTBM'])->group(function () {
-        Route::get('database/commodities', [CommodityController::class, 'index'])->name('admin.database.commodities');
-    });
-
-    // You can do the same for ICTV, IEC, etc. depending on which roles should access
-});
 
 
 Route::prefix('admin')->group(function () {
@@ -233,6 +217,9 @@ Route::prefix('admin')->group(function () {
     Route::delete('/notifications/revert/{id}', [NotificationController::class, 'revertPush'])->name('notifications.revert');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
+
+
+
 
 
 //applied

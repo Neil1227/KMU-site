@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable; // ✅ for login/auth
+use Spatie\Permission\Traits\HasRoles; // ✅ for roles
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $fillable = [
         'user',
@@ -16,8 +17,10 @@ class Admin extends Model
         'role',
     ];
 
-
     protected $hidden = [
         'password',
     ];
+
+    // ✅ Use correct guard for authentication
+    protected $guard_name = 'web';
 }

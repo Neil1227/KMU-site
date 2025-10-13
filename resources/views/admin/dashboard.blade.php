@@ -113,9 +113,14 @@
                 @endforelse
             </ul>
             <!-- "See All" Link -->
+            @if (session('admin_role') === 'KMU')
             <div class="text-end mt-2">
-                <a href="{{ route('admin.recent-activities') }}" class="btn btn-sm btn-outline-dark">See All Activities</a>
+                <a href="{{ route('admin.recent-activities') }}" class="btn btn-sm btn-outline-dark">
+                    See All Activities
+                </a>
             </div>
+            @endif
+
         </div>
     </div>
     <div class="col-md-6">

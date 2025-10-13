@@ -19,7 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin.auth' => \App\Http\Middleware\AdminAuth::class,
             'admin.guest' => \App\Http\Middleware\AdminGuest::class,
-            'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'checkRole' => \App\Http\Middleware\CheckAdminRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

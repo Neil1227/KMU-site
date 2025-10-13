@@ -9,47 +9,38 @@
     width: 250px;
     background-color: #0d3b66;
     color: #fff;
-    overflow-y: auto;   /* ✅ enable vertical scrolling */
-    overflow-x: hidden; /* ✅ prevent horizontal scroll bar */
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 1000;
     padding: 1rem;
 }
-/* Custom scrollbar styling (WebKit browsers) */
-.sidebar::-webkit-scrollbar {
-    width: 6px;
-}
 
+/* Custom scrollbar */
+.sidebar::-webkit-scrollbar { width: 0px; }
 .sidebar::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 3px;
 }
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
+.sidebar::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.5); }
+.sidebar::-webkit-scrollbar-track { background-color: transparent; }
 
 /* -----------------------------
-   Sidebar links (main & nested)
+   Sidebar headings
 ------------------------------ */
-
-    /* Sidebar section headings */
 .sidebar h5 {
-    font-size: 0.875rem;       /* slightly smaller than main links */
-    font-weight: 600;          /* semi-bold */
-    text-transform: uppercase; /* all caps for emphasis */
-    color: #a0aec0 !important;            /* muted gray/secondary color */
-    margin: 1rem 0 0.5rem 0;   /* spacing above and below */
-    padding-left: 0.5rem;     /* align with sidebar links */
-    letter-spacing: 0.5px;     /* slight spacing for readability */
-    border-left: 3px solid #f85e0a; /* optional accent bar */
-    padding-left: 0.5rem;      /* inner padding with border */
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #a0aec0 !important;
+    margin: 1rem 0 0.5rem 0;
+    padding-left: 0.5rem;
+    letter-spacing: 0.5px;
+    border-left: 3px solid #f85e0a;
 }
 
+/* -----------------------------
+   Sidebar links
+------------------------------ */
 .sidebar a,
 .sidebar-item {
     display: flex;
@@ -71,7 +62,19 @@
     color: #fff;
 }
 
-.sidebar-item.active {
+/* -----------------------------
+   Active link state
+------------------------------ */
+.sidebar-item.active,
+.accordion-button.active {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: none !important;
+}
+
+/* Active nested links inside accordion */
+.accordion-body ul li a.active {
     background-color: var(--primary-color);
     color: #fff;
     font-weight: 600;
@@ -80,46 +83,100 @@
 /* -----------------------------
    Accordion customization
 ------------------------------ */
-
-/* Remove default accordion button styles */
 .accordion-button {
-    background-color: transparent;
-    color: #fff;
-    box-shadow: none;
+    background-color: transparent !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s ease-in-out;
 }
 
-/* Remove default accordion borders */
-.accordion-item {
-    border: none;
+.accordion-button:hover {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    box-shadow: none !important;
 }
 
-/* Show collapse arrow only for Tables */
-.sidebar-accordion-btn:after {
-    filter: invert(1);
-}
+/* Show arrow only for collapsible sections */
+.sidebar-accordion-btn:after { filter: invert(1); }
+.accordion-button:not(.sidebar-accordion-btn):after { display: none; }
 
-/* Hide collapse arrow for all other buttons/links */
-.accordion-button:not(.sidebar-accordion-btn):after {
-    display: none;
+.accordion-item { border: none; }
+.accordion-body{
+    padding: 5px 5px !important;
 }
-
 /* -----------------------------
    Nested links inside accordion
 ------------------------------ */
 .accordion-body ul li a {
     color: #ccc;
-    padding: .5rem .5rem;
+    padding: 0.5rem 0.5rem;
     display: block;
     border-radius: 0.5rem;
     font-size: 0.95rem;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.accordion-body ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
+.accordion-body ul li a:hover { background-color: rgba(255,255,255,0.1); color: #fff; }
+
+/* -----------------------------
+   Badges
+------------------------------ */
 .badge.bg-danger {
     font-size: 0.7rem;
     border-radius: 10px;
     padding: 2px 6px;
+}
+
+/* -----------------------------
+   Disabled / Restricted links
+------------------------------ */
+.disabled-item,
+.restricted {
+    position: relative;
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+/* Tooltip for disabled items */
+.disabled-item::after,
+.restricted::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(248, 94, 10, 0.95);
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    margin-left: 8px;
+}
+.disabled-item:hover::after,
+.restricted:hover::after { opacity: 1; }
+
+/* -----------------------------
+   Override active state for disabled/restricted
+------------------------------ */
+.disabled-item.active,
+.restricted.active {
+    background-color: transparent !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+    opacity: 0.6 !important;
+    pointer-events: none;
+}
+
+/* -----------------------------
+   Collapsed accordion fixes
+------------------------------ */
+.accordion-button:not(.collapsed) {
+    color: #fff !important;
 }
