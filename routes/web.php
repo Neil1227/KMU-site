@@ -221,10 +221,16 @@ Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view
 
 //For Application
 
+// Route::prefix('admin')->group(function () {
+//     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
+//     all records including the commodities-table
+//     Route::post('/notifications/push-from-commodity/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
+//     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+// });
 Route::prefix('admin')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-    //all records including the commodities-table
-    Route::post('/notifications/push-from-commodity/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
+    Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
+    Route::delete('/notifications/revert/{id}', [NotificationController::class, 'revertPush'])->name('notifications.revert');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 

@@ -11,12 +11,6 @@
         </div>
 
     </div>
-
-    <div class="navbar-right">
-        <a href="{{ route('admin.database.commodities') }}" class="btn-back">
-            <span class="btn-back-icon">←</span> Dashboard
-        </a>
-    </div>
     @endif
 
 

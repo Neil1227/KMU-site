@@ -48,23 +48,47 @@
                 <tr id="activity-{{ $activity->id }}">
                     <td>
                         <span class="badge 
-                    @if($activity->action === 'created') bg-success
-                    @elseif($activity->action === 'updated') bg-primary
-                    @elseif($activity->action === 'deleted') bg-danger
-                    @else bg-secondary
-                    @endif">
+                            @if($activity->action === 'created') bg-success
+                            @elseif($activity->action === 'updated') bg-primary
+                            @elseif($activity->action === 'deleted') bg-danger
+                            @elseif($activity->action === 'pushed') bg-warning text-dark
+                            @elseif($activity->action === 'reverted') bg-secondary
+                            @else bg-dark
+                            @endif">
                             {{ ucfirst($activity->action) }}
                         </span>
+
                     </td>
                     <td>{{ $activity->thesis_title }}</td>
                     <td>{{ $activity->technology }}</td>
                     <td>{{ $activity->ip_status }}</td>
                     <td>{{ $activity->created_at->format('Y-m-d H:i') }}</td>
                     <td>
-                        <button class="btn btn-sm btn-danger delete-activity" data-id="{{ $activity->id }}">
+                        @php
+                        $changes = json_decode($activity->changes, true);
+                        $isReverted = $activities->contains(function ($act) use ($changes) {
+                        $actChanges = json_decode($act->changes, true);
+                        return $act->action === 'reverted'
+                        && isset($actChanges['notification_id'], $changes['notification_id'])
+                        && $actChanges['notification_id'] == $changes['notification_id'];
+                        });
+                        @endphp
+
+                        @if($activity->action === 'pushed' && isset($changes['notification_id']) && !$isReverted)
+                        <button class="btn btn-sm btn-warning revert-push"
+                            data-id="{{ $changes['notification_id'] }}"
+                            title="Revert Push">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                        @endif
+
+
+
+                        <button class="btn btn-sm btn-danger delete-activity" data-id="{{ $activity->id }}" title="Delete Activity">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
+
                 </tr>
                 @empty
                 <tr>
@@ -155,6 +179,44 @@
                 }
             });
         });
+        // Revert pushed notification
+        $(document).on('click', '.revert-push', function() {
+            let id = $(this).data('id');
+
+            Swal.fire({
+                title: 'Revert this push?',
+                text: "This will remove the notification record.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, revert it!',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/notifications/revert/' + id,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(res) {
+                            if (res.success) {
+                                Swal.fire('Reverted!', res.message, 'success');
+                                // Remove the corresponding row from the DataTable
+                                $('#activitiesTable').DataTable().row($(`button[data-id="${id}"]`).parents('tr')).remove().draw();
+                            } else {
+                                Swal.fire('Error', res.message || 'Something went wrong.', 'error');
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error('Revert error:', xhr.responseText);
+                            Swal.fire('Error', 'Something went wrong while reverting.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+
     });
 </script>
 @endpush
