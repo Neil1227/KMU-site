@@ -70,6 +70,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/account-settings', [AccountController::class, 'index'])->name('admin.account-settings');
     Route::post('/account-settings/create', [AccountController::class, 'store'])->name('admin.account.store');
     Route::put('/account-settings/update', [AccountController::class, 'update'])->name('admin.account.update');
+    Route::delete('/account-settings/{id}', [AccountController::class, 'destroy'])->name('admin.account.destroy');
+
 });
 
 //logout

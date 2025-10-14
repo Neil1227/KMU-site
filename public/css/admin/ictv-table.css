@@ -34,3 +34,11 @@
     border-radius: 4px;
     box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
+.bg-navy {
+    background-color: #001f3f !important;
+    color: #fff !important;
+}
+.bg-orange {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}

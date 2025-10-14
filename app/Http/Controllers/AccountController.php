@@ -13,7 +13,8 @@ class AccountController extends Controller
 {
     public function index()
     {
-        return view('admin.account-settings');
+        $users = Admin::all();
+        return view('admin.account-settings', compact('users'));
     }
 
     // === Store New Account ===
@@ -112,24 +113,33 @@ class AccountController extends Controller
             }
 
             // === Update Role ===
-            if ($request->update_option === 'role') {
-                if ($admin->role !== 'KMU') {
-                    return back()->with('error', 'Only KMU Super Admin can change roles.');
-                }
+if ($request->update_option === 'role') {
+    if ($admin->role !== 'KMU') {
+        return back()->with('error', 'Only KMU Super Admin can change roles.');
+    }
 
-                $validator = Validator::make($request->all(), [
-                    'new_role' => 'required|in:KMU,IPTBM,TBI',
-                ], [
-                    'new_role.required' => 'Please select a role.',
-                    'new_role.in' => 'Invalid role selected.',
-                ]);
+    $validator = Validator::make($request->all(), [
+        'new_role' => 'required|in:KMU,IPTBM,TBI',
+    ], [
+        'new_role.required' => 'Please select a role.',
+        'new_role.in' => 'Invalid role selected.',
+    ]);
 
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
+    if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput();
+    }
 
-                $updateData['role'] = $request->new_role;
-            }
+    $updateData['role'] = $request->new_role;
+
+    // Update session if the logged-in user changed their own role
+    if ($admin->id == session('admin_id')) {
+        session()->forget(['admin_id', 'admin_user', 'admin_role']);
+        session()->flush(); // optional: clear all session data
+        return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
+    }
+
+}
+
 
             if (empty($updateData)) {
                 return back()->with('error', 'No changes were made.');
@@ -140,6 +150,23 @@ class AccountController extends Controller
             return back()->with('success', 'Account updated successfully.');
         } catch (\Exception $e) {
             return back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
+        }
+    }
+    // === Delete Account ===
+    public function destroy($id)
+    {
+        // Prevent deleting the logged-in KMU Super Admin
+        if ((int) $id === (int) session('admin_id')) {
+            return redirect()->back()->with('error', 'You cannot delete your own account.');
+        }
+
+        try {
+            $admin = Admin::findOrFail($id);
+            $admin->delete();
+
+            return redirect()->back()->with('success', 'Account deleted successfully.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'An error occurred while deleting the account: ' . $e->getMessage());
         }
     }
 }
