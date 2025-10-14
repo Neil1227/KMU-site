@@ -148,20 +148,126 @@ $staticPages = [
     [
         'title' => 'SDG 3 – Good Health and Well-being',
         'content' => '
-        Pampanga State Agricultural University (PSAU) stands at the forefront of driving sustainable development, deeply committed to addressing SDG 1: No Poverty through research-driven programs, community empowerment, and agricultural innovations. Guided by its mandate, PSAU continuously explores the effectiveness of its initiatives in tackling poverty, food insecurity, and environmental stability—paving the way for inclusive growth and lasting change.
-        One such study, conducted among local farmers, seeks to assess how well these programs fulfill their intended purpose. By gathering firsthand insights, PSAU identifies gaps, strengths, and areas for improvement, ensuring that interventions truly uplift farming communities. The research highlights practical solutions that enhance agricultural productivity, promote sustainable livelihoods, and build resilience against economic and environmental challenges.
-        Through its continuous commitment to innovation and community engagement, PSAU reinforces its mission of empowering farmers—helping them break free from the cycle of poverty while fostering a more food-secure and sustainable future for all.',
+        Pampanga State Agricultural University supports Goal 3, which is Good Health and Well-being, by promoting nutritious food through sustainable agriculture, offering health and wellness programs on campus, conducting research on food safety and public health, and participating in community outreach that enhances the general health of nearby communities.
+        Furthermore, PSAU promotes innovation by developing research-based solutions to health issues in rural communities and agriculture. The institution helps to improve nutrition and prevent disease by developing organic farming, climate-resilient crops, herbal medicine, and food technology. These developments empower communities with sustainable practices that enhance their overall well-being, in addition to promoting healthier lifestyles. 
+        ',
         'url' => url('/sdgs/#sdg3'),
     ],
     [
         'title' => 'SDG 4 – Quality Education',
         'content' => '
-        Pampanga State Agricultural University (PSAU) stands at the forefront of driving sustainable development, deeply committed to addressing SDG 1: No Poverty through research-driven programs, community empowerment, and agricultural innovations. Guided by its mandate, PSAU continuously explores the effectiveness of its initiatives in tackling poverty, food insecurity, and environmental stability—paving the way for inclusive growth and lasting change.
-        One such study, conducted among local farmers, seeks to assess how well these programs fulfill their intended purpose. By gathering firsthand insights, PSAU identifies gaps, strengths, and areas for improvement, ensuring that interventions truly uplift farming communities. The research highlights practical solutions that enhance agricultural productivity, promote sustainable livelihoods, and build resilience against economic and environmental challenges.
-        Through its continuous commitment to innovation and community engagement, PSAU reinforces its mission of empowering farmers—helping them break free from the cycle of poverty while fostering a more food-secure and sustainable future for all.',
+        Through its inclusive, high-quality, and readily available education, Pampanga State Agricultural University (PSAU) contributes to Sustainable Development Goal 4: Quality Education by giving students the values, knowledge, and abilities necessary to sustainable development. As an educational institution, PSAU offers a range of academic programs in science, education, agriculture, and related fields that meet the standards of both local and global development. It ensures that education, particularly in rural and agricultural regions, is both highly educated and attentive to current events.
+        PSAU also promoted lifelong learning and community education through its training programs, extension activities, and research dissemination. By providing farmers, local authorities, and underrepresented groups with access to state-of-the-art knowledge, technology, and sustainable practices, these initiatives empower people. PSAU makes significant contributions to the advancement of high-quality education and the formation of future-ready individuals dedicated to both national and international development by incorporating innovation, diversity, and social responsibility into its outreach, research, and teaching. 
+        ',
         'url' => url('/sdgs/#sdg4'),
     ],
-    // add more here when sdgs5-17 is posted
+    [
+        'title' => 'SDG 5 – Quality Education',
+        'content' => '
+        By advocating for real equal opportunities for all women in leadership, education, and community development, Pampanga State Agricultural University (PSAU) supports the achievement of Sustainable Development Goal 5: Gender Equality. The university maintains inclusive policies that provide equal access to leadership positions, professional growth, academic programs, and scholarships for men and women. PSAU incorporates gender sensitivity inti its research, curriculum, and extension services, offering training and seminars, and increasing awareness of gender issues through its Gender and Development (GAD) initiatives.
+ Additionally, by providing them access to technology and supplies, livelihood opportunities, and skill training, PSAU strengthens women in rural communities and agriculture. These programs support women’s involvement in decision-making at the university and in the broader community by challenging conventional gender norms. PSAU actively promotes gender equality and helps to create a more just and equitable society by cultivating a culture of respect, inclusivity, and empowerment. 
+
+        ',
+        'url' => url('/sdgs/#sdg5'),
+    ],
+        [
+        'title' => 'SDG 6 – Quality Education',
+        'content' => '
+        Through its academic, research, and extension initiatives, Pampanga State Agricultural University (PSAU) promotes the preservation of the environment, sustainable water management, and hygiene education in support of Sustainable Development Goal 6: Clean Water and Sanitation. To minimize water pollution and ensure the effective use of water resources, PSAU, an organization with a background in agricultural and environmental science, researches water conservation, rainwater collection, wastewater treatment, and environmentally friendly farming methods.
+ Furthermore, PSAU promotes innovation by creating affordable, locally based technologies for waste-to-resource systems, irrigation efficiency, and water purification that help rural communities have access to clean water. The university presents science-based solutions that tackle practical issues in water quality and sanitation through collaborations with regional administrations and research organizations. PSAU is a key player in expanding access to clean water, encouraging sustainable sanitation, and creating communities that are resilient to climate change by fusing academic excellence with innovation and community involvement.
+
+        ',
+        'url' => url('/sdgs/#sdg6'),
+    ],
+        [
+        'title' => 'SDG 7 – Quality Education',
+        'content' => '
+        Through innovation, research, and education, Pampanga State Agricultural University (PSAU) promotes the use of sustainable energy sources, helping to achieve Sustainable Development Goal 7: Affordable and Clean Energy. Along with its commitment to the preservation of the environment, PSAU incorporates concepts of renewable energy into its curriculum and carries out research on alternative energy sources, particularly those that are pertinent to rural and agricultural communities, like biomass, solar, and biofuels.
+ PSAU provides information and technologies about energy efficiency and clean energy production to local communities through its extension programs. By fusing technological innovation, community engagement, and scholarly expertise, PSAU actively promotes accessible, clean energy for a more sustainable future. 
+
+        ',
+        'url' => url('/sdgs/#sdg7'),
+    ],
+            [
+        'title' => 'SDG 8 – Quality Education',
+        'content' => '
+        Through the provision of opportunities, knowledge, and skills necessary for productive employment and sustainable livelihoods, Pampanga State Agricultural University (PSAU) supports Sustainable Development Goal 8: Decent Work and Economic Growth. Graduates of PSAU’s academic programs in technology, entrepreneurship, agribusiness, and agriculture are equipped to be innovative, competitive professionals and job creators in both domestic and international markets.
+ Additionally, the university promotes innovation and entrepreneurship by funding livelihood training, research- based startups, and the incubation of agribusiness ideas, particularly among young people and rural communities. Through the development of technical skills, financial literacy, and enterprise support, its extension programs help farmers, women, and marginalized groups raise their incomes and enhance their quality of life.
+ Internally, PSAU supports equitable opportunities for all workers, a safe workplace, and fair labor practices. In the region and beyond, PSAU actively supports the creation of decent work opportunities and sustainable economic growth by fusing education, innovation, and inclusive economic empowerment. 
+
+        ',
+        'url' => url('/sdgs/#sdg8'),
+    ],
+            [
+        'title' => 'SDG 9 – Quality Education',
+        'content' => '
+        Pampanga State Agricultural University (PSAU) supports a culture of research, technological advancement, and rural development through education and community engagement, all of which contributed to Sustainable Development Goal 9: Industry, Innovation, and Infrastructure. As an institution founded on science and agriculture, PSAU promotes innovation in fields like environmental engineering, food processing, agri-industrial development, and sustainable farming technologies, thereby assisting the expansion of resilient, modern industries in rural regions.
+ To foster innovation and the creation of new technologies, the university makes investments in labs, experimental farms, and research facilities. These resources help close the knowledge gap between academia and industry by fostering faculty research, student learning, and joint projects with the public and private sectors.
+Through its extension programs, PSAU also improves rural infrastructure by providing local farmers and microenterprises with technical support and capacity-building in areas like post-harvest processing, irrigation, and farm mechanization. PSAU is essential to creating equitable and sustainable industrial growth, especially in communities reliant on agriculture, by fusing innovation, infrastructure development, and industry partnerships. 
+
+        ',
+        'url' => url('/sdgs/#sdg9'),
+    ],
+            [
+        'title' => 'SDG 10 – Quality Education',
+        'content' => '
+        Pampanga State Agricultural University (PSAU) advocates for inclusive education, equal opportunities, and community empowerment, particularly for underprivileged and marginalized groups, to support Sustainable Development Goal 10: Reduced Inequalities. The university makes sure that students from a range of socioeconomic backgrounds, including those from rural and indigenous communities, have access to high-quality education, scholarships, and training programs.
+ Through its outreach and extension initiatives, PSAU actively seeks to lessen disparities in rural communities by giving women, small-scale farmers, and underprivileged groups access to agricultural innovations, livelihood training, and technical assistance. These programs support social inclusion, raise income opportunities, and enhance quality of life.
+ To further guarantee that no one is left behind, PSAU incorporates cultural sensitivity, disability awareness, and gender equality into its policies and initiatives. Both on campus and in the larger community, PSAU helps to close social and economic divides by promoting an atmosphere of fairness, empowerment, and community involvement. 
+
+        ',
+        'url' => url('/sdgs/#sdg10'),
+    ],
+    //         [
+    //     'title' => 'SDG 11 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg11'),
+    // ],
+    //         [
+    //     'title' => 'SDG 12 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg12'),
+    // ],
+    //         [
+    //     'title' => 'SDG 13 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg13'),
+    // ],
+    //         [
+    //     'title' => 'SDG 14 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg14'),
+    // ],
+    //         [
+    //     'title' => 'SDG 15 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg15'),
+    // ],
+    //         [
+    //     'title' => 'SDG 16 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg16'),
+    // ],
+    //         [
+    //     'title' => 'SDG 17 – Quality Education',
+    //     'content' => '
+        
+    //     ',
+    //     'url' => url('/sdgs/#sdg17'),
+    // ],
+
 ];
 
         $results = collect($staticPages)
@@ -276,32 +382,4 @@ $staticPages = [
             'query'        => $query,
         ]);
     }
-    // for future use of lower case sensitive search
-    // private function searchModel($model, $table, $query, $urlPrefix, $titleField = 'title', $descField = 'description')
-    // {
-    //     $columns = \Schema::getColumnListing($table);
-
-    //     return $model::query()
-    //         ->where(function ($q) use ($columns, $query) {
-    //             foreach ($columns as $column) {
-    //                 $q->orWhereRaw("LOWER(`$column`) LIKE ?", ['%' . strtolower($query) . '%']);
-    //             }
-    //         })
-    //         ->get()
-    //         ->map(fn ($item) => [
-    //             'title'   => $item->$titleField,
-    //             'snippet' => Str::limit($item->$descField ?? '', 100),
-    //             'url'     => url("/{$urlPrefix}/".$item->id),
-    //         ]);
-    //             $ictvResults = $this->searchModel(Ictv::class, 'ictvs', $query, 'ictv');
-    // $iecResults = $this->searchModel(IECMaterial::class, 'i_e_c_materials', $query, 'iec');
-    // $promotionalResults = $this->searchModel(PromotionalActivity::class, 'promotional_activities', $query, 'promotional');
-    // $podcastResults = $this->searchModel(Podcast::class, 'podcasts', $query, 'podcast');
-    // $newsletterResults = $this->searchModel(Newsletter::class, 'newsletters', $query, 'newsletter');
-    // $moduleResults = $this->searchModel(Module::class, 'modules', $query, 'modules');
-    // $technologyResults = $this->searchModel(Technology::class, 'technologies', $query, 'technologies', 'product', 'desc');
-
-    // }
-
-
 }

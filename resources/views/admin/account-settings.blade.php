@@ -208,11 +208,6 @@
 
     </div>
 </div>
-
-
-
-
-
 <!-- ----------------------------------------------------------------------------------------------------------------- -->
 
 <!-- Create Account Modal -->
@@ -418,10 +413,7 @@
     </div>
 </div>
 
-
-
-
-{{-- Toast Notifications --}}
+<!-- {{-- Toast Notifications --}} -->
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
     @if(session('success'))
     <div class="toast align-items-center text-bg-success border-0 show" role="alert">
