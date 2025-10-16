@@ -144,8 +144,8 @@ class TechnologyController extends Controller
             'ip_status' => 'nullable|string',
             'proposition' => 'nullable|string',
             'benefits' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'poster' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'poster' => 'nullable|image|mimes:jpeg,png,jpg,webp',
         ]);
 
         $technology = Technology::findOrFail($id);

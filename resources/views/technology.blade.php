@@ -20,73 +20,110 @@
     <div class="container-page my-5">
 
         @php
-            $inventors = $technology->inventors ?? [];
-            $propositions = $technology->proposition ?? [];
-            $benefits = $technology->benefits ?? [];
+        $inventors = $technology->inventors ?? [];
+        $propositions = $technology->proposition ?? [];
+        $benefits = $technology->benefits ?? [];
         @endphp
 
-<div class="row align-items-center mb-5">
-    <!-- Left Column (Text) -->
-    <div class="col-md-6 d-flex flex-column">
-        <h1 class="section-title p-0 mb-2" data-aos="fade-in">
-            Technology
-        </h1>
+        <div class="row align-items-center mb-5">
+            <!-- Left Column (Text) -->
+            <div class="col-md-6 d-flex flex-column">
+                <h1 class="section-title p-0 mb-2" data-aos="fade-in">
+                    Technology
+                </h1>
 
-        <h2 class="fw-bold highlight tech-title mb-3">{{ $technology->product }}</h2>
+                <h2 class="fw-bold highlight tech-title mb-3">{{ $technology->product }}</h2>
 
-        <p class="text-muted">{{ $technology->desc }}</p>
+                <p class="text-muted">{{ $technology->desc }}</p>
 
-        <p class="fs-5 npv-value mt-3">
-            Net Present Value: ₱<span>{{ number_format($technology->net ?? 0, 2) }}</span>
-        </p>
+                <p class="fs-5 npv-value mt-3">
+                    @php
+                    $netRaw = trim($technology->net ?? '');
+                    $net = is_numeric($netRaw) ? floatval($netRaw) : null;
+                    @endphp
 
-        <!-- Profit & Button for medium and up -->
-        <div class="d-none d-md-flex align-items-center gap-3 mt-3">
-            <a href="#" class="profit-btn">Earn {{ $technology->profit ?? 'N/A' }}% Profit!</a>
+                    @if(!is_null($net) && $net > 0)
+                    Net Present Value: ₱<span>{{ number_format($net, 2) }}</span>
+                    @elseif(!is_null($net) && $net == 0)
+                    Net Present Value: <span class="text-muted">Not available</span>
+                    @else
+                    Net Present Value: <span class="text-muted">Not available</span>
+                    @endif
+                </p>
 
-            <button type="button" 
-                    class="btn btn-light d-flex align-items-center gap-2 shadow-sm rounded-3 px-3 py-2"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#downloadModal"
-                    style="cursor: pointer;">
-                <i class="bi bi-download fs-5 icon-colored"></i>
-                <span class="fw-semibold text-dark">View & Download</span>
-            </button>
+                <!-- Profit & Button for medium and up -->
+                <div class="d-none d-md-flex align-items-center gap-3 mt-3">
+                    @php
+                    $profitRaw = trim($technology->profit); // remove spaces
+                    $profit = is_numeric($profitRaw) ? floatval($profitRaw) : null; // convert only if numeric
+                    @endphp
 
-            @include('layouts.components.modal-technology')
+                    @if(!is_null($profit) && $profit > 0)
+                    <a href="#" class="profit-btn">Earn {{ $profit }}% Profit!</a>
+                    @elseif(!is_null($profit) && $profit == 0)
+                    <span class="text-secondary">Profit info not available</span>
+                    @else
+                    <span class="text-muted">Profit info not available</span>
+                    @endif
+
+                    <button type="button"
+                        class="btn btn-light d-flex align-items-center gap-2 shadow-sm rounded-3 px-3 py-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#downloadModal"
+                        style="cursor: pointer;">
+                        <i class="bi bi-download fs-5 icon-colored"></i>
+                        <span class="fw-semibold text-dark">View & Download</span>
+                    </button>
+
+                    @include('layouts.components.modal-technology')
+                </div>
+            </div>
+
+            <!-- Right Column (Image) -->
+            <div class="col-md-6 d-flex flex-column align-items-center">
+                <div class="image-card p-3 rounded-4 shadow-lg bg-white mb-3">
+                    @php
+                    $imagePath = $technology->image && file_exists(storage_path('app/public/technologies/' . $technology->image))
+                    ? asset('storage/technologies/' . $technology->image)
+                    : asset('assets/img/kmlogo.png');
+                    @endphp
+
+                    <img src="{{ $imagePath }}"
+                        alt="{{ $technology->product ?? 'Technology' }}"
+                        class="img-fluid rounded-3"
+                        style="max-width: 220px; max-height: 280px; transition: transform 0.3s ease;">
+                </div>
+
+                <!-- Profit & Button for mobile only -->
+                <div class="d-flex d-md-none flex-column gap-2 w-100 mt-2 align-items-center">
+                    @php
+                    $profitRaw = trim($technology->profit); // remove spaces
+                    $profit = is_numeric($profitRaw) ? floatval($profitRaw) : null; // convert only if numeric
+                    @endphp
+
+                    @if(!is_null($profit) && $profit > 0)
+                    <a href="#" class="profit-btn">Earn {{ $profit }} Profit!</a>
+                    @elseif(!is_null($profit) && $profit == 0)
+                    <span class="text-secondary">Profit info not available</span>
+                    @else
+                    <span class="text-muted">Profit info not available</span>
+                    @endif
+
+
+
+
+
+                    <button type="button"
+                        class="btn btn-light d-flex align-items-center gap-2 shadow-sm rounded-3 px-3 py-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#downloadModal"
+                        style="cursor: pointer;">
+                        <i class="bi bi-download fs-5 icon-colored"></i>
+                        <span class="fw-semibold text-dark">View & Download</span>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- Right Column (Image) -->
-    <div class="col-md-6 d-flex flex-column align-items-center">
-        <div class="image-card p-3 rounded-4 shadow-lg bg-white mb-3">
-            @php
-                $imagePath = $technology->image && file_exists(storage_path('app/public/technologies/' . $technology->image))
-                            ? asset('storage/technologies/' . $technology->image)
-                            : asset('assets/img/kmlogo.png');
-            @endphp
-
-            <img src="{{ $imagePath }}" 
-                alt="{{ $technology->product ?? 'Technology' }}" 
-                class="img-fluid rounded-3"
-                style="max-width: 220px; max-height: 280px; transition: transform 0.3s ease;">
-        </div>
-
-        <!-- Profit & Button for mobile only -->
-        <div class="d-flex d-md-none flex-column gap-2 w-100 mt-2 align-items-center">
-            <a href="#" class="profit-btn">Earn {{ $technology->profit ?? 'N/A' }} Profit!</a>
-
-            <button type="button" 
-                    class="btn btn-light d-flex align-items-center gap-2 shadow-sm rounded-3 px-3 py-2"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#downloadModal"
-                    style="cursor: pointer;">
-                <i class="bi bi-download fs-5 icon-colored"></i>
-                <span class="fw-semibold text-dark">View & Download</span>
-            </button>
-        </div>
-    </div>
-</div>
 
 
         <hr>

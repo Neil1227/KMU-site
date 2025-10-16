@@ -26,12 +26,12 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="edit_net" class="form-label">Net Value *</label>
-              <input type="number" class="form-control" id="edit_net" name="net" step="0.01" required>
+              <label for="edit_net" class="form-label">Net Value </label>
+              <input type="number" class="form-control" id="edit_net" name="net" step="0.01" >
             </div>
             <div class="col-md-6 mb-3">
-              <label for="edit_profit" class="form-label">Profit Value *</label>
-              <input type="number" class="form-control" id="edit_profit" name="profit" step="0.01" required>
+              <label for="edit_profit" class="form-label">Profit Value </label>
+              <input type="number" class="form-control" id="edit_profit" name="profit" step="0.01" >
             </div>
           </div>
 
