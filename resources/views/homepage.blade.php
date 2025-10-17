@@ -23,14 +23,15 @@
 {{-- Navbar --}}
 @include('layouts.components.navbar')
 
-<section id="hero-section"  class="hero-section">
+<section id="hero-section" class="hero-section">
   <div class="container-hero" data-aos="fade-in" data-aos-duration="2000">
     <div class="hero-row">
-      
+
       <!-- Left Text Content -->
       <div class="hero-text">
         <h1 class="hero-title"><span class="hero-initial">K</span>nowledge <br> <span class="hero-initial">M</span>anagement
-        <span class="hero-initial" >U</span>nit</h1>
+          <span class="hero-initial">U</span>nit
+        </h1>
         <p class="hero-subtitle">
           Advancing institutional innovation by acquiring, promoting, and sharing knowledge through strategic communication and collaboration with the Information Communication
           Technology - Research and Development or ICT-RD.
@@ -43,9 +44,9 @@
         </div>
 
         <div class="hero-stats">
-          <div><strong><span class="highlight counter"  data-target="621">0</span>+</strong><br>Satisfied Clients</div>
-          <div><strong><span class="highlight counter"  data-target="400">0</span>+</strong><br>Plagiarism Certificates</div>
-          <div><strong><span class="highlight counter"  data-target="9">0</span>+</strong><br>Years Experience</div>
+          <div><strong><span class="highlight counter" data-target="621">0</span>+</strong><br>Satisfied Clients</div>
+          <div><strong><span class="highlight counter" data-target="400">0</span>+</strong><br>Plagiarism Certificates</div>
+          <div><strong><span class="highlight counter" data-target="9">0</span>+</strong><br>Years Experience</div>
         </div>
       </div>
 
@@ -159,6 +160,24 @@
           </div>
         </a>
       </div>
+
+      <!-- character Card -->
+      <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="500">
+        <a href="" class="text-decoration-none">
+          <div class=" text-center ">
+            <div class="position-relative">
+                <img
+                  src="{{ asset('assets/img/character/Idea.png') }}"
+                  alt="Overlay"
+                  class="overlay-img"
+                  style="width: auto; height: 300px;">
+              </div>
+          </div>
+        </a>
+      </div>
+
+
+
     </div>
   </div>
 </section>
@@ -302,7 +321,7 @@
 <section id="sdgs" class="py-5">
   <!-- Title -->
   <h2 class="text-center section-title mb-5" data-aos="fade-down" data-aos-duration="800">
-    Sustainable <span class="title-highlight">Development Goals (SDG)</span> 
+    Sustainable <span class="title-highlight">Development Goals (SDG)</span>
     <hr class="hr">
   </h2>
 
@@ -310,8 +329,8 @@
     <div class="row g-2 justify-content-center">
       @for ($i = 1; $i <= 17; $i++)
         <div class="col-md-2 mb-2 mx-1"
-          data-aos="zoom-in"
-          data-aos-delay="{{ 100 + floor(($i - 1) / 4) * 100 }}">
+        data-aos="zoom-in"
+        data-aos-delay="{{ 100 + floor(($i - 1) / 4) * 100 }}">
         <a href="{{ url('/sdgs#sdg' . $i) }}" class="text-decoration-none">
           <div class="card sdg-card">
             <img src="{{ asset('assets/img/sdgs/' . $i . '.png') }}"
@@ -339,89 +358,7 @@
 </section>
 
 
-<!-- About Section -->
-<section id="about" class="py-5 about-section">
-  <div class="about-section py-5" data-aos="fade-up">
-      <div class="container text-center">
-        <h2 class="section-title text-center mb-3">
-          What is <span class="title-highlight">Knowledge Management Unit?</span>
-        </h2>
 
-        <div class="about-content d-flex flex-column flex-md-row align-items-center text-start gap-4 mb-5">
-          <img src="assets/img/kmlogo.png" alt="Kamp Maalam Logo" class="about-logo" style="max-width: 120px; height: auto; ">
-
-          <p class="subtitle m-0">
-            The <strong>Knowledge Management</strong> <em>(KM)</em> unit operates to foster an environment where knowledge resources
-            are acquired, promoted, and shared in alignment with quality assurance standards, supporting the continuous
-            improvement and accessibility of the information it handles. By establishing a centralized framework,
-            it creates space and best practices for knowledge sharing activities, making knowledge-based assets
-            accessible to all.
-          </p>
-        </div>
-
-        <div class="mission-box p-4 rounded">
-          <h4 class="text-white mb-3">Our Mission</h4>
-          <p class="text-white mb-0">
-            <strong><em>Kamp Maalam</em> </strong>is an initiative of KM's knowledge-sharing activities. It seeks to modernize practices by
-            leveraging available resources and expanding its reach to a broader audience. The ultimate goal is to
-            foster a community where knowledge is shared, nurtured, and grows.
-          </p>
-        </div>
-      </div>
-  </div>
-
-    <div class="team-section">
-      <h2 class="section-title text-center mb-5">Meet Our <span class="title-highlight">Team</span> </h2>
-      <div class="team-container">
-        <div class="team-card active">
-          <img src="{{ asset('assets/img/about-img.png') }}" alt="Sarah Johnson">
-          <h4 class="highlight">Dir. Walter Pacunana</h4>
-          <p class="role">Director of Office of Innovation</p>
-          <p class="desc">Visionary leader with 15+ years in strategic business development.</p>
-        </div>
-        <div class="team-card">
-          <img src="{{ asset('assets/img/about-img.png') }}" alt="Michael Chen">
-          <h4 class="highlight">Allen Mark Demapanag</h4>
-          <p class="role">Project Technical Assistant I</p>
-          <p class="desc">Tech innovator passionate about scalable solutions and emerging technologies.</p>
-        </div>
-        <div class="team-card">
-          <img src="{{ asset('assets/img/about-img.png') }}" alt="Emma Rodriguez">
-          <h4 class="highlight">Alexandra Gumba</h4>
-          <p class="role">Technical staff</p>
-          <p class="desc">Creative strategist focused on user-centered design and brand excellence.</p>
-        </div>
-        <div class="team-card">
-          <img src="{{ asset('assets/img/about-img.png') }}" alt="David Park">
-          <h4 class="highlight">Neil Patrick Acierto</h4>
-          <p class="role">Technical staff</p>
-          <p class="desc">Growth specialist with expertise in digital strategy and market expansion.</p>
-        </div>
-      </div>
-  </div>
-
-    <div class="values-section">
-      <h2  class="section-title text-center mb-5">Our <span class="title-highlight">Objectives</span></h2>
-      <div class="values-container">
-        <div class="value-card">
-          <div class="value-icon"><i class="fas fa-circle-down fs-4"></i></div>
-          <div class="value-title highlight">Aquire</div>
-          <div class="value-desc">Aquire and organize Knowledge resources created by university stakeholders to be come purposeful assets of PSAU.</div>
-        </div>
-        <div class="value-card">
-          <div class="value-icon"><i class="fas fa-check-circle fs-4" ></i></div>
-          <div class="value-title highlight">Promote</div>
-          <div class="value-desc">Create space and best practice for knowledge sharing activities, making knowledge-based assets accessible to all.</div>
-        </div>
-        <div class="value-card">
-          <div class="value-icon"><i class="fas fa-users fs-4"></i></div>
-          <div class="value-title highlight">Share</div>
-          <div class="value-desc">Ensure knowledge resources are acquiescent to existing quality assurance rules and regulations.</div>
-        </div>
-      </div>
-  </div>
-
-</section>
 <!-- the issue is the research_section -->
 @include('layouts.components.footer')
 

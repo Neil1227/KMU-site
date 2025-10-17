@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'KMU | Home')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/sdg.css') }}">

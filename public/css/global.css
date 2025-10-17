@@ -111,6 +111,14 @@ mark {
   padding: 0px 150px ;
   flex: 1;
 }
+/* .overlay-img {
+  position: absolute;
+  top: 50%;
+  right: 220px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+ */
 
 /* Smooth dropdown appearance on mobile */
 @media (max-width: 991px) {

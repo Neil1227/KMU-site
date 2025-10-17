@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ICTV')
+@section('title', 'KMU | ICTV')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">

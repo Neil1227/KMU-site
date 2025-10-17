@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Technology')
+@section('title', 'KMU | Technology')
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('css/global.css') }}">

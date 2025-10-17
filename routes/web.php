@@ -250,6 +250,7 @@ Route::get('/143123', function () {
 
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
 
 

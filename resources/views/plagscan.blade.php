@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Plagiarsm Scan')
+@section('title', 'KMU | Plagiarsm Scan')
 
 @push('css')
 

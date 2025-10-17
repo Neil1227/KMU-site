@@ -138,8 +138,6 @@ a.btn-outline {
   border-radius: 12px;
 }
 
-
-
 @media (max-width: 991px) {
   .hero-row {
     flex-direction: column;

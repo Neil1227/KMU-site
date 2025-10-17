@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Podcast')
+@section('title', 'KMU | Podcast')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">

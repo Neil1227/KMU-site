@@ -17,7 +17,7 @@
     <div class="card ictv-card mt-4">
         <!-- Header -->
             <div class="card-header text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Notifications</h5>
+                <h5 class="mb-0">Application Notifications</h5>
 
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge bg-light text-dark">{{ $notifications->count() }} total</span>

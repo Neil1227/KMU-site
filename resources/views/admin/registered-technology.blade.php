@@ -75,7 +75,7 @@
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-danger btn-sm delete-notif" data-id="{{ $commodity->id }}">
-                                    <i class="bi bi-trash"></i> Delete
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </td>
                         </tr>

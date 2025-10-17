@@ -19,6 +19,11 @@ class MainController extends Controller
         return view('plagscan');
     }
 
+    public function about()
+    {
+        return view('about');
+    }
+
     public function promotionalActivities()
     {
         $promotional = PromotionalActivity::latest()->get();
