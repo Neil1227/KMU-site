@@ -77,6 +77,42 @@
 /* Wrapper for many columns */
 .table-wrapper { overflow-x: auto; }
 
+
+/* ✅ Small screens - enable horizontal scroll */
+@media (max-width: 992px) {
+  .table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 8px;
+    scrollbar-color: var(--primary-color) var(--secondary-color);
+    scrollbar-width: thin;
+  }
+
+  /* For WebKit browsers (Chrome, Edge, Safari) */
+  .table-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .table-wrapper::-webkit-scrollbar-track {
+    background: var(--primary-color);
+    border-radius: 8px;
+  }
+
+  .table-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+  }
+
+  table.dataTable {
+    width: 100% !important; /* Keeps it within screen width */
+    min-width: 1200px;       /* Slightly wider than small screen for scroll */
+  }
+}
 /* ==============================
    Action Buttons (row-level)
 ============================== */

@@ -1,4 +1,6 @@
-/* Navbar container */
+/* ================================
+   DASHBOARD NAVBAR
+================================ */
 .dashboard-navbar {
     display: flex;
     justify-content: space-between;
@@ -10,143 +12,231 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
 }
 
-/* Left side: back button + title */
+/* Left side: logo + title */
 .navbar-left {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 1 1 auto;
+    min-width: 200px;
 }
 
-/* Navbar title */
-.navbar-title {
-    font-size: 1.5rem;
+.navbar-left img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    transition: height 0.3s ease;
+}
+
+.navbar-title,
+.navbar-left h2 {
+    font-size: 1.4rem;
     font-weight: 600;
     color: #333;
-}
-/* Dashboard back button with icon */
-.btn-back {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.35rem 0.75rem; /* smaller padding */
-    background-color: var(--secondary-color);
-    color: #fff;
-    font-weight: 500;
-    border-radius: 6px; /* smaller corners */
-    font-size: 0.8rem; /* smaller text */
-    text-decoration: none;
-    transition: all 0.3s ease;
+    margin: 0;
 }
 
-.btn-back:hover {
-    background-color: var(--secondary-color);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-/* Left arrow inside the button */
-.btn-back-icon {
-    margin-right: 0.35rem;
-    font-weight: 600;
-    font-size: 0.9rem; /* smaller icon size */
-}
-
-/* Right side container */
+/* Right side buttons */
 .navbar-right {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
-/* Add Commodity link styled as button */
+/* Buttons */
+.btn-back,
 .btn-add {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35rem;
-    background-color: var(--primary-color);
-    color: #fff;
-    font-weight: 500;
-    font-size: 0.8rem; /* smaller text */
-    padding: 0.35rem 0.85rem;
     border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
 }
-
-.btn-add:hover {
+.btn-add {
     background-color: var(--secondary-color);
-    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
     color: #fff;
 }
 
-/* Plus icon inside the button */
-.btn-add-icon {
-    font-size: 0.9rem;
-    font-weight: 600;
+.btn-add:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.btn-back {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+
+
+/* ================================
+   TABS SECTION (Enhanced)
+================================ */
+.nav-container {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    background-color: #f8f9fa;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.75rem 0.25rem;
+    scroll-behavior: smooth;
     display: flex;
+    justify-content: center; /* centers the .tabs horizontally */
+}
+
+/* Tabs Wrapper */
+.tabs {
+    display: inline-flex;
+    gap: 0.6rem;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    justify-content: center;
+}
+
+/* Each Tab */
+.tab {
+    flex: 0 0 auto;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.6rem 1rem;
+    background-color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #444;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
 }
 
-
-/* Mobile responsive */
-@media (max-width: 640px) {
-    .navbar-right {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.5rem;
-    }
+.tab:hover {
+    background-color: #f1f3f5;
+    color: var(--primary-color);
 }
 
-   .nav-container {
-        width: 100%;
-        border-bottom: 1px solid #ccc;
-        /* background-color: #f8f9fa; */
-        display: flex;
-        justify-content: center;
-        padding: 1rem 0;
+.tab.active {
+    background-color: #fff;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: 600;
+}
+
+/* Mobile view remains scrollable */
+@media (max-width: 768px) {
+    .nav-container {
+        justify-content: flex-start; /* revert to scrollable alignment */
+        padding: 0.4rem 0.25rem;
     }
 
     .tabs {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        max-width: 1200px;
+        justify-content: flex-start;
+        gap: 0.4rem;
+        padding: 0.4rem;
+    }
+}
+
+
+/* ================================
+   RESPONSIVENESS
+================================ */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .dashboard-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+
+    }
+
+    .navbar-left h2 {
+        font-size: 1.2rem;
+    }
+
+    .navbar-right {
         width: 100%;
-        background-color: #e9ecef;
-        border-radius: 6px;
-        overflow: hidden;
+        justify-content: flex-start;
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .navbar-left img {
+        height: 35px;
+    }
+
+    .navbar-left h2 {
+        font-size: 1rem;
+    }
+
+    .btn-add,
+    .btn-back {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    .nav-container {
+        padding: 0.4rem 0;
+        -webkit-overflow-scrolling: touch; /* smoother swipe */
+    }
+
+    .tabs {
+        gap: 0.4rem;
+        padding: 0.4rem;
     }
 
     .tab {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        padding: 10px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #444;
-        text-decoration: none;
-        transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
+        padding: 0.5rem 0.7rem;
+        font-size: 0.8rem;
     }
 
-    /* Active tab */
-    .tab.active {
-        background-color: #fff;
-        color: var(--primary-color);
-        border-bottom: 2px solid var(--primary-color);
+    .tab i {
+        font-size: 1.1rem;
     }
+}
+/* ================================
+   CUSTOM SCROLLBAR STYLING
+================================ */
+.nav-container::-webkit-scrollbar {
+  height: 2px; /* horizontal scrollbar height */
+}
 
-    /* Hover effect */
-    .tab:hover {
-        background-color: #f1f3f5;
-    }
+.nav-container::-webkit-scrollbar-track {
+  background: #e9ecef; /* track color */
+  border-radius: 10px;
+}
 
-    /* Responsive: Hide labels on small screens */
-    @media (max-width: 640px) {
-        .tab span {
-            display: none;
-        }
-    }
+.nav-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); /* thumb color */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary-color); /* hover effect */
+}
+
+/* Firefox scrollbar */
+.nav-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #e9ecef;
+}

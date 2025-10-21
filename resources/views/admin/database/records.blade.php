@@ -24,7 +24,7 @@
     </div>
 
 
-    <div class="table-wrapper m-3">
+    <div class="table-wrapper table-responsive-sm m-3">
         <table id="recordsTable" class="table table-sm table-striped table-hover" style="width:100%">
             <thead class="table-dark">
                 <tr>
@@ -377,6 +377,7 @@
             order: [
                 [14, 'desc']
             ], // Sort by hidden Created At
+            
             responsive: {
                 details: {
                     display: function(row, update) {
@@ -414,7 +415,6 @@
             },
             pageLength: 10,
             lengthMenu: [5, 10, 25, 50],
-            autoWidth: false,
             columnDefs: [{
                     targets: 14,
                     visible: false

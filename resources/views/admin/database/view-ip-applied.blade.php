@@ -89,10 +89,10 @@
 <script>
     $(document).ready(function() {
         $('#viewCommoditiesTable').DataTable({
-            responsive: false,
+            responsive: true,
+            scrollX: true,
             pageLength: 10,
             lengthMenu: [5, 10, 25, 50],
-            autoWidth: false,
             columnDefs: [{
                     orderable: false,
                     targets: -1
