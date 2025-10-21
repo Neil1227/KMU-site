@@ -48,8 +48,8 @@
         <h3>Initiatives <hr></h3>
         {{-- (No initiatives content provided in HTML, keeping section structure here in case you want to add later) --}}
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Medicinal properties of selected invasive plant species.</li>
           <li>Improvement of integrated crop management systems of mungbean.</li>

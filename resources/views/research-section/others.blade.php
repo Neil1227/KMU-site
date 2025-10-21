@@ -47,8 +47,8 @@
           The stove designed for biomass briquettes highlights the need for public-private partnerships and emphasizes the importance of continuous monitoring and evaluation to ensure the long-term sustainability of the SPCW's ecotourism sector. This collaborative approach is essential for maintaining the balance between economic development, environmental protection, and local community benefits.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Proposed Fabrication and Performance Evaluation of PSAU Briquette Stove.</li>
           <li>Drawing Lessons from the COVID-19 Pandemic and Charting a Way Forward for Ecotourism Policy.</li>

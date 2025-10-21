@@ -53,8 +53,8 @@
           In addition, farmers have generally perceived little impact of the National Greening Program (NGP) on their overall well-being, with many reporting that it has not led to noticeable improvements in their livelihoods, food security, or environmental stability. This suggests a need for more targeted interventions and a deeper understanding of the specific challenges faced by these communities to ensure the effectiveness of such programs.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Climate Change and Environmental Sustainability</li>
           <li>Gender and Livelihood (Perceived Gender Roles of Households)</li>

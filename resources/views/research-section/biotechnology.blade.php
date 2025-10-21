@@ -50,8 +50,8 @@
           By extracting DNA from the seedlings and sequencing the matK region, researchers can create a genetic barcode for both Sour and Sweet Tamarind. This barcode is then encoded into a QR code, which can be scanned to quickly access genetic information about the plant, facilitating efficient identification and classification. This approach not only simplifies the process of distinguishing between these two varieties but also promotes a more precise and accessible method for plant research and conservation.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Molecular Phylogenetics of Sour and Sweet Tamarind using matK DNA marker</li>
           <li>Agricultural biotechnology and food security</li>

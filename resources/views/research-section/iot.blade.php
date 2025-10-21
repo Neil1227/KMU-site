@@ -59,8 +59,8 @@
           Additionally, a web-based system embedded in a Raspberry Pi was developed to monitor and control electrical switches manually or via a scheduling system, enabling faculty to set operational schedules. For enhanced security, an IoT-based electronic door lock with an intrusion detection system was also created. Another key system generates topographic maps for various areas within the university, including academic, commercial, and science and technology zones, while also mapping infrastructure facilities across the PSAU campus.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>A Design and Development of an Internet of Things (IoT) Based Secured Office Automation, Monitoring, and Control with GSM Notification.</li>
           <li>Internet of Things Based Controlled Environment.</li>

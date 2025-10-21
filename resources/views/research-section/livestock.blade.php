@@ -53,8 +53,8 @@
           Another aspect of the study focused on the gastrointestinal and respiratory conditions of BT-black native pigs, comparing those fed fermented versus unfermented soybean. This helped in identifying gut resilience, disease resistance, and nutrient absorption efficiency.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Native pigs production</li>
           <li>Animal health and disease control</li>

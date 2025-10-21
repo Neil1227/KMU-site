@@ -56,8 +56,8 @@
           Velvet bean has also been linked to influencing the sex inversion rate and enhancing the growth response of fish during the grow-out phase. Furthermore, feeding velvet beans in aquaculture systems may affect the ectoparasite composition and intensity, with potential implications for fish health. Understanding these factors is essential for optimizing stocking ratios and improving overall aquaculture production while ensuring the sustainability of farming practices.
         </p>
 
-        {{-- R4D Thrusts and Priorities --}}
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        {{-- R&D Thrusts and Priorities --}}
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>The Aquaculture Performance of Red Tilapia and Giant Freshwater prawn as influenced by Different Stocking Ratios.</li>
           <li>Utilization of Velvet Bean as Feedstuff on the Aquaculture Performance of Red Tilapia</li>

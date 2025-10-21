@@ -49,7 +49,7 @@
           Addressing these challenges requires innovative solutions and research-backed practices. Various institutions and local communities are working together to introduce sustainable technologies, educate farmers, and promote integrated systems. Examples include crop rotation, organic farming, and precision agriculture using sensors and data analytics.
         </p>
 
-        <h3>R4D Thrusts and Priorities <hr></h3>
+        <h3>R&D Thrusts and Priorities <hr></h3>
         <ul>
           <li>Develop innovative pest management strategies, particularly for the Golden Apple Snail.</li>
           <li>Enhance science-based production management strategies for agriculture.</li>

@@ -183,7 +183,7 @@ Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->nam
 Route::delete('/admin/notifications/{id}', [NotificationController::class, 'destroy'])
     ->name('notifications.destroy');
 
-// 👇 Add this for activity log
+// Add this for activity log
 Route::get('/admin/database/activities', [CommodityController::class, 'activities'])
     ->name('admin.database.activity');
 // Delete single activity
@@ -205,23 +205,12 @@ Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view
 
 // ---------------------------------------------------------------------------notif
 
-//For Application
-
-// Route::prefix('admin')->group(function () {
-//     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
-//     all records including the commodities-table
-//     Route::post('/notifications/push-from-commodity/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
-//     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-// });
 Route::prefix('admin')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('admin.notifications');
     Route::post('/notifications/push/{id}', [NotificationController::class, 'pushFromCommodity'])->name('notifications.push');
     Route::delete('/notifications/revert/{id}', [NotificationController::class, 'revertPush'])->name('notifications.revert');
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
-
-
-
 
 
 //applied
