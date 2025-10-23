@@ -24,7 +24,10 @@
             <i data-lucide="bar-chart-3"></i>
             <span>Commodities</span>
         </a>
-
+        <a href="{{ route('admin.database.graphs') }}" class="tab {{ request()->routeIs('admin.database.graphs') ? 'active' : '' }}">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Graphs</span>
+        </a>
         <a href="{{ route('admin.database.records') }}" class="tab {{ request()->routeIs('admin.database.records') ? 'active' : '' }}">
             <i data-lucide="file-text"></i>
             <span>Technologies</span>
@@ -39,10 +42,7 @@
             <i data-lucide="user-check"></i>
             <span>IP Registered</span>
         </a>
-        <a href="{{ route('admin.database.graphs') }}" class="tab {{ request()->routeIs('admin.database.graphs') ? 'active' : '' }}">
-            <i data-lucide="bar-chart-3"></i>
-            <span>Graphs</span>
-        </a>
+
         <a href="{{ route('admin.database.activity') }}" class="tab {{ request()->routeIs('admin.database.activity') ? 'active' : '' }}">
             <i data-lucide="activity"></i>
             <span>Activity Logs</span>

@@ -54,19 +54,19 @@
                 <div class="accordion-body ">
                     <ul class="list-unstyled ms-3">
                         <li><a href="{{ route('ictv-table') }}" class="{{ Route::currentRouteName() === 'ictv-table' ? 'active' : '' }}">
-                            <i class="bi bi-tv me-2"></i> ICTV Table</a></li>
+                                <i class="bi bi-tv me-2"></i> ICTV Table</a></li>
                         <li><a href="{{ route('admin.iec-table') }}" class="{{ Route::currentRouteName() === 'admin.iec-table' ? 'active' : '' }}">
-                            <i class="bi bi-file-earmark-text me-2"></i> IEC Table</a></li>
+                                <i class="bi bi-file-earmark-text me-2"></i> IEC Table</a></li>
                         <li><a href="{{ route('admin.modules-table') }}" class="{{ Route::currentRouteName() === 'admin.modules-table' ? 'active' : '' }}">
-                            <i class="bi bi-journal-text me-2"></i> Modules Table</a></li>
+                                <i class="bi bi-journal-text me-2"></i> Modules Table</a></li>
                         <li><a href="{{ route('admin.newsletter-table') }}" class="{{ Route::currentRouteName() === 'admin.newsletter-table' ? 'active' : '' }}">
-                            <i class="bi bi-envelope me-2"></i> Newsletter Table</a></li>
+                                <i class="bi bi-envelope me-2"></i> Newsletter Table</a></li>
                         <li><a href="{{ route('admin.promotionalactivities-table') }}" class="{{ Route::currentRouteName() === 'admin.promotionalactivities-table' ? 'active' : '' }}">
-                            <i class="bi bi-megaphone me-2"></i> Promotional Table</a></li>
+                                <i class="bi bi-megaphone me-2"></i> Promotional Table</a></li>
                         <li><a href="{{ route('admin.podcast-table') }}" class="{{ Route::currentRouteName() === 'admin.podcast-table' ? 'active' : '' }}">
-                            <i class="bi bi-headphones me-2"></i> Podcast Table</a></li>
+                                <i class="bi bi-headphones me-2"></i> Podcast Table</a></li>
                         <li><a href="{{ route('admin.technology-table') }}" class="{{ Route::currentRouteName() === 'admin.technology-table' ? 'active' : '' }}">
-                            <i class="bi bi-cpu me-2"></i> Technology Table</a></li>
+                                <i class="bi bi-cpu me-2"></i> Technology Table</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,17 +85,37 @@
         </a>
         @endif
 
+        {{-- New Research --}}
+        @if (session('admin_role') === 'IPTBM' || session('admin_role') === 'TBI')
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to KMU">
+            <i class="bi bi-lightbulb me-2"></i> New Research
+            @if(!empty($newResearchCount) && $newResearchCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
+            @endif
+        </div>
+        @else
+        <a href="{{ route('admin.new-research') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.new-research' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-lightbulb me-2"></i> Acquired Research
+            @if(!empty($newResearchCount) && $newResearchCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
+            @endif
+        </a>
+        @endif
+
+
+
         {{-- IPTBM Section --}}
         <h5 class="mt-4 mb-2">IPTBM</h5>
         @if (session('admin_role') === 'KMU' || session('admin_role') === 'IPTBM')
-            <a href="{{ route('admin.database.commodities') }}"
-                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.database.commodities' ? 'active' : 'collapsed' }}">
-                <i class="bi bi-database me-2"></i> Technology Database
-            </a>
+        <a href="{{ route('admin.database.commodities') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.database.commodities' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-database me-2"></i> Technology Database
+        </a>
         @else
-            <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
-                <i class="bi bi-database me-2"></i> Technology Database
-            </div>
+        <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
+            <i class="bi bi-database me-2"></i> Technology Database
+        </div>
         @endif
 
         {{-- TBI Section --}}
@@ -103,39 +123,67 @@
 
         {{-- For Application --}}
         @if (session('admin_role') === 'IPTBM')
-            <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to IPTBM and KMU">
-                <i class="bi bi-bell me-2"></i> For Application
-                @if($newApplicationsCount > 0)
-                <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
-                @endif
-            </div>
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to IPTBM and KMU">
+            <i class="bi bi-bell me-2"></i> For Application
+            @if($newApplicationsCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
+            @endif
+        </div>
         @else
-            <a href="{{ route('admin.notifications') }}"
-                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
-                <i class="bi bi-bell me-2"></i> For Application
-                @if($newApplicationsCount > 0)
-                <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
-                @endif
-            </a>
+        <a href="{{ route('admin.notifications') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-bell me-2"></i> For Application
+            @if($newApplicationsCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
+            @endif
+        </a>
         @endif
 
         {{-- Registered Technology --}}
         @if (session('admin_role') === 'IPTBM')
-            <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to IPTBM and KMU">
-                <i class="bi bi-check2-circle me-2"></i> Registered Technology
-                @if($newRegisteredCount > 0)
-                <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
-                @endif
-            </div>
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to IPTBM and KMU">
+            <i class="bi bi-check2-circle me-2"></i> Registered Technology
+            @if($newRegisteredCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
+            @endif
+        </div>
         @else
-            <a href="{{ route('admin.registered-technology') }}"
-                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registered-technology' ? 'active' : 'collapsed' }}">
-                <i class="bi bi-check2-circle me-2"></i> Registered Technology
-                @if($newRegisteredCount > 0)
-                <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
-                @endif
-            </a>
+        <a href="{{ route('admin.registered-technology') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registered-technology' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-check2-circle me-2"></i> Registered Technology
+            @if($newRegisteredCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
+            @endif
+        </a>
         @endif
+
+        {{-- RESEARCH Section --}}
+        <h5 class="mt-4 mb-2">Research</h5>
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'RESEARCH')
+        <a href="{{ route('admin.add-thesis') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.add-thesis' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-search me-2"></i> Add Research
+        </a>
+        @else
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Research and KMU">
+            <i class="bi bi-search me-2"></i> Add Research
+        </div>
+        @endif
+
+
+        {{-- EXTENSION Section --}}
+        <h5 class="mt-4 mb-2">Extension</h5>
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'EXTENSION')
+        <a href=""
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === '' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-diagram-3 me-2"></i> Extension
+        </a>
+        @else
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Extension and KMU">
+            <i class="bi bi-diagram-3 me-2"></i> Extension
+        </div>
+        @endif
+
 
         {{-- SETTINGS Section --}}
         <h5 class="mt-4 mb-2">SETTINGS</h5>

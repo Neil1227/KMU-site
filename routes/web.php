@@ -22,7 +22,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PromotionalActivityController;
 use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\TechnologyController;
-
+use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisteredController;
@@ -133,6 +133,25 @@ Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteR
 Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
 Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteAll'])->name('recent-activities.deleteAll');
 
+
+// New research aquired
+
+Route::get('/admin/new-research', function () {
+    return view('admin.new-research');
+})->name('admin.new-research');
+
+// ---------------------------------New Research Added
+// Show Add Research form
+Route::get('/admin/add-thesis', [ThesisController::class, 'create'])->name('admin.add-thesis');
+Route::get('/admin/new-research', [ThesisController::class, 'index'])->name('admin.new-research');
+Route::post('/admin/add-thesis', [ThesisController::class, 'store'])->name('admin.add-thesis.store');
+
+// For research Team
+Route::get('/admin/add-thesis', [ThesisController::class, 'addThesis'])->name('admin.add-thesis');
+Route::delete('/admin/add-thesis/{id}', [ThesisController::class, 'destroy'])
+    ->name('admin.add-thesis.destroy');
+
+
 //technology admin
 Route::get('/technology-table', [TechnologyController::class, 'table'])->name('admin.technology-table');
 Route::post('/technology/upload', [TechnologyController::class, 'upload'])->name('technology.upload');
@@ -226,7 +245,6 @@ Route::delete('/admin/registered-technology/{id}', [RegisteredController::class,
 // ✅ This route renders the view
 Route::get('/admin/database/view-regtech', [RegisteredController::class, 'table'])
     ->name('admin.database.view-regtech');
-
 
 
 

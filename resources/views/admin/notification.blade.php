@@ -114,8 +114,6 @@
                     </div>
                     <input type="hidden" name="notification_id" id="notificationId">
 
-                        <input type="hidden" name="notification_id" id="notificationId">
-
                     <div class="mb-3">
                         <label for="description" class="form-label">Description of the Product</label>
                         <textarea class="form-control" name="description" id="description" rows="3"></textarea>

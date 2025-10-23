@@ -12,46 +12,52 @@ class RegisteredController extends Controller
     /**
      * Show registered technologies
      */
-        public function index()
-        {
-            // Fetch all registered technologies from DB
-            $commodities = RegisteredTechnology::latest()->get();
+    public function index()
+    {
+        // Fetch all registered technologies from DB
+        $commodities = RegisteredTechnology::latest()->get();
 
-            // Mark all as not new
-            RegisteredTechnology::where('is_new', true)->update(['is_new' => false]);
+        // Mark all as not new
+        RegisteredTechnology::where('is_new', true)->update(['is_new' => false]);
 
-            return view('admin.registered-technology', compact('commodities'));
-        }
+        return view('admin.registered-technology', compact('commodities'));
+    }
 
 
     /**
      * Store pushed technology into registered technologies
      */
-    public function store(Request $request)
-    {
-       
-        $request->validate([
-            'technology' => 'required|string|max:255',
-            'technology_generator' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'link' => 'nullable|url|max:255',
-        ]);
-    
+public function store(Request $request)
+{
+    $request->validate([
+        'technology' => 'required|string|max:255',
+        'technology_generator' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'link' => 'nullable|url|max:255',
+        'notification_id' => 'nullable|integer', // add this
+    ]);
 
-        $tech = RegisteredTechnology::create([
-            'technology' => $request->technology,
-            'technology_generator' => $request->technology_generator,
-            'description' => $request->description,
-            'link' => $request->link,
-        ]);
+    // Create the registered technology
+    $tech = RegisteredTechnology::create([
+        'technology' => $request->technology,
+        'technology_generator' => $request->technology_generator,
+        'description' => $request->description,
+        'link' => $request->link,
+    ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Technology successfully pushed!',
-            'data' => $tech
-        ]);
+    // 🔥 Delete the original notification after pushing
+    if ($request->filled('notification_id')) {
+        \App\Models\Notification::find($request->notification_id)?->delete();
     }
-        public function destroy($id)
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Technology successfully pushed and notification deleted!',
+        'data' => $tech
+    ]);
+}
+
+    public function destroy($id)
     {
         $tech = RegisteredTechnology::find($id);
 
@@ -69,17 +75,16 @@ class RegisteredController extends Controller
             'message' => 'Technology successfully deleted.',
         ]);
     }
-public function table()
-{
-    $regTechs = RegisteredTechnology::latest()->get();
+    public function table()
+    {
+        $regTechs = RegisteredTechnology::latest()->get();
 
-    // Fetch commodities with counts for dropdown
-    $commodities = Commodity::select('commodity')
-        ->selectRaw('COUNT(*) as total')
-        ->groupBy('commodity')
-        ->get();
+        // Fetch commodities with counts for dropdown
+        $commodities = Commodity::select('commodity')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('commodity')
+            ->get();
 
-    return view('admin.database.view-regtech', compact('regTechs', 'commodities'));
-}
-
+        return view('admin.database.view-regtech', compact('regTechs', 'commodities'));
+    }
 }

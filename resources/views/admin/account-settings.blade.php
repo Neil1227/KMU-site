@@ -263,8 +263,10 @@
                         <select name="role" class="form-select @error('role') is-invalid @enderror" required>
                             <option value="" disabled selected>Select role</option>
                             <option value="KMU">KMU (Super Admin)</option>
+                            <option value="RESEARCH">Research</option>
                             <option value="IPTBM">IPTBM</option>
                             <option value="TBI">TBI</option>
+                            <option value="EXTENSION">Extension</option>
                         </select>
                         @error('role')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -359,8 +361,10 @@
                         <select name="new_role" class="form-select @error('new_role') is-invalid @enderror">
                             <option value="" disabled selected>Select role</option>
                             <option value="KMU" {{ old('new_role') == 'KMU' ? 'selected' : '' }}>KMU (Super Admin)</option>
+                            <option value="RESEARCH" {{ old('new_role') == 'RESEARCH' ? 'selected' : '' }}>Research</option>
                             <option value="IPTBM" {{ old('new_role') == 'IPTBM' ? 'selected' : '' }}>IPTBM</option>
                             <option value="TBI" {{ old('new_role') == 'TBI' ? 'selected' : '' }}>TBI</option>
+                            <option value="EXTENSION" {{ old('new_role') == 'EXTENSION' ? 'selected' : '' }}>Extension</option>
                         </select>
                         @error('new_role')
                         <div class="invalid-feedback">{{ $message }}</div>

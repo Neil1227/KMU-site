@@ -23,7 +23,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'user' => 'required|string|unique:admins,user',
             'password' => 'required|confirmed|min:4',
-            'role' => 'required|in:KMU,IPTBM,TBI',
+            'role' => 'required|in:KMU,IPTBM,TBI,RESEARCH,EXTENSION',
         ], [
             'user.required' => 'Username is required.',
             'user.unique' => 'This username is already taken.',
@@ -113,32 +113,31 @@ class AccountController extends Controller
             }
 
             // === Update Role ===
-if ($request->update_option === 'role') {
-    if ($admin->role !== 'KMU') {
-        return back()->with('error', 'Only KMU Super Admin can change roles.');
-    }
+            if ($request->update_option === 'role') {
+                if ($admin->role !== 'KMU') {
+                    return back()->with('error', 'Only KMU Super Admin can change roles.');
+                }
 
-    $validator = Validator::make($request->all(), [
-        'new_role' => 'required|in:KMU,IPTBM,TBI',
-    ], [
-        'new_role.required' => 'Please select a role.',
-        'new_role.in' => 'Invalid role selected.',
-    ]);
+                $validator = Validator::make($request->all(), [
+                    'new_role' => 'required|in:KMU,IPTBM,TBI,RESEARCH,EXTENSION',
+                ], [
+                    'new_role.required' => 'Please select a role.',
+                    'new_role.in' => 'Invalid role selected.',
+                ]);
 
-    if ($validator->fails()) {
-        return back()->withErrors($validator)->withInput();
-    }
+                if ($validator->fails()) {
+                    return back()->withErrors($validator)->withInput();
+                }
 
-    $updateData['role'] = $request->new_role;
+                $updateData['role'] = $request->new_role;
 
-    // Update session if the logged-in user changed their own role
-    if ($admin->id == session('admin_id')) {
-        session()->forget(['admin_id', 'admin_user', 'admin_role']);
-        session()->flush(); // optional: clear all session data
-        return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
-    }
-
-}
+                // Update session if the logged-in user changed their own role
+                if ($admin->id == session('admin_id')) {
+                    session()->forget(['admin_id', 'admin_user', 'admin_role']);
+                    session()->flush(); // optional: clear all session data
+                    return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
+                }
+            }
 
 
             if (empty($updateData)) {
