@@ -66,10 +66,6 @@
     background-color: #f4f4f4;
     font-weight: 600;
 }
-.table .dropdown-menu {
-    z-index: 2000 !important;  /* float above */
-    position: absolute !important;
-}
 
 .table tr:nth-child(even) { background-color: #fafafa; }
 .table tr:hover          { background-color: #f0f0ff; }
@@ -124,13 +120,25 @@
     color: #fff;
 }
 
-.actions button.view    { background-color: #3b82f6; }
-.actions button.edit    { background-color: #f59e0b; }
-.actions button.publish { background-color: #10b981; }
-.actions button.delete  { background-color: #ef4444; }
+.actions button.view    { color: #3b82f6; }
+.actions button.tag    { color: #f5880b; }
+.actions button.publish { color: #10b981; }
+.actions button.delete  { color: #ef4444; }
 
 .actions button:hover { opacity: 0.85; }
+    table.dataTable td {
+  overflow: visible !important;
+  position: relative !important;
+}
 
+.dataTables_wrapper {
+  overflow: visible !important;
+}
+.table .dropdown-menu {
+  position: absolute !important;
+
+  z-index: 2000 !important;
+}
 /* ==============================
    Editable Inputs
 ============================== */

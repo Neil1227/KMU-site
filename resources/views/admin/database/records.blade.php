@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="{{ asset('css/admin/database/navbar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin/database/global.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin/database/table.css') }}">
+<style>
+
+</style>
 @endpush
 
 @section('content')
@@ -113,45 +116,53 @@
                         <a href="{{ $record->link }}" target="_blank">{{ $record->link }}</a>
                     </td>
                     <td>{{ $record->priority_area }}</td>
-                    <td class="actions">
-                        <button
-                            class="edit btn btn-warning btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#editCommodityModal"
-                            data-id="{{ $record->id }}"
-                            data-commodity="{{ $record->commodity }}"
-                            data-technology_generator="{{ $record->technology_generator }}"
-                            data-thesis_title="{{ $record->thesis_title }}"
-                            data-technologies="{{ $record->technologies }}"
-                            data-contact_info="{{ $record->contact_info }}"
-                            data-type_of_technology="{{ $record->type_of_technology }}"
-                            data-ip_status="{{ $record->ip_status }}"
-                            data-trl_level="{{ $record->trl_level }}"
-                            data-sdgs="{{ $record->sdgs }}"
-                            data-remarks="{{ $record->remarks }}"
-                            data-recommendations="{{ $record->recommendations }}"
-                            data-link="{{ $record->link }}"
-                            data-priority_area="{{ $record->priority_area }}">
-                            <i class="bi bi-pencil-fill"></i>
-                        </button>
-
-                        <button class="save btn btn-success btn-sm" style="display:none;">
-                            <i class="bi bi-check-lg"></i>
-                        </button>
-                        <!-- Push to Notifications -->
-                        <button
-                            class="push-action btn btn-sm btn-primary"
-                            data-id="{{ $record->id }}"
-                            data-url="{{ route('notifications.push', $record->id) }}">
-                            <i class="bi bi-arrow-right-circle"></i>
-                        </button>
-
-                        <button
-                            class="delete btn btn-danger btn-sm"
-                            data-id="{{ $record->id }}">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
+                    <td class="actions text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="actionsMenu{{ $record->id }}"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear-fill"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="actionsMenu{{ $record->id }}">
+                                <li>
+                                    <button class="dropdown-item publish edit" data-bs-toggle="modal" data-bs-target="#editCommodityModal"
+                                        data-id="{{ $record->id }}"
+                                        data-commodity="{{ $record->commodity }}"
+                                        data-technology_generator="{{ $record->technology_generator }}"
+                                        data-thesis_title="{{ $record->thesis_title }}"
+                                        data-technologies="{{ $record->technologies }}"
+                                        data-contact_info="{{ $record->contact_info }}"
+                                        data-type_of_technology="{{ $record->type_of_technology }}"
+                                        data-ip_status="{{ $record->ip_status }}"
+                                        data-trl_level="{{ $record->trl_level }}"
+                                        data-sdgs="{{ $record->sdgs }}"
+                                        data-remarks="{{ $record->remarks }}"
+                                        data-recommendations="{{ $record->recommendations }}"
+                                        data-link="{{ $record->link }}"
+                                        data-priority_area="{{ $record->priority_area }}">
+                                        <i class="bi bi-pencil-fill me-1"></i> Edit
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item tag" data-bs-toggle="modal" data-bs-target="#changeClassificationModal">
+                                        <i class="bi bi-tags me-1"></i> Classification
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item view push-action" data-id="{{ $record->id }}"
+                                        data-url="{{ route('notifications.push', $record->id) }}">
+                                        <i class="bi bi-arrow-right-circle me-1"></i> For Application
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item delete" data-id="{{ $record->id }}">
+                                        <i class="bi bi-trash-fill me-1"></i> Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
+
+
                     <td style="display:none">{{ $record->created_at }}</td>
                 </tr>
                 @endforeach
@@ -159,7 +170,7 @@
         </table>
 
         @include('admin.database.modal.edit-modal')
-
+        @include('admin.database.modal.category-modal')
         <!-- Custom Modal for Responsive Details -->
         <div class="modal fade" id="customModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -373,11 +384,25 @@
 <!-- responsive modal script for records (paste after DataTables scripts) -->
 <script>
     $(document).ready(function() {
+        // Fix Bootstrap dropdown visibility inside DataTables
+        $('#recordsTable').on('shown.bs.dropdown', function() {
+            // Force dropdowns to appear above table overflow
+            let $table = $(this),
+                $dropdown = $('.dropdown-menu:visible');
+            $table.css('overflow', 'inherit');
+            $dropdown.css('z-index', 1050);
+        });
+
+        $('#recordsTable').on('hide.bs.dropdown', function() {
+            // Restore overflow after dropdown hides
+            $(this).css('overflow', 'auto');
+        });
+
         $('#recordsTable').DataTable({
             order: [
                 [14, 'desc']
             ], // Sort by hidden Created At
-            
+
             responsive: {
                 details: {
                     display: function(row, update) {
