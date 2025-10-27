@@ -140,6 +140,29 @@
 </div>
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    $('#sampleTable').DataTable({
+        responsive: true,
+        autoWidth: false,
+        pageLength: 10,
+        order: [[5, 'desc']], // Sort by Date Added (6th column, index 5)
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search research...",
+            lengthMenu: "Show _MENU_ entries",
+            zeroRecords: "No matching research found",
+            info: "Showing _START_ to _END_ of _TOTAL_ research entries",
+            infoEmpty: "No entries available",
+            infoFiltered: "(filtered from _MAX_ total entries)"
+        },
+        columnDefs: [
+            { orderable: false, targets: [6] } // Disable sorting for "Actions"
+        ]
+    });
+});
+</script>
+
 <!-- deleting  -->
  <script>
 document.addEventListener('DOMContentLoaded', function () {

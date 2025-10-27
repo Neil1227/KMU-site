@@ -42,3 +42,7 @@
     background-color: var(--primary-color) !important;
     color: #fff !important;
 }
+.bg-cyan {
+    background-color: rgb(38, 204, 216) !important;
+    color: #fff !important;
+}

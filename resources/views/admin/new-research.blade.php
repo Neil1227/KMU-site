@@ -52,8 +52,14 @@
                         <td>{{ $research->priority_area }}</td>
                         <td>{{ $research->created_at }}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-primary" title="push"><i class="bi bi-arrow-right-circle"></i></button>
+                            <button
+                                class="btn btn-sm btn-primary"
+                                title="push"
+                                @if(session('admin_role') !=='KMU' ) disabled @endif>
+                                <i class="bi bi-arrow-right-circle"></i>
+                            </button>
                         </td>
+
                     </tr>
                     @empty
                     <tr>

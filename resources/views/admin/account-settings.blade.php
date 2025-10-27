@@ -44,9 +44,16 @@
                             <td>{{ $user->user }}</td>
                             <td>
                                 <span
-                                    class="badge {{ $user->role === 'KMU' ? 'bg-orange' : ($user->role === 'IPTBM' ? 'bg-navy' : 'bg-success') }}">
+                                    class="badge 
+                                        @if ($user->role === 'KMU') bg-orange
+                                        @elseif ($user->role === 'IPTBM') bg-navy
+                                        @elseif ($user->role === 'TBI') bg-success
+                                        @elseif ($user->role === 'RESEARCH') bg-cyan
+                                        @else bg-dark
+                                        @endif">
                                     {{ $user->role }}
                                 </span>
+
                             </td>
                             <td>{{ $user->created_at->format('Y-m-d h:i A') }}</td>
                             <td>
@@ -85,7 +92,7 @@
         <div class="col-md-5 mb-4">
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-success text-white">
-                    <strong ><i class="fa-solid fa-user-gear me-2"></i>Change Account</strong>
+                    <strong><i class="fa-solid fa-user-gear me-2"></i>Change Account</strong>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.account.update') }}" method="POST">
