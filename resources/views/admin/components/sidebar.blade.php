@@ -92,20 +92,56 @@
 
         {{-- New Research --}}
         @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')
-
         <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to KMU">
             <i class="bi bi-lightbulb me-2"></i> New Research
             @if(!empty($newResearchCount) && $newResearchCount > 0)
             <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
             @endif
         </div>
-
         @else
         <a href="{{ route('admin.new-research') }}"
             class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.new-research' ? 'active' : 'collapsed' }}">
             <i class="bi bi-lightbulb me-2"></i> Acquired Research
             @if(!empty($newResearchCount) && $newResearchCount > 0)
             <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
+            @endif
+        </a>
+        @endif
+
+        {{-- RESEARCH Section --}}
+        <h5 class="mt-4 mb-2">Research</h5>
+        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Research and KMU">
+            <i class="bi bi-search me-2"></i> Add Research
+            @if(!empty($researchOnlyCount) && $researchOnlyCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $researchOnlyCount }}</span>
+            @endif
+        </div>
+        @else
+        <a href="{{ route('admin.add-thesis') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.add-thesis' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-search me-2"></i> Add Research
+            @if(!empty($researchOnlyCount) && $researchOnlyCount > 0)
+            <span class="badge bg-danger ms-auto">{{ $researchOnlyCount }}</span>
+            @endif
+        </a>
+        @endif
+
+
+
+        {{-- EXTENSION Section --}}
+        <h5 class="mt-4 mb-2">Extension</h5>
+
+        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'EXTENSION')
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Extension and KMU">
+            <i class="bi bi-diagram-3 me-2"></i> Extension
+        </div>
+        @else
+        <a href="{{ route('admin.extensions.index') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.extensions.index' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-diagram-3 me-2"></i> Extension
+            @if(isset($pendingCount) && $pendingCount > 0)
+            <span class="badge bg-danger ms-2">{{ $pendingCount }}</span>
             @endif
         </a>
         @endif
@@ -158,32 +194,6 @@
             <span class="badge bg-danger ms-auto">{{ $newRegisteredCount }}</span>
             @endif
         </div>
-        @endif
-
-        {{-- RESEARCH Section --}}
-        <h5 class="mt-4 mb-2">Research</h5>
-        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')
-        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Research and KMU">
-            <i class="bi bi-search me-2"></i> Add Research
-        </div>
-        @else
-        <a href="{{ route('admin.add-thesis') }}"
-            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.add-thesis' ? 'active' : 'collapsed' }}">
-            <i class="bi bi-search me-2"></i> Add Research
-        </a>
-        @endif
-
-        {{-- EXTENSION Section --}}
-        <h5 class="mt-4 mb-2">Extension</h5>
-        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'EXTENSION')
-        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Extension and KMU">
-            <i class="bi bi-diagram-3 me-2"></i> Extension
-        </div>
-        @else
-        <a href=""
-            class="accordion-button sidebar-item {{ Route::currentRouteName() === '' ? 'active' : 'collapsed' }}">
-            <i class="bi bi-diagram-3 me-2"></i> Extension
-        </a>
         @endif
 
         {{-- SETTINGS Section --}}

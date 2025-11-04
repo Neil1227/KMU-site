@@ -3,50 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Research;
+use App\Models\Kmu_Thesis;
 use Illuminate\Http\Request;
 
 class ThesisController extends Controller
 {
     /**
-     * Display a listing of the research entries.
+     * Display a listing of all research entries (KMU + Others).
      */
-public function index()
-{
-    // Fetch all research data
-    $researches = Research::all();
+    public function index()
+    {
+        // Fetch all KMU and non-KMU research records
+        $kmuResearches = Kmu_Thesis::all();
+        $otherResearches = Research::all();
 
-    // Count pending research (optional — you can count all if no status column)
-    $newResearchCount = Research::where('status', 'pending')->count();
+        // Merge both collections
+        $researches = $kmuResearches->concat($otherResearches)->sortByDesc('created_at');
 
-    // Pass both to the view
-    return view('admin.new-research', compact('researches', 'newResearchCount'));
-}
+        // Count pending KMU research (for sidebar or notifications)
+        $newResearchCount = Kmu_Thesis::where('status', 'pending')->count();
 
-public function addThesis()
-{
-    // Fetch all existing research records
-    $researches = Research::all();
-
-    // Optional: count for sidebar badge or notifications
-    $newResearchCount = Research::count();
-
-    // Load the add-thesis view with both variables
-    return view('admin.add-thesis', compact('researches', 'newResearchCount'));
-}
+        return view('admin.new-research', compact('researches', 'newResearchCount'));
+    }
 
     /**
-     * Show the form for creating a new research entry.
+     * Display the Add Thesis page.
      */
-public function create()
-{
-    $newResearchCount = Research::count();
+    public function addThesis()
+    {
+        $researches = Research::all();
+        $newResearchCount = Research::count();
 
-    return view('admin.add-thesis', compact('newResearchCount'));
-}
-
+        return view('admin.add-thesis', compact('researches', 'newResearchCount'));
+    }
 
     /**
-     * Store a newly created research in storage.
+     * Store a new research record under KMU.
      */
     public function store(Request $request)
     {
@@ -59,13 +51,9 @@ public function create()
         ]);
 
         try {
-            Research::create([
-                'title' => $request->title,
-                'authors' => $request->authors,
-                'technology_type' => $request->technology_type,
-                'priority_area' => $request->priority_area,
-                'link' => $request->link,
-            ]);
+            Research::create($request->only([
+                'title', 'authors', 'technology_type', 'priority_area', 'link'
+            ]));
 
             return redirect()->back()->with('success', 'Research added successfully!');
         } catch (\Exception $e) {
@@ -73,60 +61,35 @@ public function create()
         }
     }
 
+
+
     /**
-     * Display the specified research.
+     * Delete either a Research or KMU_Thesis record.
      */
-    public function show(Research $research)
+    public function destroy($id)
     {
-        return view('research.show', compact('research'));
+        try {
+            // Try to find the record in either table
+            $record = Research::find($id) ?? Kmu_Thesis::find($id);
+
+            if (!$record) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Record not found.',
+                ], 404);
+            }
+
+            $record->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Record deleted successfully.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete record. Please try again.',
+            ], 500);
+        }
     }
-
-    /**
-     * Show the form for editing the specified research.
-     */
-    public function edit(Research $research)
-    {
-        return view('research.edit', compact('research'));
-    }
-
-    /**
-     * Update the specified research in storage.
-     */
-    public function update(Request $request, Research $research)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'authors' => 'required|string',
-            'technology_type' => 'required|string|max:255',
-            'link' => 'nullable|url',
-            'priority_area' => 'required|string|max:255',
-        ]);
-
-        $research->update($validated);
-
-        return redirect()->route('research.index')->with('success', 'Research updated successfully!');
-    }
-
-    /**
-     * Remove the specified research from storage.
-     */
-public function destroy($id)
-{
-    $research = Research::find($id);
-
-    if (!$research) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Research not found.'
-        ], 404);
-    }
-
-    $research->delete();
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Research successfully deleted!'
-    ]);
-}
-
 }

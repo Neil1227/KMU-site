@@ -16,12 +16,12 @@
 <div class="container mt-4">
     <div class="card shadow-sm mt-4">
         <div class="card-header text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"><i class="bi bi-flask me-2"></i>Add New Research</h5>
+            <h5 class="mb-0"><i class="bi bi-flask me-2"></i>Add New Research Papers</h5>
 
             <div class="d-flex align-items-center gap-2">
                 <span class="badge bg-light text-dark">{{ $researches->count() }} total</span>
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addResearchModal">
-                    <i class="bi bi-plus-circle me-1"></i> Add New Research
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addResearchModal">
+                    <i class="bi bi-plus-circle me-1"></i>
                 </button>
             </div>
         </div>
@@ -128,7 +128,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center">No research data found.</td>
+                            <td colspan="7" class="text-center">No research data found.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -144,6 +144,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     $('#sampleTable').DataTable({
         responsive: true,
+        order: [[5, 'desc']], 
         autoWidth: false,
         pageLength: 10,
         order: [[5, 'desc']], // Sort by Date Added (6th column, index 5)
@@ -228,9 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
     Swal.fire({
         icon: 'success',
         title: 'Success!',
-        text: '{{ session('
-        success ') }}',
-        confirmButtonColor: '#198754',
+        text: '{{ session('success') }}',
+        confirmButtonColor: '#198754'
     });
     @endif
 
@@ -238,12 +238,12 @@ document.addEventListener('DOMContentLoaded', function () {
     Swal.fire({
         icon: 'error',
         title: 'Oops!',
-        text: '{{ session('
-        error ') }}',
-        confirmButtonColor: '#dc3545',
+        text: '{{ session('error') }}',
+        confirmButtonColor: '#dc3545'
     });
     @endif
 </script>
+
 @endpush
 
 @endsection
