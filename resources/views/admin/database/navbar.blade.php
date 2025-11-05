@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('css/admin/database/navbar.css') }}">
 <!-- Navbar -->
-@if(session('admin_logged_in') && !request()->routeIs('admin.database.commodities'))
+@if(session('admin_logged_in') && 
+    !request()->routeIs('admin.database.commodities', 'admin.database.priority*'))
 <nav class="dashboard-navbar">
     <div class="navbar-left">
         <div class="d-flex align-items-center mb-3">
@@ -9,9 +10,10 @@
             <!-- Heading -->
             <h2 class="m-0">Technology Database Management</h2>
         </div>
-
     </div>
-    @endif
+</nav>
+@endif
+
 
 
 </nav>

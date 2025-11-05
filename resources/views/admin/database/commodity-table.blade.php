@@ -404,8 +404,8 @@ $(document).ready(function() {
         columns: [
             { responsivePriority: 1, className: "all" },
             { responsivePriority: 2, className: "all" },
-            { className: "all" },
-            { className: "all" },
+            { className: "none" },
+            { className: "none" },
             { className: "all" },
             { className: "all" },
             { className: "none" },
@@ -413,7 +413,7 @@ $(document).ready(function() {
             { responsivePriority: 3, className: "all" },
             { className: "all" },
             { className: "none" },
-            { className: "none" },
+            { className: "all" },
             { responsivePriority: 4, className: "all" },
             { visible: false } // Hidden Created At column
         ],

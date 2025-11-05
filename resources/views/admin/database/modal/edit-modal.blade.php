@@ -28,11 +28,11 @@
                   <option value="other">New Commodity</option>
                   <option value="For Checking">For Checking</option>
 
-                  @foreach($commodities as $c)
-                      <option value="{{ $c->commodity }}" {{ $record->commodity == $c->commodity ? 'selected' : '' }}>
-                          {{ $c->commodity }} ({{ $c->total }})
-                      </option>
-                  @endforeach
+    @foreach($commodities as $c)
+        <option value="{{ $c->commodity }}">
+            {{ $c->commodity }} ({{ $c->total }})
+        </option>
+    @endforeach
               </select>
               
               <!-- Input shows only if "New Commodity" is selected -->

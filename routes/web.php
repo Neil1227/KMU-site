@@ -221,13 +221,22 @@ Route::get('/admin/database/commodities', [CommodityController::class, 'index'])
     ->name('admin.database.commodities');
 Route::get('/commodities', [CommodityController::class, 'index'])->name('commodities.index');
 Route::get('/commodities/{commodity}', [CommodityController::class, 'show'])->name('commodities.show');
+
 Route::get('/admin/database/commodities/{commodity}', [CommodityController::class, 'show'])
     ->name('admin.database.commodities.show');
+
 Route::post('/commodities', [CommodityController::class, 'store'])->name('commodities.store');
 Route::put('/commodities/update/{id}', [CommodityController::class, 'update'])->name('commodities.update');
 Route::delete('/commodities/{id}', [CommodityController::class, 'destroy'])->name('commodities.destroy');
 Route::delete('/admin/notifications/{id}', [NotificationController::class, 'destroy'])
     ->name('notifications.destroy');
+
+Route::get('/admin/database/show/{filter}', [CommodityController::class, 'show'])
+    ->name('admin.database.show');
+
+Route::get('/admin/database/priority/{priority_area}', [CommodityController::class, 'showByPriority'])
+    ->name('admin.database.priority.show');
+
 
 // Add this for activity log
 Route::get('/admin/database/activities', [CommodityController::class, 'activities'])

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\DBActivity;
+use Illuminate\Support\Facades\DB;
 
 class CommodityController extends Controller
 {
@@ -13,16 +14,25 @@ class CommodityController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
     public function index()
     {
+        // Fetch commodities summary
         $commodities = Commodity::selectRaw('TRIM(commodity) as commodity, COUNT(*) as total')
             ->whereNotNull('commodity')
             ->groupBy('commodity')
             ->orderBy('commodity', 'asc')
             ->get();
 
+        // Fetch priority area summary
+        $priorityAreas = Commodity::selectRaw('TRIM(priority_area) as priority_area, COUNT(*) as total')
+            ->whereNotNull('priority_area')
+            ->groupBy('priority_area')
+            ->orderBy('priority_area', 'asc')
+            ->get();
 
-        return view('admin.database.commodities', compact('commodities'));
+        // Pass both to the view
+        return view('admin.database.commodities', compact('commodities', 'priorityAreas'));
     }
 
     /**
@@ -31,20 +41,103 @@ class CommodityController extends Controller
      * @param string $commodity
      * @return \Illuminate\View\View
      */
-    public function show($commodity)
-    {
-        // Get all records for the commodity, most recent first
-        $records = Commodity::where('commodity', $commodity)
-            ->latest() // or ->orderBy('created_at', 'desc')
-            ->get();
+public function show($commodity)
+{
+    $commoditySlug = strtolower(trim($commodity));
+    $records = collect();
+    $commodityName = ucwords(str_replace('-', ' ', $commoditySlug));
 
-        $commodities = Commodity::select('commodity')
-            ->selectRaw('COUNT(*) as total')
-            ->groupBy('commodity')
-            ->get();
+    // 🔹 CASE 1: For Checking
+    if ($commoditySlug === 'for-checking') {
+        $records = Commodity::where(function ($query) {
+            $query->whereNull('commodity')
+                ->orWhere('commodity', '')
+                ->orWhereNull('priority_area')
+                ->orWhere('priority_area', '');
+        })->get();
 
-        return view('admin.database.commodity-table', compact('commodity', 'records', 'commodities'));
+        $commodityName = 'For Checking';
     }
+
+    // 🔹 CASE 2: N/A (handle n/a, n-a, na)
+    elseif (in_array($commoditySlug, ['n-a', 'n/a', 'na', 'n a'])) {
+        $records = Commodity::where(function ($query) {
+            $query->whereRaw("REPLACE(LOWER(TRIM(commodity)), ' ', '') IN ('n/a','n-a','na')");
+        })->get();
+
+        $commodityName = 'N/A';
+    }
+
+    // 🔹 CASE 3: Normal commodity
+    else {
+        $records = Commodity::whereRaw('LOWER(TRIM(commodity)) = ?', [strtolower($commodityName)])->get();
+    }
+
+    // 🔹 Sidebar dropdown grouping
+    $commodities = Commodity::select('commodity')
+        ->selectRaw('COUNT(*) as total')
+        ->groupBy('commodity')
+        ->get();
+
+    return view('admin.database.commodity-table', [
+        'commodity' => $commodityName,
+        'records' => $records,
+        'commodities' => $commodities,
+    ]);
+}
+
+    public function showByPriority($priority_area)
+    {
+        $slug = strtolower(trim($priority_area));
+        $priorityName = ucwords(str_replace('-', ' ', $slug));
+        $commodities = collect();
+
+        // 🔹 CASE 1: For Checking (no or blank priority_area)
+        if ($slug === 'for-checking') {
+            $commodities = Commodity::where(function ($query) {
+                $query->whereNull('priority_area')
+                    ->orWhere('priority_area', '')
+                    ->orWhereRaw("REPLACE(REPLACE(LOWER(TRIM(priority_area)), ' ', ''), '/', '') = 'na'");
+            })
+                ->select('commodity')
+                ->selectRaw('COUNT(*) as total')
+                ->groupBy('commodity')
+                ->get();
+
+            $priorityName = 'For Checking';
+        }
+
+        // 🔹 CASE 2: N/A (handles n-a, n/a, na, n a)
+        elseif (in_array($slug, ['n-a', 'n/a', 'na', 'n a'])) {
+            $commodities = Commodity::where(function ($query) {
+                $query->whereRaw("REPLACE(REPLACE(LOWER(TRIM(priority_area)), ' ', ''), '/', '') = 'na'");
+            })
+                ->select('commodity')
+                ->selectRaw('COUNT(*) as total')
+                ->groupBy('commodity')
+                ->get();
+
+            $priorityName = 'N/A';
+        }
+
+        // 🔹 CASE 3: Normal named priority areas
+        else {
+            $commodities = Commodity::whereRaw('LOWER(TRIM(priority_area)) = ?', [strtolower($priorityName)])
+                ->select('commodity')
+                ->selectRaw('COUNT(*) as total')
+                ->groupBy('commodity')
+                ->get();
+        }
+
+        // 🔹 Return view
+        return view('admin.database.priority-table', [
+            'priorityArea' => $priorityName,
+            'commodities' => $commodities,
+        ]);
+    }
+
+
+
 
 
     /**
