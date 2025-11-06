@@ -150,20 +150,23 @@ Route::get('/admin/new-research', [ThesisController::class, 'index'])->name('adm
 
 // For research Team
 Route::get('/admin/add-thesis', [ThesisController::class, 'addThesis'])->name('admin.add-thesis');
+
 Route::delete('/admin/add-thesis/{id}', [ThesisController::class, 'destroy'])->name('admin.add-thesis.destroy');
 //add new research from kmu
 Route::post('/admin/add-thesis/store', [ThesisController::class, 'store'])->name('admin.add-thesis.store');
 
+//destroy for kmu
+Route::delete('/admin/new-research/{id}', [ThesisController::class, 'destroy'])
+    ->name('admin.new-research.destroy');
+Route::post('/admin/new-research/{id}/acknowledge', [ThesisController::class, 'acknowledge'])
+    ->name('admin.new-research.acknowledge');
+
+    
 
 //add new research from research
 Route::post('/admin/add-thesis/storetokmu', [Kmu_thesisController::class, 'storetokmu'])->name('admin.add-thesis.storetokmu');
 //badge showing
 Route::get('/admin/new-research', [Kmu_thesisController::class, 'index'])->name('admin.new-research');
-
-
-//destroy for kmu
-Route::delete('/admin/new-research/{id}', [ThesisController::class, 'destroy'])
-    ->name('admin.new-research.destroy');
 
 
 
@@ -175,6 +178,7 @@ Route::get('/admin/extensions', [ExtensionController::class, 'index'])
 Route::delete('/admin/extensions/delete/{id}', [ExtensionController::class, 'destroy'])
     ->name('admin.extensions.destroy');
 
+Route::post('/admin/extensions/push/{id}', [ExtensionController::class, 'pushfromrecords'])->name('extensions.push');
 
 
 

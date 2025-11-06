@@ -142,11 +142,23 @@
                                         <i class="bi bi-pencil-fill me-1"></i> Edit
                                     </button>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <button class="dropdown-item tag" data-bs-toggle="modal" data-bs-target="#changeClassificationModal">
                                         <i class="bi bi-tags me-1"></i> Classification
                                     </button>
+                                </li> -->
+                                @if(session('admin_role') === 'KMU')
+                                <li>
+                                    <button type="button" class="dropdown-item view tag"
+                                        data-id="{{ $record->id }}"
+                                        data-url="{{ route('extensions.push', $record->id) }}">
+                                        <i class="bi bi-box me-1"></i> Push Extension
+                                    </button>
+
                                 </li>
+                                @endif
+
+
                                 <li>
                                     <button class="dropdown-item view push-action" data-id="{{ $record->id }}"
                                         data-url="{{ route('notifications.push', $record->id) }}">
@@ -508,6 +520,7 @@
 
 <!-- push notification -->
 <script src="{{ asset('js/pushcontent.js') }}"></script>
+<script src="{{ asset('js/pushtoextension.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/dark/1.13.6/js/dataTables.dark.min.js"></script>

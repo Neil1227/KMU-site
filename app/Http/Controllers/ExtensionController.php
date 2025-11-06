@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Extension;
 use App\Models\Kmu_Thesis;
 use App\Models\Research;
+use App\Models\Commodity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 class ExtensionController extends Controller
 {
     /**
@@ -15,76 +17,107 @@ class ExtensionController extends Controller
 public function index()
 {
     $extensions = Extension::orderBy('created_at', 'desc')->get()->map(function ($item) {
-        // Check if this extension record exists in KMU_Thesis
         $existsInKmu = Kmu_Thesis::where('title', $item->title)
             ->where('authors', $item->authors)
             ->exists();
 
-        // Dynamically assign the source
-        $item->source = $existsInKmu ? 'KMU Thesis' : 'Research';
+        $existsInCommodity = Commodity::where('thesis_title', $item->title)
+            ->where('technology_generator', $item->authors)
+            ->exists();
+
+        $item->source = ($existsInKmu || $existsInCommodity) ? 'KMU Thesis' : 'Research';
         return $item;
     });
 
-    // Count active extensions
+    // Mark all 'active' as viewed once user opens the page
+    Extension::where('status', 'active')->update(['status' => 'viewed']);
+
+    // Optional: Get updated count (for the view)
     $pendingCount = Extension::where('status', 'active')->count();
 
     return view('admin.extension', compact('extensions', 'pendingCount'));
 }
 
-
-
-
-
-
     /**
-     * Push a research entry to the Extension table and remove it from Research.
+     * Push a research entry to the Extension table
      */
-public function pushToExtension($id)
-{
-    // Try to find the record in Kmu_Thesis first
-    $kmuResearch = Kmu_Thesis::find($id);
+    public function pushToExtension($id)
+    {
+        // Try to find the record in Kmu_Thesis first
+        $kmuResearch = Kmu_Thesis::find($id);
 
-    // If not found in KMU, try Research
-    $research = $kmuResearch ?? Research::find($id);
+        // If not found in KMU, try Research
+        $research = $kmuResearch ?? Research::find($id);
 
-    if (!$research) {
+        if (!$research) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Research not found.'
+            ]);
+        }
+
+        // Prevent duplicate entries in Extension
+        $exists = Extension::where('title', $research->title)
+            ->where('authors', $research->authors)
+            ->exists();
+
+        if ($exists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This research already exists in Extension.'
+            ]);
+        }
+
+        // Insert into Extension table
+        Extension::create([
+            'title'           => $research->title,
+            'authors'         => $research->authors,
+            'technology_type' => $research->technology_type,
+            'priority_area'   => $research->priority_area,
+            'link'            => $research->link,
+            'status'          => 'active',
+        ]);
+
+        // No deletion anymore
+
         return response()->json([
-            'success' => false,
-            'message' => 'Research not found.'
+            'success' => true,
+            'message' => 'Successfully pushed to Extension!'
         ]);
     }
 
-    // Prevent duplicate entries in Extension
-    $exists = Extension::where('title', $research->title)
-        ->where('authors', $research->authors)
-        ->exists();
+    public function pushfromrecords($id)
+    {
+        $record = Commodity::findOrFail($id);
 
-    if ($exists) {
+        // Check if a similar Extension record already exists (use title + priority_area for matching)
+        $exists = Extension::where('title', $record->thesis_title)
+            ->where('priority_area', $record->priority_area)
+            ->exists();
+
+        if ($exists) {
+            return response()->json([
+                'status' => 'exists',
+                'message' => 'Record already exists in Extensions.'
+            ]);
+        }
+
+        // Create new Extension record using mapped fields
+        Extension::create([
+            'title' => $record->thesis_title,
+            'authors' => $record->technology_generator,
+            'technology_type' => $record->type_of_technology,
+            'priority_area' => $record->priority_area,
+            'link' => $record->link,
+            'status' => 'active', // ✅ Same as the one used for the badge
+        ]);
+
+
         return response()->json([
-            'success' => false,
-            'message' => 'This research already exists in Extension.'
+            'status' => 'success',
+            'message' => 'Record successfully pushed to Extensions.'
         ]);
     }
-
-    // Insert into Extension table
-    Extension::create([
-        'title'           => $research->title,
-        'authors'         => $research->authors,
-        'technology_type' => $research->technology_type,
-        'priority_area'   => $research->priority_area,
-        'link'            => $research->link,
-        'status'          => 'active',
-    ]);
-
-    // No deletion anymore
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Successfully pushed to Extension!'
-    ]);
-}
-
-
 
 
     /**

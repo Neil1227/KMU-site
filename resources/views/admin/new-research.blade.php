@@ -18,14 +18,22 @@
         <div class="card-header text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Research Papers</h5>
 
-            <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-light text-dark">{{ $researches->count() }} total</span>
-                <button class="btn btn-sm btn-primary" @if(session('admin_role') !=='KMU' ) disabled @endif
-                    title="Add Research" data-bs-toggle="modal" data-bs-target="#addResearchModal">
-                    <i class="fa fa-plus"></i>
-                </button>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-dark">{{ $researches->count() }} total</span>
 
+                    <button class="btn btn-sm btn-primary"
+                        @if(session('admin_role') !=='KMU' ) disabled @endif
+                        title="Add Research"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addResearchModal">
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+
+                </div>
             </div>
+
         </div>
 
         <div class="card-body table-responsive-sm">
@@ -55,10 +63,10 @@
                             @if ($research->link)
                             <a href="{{ $research->link }}" target="_blank">View</a>
                             @else
-                           <em>Restricted Access</em> 
+                            <em>Restricted Access</em>
                             @endif
                             @else
-                           <em>Restricted Access</em> 
+                            <em>Restricted Access</em>
                             @endif
                         </td>
 
@@ -72,6 +80,18 @@
                         </td>
                         <td>{{ $research->created_at }}</td>
                         <td class="text-center">
+                            {{-- ✅ Show Acknowledge button if pending --}}
+                            @if($research->status === 'pending')
+                            <form action="{{ route('admin.new-research.acknowledge', ['id' => $research->id]) }}" method="POST" class="d-inline acknowledge-form">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-warning" title="Acknowledge this research" data-id="{{ $research->id }}">
+                                    <i class="bi bi-check2-circle"></i>
+                                </button>
+                            </form>
+                            @endif
+
+
+
                             <button
                                 class="btn btn-sm btn-primary"
                                 title="Push to IPTBM"
@@ -92,12 +112,13 @@
                                 @if(session('admin_role') !=='KMU' ) disabled @endif>
                                 <i class="bi bi-trash"></i>
                             </button>
+
                         </td>
 
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center">No research data found.</td>
+                        <td colspan="8" class="text-center">No research data found.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -164,67 +185,133 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-<!-- push to extention -->
+
+
 <script>
-    $(document).ready(function() {
-        // ✅ Prevent multiple DataTable initializations
-        if (!$.fn.DataTable.isDataTable('#sampleTable')) {
-            $('#sampleTable').DataTable({
-                responsive: true,
-                order: [
-                    [6, 'desc']
-                ],
-                language: {
-                    searchPlaceholder: "Search research...",
-                    search: "",
-                }
-            });
-        }
+$(document).ready(function () {
+    // Handle Acknowledge form submission
+    $(document).on('submit', '.acknowledge-form', function (e) {
+        e.preventDefault(); // stop normal form submission
 
-        // ✅ Push to Extension logic
-        $(document).on('click', '.push-to-extension', function() {
-            const button = $(this);
-            const researchId = button.data('id');
+        const form = $(this);
+        const id = form.find('button').data('id');
 
-            Swal.fire({
-                title: 'Push to Extension?',
-                text: "This will move the research to the Extension list.",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, push it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: `/extensions/push/${researchId}`,
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire('Success!', response.message, 'success');
-
-                                // Remove row only if it was deleted on the server
-                                if (response.deletedFromKmu) {
-                                    const table = $('#sampleTable').DataTable();
-                                    const row = button.closest('tr');
-                                    table.row(row).remove().draw(false);
-                                }
-
-                            } else {
-                                Swal.fire('Notice', response.message, 'warning');
-                            }
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'An error occurred. Please try again.', 'error');
-                        }
+        $.ajax({
+            url: `/admin/new-research/${id}/acknowledge`,
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Acknowledged!',
+                        text: response.message,
+                        timer: 1500,
+                        showConfirmButton: false
                     });
+
+                    // ✅ Smooth auto-update of row (no reload)
+                    const table = $('#sampleTable').DataTable();
+                    const row = form.closest('tr');
+                    const rowData = table.row(row).data();
+
+                    // Update the "status" visually — for example, remove button & show "Active"
+                    rowData[7] = `<span class="badge bg-success">Acknowledged</span>`;
+                    table.row(row).data(rowData).invalidate().draw(false);
+
+                    // Optionally disable the acknowledge button to prevent re-click
+                    form.remove();
+
+                } else {
+                    Swal.fire('Notice', response.message, 'warning');
                 }
-            });
+            },
+            error: function () {
+                Swal.fire('Error', 'Something went wrong.', 'error');
+            }
         });
     });
+});
 </script>
+
+
+
+
+
+<script>
+$(document).ready(function() {
+    // ✅ Prevent multiple DataTable initializations
+    if (!$.fn.DataTable.isDataTable('#sampleTable')) {
+        $('#sampleTable').DataTable({
+            responsive: true,
+            order: [[6, 'desc']],
+            language: {
+                searchPlaceholder: "Search research...",
+                search: "",
+            }
+        });
+    }
+
+    // ✅ Push to Extension logic
+    $(document).on('click', '.push-to-extension', function() {
+        const button = $(this);
+        const researchId = button.data('id');
+
+        Swal.fire({
+            title: 'Push to Extension?',
+            text: "This will move the research to the Extension list.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, push it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/extensions/push/${researchId}`,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                            const table = $('#sampleTable').DataTable();
+                            const row = button.closest('tr');
+                            const rowData = table.row(row).data();
+
+                            // ✅ Replace actions column with a badge
+                            rowData[7] = `
+                                <span class="badge bg-success">
+                                    <i class="bi bi-box-seam me-1"></i> Pushed to Extension
+                                </span>
+                            `;
+
+                            // ✅ Update the table instantly
+                            table.row(row).data(rowData).invalidate().draw(false);
+
+                        } else {
+                            Swal.fire('Notice', response.message, 'warning');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+
 
 <!-- Deletion -->
 <script>

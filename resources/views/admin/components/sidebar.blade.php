@@ -90,40 +90,39 @@
         </a>
         @endif
 
-        {{-- New Research --}}
-        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')
-        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to KMU">
-            <i class="bi bi-lightbulb me-2"></i> New Research
-            @if(!empty($newResearchCount) && $newResearchCount > 0)
-            <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
-            @endif
-        </div>
-        @else
+        {{-- NEW RESEARCH Section --}}
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'RESEARCH')
         <a href="{{ route('admin.new-research') }}"
             class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.new-research' ? 'active' : 'collapsed' }}">
             <i class="bi bi-lightbulb me-2"></i> Acquired Research
-            @if(!empty($newResearchCount) && $newResearchCount > 0)
+
+            @if($newResearchCount > 0)
             <span class="badge bg-danger ms-auto">{{ $newResearchCount }}</span>
             @endif
         </a>
+        @else
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to KMU">
+            <i class="bi bi-lightbulb me-2"></i> Acquired Research
+            @if($newResearchCount > 0)
+            <span class="badge bg-danger ms-auto"></span>
+            @endif
+        </div>
         @endif
+
+
+
+
 
         {{-- RESEARCH Section --}}
         <h5 class="mt-4 mb-2">Research</h5>
         @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')
         <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Research and KMU">
             <i class="bi bi-search me-2"></i> Add Research
-            @if(!empty($researchOnlyCount) && $researchOnlyCount > 0)
-            <span class="badge bg-danger ms-auto">{{ $researchOnlyCount }}</span>
-            @endif
         </div>
         @else
         <a href="{{ route('admin.add-thesis') }}"
             class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.add-thesis' ? 'active' : 'collapsed' }}">
             <i class="bi bi-search me-2"></i> Add Research
-            @if(!empty($researchOnlyCount) && $researchOnlyCount > 0)
-            <span class="badge bg-danger ms-auto">{{ $researchOnlyCount }}</span>
-            @endif
         </a>
         @endif
 
@@ -132,19 +131,24 @@
         {{-- EXTENSION Section --}}
         <h5 class="mt-4 mb-2">Extension</h5>
 
-        @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'EXTENSION')
-        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to Extension and KMU">
-            <i class="bi bi-diagram-3 me-2"></i> Extension
-        </div>
-        @else
+        @if (in_array(session('admin_role'), ['EXTENSION', 'KMU']))
         <a href="{{ route('admin.extensions.index') }}"
-            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.extensions.index' ? 'active' : 'collapsed' }}">
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.extension' ? 'active' : 'collapsed' }}">
             <i class="bi bi-diagram-3 me-2"></i> Extension
-            @if(isset($pendingCount) && $pendingCount > 0)
-            <span class="badge bg-danger ms-2">{{ $pendingCount }}</span>
+            @if(!empty($pendingExtension ) && $pendingExtension  > 0)
+            <span class="badge bg-danger ms-auto">{{ $pendingExtension  }}</span>
             @endif
         </a>
+        @else
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to IPTBM">
+            <i class="bi bi-diagram-3 me-2"></i> Extension
+            @if(!empty($pendingExtension ) && $pendingExtension  > 0)
+            <span class="badge bg-danger ms-auto">{{ $pendingExtension  }}</span>
+            @endif
+        </div>
         @endif
+
+
 
         {{-- IPTBM Section --}}
         <h5 class="mt-4 mb-2">IPTBM</h5>

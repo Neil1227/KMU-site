@@ -21,7 +21,7 @@
             <div class="d-flex align-items-center gap-2">
                 <span class="badge bg-light text-dark">{{ $researches->count() }} total</span>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addResearchModal">
-                    <i class="bi bi-plus-circle me-1"></i>
+                    <i class="fa fa-plus"></i>
                 </button>
             </div>
         </div>

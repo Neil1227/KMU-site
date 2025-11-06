@@ -20,11 +20,29 @@ class ThesisController extends Controller
         // Merge both collections
         $researches = $kmuResearches->concat($otherResearches)->sortByDesc('created_at');
 
-        // Count pending KMU research (for sidebar or notifications)
-        $newResearchCount = Kmu_Thesis::where('status', 'pending')->count();
+        // ✅ Mark all pending Research records as active (after fetching)
+        Research::where('status', 'pending')->update(['status' => 'active']);
 
-        return view('admin.new-research', compact('researches', 'newResearchCount'));
+        return view('admin.new-research', compact('researches'));
     }
+    // for acknowledging notification
+    public function acknowledge($id)
+    {
+        $research = Research::find($id);
+
+        if (!$research) {
+            return response()->json(['success' => false, 'message' => 'Research not found.']);
+        }
+
+        if ($research->status !== 'pending') {
+            return response()->json(['success' => false, 'message' => 'This research is already acknowledged.']);
+        }
+
+        $research->update(['status' => 'active']);
+
+        return response()->json(['success' => true, 'message' => 'Research acknowledged successfully.']);
+    }
+
 
     /**
      * Display the Add Thesis page.
@@ -32,9 +50,7 @@ class ThesisController extends Controller
     public function addThesis()
     {
         $researches = Research::all();
-        $newResearchCount = Research::count();
-
-        return view('admin.add-thesis', compact('researches', 'newResearchCount'));
+        return view('admin.add-thesis', compact('researches'));
     }
 
     /**
@@ -48,14 +64,19 @@ class ThesisController extends Controller
             'technology_type' => 'required|string|max:255',
             'priority_area' => 'required|string|max:255',
             'link' => 'nullable|url',
+
         ]);
 
         try {
             Research::create($request->only([
-                'title', 'authors', 'technology_type', 'priority_area', 'link'
+                'title',
+                'authors',
+                'technology_type',
+                'priority_area',
+                'link'
             ]));
 
-            return redirect()->back()->with('success', 'Research added successfully!');
+            return redirect()->back()->with('success', 'Research added successfully yes!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to add research. Please try again.');
         }

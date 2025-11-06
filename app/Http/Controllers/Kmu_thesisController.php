@@ -11,31 +11,28 @@ class Kmu_thesisController extends Controller
     /**
      * Display all KMU theses.
      */
-public function index()
-{
-    // Fetch Research and add a dynamic property
-    $researches = Research::all()->map(function ($item) {
-        $item->source = 'Research'; // dynamic property
-        return $item;
-    });
+    public function index()
+    {
+        // Fetch Research and add dynamic property
+        $researches = Research::all()->map(function ($item) {
+            $item->source = 'Research';
+            return $item;
+        });
 
-    // Fetch KMU Theses and add dynamic property
-    $kmuTheses = Kmu_Thesis::all()->map(function ($item) {
-        $item->source = 'KMU Thesis'; // dynamic property
-        return $item;
-    });
+        // Fetch KMU Theses and add dynamic property
+        $kmuTheses = Kmu_Thesis::all()->map(function ($item) {
+            $item->source = 'KMU Thesis';
+            return $item;
+        });
 
-    // Merge both collections
-    $allResearches = $researches->concat($kmuTheses);
+        // Merge both collections
+        $allResearches = $researches->concat($kmuTheses);
 
-    // Total count
-    $totalCount = $allResearches->count();
-
-    return view('admin.new-research', [
-        'researches' => $allResearches,
-        'totalCount' => $totalCount
-    ]);
-}
+        return view('admin.new-research', [
+            'researches' => $allResearches,
+            'totalCount' => $allResearches->count()
+        ]);
+    }
 
 
 
