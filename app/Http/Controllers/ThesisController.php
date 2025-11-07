@@ -25,22 +25,40 @@ class ThesisController extends Controller
 
         return view('admin.new-research', compact('researches'));
     }
-    // for acknowledging notification
+    // Acknowledge notification
     public function acknowledge($id)
     {
-        $research = Research::find($id);
+        // Try finding in KMU_Thesis first
+        $research = Kmu_Thesis::find($id);
 
+        // If not found, check in Research table
         if (!$research) {
-            return response()->json(['success' => false, 'message' => 'Research not found.']);
+            $research = Research::find($id);
         }
 
+        // Still not found in either
+        if (!$research) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Research not found.'
+            ]);
+        }
+
+        // Prevent re-acknowledging
         if ($research->status !== 'pending') {
-            return response()->json(['success' => false, 'message' => 'This research is already acknowledged.']);
+            return response()->json([
+                'success' => false,
+                'message' => 'This research is already acknowledged.'
+            ]);
         }
 
+        // Update status
         $research->update(['status' => 'active']);
 
-        return response()->json(['success' => true, 'message' => 'Research acknowledged successfully.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Research acknowledged successfully.'
+        ]);
     }
 
 

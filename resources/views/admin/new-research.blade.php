@@ -29,8 +29,6 @@
                         data-bs-target="#addResearchModal">
                         <i class="fa fa-plus"></i>
                     </button>
-
-
                 </div>
             </div>
 
@@ -88,16 +86,21 @@
                                     <i class="bi bi-check2-circle"></i>
                                 </button>
                             </form>
-                            @endif
-
-
-
+                            @else
+                            {{-- ✅ Show the other buttons ONLY after acknowledgment --}}
                             <button
-                                class="btn btn-sm btn-primary"
+                                class="btn btn-sm btn-primary push-to-iptbm-btn"
                                 title="Push to IPTBM"
+                                data-id="{{ $research->id }}"
+                                data-title="{{ $research->title }}"
+                                data-authors="{{ $research->authors }}"
+                                data-technology_type="{{ $research->technology_type }}"
+                                data-priority_area="{{ $research->priority_area }}"
+                                data-link="{{ $research->link }}"
                                 @if(session('admin_role') !=='KMU' ) disabled @endif>
                                 <i class="bi bi-arrow-right-circle"></i>
                             </button>
+
                             <button
                                 class="btn btn-sm btn-success push-to-extension"
                                 data-id="{{ $research->id }}"
@@ -105,6 +108,7 @@
                                 @if(session('admin_role') !=='KMU' ) disabled @endif>
                                 <i class="bi bi-box"></i>
                             </button>
+
                             <button
                                 class="btn btn-sm btn-danger delete-research"
                                 data-id="{{ $research->id }}"
@@ -112,9 +116,8 @@
                                 @if(session('admin_role') !=='KMU' ) disabled @endif>
                                 <i class="bi bi-trash"></i>
                             </button>
-
+                            @endif
                         </td>
-
                     </tr>
                     @empty
                     <tr>
@@ -122,9 +125,126 @@
                     </tr>
                     @endforelse
                 </tbody>
-
-
             </table>
+        </div>
+        <!-- Push to IPTBM Modal -->
+        <div class="modal fade" id="pushToIptbmModal" tabindex="-1" aria-labelledby="pushToIptbmLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form id="pushToIptbmForm">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pushToIptbmLabel">Push Research to IPTBM</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" name="kmu_id" id="kmu_id">
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Commodity</label>
+                                    <select name="commodity" id="commoditySelect" class="form-select" required>
+                                        <option value="" disabled selected>-- Select Commodity --</option>
+                                        <option value="other">New Commodity</option>
+                                        <option value="For Checking">For Checking</option>
+
+                                        @foreach($commodities as $c)
+                                        <option value="{{ $c->commodity }}">{{ $c->commodity }} ({{ $c->total }})</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!-- Shown only when user selects "other" -->
+                                    <input
+                                        type="text"
+                                        name="commodity_other"
+                                        id="commodityOther"
+                                        class="form-control mt-2"
+                                        placeholder="Enter new commodity"
+                                        style="display:none;">
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Type of Technology</label>
+                                    <select name="type_of_technology" id="type_of_technology" class="form-select" required>
+                                        <option value="" disabled selected>-- Select Type --</option>
+                                        <option value="Food">Food</option>
+                                        <option value="Non-Food">Non-Food</option>
+                                        <option value="N/A">N/A</option>
+                                        <optgroup label="Non-Food">
+                                            <option value="Non-Food (Chemical)">Non-Food (Chemical)</option>
+                                            <option value="Non-Food (Software)">Non-Food (Software)</option>
+                                            <option value="Non-Food (Equipment)">Non-Food (Equipment)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Thesis Title</label>
+                                    <input type="text" class="form-control" name="thesis_title" id="thesis_title" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Technology Generator</label>
+                                    <input type="text" class="form-control" name="technology_generator" id="technology_generator" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Priority Area</label>
+                                    <select name="priority_area" id="priority_area" class="form-select" required>
+                                        <option value="" disabled selected>-- Select Type --</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Aquaculture">Aquaculture</option>
+                                        <option value="LiveStock">LiveStock</option>
+                                        <option value="Livelihood">Livelihood</option>
+                                        <option value="Biotechnology">Biotechnology</option>
+                                        <option value="Root Crops">Root Crops</option>
+                                        <option value="Internet Of Things">Internet Of Things</option>
+                                        <option value="Others">Others</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Link</label>
+                                    <input type="url" class="form-control" name="link" id="link" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">IP Status</label>
+                                    <select name="ip_status" class="form-select">
+                                        <option value="Non-IP Applied">Non-IP Applied</option>
+                                        <option value="IP Applied">IP Applied</option>
+                                        <option value="Registered">Registered</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">TRL Level</label>
+                                    <select name="trl_level" class="form-select" required>
+                                        @for($i=1; $i<=9; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Remarks</label>
+                                    <textarea class="form-control" name="remarks"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Push to IPTBM</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <!-- Add Research Modal -->
@@ -155,8 +275,19 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="priority_area" class="form-label fw-bold">Priority Area</label>
-                                <input type="text" name="priority_area" id="priority_area" class="form-control" placeholder="Enter priority area" required>
+                                <label class="form-label">Priority Area</label>
+                                <select name="priority_area" class="form-select">
+                                    <option value="" disabled selected>-- Select Type --</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Aquaculture">Aquaculture</option>
+                                    <option value="LiveStock">LiveStock</option>
+                                    <option value="Livelihood">Livelihood</option>
+                                    <option value="Biotechnology">Biotechnology</option>
+                                    <option value="Root Crops">Root Crops</option>
+                                    <option value="Internet Of Things">Internet Of Things</option>
+                                    <option value="Others">Others</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
                             </div>
 
                             <div class="mb-3">
@@ -187,131 +318,239 @@
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
 
+<!-- fetching and population of modal push to iptbm -->
 <script>
-$(document).ready(function () {
-    // Handle Acknowledge form submission
-    $(document).on('submit', '.acknowledge-form', function (e) {
-        e.preventDefault(); // stop normal form submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const commoditySelect = document.getElementById('commoditySelect');
+        const commodityOther = document.getElementById('commodityOther');
 
-        const form = $(this);
-        const id = form.find('button').data('id');
-
-        $.ajax({
-            url: `/admin/new-research/${id}/acknowledge`,
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function (response) {
-                if (response.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Acknowledged!',
-                        text: response.message,
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-
-                    // ✅ Smooth auto-update of row (no reload)
-                    const table = $('#sampleTable').DataTable();
-                    const row = form.closest('tr');
-                    const rowData = table.row(row).data();
-
-                    // Update the "status" visually — for example, remove button & show "Active"
-                    rowData[7] = `<span class="badge bg-success">Acknowledged</span>`;
-                    table.row(row).data(rowData).invalidate().draw(false);
-
-                    // Optionally disable the acknowledge button to prevent re-click
-                    form.remove();
-
-                } else {
-                    Swal.fire('Notice', response.message, 'warning');
-                }
-            },
-            error: function () {
-                Swal.fire('Error', 'Something went wrong.', 'error');
+        // Toggle "other" input visibility
+        commoditySelect.addEventListener('change', function() {
+            if (this.value === 'other') {
+                commodityOther.style.display = 'block';
+                commodityOther.required = true;
+            } else {
+                commodityOther.style.display = 'none';
+                commodityOther.required = false;
             }
+        });
+
+        // Auto-fill "commodity" with priority area when modal opens
+        document.querySelectorAll('.push-to-iptbm-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = new bootstrap.Modal(document.getElementById('pushToIptbmModal'));
+
+                document.getElementById('kmu_id').value = this.dataset.id;
+                document.getElementById('thesis_title').value = this.dataset.title;
+                document.getElementById('technology_generator').value = this.dataset.authors;
+                document.getElementById('type_of_technology').value = this.dataset.technology_type;
+                document.getElementById('priority_area').value = this.dataset.priority_area;
+                document.getElementById('link').value = this.dataset.link;
+
+                // Auto-select or suggest commodity
+                const priorityArea = this.dataset.priority_area || '';
+                let found = false;
+
+                // Loop through select options to see if it matches priority_area
+                for (const option of commoditySelect.options) {
+                    if (option.value.toLowerCase() === priorityArea.toLowerCase()) {
+                        commoditySelect.value = option.value;
+                        found = true;
+                        break;
+                    }
+                }
+
+                // If not found, set “other” and prefill the text field
+                if (!found) {
+                    commoditySelect.value = 'other';
+                    commodityOther.style.display = 'block';
+                    commodityOther.value = ''; // empty by default
+                } else {
+                    commodityOther.style.display = 'none';
+                    commodityOther.value = '';
+                }
+
+                modal.show();
+            });
         });
     });
-});
 </script>
 
-
-
-
-
 <script>
-$(document).ready(function() {
-    // ✅ Prevent multiple DataTable initializations
-    if (!$.fn.DataTable.isDataTable('#sampleTable')) {
-        $('#sampleTable').DataTable({
-            responsive: true,
-            order: [[6, 'desc']],
-            language: {
-                searchPlaceholder: "Search research...",
-                search: "",
-            }
-        });
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('pushToIptbmForm');
+        const modalEl = document.getElementById('pushToIptbmModal');
+        const modal = new bootstrap.Modal(modalEl);
 
-    // ✅ Push to Extension logic
-    $(document).on('click', '.push-to-extension', function() {
-        const button = $(this);
-        const researchId = button.data('id');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        Swal.fire({
-            title: 'Push to Extension?',
-            text: "This will move the research to the Extension list.",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, push it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: `/extensions/push/${researchId}`,
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
+            const formData = new FormData(form);
+
+            fetch("{{ route('admin.pushToIptbm') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
                     },
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: data.message,
+                            showConfirmButton: false,
+                            timer: 1800
+                        });
+                        modal.hide(); // close modal
+                        form.reset(); // clear form
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Duplicate',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something went wrong while pushing the record. Please try again.'
+                    });
+                });
+        });
+    });
+</script>
 
-                            const table = $('#sampleTable').DataTable();
-                            const row = button.closest('tr');
-                            const rowData = table.row(row).data();
+<!-- handle acknowledgement button -->
+<script>
+    $(document).ready(function() {
+        // Handle Acknowledge form submission
+        $(document).on('submit', '.acknowledge-form', function(e) {
+            e.preventDefault(); // stop normal form submission
 
-                            // ✅ Replace actions column with a badge
-                            rowData[7] = `
+            const form = $(this);
+            const id = form.find('button').data('id');
+
+            $.ajax({
+                url: `/admin/new-research/${id}/acknowledge`,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Acknowledged!',
+                            text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                        // ✅ Smooth auto-update of row (no reload)
+                        const table = $('#sampleTable').DataTable();
+                        const row = form.closest('tr');
+                        const rowData = table.row(row).data();
+
+                        // Update the "status" visually — for example, remove button & show "Active"
+                        rowData[7] = `<span class="badge bg-success">Acknowledged</span>`;
+                        table.row(row).data(rowData).invalidate().draw(false);
+
+                        // Optionally disable the acknowledge button to prevent re-click
+                        form.remove();
+
+                    } else {
+                        Swal.fire('Notice', response.message, 'warning');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Error', 'Something went wrong.', 'error');
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Push to Extension logic -->
+<script>
+    $(document).ready(function() {
+        // ✅ Prevent multiple DataTable initializations
+        if (!$.fn.DataTable.isDataTable('#sampleTable')) {
+            $('#sampleTable').DataTable({
+                responsive: true,
+                order: [
+                    [6, 'desc']
+                ],
+                language: {
+                    searchPlaceholder: "Search research...",
+                    search: "",
+                }
+            });
+        }
+
+        // ✅ Push to Extension logic
+        $(document).on('click', '.push-to-extension', function() {
+            const button = $(this);
+            const researchId = button.data('id');
+
+            Swal.fire({
+                title: 'Push to Extension?',
+                text: "This will move the research to the Extension list.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, push it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/extensions/push/${researchId}`,
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+
+                                const table = $('#sampleTable').DataTable();
+                                const row = button.closest('tr');
+                                const rowData = table.row(row).data();
+
+                                // ✅ Replace actions column with a badge
+                                rowData[7] = `
                                 <span class="badge bg-success">
                                     <i class="bi bi-box-seam me-1"></i> Pushed to Extension
                                 </span>
                             `;
 
-                            // ✅ Update the table instantly
-                            table.row(row).data(rowData).invalidate().draw(false);
+                                // ✅ Update the table instantly
+                                table.row(row).data(rowData).invalidate().draw(false);
 
-                        } else {
-                            Swal.fire('Notice', response.message, 'warning');
+                            } else {
+                                Swal.fire('Notice', response.message, 'warning');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Error', 'An error occurred. Please try again.', 'error');
                         }
-                    },
-                    error: function() {
-                        Swal.fire('Error', 'An error occurred. Please try again.', 'error');
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     });
-});
 </script>
-
 
 <!-- Deletion -->
 <script>
@@ -356,7 +595,6 @@ $(document).ready(function() {
     });
 </script>
 
-
 <script>
     // ✅ SweetAlert for success or error messages after adding research
     @if(session('success'))
@@ -379,6 +617,4 @@ $(document).ready(function() {
     });
     @endif
 </script>
-
-
 @endpush

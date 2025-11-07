@@ -167,6 +167,10 @@ Route::post('/admin/new-research/{id}/acknowledge', [ThesisController::class, 'a
 Route::post('/admin/add-thesis/storetokmu', [Kmu_thesisController::class, 'storetokmu'])->name('admin.add-thesis.storetokmu');
 //badge showing
 Route::get('/admin/new-research', [Kmu_thesisController::class, 'index'])->name('admin.new-research');
+//KMU to iptbm 
+Route::post('/admin/push-to-iptbm', [Kmu_thesisController::class, 'pushToIptbm'])
+    ->name('admin.pushToIptbm');
+
 
 
 

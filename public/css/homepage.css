@@ -533,32 +533,7 @@ color: var(--secondary-color);
     .research-card .card-title {
     color: var(--primary-color);
 }
-  /* .card-hover {
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    }
 
-    .card-hover:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-hover:hover::before {
-        opacity: 1;
-    }
-
-    .card-hover img {
-        transition: transform 0.4s ease, filter 0.4s ease;
-        width: 100%;
-    }
-
-    .card-hover:hover img {
-        transform: scale(1.08);
-        filter: brightness(1.1);
-    } */
 /* about page ----------------------------------------------- */
   .about-section {
     background-color: var(--off-white-color);
@@ -615,22 +590,95 @@ color: var(--secondary-color);
   text-align: center;
 }
 /* newly added about section */
+/* ================================
+   TEAM & VALUES SECTIONS
+================================ */
+.team-section,
+.values-section {
+  margin: 50px 0;
+}
 
-    .team-section,
-    .values-section {
-      margin: 50px 0;
-    }
+/* Shared container layout */
+.team-container,
+.values-container {
+  display: flex;
+  flex-direction: column; /* Stack: top card + bottom row */
+  align-items: center;
+  gap: 30px;
+}
 
-    .team-container,
-    .values-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
+/* ================================
+   TOP CARD (Director)
+================================ */
+.team-card.special-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 1000px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  gap: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card.special-layout:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Image (larger on desktop) */
+.team-card.special-layout img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.team-card.special-layout:hover img {
+  transform: scale(1.05);
+  border: 2px solid var(--btn-gold);
+}
+
+/* Text container */
+.team-card.special-layout .team-info {
+  flex: 1;
+}
+
+.team-card.special-layout h4 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.team-card.special-layout .role {
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.team-card.special-layout .desc {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ================================
+   BOTTOM 3 CARDS
+================================ */
+.bottom-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
 
 .team-card {
-  background: #ffffff;
+  background: #fff;
   border-radius: 10px;
   padding: 20px;
   width: 250px;
@@ -655,110 +703,165 @@ color: var(--secondary-color);
   transition: transform 0.3s ease, border 0.3s ease;
 }
 
-/* Zoom and border on hover */
 .team-card:hover img,
 .team-card.active img {
   transform: scale(1.1);
-  border: 1px solid var(--btn-gold); /* or any color you prefer */
+  border: 1px solid var(--btn-gold);
+}
+
+.team-card h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.team-card p.role {
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.team-card p.desc {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ================================
+   RESPONSIVENESS
+================================ */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .team-card.special-layout {
+    max-width: 90%;
+    gap: 15px;
+  }
+
+  .team-card.special-layout img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .team-card {
+    width: 220px;
+  }
+}
+
+/* Phones */
+@media (max-width: 768px) {
+  /* Special top card layout */
+  .team-card.special-layout {
+    flex-direction: column;
+    text-align: center;
+    width: 95%;
+  }
+
+  .team-card.special-layout img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+
+  /* Bottom cards: 2-column grid with side margins */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    justify-items: center;
+    width: 100%;
+    padding: 0 12px; /* 👈 adds margin on both sides */
+    box-sizing: border-box;
+  }
+
+  .bottom-row .team-card {
+    width: 100%;
+    max-width: 250px;
+  }
 }
 
 
-/* add a imag hover zoomin */
-.team-card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  transition: transform 0.3s ease, border 0.3s ease;
-}
 
-    .team-card h4 {
-      font-size: 1.1em;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
 
-    .team-card p.role {
-      color: var(--secondary-color);
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .team-card p.desc {
-      font-size: 0.9em;
-      color: #555;
-    }
+/* ================================
+   VALUES SECTION
+================================ */
 .values-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px; /* Optional: controls space between cards */
+  gap: 20px;
 }
 
 .value-card {
   flex: 1 1 250px;
   border-radius: 10px;
-  padding: 10px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;
   max-width: 300px;
-  margin: 10px;
-
+  background: #fff;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center; /* Optional: Center text too */
-  min-height: 200px;  /* Adjust this height as needed */
 }
 
-/* add this line if you wanted a shadow upon hover */
-/* .value-card:hover {
+.value-card:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-} */
+  transform: scale(1.03);
+}
 
 .value-icon {
-  width: 50px;              /* Fixed width */
-  height: 50px;             /* Fixed height = width */
-  display: flex;            /* Flex to center icon */
+  width: 50px;
+  height: 50px;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: #f7dccb;
-  border-radius: 50%;       /* Makes it circular */
+  border-radius: 50%;
   font-size: 20px;
-  transition: color 0.3s ease;
   margin-bottom: 10px;
+  transition: all 0.3s ease;
 }
-.title-highlight{
+
+.value-card:hover .value-icon {
+  background: var(--primary-color);
+  color: var(--off-white-color);
+}
+
+.value-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.value-desc {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.title-highlight {
   color: var(--primary-color);
 }
-
-/* Change icon color when card is hovered */
-.value-card:hover .value-icon {
-  color: var(--off-white-color);
-    background: var(--primary-color);
+/* Phones */
+@media (max-width: 768px) {
+ .values-container {
+  margin: 0 20px;
 }
+.value-card {
 
+  max-width: 400px;
 
-    .value-title {
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+}
+}
+@media (max-width: 991px) {
+ .values-container {
+  margin: 0 20px;
+}
+.value-card {
 
-    .value-desc {
-      font-size: 0.9em;
-      color: #555;
-    }
+  max-width: 400px;
 
-
-
-@keyframes slideDown {
-  from {
-      transform: translateY(-60%);
-      opacity: 2;
-    }
-  to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }           
+}
+}

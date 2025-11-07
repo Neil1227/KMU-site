@@ -53,31 +53,51 @@
   </div>
 
   <div class="team-section">
-    <h2 class="section-title text-center mb-5">Meet Our <span class="title-highlight">Team</span> </h2>
+    <h2 class="section-title text-center mb-5">
+      Meet Our <span class="title-highlight">Team</span>
+    </h2>
+
     <div class="team-container">
-      <div class="team-card active">
+      <!-- Top card -->
+      <div class="team-card active special-layout">
         <img src="{{ asset('assets/img/about/21.png') }}" alt="Walter Pacunana">
-        <h4 class="highlight">Dir. Walter Pacunana</h4>
-        <p class="role">Director of Office of Innovation</p>
-        <p class="desc">Visionary leader with 15+ years in strategic business development.</p>
+        <div class="team-info">
+          <h4 class="highlight">Dir. Walter L. Pacunana</h4>
+          <p class="role">Director — Office of Innovation</p>
+          <p class="desc">
+            Leads the Office of Innovation and manages the Knowledge Management Unit,
+            driving research utilization, technology transfer, and collaborative innovation
+            across PSAU and its partners.
+          </p>
+        </div>
       </div>
-      <div class="team-card">
-        <img src="{{ asset('assets/img/about/26.png') }}" alt="Allen Mark Demapanag">
-        <h4 class="highlight">Allen Mark Demapanag</h4>
-        <p class="role">Project Technical Assistant I</p>
-        <p class="desc">Tech innovator passionate about scalable solutions and emerging technologies.</p>
-      </div>
-      <div class="team-card">
-        <img src="{{ asset('assets/img/about/2.png') }}" alt="Alexandra Gumba">
-        <h4 class="highlight">Alexandra Gumba</h4>
-        <p class="role">Technical staff</p>
-        <p class="desc">Conducts plagiarism screening and determines the study’s potential for technological or research development.  </p>
-      </div>
-      <div class="team-card">
-        <img src="{{ asset('assets/img/about/4.png') }}" alt="Neil Patrick Acierto">
-        <h4 class="highlight">Neil Patrick Acierto</h4>
-        <p class="role">Technical staff</p>
-        <p class="desc">Responsible for developing responsive web solutions and centralizing the KMU office’s data for efficient access and management.</p>
+
+
+      <!-- Bottom row -->
+      <div class="bottom-row">
+        <div class="team-card">
+          <img src="{{ asset('assets/img/about/26.png') }}" alt="Allen Mark Demapanag">
+          <h4 class="highlight">Allen Mark Demapanag</h4>
+          <p class="role">Project Technical Assistant I</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{{ asset('assets/img/about/2.png') }}" alt="Alexandra Gumba">
+          <h4 class="highlight">Alexandra Gumba</h4>
+          <p class="role">Technical staff</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{{ asset('assets/img/about/4.png') }}" alt="Neil Patrick Acierto">
+          <h4 class="highlight">Neil Patrick Acierto</h4>
+          <p class="role">Technical staff</p>
+        </div>
+
+        <div class="team-card">
+          <img src="{{ asset('assets/img/about/4.png') }}" alt="Neil Patrick Acierto">
+          <h4 class="highlight">Marie Jay Dayrit</h4>
+          <p class="role">Technical staff</p>
+        </div>
       </div>
     </div>
   </div>
