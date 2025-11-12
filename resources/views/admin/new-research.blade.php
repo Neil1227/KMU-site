@@ -231,9 +231,21 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label class="form-label">Remarks</label>
-                                    <textarea class="form-control" name="remarks"></textarea>
+                                    <select name="remarks" class="form-select">
+                                    <option value="For Product Development">For Product Development</option>
+                                    <option value="For Incubation">For Incubation</option>
+                                    <option value="For Commercialization">For Commercialization</option>
+                                    <option value="For IP Application">For IP Application</option>
+                                    <option value="For Deployment">For Deployment</option>
+                                    <option value="For Extention">For Extention</option>
+                                    <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Recommendations</label>
+                                    <textarea class="form-control" name="recommendations"></textarea>
                                 </div>
                             </div>
                         </div>

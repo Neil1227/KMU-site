@@ -65,6 +65,7 @@
                             <td data-full="{{ $commodity->priority_area ?? '—' }}">{{ $commodity->priority_area ?? '—' }}</td>
                             <td class="text-center">
                                 <button class="btn btn-primary btn-sm push-to-registered"
+                                title="Register Technology"
                                 data-id="{{ $notification->id }}"
                                     data-technology="{{ $commodity->technologies }}"
                                     data-generator="{{ $commodity->technology_generator }}"

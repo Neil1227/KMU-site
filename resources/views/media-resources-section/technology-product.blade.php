@@ -76,6 +76,22 @@
         @empty
         <p class="text-center">No technology products available at the moment.</p>
         @endforelse
+
+{{-- 🆕 Registered Technologies Card --}}
+<div class="col-md-4 mb-4 transition-card">
+    <div class="technology-card h-100 d-flex justify-content-center align-items-center text-center p-4">
+        {{-- Centered content inside card-body --}}
+        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <h5 class="tech-card-title mb-2">View More Registered Technologies</h5>
+            <p class="card-text mb-3">Explore technologies recently registered in our system.</p>
+
+            <a href="{{ url('/admin/database/view-regtech') }}" class="btn watch-btn">See details ⇀</a>
+        </div>
+    </div>
+</div>
+
+
+        </div>
     </div>
 
     {{-- Toggle Button --}}

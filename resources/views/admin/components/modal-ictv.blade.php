@@ -32,14 +32,21 @@
           <div id="current_thumbnail" class=" mb-2"></div>
 
             <div class="row mb-3">
-            <div class="col-md-12">
-                <label for="edit_png" class="form-label">PNG Image (optional)</label>
-                <div class="upload-box drop-area" data-type="png">
-                <i class="fa fa-upload upload-icon"></i>
-                <p class="upload-text">Drag & drop PNG or click</p>
-                <input type="file" id="edit_png" name="png" accept="image/png" class="file-input" hidden>
-                </div>
-            </div>
+              <div class="col-md-12">
+                  <label for="edit_image" class="form-label">Image (optional)</label>
+                  <div class="upload-box drop-area" data-type="image">
+                      <i class="fa fa-upload upload-icon"></i>
+                      <p class="upload-text">Drag & drop image or click</p>
+                      <input 
+                          type="file" 
+                          id="edit_image" 
+                          name="png" 
+                          accept="image/*" 
+                          class="file-input" 
+                          hidden
+                      >
+                  </div>
+              </div>
             </div>
 
         </div>

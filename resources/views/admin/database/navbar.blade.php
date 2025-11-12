@@ -30,10 +30,21 @@
             <i data-lucide="bar-chart-3"></i>
             <span>Graphs</span>
         </a>
-        <a href="{{ route('admin.database.records') }}" class="tab {{ request()->routeIs('admin.database.records') ? 'active' : '' }}">
-            <i data-lucide="file-text"></i>
-            <span>Technologies</span>
-        </a>
+<a href="{{ route('admin.database.records') }}" 
+   class="tab {{ request()->routeIs('admin.database.records') ? 'active' : '' }}">
+    <i data-lucide="file-text"></i>
+    
+    <span class="position-relative">
+        Technologies
+        @if(($newCount ?? 0) > 0)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ $newCount }}
+            </span>
+        @endif
+    </span>
+</a>
+
+
 
         <a href="{{ route('admin.database.view-ip-applied') }}" class="tab {{ request()->routeIs('admin.database.view-ip-applied') ? 'active' : '' }}">
             <i data-lucide="file-check"></i>

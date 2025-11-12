@@ -62,7 +62,7 @@
       <div class="team-card active special-layout">
         <img src="{{ asset('assets/img/about/21.png') }}" alt="Walter Pacunana">
         <div class="team-info">
-          <h4 class="highlight">Dir. Walter L. Pacunana</h4>
+          <h4 class="highlight">Walter L. Pacunana M.Sc</h4>
           <p class="role">Director — Office of Innovation</p>
           <p class="desc">
             Leads the Office of Innovation and manages the Knowledge Management Unit,
@@ -94,7 +94,7 @@
         </div>
 
         <div class="team-card">
-          <img src="{{ asset('assets/img/about/4.png') }}" alt="Neil Patrick Acierto">
+          <img src="{{ asset('assets/img/about/logo.png') }}" alt="Neil Patrick Acierto">
           <h4 class="highlight">Marie Jay Dayrit</h4>
           <p class="role">Technical staff</p>
         </div>

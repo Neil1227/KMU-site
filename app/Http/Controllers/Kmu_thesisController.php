@@ -81,6 +81,7 @@ class Kmu_thesisController extends Controller
             'ip_status' => 'required|string|max:255',
             'trl_level' => 'required|string|max:255',
             'remarks' => 'nullable|string',
+            'recommendations' => 'nullable|string|max:1000',
             'link' => 'nullable|string',
         ]);
 

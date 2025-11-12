@@ -10,6 +10,8 @@ use App\Models\Notification;
 use App\Models\Kmu_Thesis;
 use App\Models\RegisteredTechnology;
 use App\Models\Extension;
+use App\Models\Commodity;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,11 +29,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        View::composer('layouts.admin', function ($view) {
+        View::composer('admin.*', function ($view) {
             $newResearchCount     = Research::where('status', 'pending')->count();
             $newApplicationsCount = Notification::where('is_read', false)->count();
             $newRegisteredCount   = RegisteredTechnology::where('is_new', true)->count();
-
+            $newCount = Commodity::where('created_at', '>=', Carbon::now()->subDay())->count();
             // Extension & Research statuses
             $pendingExtension     = Extension::where('status', 'active')->count(); // 🔥 Badge for Extension
             $pendingKmuResearch   = Kmu_Thesis::where('status', 'pending')->count();
@@ -43,7 +45,8 @@ class AppServiceProvider extends ServiceProvider
                 'newRegisteredCount',
                 'pendingExtension', // 👈 important
                 'pendingKmuResearch',
-                'pendingResearchOnly'
+                'pendingResearchOnly',
+                'newCount'
             ));
         });
 

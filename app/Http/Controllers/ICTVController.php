@@ -12,23 +12,29 @@ use App\Models\RecentActivity;
 
 class ICTVController extends Controller
 {
-    // upload (create)
+    // Upload (create)
     public function upload(Request $request)
     {
+        // Validate incoming request
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|string',
-           'png' => 'nullable|image', 
+            'png' => 'nullable|image', 
         ]);
 
         $pngFilename = null;
 
+        // Handle file upload if provided
         if ($request->hasFile('png')) {
-            $pngFilename = uniqid() . '.png';
-            $request->file('png')->storeAs('ictv_thumbnail', $pngFilename);
+            $pngFile = $request->file('png');
+            $pngFilename = uniqid() . '.' . $pngFile->getClientOriginalExtension();
+
+            // Store in public disk so it is accessible via asset('storage/...')
+            $pngFile->storeAs('ictv_thumbnail', $pngFilename, 'public');
         }
 
+        // Create ICTV record
         Ictv::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -36,6 +42,7 @@ class ICTVController extends Controller
             'png' => $pngFilename,
         ]);
 
+        // Log recent activity
         RecentActivity::create([
             'action' => 'added',
             'title' => $request->title,
@@ -94,11 +101,16 @@ class ICTVController extends Controller
         $episode = Ictv::findOrFail($id);
 
         if ($request->hasFile('png')) {
+            // Delete old file if exists
             if ($episode->png) {
-                Storage::delete('ictv_thumbnail/' . $episode->png);
+                Storage::disk('public')->delete('ictv_thumbnail/' . $episode->png);
             }
-            $pngFilename = uniqid() . '.png';
-            $request->file('png')->storeAs('ictv_thumbnail', $pngFilename);
+
+            // Store new file
+            $pngFile = $request->file('png');
+            $pngFilename = uniqid() . '.' . $pngFile->getClientOriginalExtension();
+            $pngFile->storeAs('ictv_thumbnail', $pngFilename, 'public');
+
             $episode->png = $pngFilename;
         }
 
@@ -115,4 +127,5 @@ class ICTVController extends Controller
 
         return back()->with('success', 'Episode updated successfully!');
     }
+
 }

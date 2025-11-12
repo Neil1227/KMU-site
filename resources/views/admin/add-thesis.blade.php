@@ -65,8 +65,19 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="priority_area" class="form-label fw-bold">Priority Area</label>
-                                    <input type="text" name="priority_area" id="priority_area" class="form-control" placeholder="Enter priority area" required>
+                                    <label class="form-label">Priority Area</label>
+                                    <select name="priority_area" id="priority_area" class="form-select" required>
+                                        <option value="" disabled selected>-- Select Type --</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Aquaculture">Aquaculture</option>
+                                        <option value="LiveStock">LiveStock</option>
+                                        <option value="Livelihood">Livelihood</option>
+                                        <option value="Biotechnology">Biotechnology</option>
+                                        <option value="Root Crops">Root Crops</option>
+                                        <option value="Internet Of Things">Internet Of Things</option>
+                                        <option value="Others">Others</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">
