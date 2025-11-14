@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
 use App\Models\Module;
 use App\Models\RecentActivity;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class IECMaterialController extends Controller
@@ -30,8 +30,8 @@ class IECMaterialController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'pdf'   => 'nullable|file|mimes:pdf',
-            'png'   => 'nullable|image',
+            'pdf' => 'nullable|file|mimes:pdf',
+            'png' => 'nullable|image',
         ]);
 
         $pdfName = $this->storeFile($request, 'pdf', 'iec_brochure');
@@ -39,8 +39,8 @@ class IECMaterialController extends Controller
 
         $iec = IECMaterial::create([
             'title' => $validated['title'],
-            'file'  => $pdfName,
-            'png'   => $pngName,
+            'file' => $pdfName,
+            'png' => $pngName,
         ]);
 
         $this->logActivity('added', $iec->title);
@@ -55,8 +55,8 @@ class IECMaterialController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'file'  => 'nullable|mimes:pdf',
-            'png'   => 'nullable|image',
+            'file' => 'nullable|mimes:pdf',
+            'png' => 'nullable|image',
         ]);
 
         $material = IECMaterial::findOrFail($id);
@@ -84,12 +84,12 @@ class IECMaterialController extends Controller
     {
         $material = IECMaterial::findOrFail($id);
 
-        if ($material->file && Storage::disk('public')->exists('iec_brochure/' . $material->file)) {
-            Storage::disk('public')->delete('iec_brochure/' . $material->file);
+        if ($material->file && Storage::disk('public')->exists('iec_brochure/'.$material->file)) {
+            Storage::disk('public')->delete('iec_brochure/'.$material->file);
         }
 
-        if ($material->png && Storage::disk('public')->exists('iec_thumbnail/' . $material->png)) {
-            Storage::disk('public')->delete('iec_thumbnail/' . $material->png);
+        if ($material->png && Storage::disk('public')->exists('iec_thumbnail/'.$material->png)) {
+            Storage::disk('public')->delete('iec_thumbnail/'.$material->png);
         }
 
         $title = $material->title;
@@ -105,7 +105,7 @@ class IECMaterialController extends Controller
      */
     private function storeFile(Request $request, string $field, string $folder): ?string
     {
-        if (!$request->hasFile($field)) {
+        if (! $request->hasFile($field)) {
             return null;
         }
 
@@ -113,11 +113,11 @@ class IECMaterialController extends Controller
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = $file->getClientOriginalExtension();
         $baseName = str_replace(' ', '_', $originalName);
-        $fileName = $baseName . '.' . $extension;
+        $fileName = $baseName.'.'.$extension;
         $counter = 1;
 
-        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
-            $fileName = $baseName . '_(' . $counter . ').' . $extension;
+        while (Storage::disk('public')->exists($folder.'/'.$fileName)) {
+            $fileName = $baseName.'_('.$counter.').'.$extension;
             $counter++;
         }
 
@@ -133,7 +133,7 @@ class IECMaterialController extends Controller
     {
         RecentActivity::create([
             'action' => $action,
-            'title'  => $title,
+            'title' => $title,
             'source' => 'IEC Material',
         ]);
     }

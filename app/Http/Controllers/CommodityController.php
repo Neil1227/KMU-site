@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Commodity;
 use App\Models\DBActivity;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class CommodityController extends Controller
 {
@@ -14,7 +13,6 @@ class CommodityController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function index()
     {
         // Fetch commodities summary
@@ -38,53 +36,53 @@ class CommodityController extends Controller
     /**
      * Show all records for a specific commodity.
      *
-     * @param string $commodity
+     * @param  string  $commodity
      * @return \Illuminate\View\View
      */
-public function show($commodity)
-{
-    $commoditySlug = strtolower(trim($commodity));
-    $records = collect();
-    $commodityName = ucwords(str_replace('-', ' ', $commoditySlug));
+    public function show($commodity)
+    {
+        $commoditySlug = strtolower(trim($commodity));
+        $records = collect();
+        $commodityName = ucwords(str_replace('-', ' ', $commoditySlug));
 
-    // 🔹 CASE 1: For Checking
-    if ($commoditySlug === 'for-checking') {
-        $records = Commodity::where(function ($query) {
-            $query->whereNull('commodity')
-                ->orWhere('commodity', '')
-                ->orWhereNull('priority_area')
-                ->orWhere('priority_area', '');
-        })->get();
+        // 🔹 CASE 1: For Checking
+        if ($commoditySlug === 'for-checking') {
+            $records = Commodity::where(function ($query) {
+                $query->whereNull('commodity')
+                    ->orWhere('commodity', '')
+                    ->orWhereNull('priority_area')
+                    ->orWhere('priority_area', '');
+            })->get();
 
-        $commodityName = 'For Checking';
+            $commodityName = 'For Checking';
+        }
+
+        // 🔹 CASE 2: N/A (handle n/a, n-a, na)
+        elseif (in_array($commoditySlug, ['n-a', 'n/a', 'na', 'n a'])) {
+            $records = Commodity::where(function ($query) {
+                $query->whereRaw("REPLACE(LOWER(TRIM(commodity)), ' ', '') IN ('n/a','n-a','na')");
+            })->get();
+
+            $commodityName = 'N/A';
+        }
+
+        // 🔹 CASE 3: Normal commodity
+        else {
+            $records = Commodity::whereRaw('LOWER(TRIM(commodity)) = ?', [strtolower($commodityName)])->get();
+        }
+
+        // 🔹 Sidebar dropdown grouping
+        $commodities = Commodity::select('commodity')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('commodity')
+            ->get();
+
+        return view('admin.database.commodity-table', [
+            'commodity' => $commodityName,
+            'records' => $records,
+            'commodities' => $commodities,
+        ]);
     }
-
-    // 🔹 CASE 2: N/A (handle n/a, n-a, na)
-    elseif (in_array($commoditySlug, ['n-a', 'n/a', 'na', 'n a'])) {
-        $records = Commodity::where(function ($query) {
-            $query->whereRaw("REPLACE(LOWER(TRIM(commodity)), ' ', '') IN ('n/a','n-a','na')");
-        })->get();
-
-        $commodityName = 'N/A';
-    }
-
-    // 🔹 CASE 3: Normal commodity
-    else {
-        $records = Commodity::whereRaw('LOWER(TRIM(commodity)) = ?', [strtolower($commodityName)])->get();
-    }
-
-    // 🔹 Sidebar dropdown grouping
-    $commodities = Commodity::select('commodity')
-        ->selectRaw('COUNT(*) as total')
-        ->groupBy('commodity')
-        ->get();
-
-    return view('admin.database.commodity-table', [
-        'commodity' => $commodityName,
-        'records' => $records,
-        'commodities' => $commodities,
-    ]);
-}
 
     public function showByPriority($priority_area)
     {
@@ -136,15 +134,10 @@ public function show($commodity)
         ]);
     }
 
-
-
-
-
     /**
      * Store a new commodity record.
      * Logs the creation into the activity table.
      *
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -195,8 +188,7 @@ public function show($commodity)
      * Update a commodity record.
      * Logs the changes into the activity table.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -252,7 +244,7 @@ public function show($commodity)
      * Delete a commodity record.
      * Logs the deletion into the activity table.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -307,7 +299,7 @@ public function show($commodity)
     /**
      * Delete a specific activity record if it's not among the latest three.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteActivity($id)
@@ -410,7 +402,7 @@ public function show($commodity)
 
         return view('admin.database.view-ip-applied', [
             'commodities' => $commodities,
-            'commodityCounts' => $commodityCounts
+            'commodityCounts' => $commodityCounts,
         ]);
     }
 }

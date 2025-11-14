@@ -9,18 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::table('admins', function (Blueprint $table) {
-        $table->enum('role', ['KMU', 'IPTBM', 'TBI'])->default('TBI')->after('password');
-    });
-}
+    public function up()
+    {
+        Schema::table('admins', function (Blueprint $table) {
+            $table->enum('role', ['KMU', 'IPTBM', 'TBI'])->default('TBI')->after('password');
+        });
+    }
 
-public function down()
-{
-    Schema::table('admins', function (Blueprint $table) {
-        $table->dropColumn('role');
-    });
-}
-
+    public function down()
+    {
+        Schema::table('admins', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
+    }
 };

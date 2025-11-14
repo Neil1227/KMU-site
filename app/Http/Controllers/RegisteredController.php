@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Commodity;
-use App\Models\RegisteredTechnology; // ✅ Use RegisteredTechnology model
+use App\Models\RegisteredTechnology;
+use Illuminate\Http\Request; // ✅ Use RegisteredTechnology model
 
 class RegisteredController extends Controller
 {
@@ -23,45 +22,44 @@ class RegisteredController extends Controller
         return view('admin.registered-technology', compact('commodities'));
     }
 
-
     /**
      * Store pushed technology into registered technologies
      */
-public function store(Request $request)
-{
-    $request->validate([
-        'technology' => 'required|string|max:255',
-        'technology_generator' => 'nullable|string|max:255',
-        'description' => 'nullable|string',
-        'link' => 'nullable|url|max:255',
-        'notification_id' => 'nullable|integer', // add this
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'technology' => 'required|string|max:255',
+            'technology_generator' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'link' => 'nullable|url|max:255',
+            'notification_id' => 'nullable|integer', // add this
+        ]);
 
-    // Create the registered technology
-    $tech = RegisteredTechnology::create([
-        'technology' => $request->technology,
-        'technology_generator' => $request->technology_generator,
-        'description' => $request->description,
-        'link' => $request->link,
-    ]);
+        // Create the registered technology
+        $tech = RegisteredTechnology::create([
+            'technology' => $request->technology,
+            'technology_generator' => $request->technology_generator,
+            'description' => $request->description,
+            'link' => $request->link,
+        ]);
 
-    // 🔥 Delete the original notification after pushing
-    if ($request->filled('notification_id')) {
-        \App\Models\Notification::find($request->notification_id)?->delete();
+        // 🔥 Delete the original notification after pushing
+        if ($request->filled('notification_id')) {
+            \App\Models\Notification::find($request->notification_id)?->delete();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Technology successfully pushed and notification deleted!',
+            'data' => $tech,
+        ]);
     }
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Technology successfully pushed and notification deleted!',
-        'data' => $tech
-    ]);
-}
 
     public function destroy($id)
     {
         $tech = RegisteredTechnology::find($id);
 
-        if (!$tech) {
+        if (! $tech) {
             return response()->json([
                 'success' => false,
                 'message' => 'Technology not found.',
@@ -75,6 +73,7 @@ public function store(Request $request)
             'message' => 'Technology successfully deleted.',
         ]);
     }
+
     public function table()
     {
         $regTechs = RegisteredTechnology::latest()->get();

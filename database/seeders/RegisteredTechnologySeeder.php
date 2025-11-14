@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\RegisteredTechnology;
+use Illuminate\Database\Seeder;
 
 class RegisteredTechnologySeeder extends Seeder
 {

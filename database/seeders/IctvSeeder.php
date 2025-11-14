@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Ictv;
+use Illuminate\Database\Seeder;
 
 class IctvSeeder extends Seeder
 {

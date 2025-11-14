@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\PromotionalActivity;
-use App\Models\Podcast; // Add this line
+use App\Models\Podcast;
+use App\Models\PromotionalActivity; // Add this line
 use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
@@ -27,17 +26,21 @@ class MainController extends Controller
     public function promotionalActivities()
     {
         $promotional = PromotionalActivity::latest()->get();
+
         return view('media-resources-section.promotional', compact('promotional'));
     }
 
     public function podcast()
     {
         $podcasts = Podcast::latest()->get();
+
         return view('media-resources-section.podcast', compact('podcasts'));
     }
+
     public function index()
     {
         $totalPageViews = DB::table('page_views')->where('id', 1)->value('count');
+
         return view('homepage', compact('totalPageViews'));
     }
 }

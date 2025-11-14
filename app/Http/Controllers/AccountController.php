@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +13,7 @@ class AccountController extends Controller
     public function index()
     {
         $users = Admin::all();
+
         return view('admin.account-settings', compact('users'));
     }
 
@@ -47,7 +47,7 @@ class AccountController extends Controller
 
             return back()->with('success', 'Account created successfully.');
         } catch (\Exception $e) {
-            return back()->with('error', 'An error occurred while creating the account: ' . $e->getMessage());
+            return back()->with('error', 'An error occurred while creating the account: '.$e->getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ class AccountController extends Controller
             }
 
             // Verify current password
-            if (!Hash::check($request->current_password, $admin->password)) {
+            if (! Hash::check($request->current_password, $admin->password)) {
                 return back()->with('error', 'Current password is incorrect.');
             }
 
@@ -81,7 +81,7 @@ class AccountController extends Controller
             // === Update Username ===
             if (in_array($request->update_option, ['username', 'both'])) {
                 $validator = Validator::make($request->all(), [
-                    'new_user' => 'required|string|unique:admins,user,' . $admin->id,
+                    'new_user' => 'required|string|unique:admins,user,'.$admin->id,
                 ], [
                     'new_user.required' => 'New username is required.',
                     'new_user.unique' => 'This username is already taken.',
@@ -135,10 +135,10 @@ class AccountController extends Controller
                 if ($admin->id == session('admin_id')) {
                     session()->forget(['admin_id', 'admin_user', 'admin_role']);
                     session()->flush(); // optional: clear all session data
+
                     return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
                 }
             }
-
 
             if (empty($updateData)) {
                 return back()->with('error', 'No changes were made.');
@@ -148,9 +148,10 @@ class AccountController extends Controller
 
             return back()->with('success', 'Account updated successfully.');
         } catch (\Exception $e) {
-            return back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
+            return back()->with('error', 'An unexpected error occurred: '.$e->getMessage());
         }
     }
+
     // === Delete Account ===
     public function destroy($id)
     {
@@ -165,7 +166,7 @@ class AccountController extends Controller
 
             return redirect()->back()->with('success', 'Account deleted successfully.');
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'An error occurred while deleting the account: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while deleting the account: '.$e->getMessage());
         }
     }
 }

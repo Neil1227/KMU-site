@@ -19,9 +19,9 @@
     <!-- Transparent Navbar -->
     <nav class="navbar">
         <div class="carousel-text">
-        <div class="fade-text">Acquire</div>
-        <div class="fade-text">Promote</div>
-        <div class="fade-text">Share</div>
+        <div class="fade-text">ACQUIRE</div>
+        <div class="fade-text">PROMOTE</div>
+        <div class="fade-text">SHARE</div>
         </div>
     </nav>
 

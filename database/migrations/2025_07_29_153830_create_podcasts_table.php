@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('podcasts', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->string('link')->nullable();
-        $table->string('png')->nullable();
-        $table->timestamps();                       
+            $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('link')->nullable();
+            $table->string('png')->nullable();
+            $table->timestamps();
         });
     }
 

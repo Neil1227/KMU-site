@@ -15,7 +15,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         // Check if the admin is logged in
-        if (!Session::get('admin_logged_in')) {
+        if (! Session::get('admin_logged_in')) {
             return redirect()->route('admin.login');
         }
 

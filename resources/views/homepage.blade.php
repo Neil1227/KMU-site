@@ -43,11 +43,17 @@
           <a href="{{ url('plagscan') }}" class="btn btn-hero mb-1">Explore Our Service ⇀</a>
         </div>
 
-        <div class="hero-stats">
-          <div><strong><span class="highlight counter" data-target="621">0</span>+</strong><br>Satisfied Clients</div>
-          <div><strong><span class="highlight counter" data-target="400">0</span>+</strong><br>Plagiarism Certificates</div>
-          <div><strong><span class="highlight counter" data-target="9">0</span>+</strong><br>Years Experience</div>
+      <div class="hero-stats">
+        <div class="clickable">
+          <a href="/ip-applied">
+            <strong><span class="counter" data-target="10">0</span>+</strong><br>IP Applied
+          </a>
         </div>
+        <div><strong><span class="highlight counter" data-target="400">0</span>+</strong><br>Plagiarism Certificates</div>
+        <div><strong><span class="highlight counter" data-target="621">0</span>+</strong><br>Satisfied Clients</div>
+        <div><strong><span class="highlight counter" data-target="10">0</span>+</strong><br>Years Experience</div>
+      </div>
+
       </div>
 
       <!-- Right Video -->

@@ -11,23 +11,28 @@
                 </a>
             </div>
             <div class="col-4 col-md-4 text-center">
-                <a href="https://iptbm.psau.edu.ph" target="_blank">
+                <a href="" target="_blank">
+                    <img src="{{ asset('assets/img/about/Logo (1).png') }}" alt="Office of Innovation Logo" class="custom-footer-logo img-fluid">
+                </a>
+            </div>
+            <div class="col-4 col-md-4 text-center">
+                <a href="" target="_blank">
+                    <img src="{{ asset('assets/img/officeofinnovation.png') }}" alt="Office of Innovation Logo" class="custom-footer-logo img-fluid">
+                </a>
+            </div>
+            <div class="col-4 col-md-4 text-center">
+                <a href="" target="_blank">
                     <img src="{{ asset('assets/img/iptbm.png') }}" alt="IPTBM Logo" class="custom-footer-logo img-fluid">
                 </a>
             </div>
             <div class="col-4 col-md-4 text-center">
-                <a href="https://example.com/logo" target="_blank">
+                <a href="" target="_blank">
                     <img src="{{ asset('assets/img/logo.png') }}" alt="Logo 2" class="custom-footer-logo img-fluid">
                 </a>
             </div>
             <div class="col-4 col-md-4 text-center">
-                <a href="https://example.com/sibultbi" target="_blank">
+                <a href="" target="_blank">
                     <img src="{{ asset('assets/img/sibultbi-logo.png') }}" alt="Sibul TBI Logo" class="custom-footer-logo img-fluid">
-                </a>
-            </div>
-            <div class="col-4 col-md-4 text-center">
-                <a href="https://example.com/innovation" target="_blank">
-                    <img src="{{ asset('assets/img/officeofinnovation.png') }}" alt="Office of Innovation Logo" class="custom-footer-logo img-fluid">
                 </a>
             </div>
         </div>

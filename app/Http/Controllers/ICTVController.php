@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Ictv;
 use App\Models\IECMaterial;
-use Illuminate\Support\Facades\Storage;
+use App\Models\RecentActivity;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Models\RecentActivity;
+use Illuminate\Support\Facades\Storage;
 
 class ICTVController extends Controller
 {
@@ -20,7 +20,7 @@ class ICTVController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|string',
-            'png' => 'nullable|image', 
+            'png' => 'nullable|image',
         ]);
 
         $pngFilename = null;
@@ -28,7 +28,7 @@ class ICTVController extends Controller
         // Handle file upload if provided
         if ($request->hasFile('png')) {
             $pngFile = $request->file('png');
-            $pngFilename = uniqid() . '.' . $pngFile->getClientOriginalExtension();
+            $pngFilename = uniqid().'.'.$pngFile->getClientOriginalExtension();
 
             // Store in public disk so it is accessible via asset('storage/...')
             $pngFile->storeAs('ictv_thumbnail', $pngFilename, 'public');
@@ -57,6 +57,7 @@ class ICTVController extends Controller
     {
         $iecMaterials = IECMaterial::latest()->get();
         $episodes = Ictv::latest()->get();
+
         return view('admin.ictv-table', compact('episodes'));
     }
 
@@ -67,7 +68,7 @@ class ICTVController extends Controller
         $title = $episode->title;
 
         if ($episode->png) {
-            Storage::delete('ictv_thumbnail/' . $episode->png);
+            Storage::delete('ictv_thumbnail/'.$episode->png);
         }
 
         $episode->delete();
@@ -76,7 +77,7 @@ class ICTVController extends Controller
             'user' => Auth::check() ? Auth::user()->name : 'Guest',
             'id' => $id,
             'title' => $title,
-            'timestamp' => now()
+            'timestamp' => now(),
         ]);
 
         RecentActivity::create([
@@ -103,12 +104,12 @@ class ICTVController extends Controller
         if ($request->hasFile('png')) {
             // Delete old file if exists
             if ($episode->png) {
-                Storage::disk('public')->delete('ictv_thumbnail/' . $episode->png);
+                Storage::disk('public')->delete('ictv_thumbnail/'.$episode->png);
             }
 
             // Store new file
             $pngFile = $request->file('png');
-            $pngFilename = uniqid() . '.' . $pngFile->getClientOriginalExtension();
+            $pngFilename = uniqid().'.'.$pngFile->getClientOriginalExtension();
             $pngFile->storeAs('ictv_thumbnail', $pngFilename, 'public');
 
             $episode->png = $pngFilename;
@@ -127,5 +128,4 @@ class ICTVController extends Controller
 
         return back()->with('success', 'Episode updated successfully!');
     }
-
 }

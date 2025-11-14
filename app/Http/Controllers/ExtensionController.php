@@ -2,41 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commodity;
 use App\Models\Extension;
 use App\Models\Kmu_Thesis;
 use App\Models\Research;
-use App\Models\Commodity;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ExtensionController extends Controller
 {
     /**
      * Display a listing of all Extension entries.
      */
-public function index()
-{
-    $extensions = Extension::orderBy('created_at', 'desc')->get()->map(function ($item) {
-        $existsInKmu = Kmu_Thesis::where('title', $item->title)
-            ->where('authors', $item->authors)
-            ->exists();
+    public function index()
+    {
+        $extensions = Extension::orderBy('created_at', 'desc')->get()->map(function ($item) {
+            $existsInKmu = Kmu_Thesis::where('title', $item->title)
+                ->where('authors', $item->authors)
+                ->exists();
 
-        $existsInCommodity = Commodity::where('thesis_title', $item->title)
-            ->where('technology_generator', $item->authors)
-            ->exists();
+            $existsInCommodity = Commodity::where('thesis_title', $item->title)
+                ->where('technology_generator', $item->authors)
+                ->exists();
 
-        $item->source = ($existsInKmu || $existsInCommodity) ? 'KMU Thesis' : 'Research';
-        return $item;
-    });
+            $item->source = ($existsInKmu || $existsInCommodity) ? 'KMU Thesis' : 'Research';
 
-    // Mark all 'active' as viewed once user opens the page
-    Extension::where('status', 'active')->update(['status' => 'viewed']);
+            return $item;
+        });
 
-    // Optional: Get updated count (for the view)
-    $pendingCount = Extension::where('status', 'active')->count();
+        // Mark all 'active' as viewed once user opens the page
+        Extension::where('status', 'active')->update(['status' => 'viewed']);
 
-    return view('admin.extension', compact('extensions', 'pendingCount'));
-}
+        // Optional: Get updated count (for the view)
+        $pendingCount = Extension::where('status', 'active')->count();
+
+        return view('admin.extension', compact('extensions', 'pendingCount'));
+    }
 
     /**
      * Push a research entry to the Extension table
@@ -49,10 +48,10 @@ public function index()
         // If not found in KMU, try Research
         $research = $kmuResearch ?? Research::find($id);
 
-        if (!$research) {
+        if (! $research) {
             return response()->json([
                 'success' => false,
-                'message' => 'Research not found.'
+                'message' => 'Research not found.',
             ]);
         }
 
@@ -64,25 +63,25 @@ public function index()
         if ($exists) {
             return response()->json([
                 'success' => false,
-                'message' => 'This research already exists in Extension.'
+                'message' => 'This research already exists in Extension.',
             ]);
         }
 
         // Insert into Extension table
         Extension::create([
-            'title'           => $research->title,
-            'authors'         => $research->authors,
+            'title' => $research->title,
+            'authors' => $research->authors,
             'technology_type' => $research->technology_type,
-            'priority_area'   => $research->priority_area,
-            'link'            => $research->link,
-            'status'          => 'active',
+            'priority_area' => $research->priority_area,
+            'link' => $research->link,
+            'status' => 'active',
         ]);
 
         // No deletion anymore
 
         return response()->json([
             'success' => true,
-            'message' => 'Successfully pushed to Extension!'
+            'message' => 'Successfully pushed to Extension!',
         ]);
     }
 
@@ -98,7 +97,7 @@ public function index()
         if ($exists) {
             return response()->json([
                 'status' => 'exists',
-                'message' => 'Record already exists in Extensions.'
+                'message' => 'Record already exists in Extensions.',
             ]);
         }
 
@@ -112,13 +111,11 @@ public function index()
             'status' => 'active', // ✅ Same as the one used for the badge
         ]);
 
-
         return response()->json([
             'status' => 'success',
-            'message' => 'Record successfully pushed to Extensions.'
+            'message' => 'Record successfully pushed to Extensions.',
         ]);
     }
-
 
     /**
      * Delete an extension record.
@@ -127,10 +124,10 @@ public function index()
     {
         $extension = Extension::find($id);
 
-        if (!$extension) {
+        if (! $extension) {
             return response()->json([
                 'success' => false,
-                'message' => 'Extension record not found.'
+                'message' => 'Extension record not found.',
             ]);
         }
 
@@ -138,7 +135,7 @@ public function index()
 
         return response()->json([
             'success' => true,
-            'message' => 'Extension record deleted successfully.'
+            'message' => 'Extension record deleted successfully.',
         ]);
     }
 }

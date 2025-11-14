@@ -14,5 +14,4 @@ class Ictv extends Model
         'link',
         'png',
     ];
-
 }

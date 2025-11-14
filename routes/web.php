@@ -1,34 +1,31 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Controllers\MediaResourceController;
-use App\Http\Controllers\ResearchController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\VideoController;
-
 use App\Http\Controllers\CommodityController;
-
-//Uploading Controllers
+use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\ExtensionController;
 use App\Http\Controllers\ICTVController;
 use App\Http\Controllers\IECMaterialController;
+use App\Http\Controllers\Kmu_thesisController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ModuleController;
+// Uploading Controllers
 use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\PromotionalActivityController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PodcastController;
+use App\Http\Controllers\PromotionalActivityController;
+use App\Http\Controllers\RegisteredController;
+use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\ThesisController;
-use App\Http\Controllers\ExtensionController;
-use App\Http\Controllers\DatabaseController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\RegisteredController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Kmu_thesisController;
+use App\Http\Controllers\VideoController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 // All records page
 Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
@@ -36,7 +33,7 @@ Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])
 // Update record
 Route::put('admin/database/records/{id}', [DatabaseController::class, 'updateRecord'])
     ->name('admin.database.update');
-//notification dot
+// notification dot
 Route::get('/admin/dashboard', [AdminController::class, 'dot'])->name('admin.dashboard');
 
 // These routes are only accessible if NOT logged in
@@ -62,11 +59,8 @@ Route::prefix('admin')->middleware('admin.auth')->group(function () {
     Route::get('podcast', [AdminController::class, 'podcast'])->name('admin.podcast');
     Route::get('technology', [AdminController::class, 'technology'])->name('admin.technology');
 
-    // Add if any(url/controller class/routename in the blade) 
+    // Add if any(url/controller class/routename in the blade)
 });
-
-
-
 
 Route::prefix('admin')->group(function () {
     Route::get('/account-settings', [AccountController::class, 'index'])->name('admin.account-settings');
@@ -76,7 +70,7 @@ Route::prefix('admin')->group(function () {
 
 });
 
-//logout
+// logout
 Route::post('/admin/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -87,62 +81,52 @@ Route::post('/admin/logout', function (Request $request) {
 
 Route::get('/videos/{type}/{id?}', [VideoController::class, 'show'])->name('video.show');
 
-
-//Uploads for ICTV
+// Uploads for ICTV
 Route::post('/ictv/upload', [ICTVController::class, 'upload'])->name('ictv.upload');
 Route::get('/ictv-table', [ICTVController::class, 'table'])->name('ictv-table');
 Route::delete('/admin/ictv/{id}', [ICTVController::class, 'destroy'])->name('admin.ictv.destroy');
 Route::put('/admin/ictv/{id}', [ICTVController::class, 'update'])->name('ictv.update');
 
-
-//Upload for IEC
+// Upload for IEC
 Route::post('/admin/iec/upload', [IECMaterialController::class, 'upload'])->name('admin.iec.upload');
 Route::get('/admin/iec-table', [IECMaterialController::class, 'index'])->name('admin.iec-table');
 Route::delete('/iec-materials/{id}', [IECMaterialController::class, 'destroy'])->name('iec-materials.destroy');
 Route::put('/iec-materials/{id}', [IECMaterialController::class, 'update'])->name('iec.update');
 
-
-//Upload for Modules
+// Upload for Modules
 Route::post('/admin/modules/upload', [ModuleController::class, 'upload'])->name('admin.modules.upload');
 Route::get('/admin/modules-table', [ModuleController::class, 'table'])->name('admin.modules-table');
 Route::delete('/admin/modules/{id}', [ModuleController::class, 'destroy'])->name('admin.modules.destroy');
 Route::put('/admin/modules/{id}', [ModuleController::class, 'update'])->name('admin.modules.update');
 
-
-//upload for newsletter
+// upload for newsletter
 Route::post('/admin/newsletter/upload', [NewsletterController::class, 'upload'])->name('admin.newsletter.upload');
 Route::get('/admin/newsletter-table', [NewsletterController::class, 'table'])->name('admin.newsletter-table');
 Route::delete('/admin/newsletters/{id}', [NewsletterController::class, 'destroy'])->name('newsletters.destroy');
 Route::put('/admin/newsletters/{id}', [NewsletterController::class, 'update'])->name('newsletters.update');
 
-//upload for Promotional Activities
+// upload for Promotional Activities
 Route::post('/admin/promotionalactivities/upload', [PromotionalActivityController::class, 'store'])->name('admin.promotional.upload');
 Route::get('/promotionalactivities-table', [PromotionalActivityController::class, 'table'])->name('admin.promotionalactivities-table');
 Route::delete('/admin/promotionalactivities/{id}', [PromotionalActivityController::class, 'destroy'])->name('promotionalactivities.destroy');
 Route::put('/admin/promotional/{id}', [PromotionalActivityController::class, 'update'])->name('promotional.update');
 
-
-//upload for podcast
+// upload for podcast
 Route::post('/admin/podcasts/store', [PodcastController::class, 'store'])->name('admin.podcast.store');
 Route::get('/podcast-table', [PodcastController::class, 'table'])->name('admin.podcast-table');
 Route::delete('/podcasts/{id}', [PodcastController::class, 'destroy'])->name('podcast.destroy');
 Route::put('/admin/podcast/{id}', [PodcastController::class, 'update'])->name('admin.podcast.update');
-
-
 
 // recent activities
 Route::delete('/admin/recent-activities/{id}', [AdminController::class, 'deleteRecentActivity'])->name('admin.recent-activities.delete');
 Route::get('/admin/recent-activities', [AdminController::class, 'recentActivitiesTable'])->name('admin.recent-activities');
 Route::delete('/recent-activities/delete-all', [AdminController::class, 'deleteAll'])->name('recent-activities.deleteAll');
 
-
 // New research aquired
 
 Route::get('/admin/new-research', function () {
     return view('admin.new-research');
 })->name('admin.new-research');
-
-
 
 // ---------------------------------New Research Added
 // Show Add Research form
@@ -152,27 +136,22 @@ Route::get('/admin/new-research', [ThesisController::class, 'index'])->name('adm
 Route::get('/admin/add-thesis', [ThesisController::class, 'addThesis'])->name('admin.add-thesis');
 
 Route::delete('/admin/add-thesis/{id}', [ThesisController::class, 'destroy'])->name('admin.add-thesis.destroy');
-//add new research from kmu
+// add new research from kmu
 Route::post('/admin/add-thesis/store', [ThesisController::class, 'store'])->name('admin.add-thesis.store');
 
-//destroy for kmu
+// destroy for kmu
 Route::delete('/admin/new-research/{id}', [ThesisController::class, 'destroy'])
     ->name('admin.new-research.destroy');
 Route::post('/admin/new-research/{id}/acknowledge', [ThesisController::class, 'acknowledge'])
     ->name('admin.new-research.acknowledge');
 
-    
-
-//add new research from research
+// add new research from research
 Route::post('/admin/add-thesis/storetokmu', [Kmu_thesisController::class, 'storetokmu'])->name('admin.add-thesis.storetokmu');
-//badge showing
+// badge showing
 Route::get('/admin/new-research', [Kmu_thesisController::class, 'index'])->name('admin.new-research');
-//KMU to iptbm 
+// KMU to iptbm
 Route::post('/admin/push-to-iptbm', [Kmu_thesisController::class, 'pushToIptbm'])
     ->name('admin.pushToIptbm');
-
-
-
 
 // for extension
 Route::post('/extensions/push/{id}', [ExtensionController::class, 'pushToExtension'])
@@ -184,22 +163,16 @@ Route::delete('/admin/extensions/delete/{id}', [ExtensionController::class, 'des
 
 Route::post('/admin/extensions/push/{id}', [ExtensionController::class, 'pushfromrecords'])->name('extensions.push');
 
-
-
-
-//technology admin
+// technology admin
 Route::get('/technology-table', [TechnologyController::class, 'table'])->name('admin.technology-table');
 Route::post('/technology/upload', [TechnologyController::class, 'upload'])->name('technology.upload');
 Route::delete('/technologies/{id}', [TechnologyController::class, 'delete'])->name('technologies.delete');
 Route::put('/admin/technology/{id}', [TechnologyController::class, 'update'])->name('admin.technology.update');
 
-
 // Technology list page
 Route::get('/technologies', [TechnologyController::class, 'index'])->name('technologies.index');
 // Technology detail page
 Route::get('/technologies/{id}', [TechnologyController::class, 'show'])->name('technologies.show');
-
-
 
 // Static page: no logic or data passed, just a Blade file
 Route::view('/', 'index')->name('index');
@@ -211,8 +184,6 @@ Route::get('/sdgs', function () {
     return view('sdg');
 })->name('sdgs');
 
-
-
 // By clicking the learn more button from index, it will increment the page view counter and redirect to the homepage
 Route::get('/learn-more', function () {
     // Increment counter
@@ -222,7 +193,7 @@ Route::get('/learn-more', function () {
     return redirect('/home');
 });
 
-//For Commodity Database
+// For Commodity Database
 
 Route::get('/commodities', [CommodityController::class, 'index']);
 Route::get('/admin/database/commodities', [CommodityController::class, 'index'])
@@ -245,7 +216,6 @@ Route::get('/admin/database/show/{filter}', [CommodityController::class, 'show']
 Route::get('/admin/database/priority/{priority_area}', [CommodityController::class, 'showByPriority'])
     ->name('admin.database.priority.show');
 
-
 // Add this for activity log
 Route::get('/admin/database/activities', [CommodityController::class, 'activities'])
     ->name('admin.database.activity');
@@ -255,16 +225,14 @@ Route::delete('/activities/{id}', [CommodityController::class, 'deleteActivity']
 // Clear all activities
 Route::delete('/activities', [CommodityController::class, 'clearAllActivities'])->name('activities.clearAll');
 
-//Graphs
+// Graphs
 Route::get('/admin/database/graphs', [CommodityController::class, 'graphs'])
     ->name('admin.database.graphs');
-
 
 // View page for commodities
 Route::get('/admin/database/view-ip-applied', [CommodityController::class, 'view'])
     ->middleware('guest')
     ->name('admin.database.view-ip-applied');
-
 
 // ---------------------------------------------------------------------------notif
 
@@ -275,11 +243,10 @@ Route::prefix('admin')->group(function () {
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 
-
-//applied
+// applied
 Route::get('/admin/registered-technology', [RegisteredController::class, 'index'])
     ->name('admin.registered-technology');
-//pushing applied
+// pushing applied
 Route::post('/admin/registered-technology/store', [RegisteredController::class, 'store'])
     ->name('admin.registered-technology.store');
 // destroy applied
@@ -290,20 +257,16 @@ Route::delete('/admin/registered-technology/{id}', [RegisteredController::class,
 Route::get('/admin/database/view-regtech', [RegisteredController::class, 'table'])
     ->name('admin.database.view-regtech');
 
-
-
 // for redirect using the secret code
 Route::get('/143123', function () {
     return redirect()->route('admin.login'); // if you named the admin login route
     // or return redirect('/admin/login'); if you use the direct path
 });
 
-
 // For main controller
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
-
 
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
@@ -325,7 +288,6 @@ Route::get('/biotechnology', [ResearchController::class, 'biotechnology'])->name
 Route::get('/root-crops', [ResearchController::class, 'rootCrops'])->name('root-crops');
 Route::get('/iot', [ResearchController::class, 'iot'])->name('iot');
 Route::get('/others', [ResearchController::class, 'others'])->name('others');
-
 
 // Search Controller
 Route::get('/search', [SearchController::class, 'search'])->name('search');

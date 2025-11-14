@@ -22,7 +22,8 @@
             overflow: hidden;
         }
         .navbar {
-            background: linear-gradient(90deg, var(--primary-color), var(--complimentary-color));
+           background: linear-gradient(90deg, #FFEB3B, #4CAF50);
+
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
          }
          

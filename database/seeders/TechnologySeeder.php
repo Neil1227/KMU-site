@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Technology;
+use Illuminate\Database\Seeder;
 
 class TechnologySeeder extends Seeder
 {

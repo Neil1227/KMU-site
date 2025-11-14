@@ -1,31 +1,27 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Commodity; // your model
-use App\Models\Notification;
-use App\Models\RegisteredTechnology;
+use App\Models\Commodity;
+use Illuminate\Http\Request; // your model
 use Illuminate\Support\Facades\DB;
 
 class DatabaseController extends Controller
 {
-public function allRecords()
-{
-    // Get all records
-    $records = Commodity::all();
+    public function allRecords()
+    {
+        // Get all records
+        $records = Commodity::all();
 
-    // Get distinct commodities with their counts
-    $commodities = Commodity::select('commodity', DB::raw('COUNT(*) as total'))
-        ->groupBy('commodity')
-        ->get();
+        // Get distinct commodities with their counts
+        $commodities = Commodity::select('commodity', DB::raw('COUNT(*) as total'))
+            ->groupBy('commodity')
+            ->get();
 
-    return view('admin.database.records', compact('records', 'commodities'));
-}
+        return view('admin.database.records', compact('records', 'commodities'));
+    }
 
-
-
-  // Update record
+    // Update record
     public function updateRecord(Request $request, $id)
     {
         $record = Commodity::findOrFail($id);
@@ -48,7 +44,7 @@ public function allRecords()
         ]);
 
         // Handle "other" commodity input
-        if ($validated['commodity'] === 'other' && !empty($validated['commodity_other'])) {
+        if ($validated['commodity'] === 'other' && ! empty($validated['commodity_other'])) {
             $record->commodity = $validated['commodity_other'];
         } else {
             $record->commodity = $validated['commodity'];
@@ -74,5 +70,4 @@ public function allRecords()
             'message' => 'Record updated successfully!',
         ]);
     }
-
 }

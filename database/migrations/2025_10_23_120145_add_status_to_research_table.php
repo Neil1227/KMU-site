@@ -9,18 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::table('research', function (Blueprint $table) {
-        $table->string('status')->default('pending')->after('priority_area');
-    });
-}
+    public function up()
+    {
+        Schema::table('research', function (Blueprint $table) {
+            $table->string('status')->default('pending')->after('priority_area');
+        });
+    }
 
-public function down()
-{
-    Schema::table('research', function (Blueprint $table) {
-        $table->dropColumn('status');
-    });
-}
-
+    public function down()
+    {
+        Schema::table('research', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
+    }
 };

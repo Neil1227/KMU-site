@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commodity;
 use App\Models\Kmu_Thesis;
 use App\Models\Research;
-use App\Models\Commodity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,12 +18,14 @@ class Kmu_thesisController extends Controller
         // Fetch Research and add dynamic property
         $researches = Research::all()->map(function ($item) {
             $item->source = 'Research';
+
             return $item;
         });
 
         // Fetch KMU Theses and add dynamic property
         $kmuTheses = Kmu_Thesis::all()->map(function ($item) {
             $item->source = 'KMU Thesis';
+
             return $item;
         });
 
@@ -37,9 +39,10 @@ class Kmu_thesisController extends Controller
         return view('admin.new-research', [
             'researches' => $allResearches,
             'totalCount' => $allResearches->count(),
-            'commodities' => $commodities
+            'commodities' => $commodities,
         ]);
     }
+
     /**
      * Store a new research record into the general Research table.
      */
@@ -59,7 +62,7 @@ class Kmu_thesisController extends Controller
                 'authors',
                 'technology_type',
                 'priority_area',
-                'link'
+                'link',
             ]));
 
             return redirect()->back()->with('success', 'Research added successfully!');
@@ -98,7 +101,7 @@ class Kmu_thesisController extends Controller
         if ($exists) {
             return response()->json([
                 'success' => false,
-                'message' => 'This record already exists in the IPTBM database.'
+                'message' => 'This record already exists in the IPTBM database.',
             ]);
         }
 
@@ -122,7 +125,7 @@ class Kmu_thesisController extends Controller
         // 5️⃣ Return success message
         return response()->json([
             'success' => true,
-            'message' => 'Successfully pushed to the IPTBM database!'
+            'message' => 'Successfully pushed to the IPTBM database!',
         ]);
     }
 }

@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\PromotionalActivity;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use App\Models\RecentActivity;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PromotionalActivityController extends Controller
 {
-
     // show episodes in table
     public function table()
     {
         $promotional = PromotionalActivity::latest()->get();
+
         return view('admin.promotionalactivities-table', compact('promotional'));
     }
 
@@ -66,7 +65,7 @@ class PromotionalActivityController extends Controller
         if ($request->hasFile('png')) {
             // Delete old file if exists
             if ($activity->png) {
-                Storage::delete('promotional_thumbnail/' . $activity->png);
+                Storage::delete('promotional_thumbnail/'.$activity->png);
             }
 
             $pngFilename = $request->file('png')->getClientOriginalName();
@@ -95,7 +94,7 @@ class PromotionalActivityController extends Controller
 
         // Optional: delete thumbnail from storage
         if ($activity->png) {
-            Storage::delete('promotional_thumbnail/' . $activity->png);
+            Storage::delete('promotional_thumbnail/'.$activity->png);
         }
 
         $activityTitle = $activity->title;
@@ -111,7 +110,4 @@ class PromotionalActivityController extends Controller
 
         return response()->json(['message' => 'Deleted successfully']);
     }
-
-
-
 }

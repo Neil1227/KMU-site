@@ -28,7 +28,7 @@
    Sidebar headings
 ------------------------------ */
 .sidebar h5 {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
     color: #a0aec0 !important;
@@ -48,7 +48,7 @@
     text-decoration: none;
     color: #fff;
     font-weight: 500;
-    font-size: .75rem;
+    font-size: .9rem;
     padding: 0.75rem 1rem;
     margin: 5px 0;
     border-radius: 0.5rem;

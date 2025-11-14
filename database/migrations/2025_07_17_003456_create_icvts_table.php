@@ -9,19 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::create('ictvs', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->string('link')->nullable();
-        $table->string('webp')->nullable();
-        $table->string('png')->nullable();
-        $table->timestamps();
-    });
-}
-
+    public function up()
+    {
+        Schema::create('ictvs', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('link')->nullable();
+            $table->string('webp')->nullable();
+            $table->string('png')->nullable();
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

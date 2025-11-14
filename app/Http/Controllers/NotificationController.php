@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Notification;
 use App\Models\Commodity;
 use App\Models\DBActivity;
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -34,7 +33,7 @@ class NotificationController extends Controller
             if (Notification::where('commodity_id', $record->id)->exists()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'This commodity is already in notifications.'
+                    'message' => 'This commodity is already in notifications.',
                 ], 409);
             }
 
@@ -52,7 +51,7 @@ class NotificationController extends Controller
                 'ip_status' => $record->ip_status,
                 'changes' => json_encode([
                     'notification_id' => $notification->id,
-                    'message' => 'Commodity pushed to notifications.'
+                    'message' => 'Commodity pushed to notifications.',
                 ]),
             ]);
 
@@ -63,7 +62,7 @@ class NotificationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to push commodity: ' . $e->getMessage(),
+                'message' => 'Failed to push commodity: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -90,18 +89,18 @@ class NotificationController extends Controller
                 'ip_status' => $record->ip_status ?? null,
                 'changes' => json_encode([
                     'notification_id' => $id,
-                    'message' => 'Pushed notification reverted (removed).'
+                    'message' => 'Pushed notification reverted (removed).',
                 ]),
             ]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Push reverted and notification removed successfully.'
+                'message' => 'Push reverted and notification removed successfully.',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to revert push: ' . $e->getMessage(),
+                'message' => 'Failed to revert push: '.$e->getMessage(),
             ], 500);
         }
     }
@@ -116,7 +115,7 @@ class NotificationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Notification deleted successfully.'
+            'message' => 'Notification deleted successfully.',
         ]);
     }
 }

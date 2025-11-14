@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Research;
 use App\Models\Kmu_Thesis;
+use App\Models\Research;
 use Illuminate\Http\Request;
 
 class ThesisController extends Controller
@@ -25,6 +25,7 @@ class ThesisController extends Controller
 
         return view('admin.new-research', compact('researches'));
     }
+
     // Acknowledge notification
     public function acknowledge($id)
     {
@@ -32,15 +33,15 @@ class ThesisController extends Controller
         $research = Kmu_Thesis::find($id);
 
         // If not found, check in Research table
-        if (!$research) {
+        if (! $research) {
             $research = Research::find($id);
         }
 
         // Still not found in either
-        if (!$research) {
+        if (! $research) {
             return response()->json([
                 'success' => false,
-                'message' => 'Research not found.'
+                'message' => 'Research not found.',
             ]);
         }
 
@@ -48,7 +49,7 @@ class ThesisController extends Controller
         if ($research->status !== 'pending') {
             return response()->json([
                 'success' => false,
-                'message' => 'This research is already acknowledged.'
+                'message' => 'This research is already acknowledged.',
             ]);
         }
 
@@ -57,10 +58,9 @@ class ThesisController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Research acknowledged successfully.'
+            'message' => 'Research acknowledged successfully.',
         ]);
     }
-
 
     /**
      * Display the Add Thesis page.
@@ -68,6 +68,7 @@ class ThesisController extends Controller
     public function addThesis()
     {
         $researches = Research::all();
+
         return view('admin.add-thesis', compact('researches'));
     }
 
@@ -91,7 +92,7 @@ class ThesisController extends Controller
                 'authors',
                 'technology_type',
                 'priority_area',
-                'link'
+                'link',
             ]));
 
             return redirect()->back()->with('success', 'Research added successfully yes!');
@@ -99,8 +100,6 @@ class ThesisController extends Controller
             return redirect()->back()->with('error', 'Failed to add research. Please try again.');
         }
     }
-
-
 
     /**
      * Delete either a Research or KMU_Thesis record.
@@ -111,7 +110,7 @@ class ThesisController extends Controller
             // Try to find the record in either table
             $record = Research::find($id) ?? Kmu_Thesis::find($id);
 
-            if (!$record) {
+            if (! $record) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Record not found.',

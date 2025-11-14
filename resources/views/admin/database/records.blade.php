@@ -152,7 +152,7 @@
                                     <button type="button" class="dropdown-item view tag"
                                         data-id="{{ $record->id }}"
                                         data-url="{{ route('extensions.push', $record->id) }}">
-                                        <i class="bi bi-box me-1"></i> Push Extension
+                                        <i class="bi bi-box me-1"></i> Push to Extension
                                     </button>
 
                                 </li>

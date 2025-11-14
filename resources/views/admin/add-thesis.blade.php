@@ -60,8 +60,18 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="technology_type" class="form-label fw-bold">Type of Technology</label>
-                                    <input type="text" name="technology_type" id="technology_type" class="form-control" placeholder="Enter type of technology" required>
+                                    <label class="form-label">Type of Technology</label>
+                                    <select name="technology_type" id="technology_type" class="form-select" required>
+                                        <option value="" disabled selected>-- Select Type --</option>
+                                        <option value="Food">Food</option>
+                                        <option value="Non-Food">Non-Food</option>
+                                        <option value="N/A">N/A</option>
+                                        <optgroup label="Non-Food">
+                                            <option value="Non-Food (Chemical)">Non-Food (Chemical)</option>
+                                            <option value="Non-Food (Software)">Non-Food (Software)</option>
+                                            <option value="Non-Food (Equipment)">Non-Food (Equipment)</option>
+                                        </optgroup>
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">

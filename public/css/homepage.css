@@ -95,13 +95,32 @@ a.btn-outline {
 }
 
 /* Stats */
+.hero-stats div:first-child {
+  cursor: pointer; /* makes it clickable */
+  background: var(--secondary-color);
+  color: white; /* text color */
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-stats div:first-child:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.hero-stats div:first-child a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .hero-stats {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 30px;
   margin-top: 20px;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .hero-stats div {
@@ -615,7 +634,7 @@ color: var(--secondary-color);
   align-items: center;
   justify-content: center;
   width: 90%;
-  max-width: 1000px;
+  max-width: 1100px;
   padding: 25px;
   border-radius: 12px;
   background: #fff;
@@ -626,8 +645,8 @@ color: var(--secondary-color);
 }
 
 .team-card.special-layout:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Image (larger on desktop) */
@@ -637,12 +656,12 @@ color: var(--secondary-color);
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  border: 1px solid var(--btn-gold);
   transition: transform 0.3s ease, border 0.3s ease;
 }
 
 .team-card.special-layout:hover img {
   transform: scale(1.05);
-  border: 2px solid var(--btn-gold);
 }
 
 /* Text container */
@@ -674,6 +693,7 @@ color: var(--secondary-color);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
   gap: 25px;
 }
 
@@ -690,7 +710,7 @@ color: var(--secondary-color);
 
 .team-card:hover,
 .team-card.active {
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -718,12 +738,59 @@ color: var(--secondary-color);
 .team-card p.role {
   color: var(--secondary-color);
   font-weight: bold;
+   font-size: 0.9rem;
   margin-bottom: 10px;
 }
 
 .team-card p.desc {
   font-size: 0.9rem;
   color: #555;
+}
+
+.single-column-center {
+  display: flex;           /* use flexbox */
+  flex-direction: column;  /* stack content vertically */
+  align-items: center;     /* center horizontally */
+  text-align: center;      /* center text inside each item */
+  width: 100%;
+  max-width: 600px;        /* optional max width */
+  margin: 0 auto;          /* center container on page */
+  gap: 10px;               /* optional spacing between items */
+}
+
+.column h4 {
+  margin: 0;
+}
+/* Two columns */
+.card-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* Center each section */
+.card-section {
+    text-align: center;
+}
+
+/* Row of two cards */
+.card-pair {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* allows wrap when needed */
+}
+
+
+/* Mobile: single column */
+@media (max-width: 768px) {
+    .card-row {
+        grid-template-columns: 1fr;
+    }
+
+    .card-pair {
+        flex-direction: row; /* stack vertically */
+    }
 }
 
 /* ================================
@@ -745,21 +812,35 @@ color: var(--secondary-color);
   .team-card {
     width: 220px;
   }
+
+}
+/* Default desktop view (your current layout) */
+.team-card.special-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
-/* Phones */
 @media (max-width: 768px) {
-  /* Special top card layout */
+  /* Make all special-layout cards stack vertically */
   .team-card.special-layout {
-    flex-direction: column;
+    display: flex;
+    flex-direction: column; /* stack vertically */
     text-align: center;
-    width: 95%;
   }
 
+  /* For cards where image comes AFTER the text, move image on top */
   .team-card.special-layout img {
     width: 120px;
     height: 120px;
     margin-bottom: 10px;
+    order: -1; /* moves image to top */
+  }
+
+  /* Ensure text stays below image */
+  .team-card.special-layout .team-info {
+    order: 0;
   }
 
   /* Bottom cards: 2-column grid with side margins */
@@ -769,7 +850,7 @@ color: var(--secondary-color);
     gap: 15px;
     justify-items: center;
     width: 100%;
-    padding: 0 12px; /* 👈 adds margin on both sides */
+    padding: 0 12px; /* adds margin on both sides */
     box-sizing: border-box;
   }
 

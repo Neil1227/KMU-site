@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Technology;
 use App\Models\RecentActivity;
+use App\Models\Technology;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class TechnologyController extends Controller
@@ -13,6 +13,7 @@ class TechnologyController extends Controller
     public function index()
     {
         $technologies = Technology::all();
+
         return view('media-resources-section.technology-product', compact('technologies'));
     }
 
@@ -20,20 +21,21 @@ class TechnologyController extends Controller
     public function show($id)
     {
         $technology = Technology::findOrFail($id);
+
         return view('technology', compact('technology'));
     }
 
     // ====================admin========================
     public function table()
     {
-         // fetch all technologies from the DB
+        // fetch all technologies from the DB
         $technologies = Technology::all();
 
         // pass to the blade view
         return view('admin.technology-table', compact('technologies'));
     }
 
-    //uploading of technologies
+    // uploading of technologies
     public function upload(Request $request)
     {
         $request->validate([
@@ -49,7 +51,7 @@ class TechnologyController extends Controller
             'poster' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
-        $technology = new Technology();
+        $technology = new Technology;
         $technology->product = $request->product;
         $technology->desc = $request->desc;
         $technology->net = $request->net;
@@ -65,12 +67,12 @@ class TechnologyController extends Controller
         $storeFile = function ($file, $folder) {
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $filename = $originalName . '.' . $extension;
+            $filename = $originalName.'.'.$extension;
             $counter = 1;
 
             // Check if file exists
-            while (Storage::disk('public')->exists($folder . '/' . $filename)) {
-                $filename = $originalName . '(' . $counter . ').' . $extension;
+            while (Storage::disk('public')->exists($folder.'/'.$filename)) {
+                $filename = $originalName.'('.$counter.').'.$extension;
                 $counter++;
             }
 
@@ -108,13 +110,13 @@ class TechnologyController extends Controller
         $technology = Technology::findOrFail($id);
 
         // Delete image file if exists
-        if ($technology->image && Storage::disk('public')->exists('technologies/' . $technology->image)) {
-            Storage::disk('public')->delete('technologies/' . $technology->image);
+        if ($technology->image && Storage::disk('public')->exists('technologies/'.$technology->image)) {
+            Storage::disk('public')->delete('technologies/'.$technology->image);
         }
 
         // Delete poster file if exists
-        if ($technology->poster && Storage::disk('public')->exists('technologies/' . $technology->poster)) {
-            Storage::disk('public')->delete('technologies/' . $technology->poster);
+        if ($technology->poster && Storage::disk('public')->exists('technologies/'.$technology->poster)) {
+            Storage::disk('public')->delete('technologies/'.$technology->poster);
         }
 
         // Log recent activity
@@ -129,7 +131,7 @@ class TechnologyController extends Controller
 
         // ✅ Return JSON response
         return response()->json([
-            'success' => 'Technology deleted successfully!'
+            'success' => 'Technology deleted successfully!',
         ]);
     }
 
@@ -163,11 +165,11 @@ class TechnologyController extends Controller
         $storeFile = function ($file, $folder) {
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $filename = $originalName . '.' . $extension;
+            $filename = $originalName.'.'.$extension;
             $counter = 1;
 
-            while (Storage::disk('public')->exists($folder . '/' . $filename)) {
-                $filename = $originalName . '(' . $counter . ').' . $extension;
+            while (Storage::disk('public')->exists($folder.'/'.$filename)) {
+                $filename = $originalName.'('.$counter.').'.$extension;
                 $counter++;
             }
 
@@ -178,15 +180,15 @@ class TechnologyController extends Controller
 
         if ($request->hasFile('image')) {
             // optionally delete old image
-            if ($technology->image && Storage::disk('public')->exists('technologies/' . $technology->image)) {
-                Storage::disk('public')->delete('technologies/' . $technology->image);
+            if ($technology->image && Storage::disk('public')->exists('technologies/'.$technology->image)) {
+                Storage::disk('public')->delete('technologies/'.$technology->image);
             }
             $technology->image = $storeFile($request->file('image'), 'technologies');
         }
 
         if ($request->hasFile('poster')) {
-            if ($technology->poster && Storage::disk('public')->exists('technologies/' . $technology->poster)) {
-                Storage::disk('public')->delete('technologies/' . $technology->poster);
+            if ($technology->poster && Storage::disk('public')->exists('technologies/'.$technology->poster)) {
+                Storage::disk('public')->delete('technologies/'.$technology->poster);
             }
             $technology->poster = $storeFile($request->file('poster'), 'technologies');
         }
@@ -202,4 +204,3 @@ class TechnologyController extends Controller
         return back()->with('success', 'Technology updated successfully!');
     }
 }
-

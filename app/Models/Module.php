@@ -15,4 +15,3 @@ class Module extends Model
         'png',
     ];
 }
-
