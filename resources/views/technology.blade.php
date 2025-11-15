@@ -185,50 +185,54 @@
                 @endif
             </div>
 
-            <!-- Contact (Static) -->
+            <!-- Contact Section (1 Row Layout) -->
             <div class="mb-5">
                 <h5 class="fw-bold tech-title">
-                    <i class="bi bi-envelope me-2 icon-colored"></i> Contact
+                    <i class="bi bi-envelope me-2 icon-colored"></i> Contact & Inquiries
                 </h5>
-                <div class="row row-cols-2 row-cols-md-3 g-2 mt-3">
-                    <div class="col">
+
+                <div class="row g-4 mt-3">
+
+                    <!-- Interested in Technology / General Inquiry -->
+                    <div class="col-md-4">
+                        <h6 class="fw-semibold mb-2">If You’re Interested</h6>
                         <a href="mailto:ip-tbm@psau.edu.ph"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
-                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> ip-tbm@psau.edu.ph
+                            class="text-decoration-none text-dark d-block mb-1 contact-link">
+                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> IPTBM: ip-tbm@psau.edu.ph
                         </a>
-                    </div>
-                    <div class="col">
-                        <a href="mailto:sibul@psau.edu.ph"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
-                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> sibul@psau.edu.ph
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="mailto:kmc@psau.edu.ph"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
-                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> kmc@psau.edu.ph
-                        </a>
-                    </div>
-                    <div class="col">
                         <a href="https://www.facebook.com/psau.iptbm" target="_blank"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
+                            class="text-decoration-none text-dark d-block contact-link">
                             <i class="bi bi-facebook me-2 icon-colored"></i> psau.iptbm
                         </a>
                     </div>
-                    <div class="col">
+
+                    <!-- Want to Adopt / Partnership -->
+                    <div class="col-md-4">
+                        <h6 class="fw-semibold mb-2">If You Want to Adopt</h6>
+                        <a href="mailto:sibul@psau.edu.ph" class="text-decoration-none text-dark d-block mb-1 contact-link">
+                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> Sibul TBI: sibul@psau.edu.ph
+                        </a>
                         <a href="https://www.facebook.com/psau.tbi" target="_blank"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
+                            class="text-decoration-none text-dark d-block contact-link">
                             <i class="bi bi-facebook me-2 icon-colored"></i> psau.tbi
                         </a>
                     </div>
-                    <div class="col">
+
+                    <!-- More Info / Other Inquiries -->
+                    <div class="col-md-4">
+                        <h6 class="fw-semibold mb-2">If You Want to Know More</h6>
+                        <a href="mailto:kmc@psau.edu.ph" class="text-decoration-none text-dark d-block mb-1 contact-link">
+                            <i class="bi bi-envelope-fill me-2 icon-colored"></i> KMC: kmc@psau.edu.ph
+                        </a>
                         <a href="https://www.facebook.com/psau.kmc" target="_blank"
-                            class="text-decoration-none text-dark contact-link d-flex align-items-center">
+                            class="text-decoration-none text-dark d-block contact-link">
                             <i class="bi bi-facebook me-2 icon-colored"></i> psau.kmc
                         </a>
                     </div>
+
                 </div>
             </div>
+
 
         </div>
     </section>
