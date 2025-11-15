@@ -267,7 +267,8 @@ Route::get('/143123', function () {
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');
-
+Route::get('/iptbm', [MainController::class, 'iptbm'])->name('iptbm');
+Route::get('/tbi', [MainController::class, 'tbi'])->name('tbi');
 // media resources controller
 Route::get('/ictv', [MediaResourceController::class, 'ictv'])->name('ictv');
 Route::get('/iec', [MediaResourceController::class, 'iec'])->name('iec');

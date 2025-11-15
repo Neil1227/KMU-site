@@ -22,7 +22,14 @@ class MainController extends Controller
     {
         return view('about');
     }
-
+    public function iptbm()
+    {
+        return view('iptbm');
+    }
+        public function tbi()
+    {
+        return view('tbi');
+    }
     public function promotionalActivities()
     {
         $promotional = PromotionalActivity::latest()->get();

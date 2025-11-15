@@ -89,6 +89,8 @@
 }
 
 .navbar-nav .dropdown-menu {
+  width: max-content;
+  min-width: 250px; /* optional safety */
   background-color: var(--white-text);
   border: none;
   border-radius: 0;
@@ -97,11 +99,49 @@
 }
 .navbar-nav .dropdown-item {
   padding: 12px 20px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 .navbar-nav .dropdown-item:hover {
   background-color: var(--off-white-color);
+}
+
+/* Parent of third-level menu */
+.dropdown-submenu {
+  position: relative;
+}
+
+/* The THIRD LEVEL fly-out submenu */
+.dropdown-submenu .submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 0;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: 0.25s ease-in-out;
+  background-color: var(--white-text);
+  min-width: 200px;
+  z-index: 9999;
+}
+
+/* Show third-level on hover */
+.dropdown-submenu:hover .submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Optional arrow indicator */
+.dropdown-submenu > a::after {
+  content: "›";
+  float: right;
+  font-size: 14px;
+  margin-top: 3px;
+  color: #333;
 }
 
 /* ===============================

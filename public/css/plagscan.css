@@ -142,3 +142,34 @@
   background-color: var(--secondary-color); /* blue */
   color: white;
 }
+/* Colored borders for each step */
+.step-card {
+  border-left: 6px solid #ccc; 
+  padding-left: 18px;
+}
+
+/* Step 1 – Orange */
+.primary {
+  border-left-color: #f85e0a;
+}
+
+/* Step 2 – Blue */
+.secondary {
+  border-left-color: #1c366a;
+}
+
+/* Step 3 – Green */
+.tertiary {
+  border-left-color: var(--tertiary-color);
+}
+
+/* Step 4 – Purple */
+.green {
+  border-left-color: #3b9900;
+}
+
+/* Hover effect (optional) */
+.step-card:hover {
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
