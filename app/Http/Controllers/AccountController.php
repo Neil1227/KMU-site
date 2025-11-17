@@ -23,7 +23,8 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'user' => 'required|string|unique:admins,user',
             'password' => 'required|confirmed|min:4',
-            'role' => 'required|in:KMU,IPTBM,TBI,RESEARCH,EXTENSION',
+            'role' => 'required|in:KMU,IPTBM,TBI,TBI_Agribus,TBI_TLU,RESEARCH,EXTENSION',
+
         ], [
             'user.required' => 'Username is required.',
             'user.unique' => 'This username is already taken.',
@@ -51,106 +52,114 @@ class AccountController extends Controller
         }
     }
 
-    // === Update Existing Account ===
-    public function update(Request $request)
-    {
-        try {
-            $adminId = Session::get('admin_id');
-            $admin = Admin::findOrFail($adminId);
+ public function update(Request $request)
+{
+    try {
+        // Determine target user
+        if (session('admin_role') === 'KMU') {
+            $admin = Admin::findOrFail($request->id); // KMU can edit anyone
+        } else {
+            $admin = Admin::findOrFail(session('admin_id')); // Non-KMU can edit themselves only
+        }
 
-            // Base validation
+        // Base validation
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'update_option' => 'required|in:username,password,both,role',
+        ], [
+            'current_password.required' => 'Current password is required.',
+            'update_option.required' => 'Please select an update option.',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        // Verify current password
+        if (! Hash::check($request->current_password, $admin->password)) {
+            return back()->with('error', 'Current password is incorrect.');
+        }
+
+        $updateData = [];
+
+        // === Username Update ===
+        if (in_array($request->update_option, ['username', 'both'])) {
             $validator = Validator::make($request->all(), [
-                'current_password' => 'required|string',
-                'update_option' => 'required|in:username,password,both,role',
+                'new_user' => 'required|string|unique:admins,user,' . $admin->id,
             ], [
-                'current_password.required' => 'Current password is required.',
-                'update_option.required' => 'Please select an update option.',
+                'new_user.required' => 'New username is required.',
+                'new_user.unique' => 'This username is already taken.',
             ]);
 
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
 
-            // Verify current password
-            if (! Hash::check($request->current_password, $admin->password)) {
-                return back()->with('error', 'Current password is incorrect.');
-            }
-
-            $updateData = [];
-
-            // === Update Username ===
-            if (in_array($request->update_option, ['username', 'both'])) {
-                $validator = Validator::make($request->all(), [
-                    'new_user' => 'required|string|unique:admins,user,'.$admin->id,
-                ], [
-                    'new_user.required' => 'New username is required.',
-                    'new_user.unique' => 'This username is already taken.',
-                ]);
-
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
-
-                $updateData['user'] = $request->new_user;
-                Session::put('admin_user', $request->new_user);
-            }
-
-            // === Update Password ===
-            if (in_array($request->update_option, ['password', 'both'])) {
-                $validator = Validator::make($request->all(), [
-                    'new_password' => 'required|confirmed|min:4',
-                ], [
-                    'new_password.required' => 'New password is required.',
-                    'new_password.confirmed' => 'New password confirmation does not match.',
-                    'new_password.min' => 'New password must be at least 4 characters.',
-                ]);
-
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
-
-                $updateData['password'] = Hash::make($request->new_password);
-            }
-
-            // === Update Role ===
-            if ($request->update_option === 'role') {
-                if ($admin->role !== 'KMU') {
-                    return back()->with('error', 'Only KMU Super Admin can change roles.');
-                }
-
-                $validator = Validator::make($request->all(), [
-                    'new_role' => 'required|in:KMU,IPTBM,TBI,RESEARCH,EXTENSION',
-                ], [
-                    'new_role.required' => 'Please select a role.',
-                    'new_role.in' => 'Invalid role selected.',
-                ]);
-
-                if ($validator->fails()) {
-                    return back()->withErrors($validator)->withInput();
-                }
-
-                $updateData['role'] = $request->new_role;
-
-                // Update session if the logged-in user changed their own role
-                if ($admin->id == session('admin_id')) {
-                    session()->forget(['admin_id', 'admin_user', 'admin_role']);
-                    session()->flush(); // optional: clear all session data
-
-                    return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
-                }
-            }
-
-            if (empty($updateData)) {
-                return back()->with('error', 'No changes were made.');
-            }
-
-            $admin->update($updateData);
-
-            return back()->with('success', 'Account updated successfully.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'An unexpected error occurred: '.$e->getMessage());
+            $updateData['user'] = $request->new_user;
         }
+
+        // === Password Update ===
+        if (in_array($request->update_option, ['password', 'both'])) {
+            $validator = Validator::make($request->all(), [
+                'new_password' => 'required|confirmed|min:4',
+            ], [
+                'new_password.required' => 'New password is required.',
+                'new_password.confirmed' => 'New password confirmation does not match.',
+                'new_password.min' => 'New password must be at least 4 characters.',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            $updateData['password'] = Hash::make($request->new_password);
+        }
+
+        // === Role Update (KMU only) ===
+        if ($request->update_option === 'role') {
+            if (session('admin_role') !== 'KMU') {
+                return back()->with('error', 'Only KMU Super Admin can change roles.');
+            }
+
+            $validator = Validator::make($request->all(), [
+                'new_role' => 'required|in:KMU,IPTBM,TBI,TBI_AGRIBUS,TBI_TLU,RESEARCH,EXTENSION',
+            ], [
+                'new_role.required' => 'Please select a role.',
+                'new_role.in' => 'Invalid role selected.',
+            ]);
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            $updateData['role'] = $request->new_role;
+        }
+
+        if (empty($updateData)) {
+            return back()->with('error', 'No changes were made.');
+        }
+
+        $admin->update($updateData);
+
+        // Update session if the logged-in user changed their own username or role
+        if ($admin->id == session('admin_id')) {
+            if (isset($updateData['user'])) {
+                session()->put('admin_user', $updateData['user']);
+            }
+            if (isset($updateData['role'])) {
+                session()->put('admin_role', $updateData['role']);
+                // If role changed, log out to refresh permissions
+                return redirect()->route('admin.login')->with('success', 'Role updated successfully. Please login again.');
+            }
+        }
+
+        return back()->with('success', 'Account updated successfully.');
+
+    } catch (\Exception $e) {
+        return back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
     }
+}
+
 
     // === Delete Account ===
     public function destroy($id)

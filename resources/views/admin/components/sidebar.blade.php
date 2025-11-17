@@ -162,7 +162,7 @@
         @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
             <a href="{{ route('admin.notifications') }}"
                 class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
-                <i class="bi bi-bell me-2"></i> For Commercialization
+                <i class="bi bi-bell me-2"></i> Commercialization
                 @if ($newApplicationsCount > 0)
                     <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
                 @endif
@@ -170,7 +170,7 @@
         @else
             <div class="accordion-button sidebar-item disabled-item"
                 data-tooltip="Access restricted to IPTBM and KMU">
-                <i class="bi bi-bell me-2"></i> For Commercialization
+                <i class="bi bi-bell me-2"></i> Commercialization
                 @if ($newApplicationsCount > 0)
                     <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
                 @endif

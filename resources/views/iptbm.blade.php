@@ -172,6 +172,7 @@
 
                         </div>
                     </div>
+                    <hr class="mt-5" style="width:70%; margin: 0 auto;">
                     <h5 class="text-center section-title my-3" data-aos="fade-up" data-aos-duration="1500">
                         We are glad to <span class="title-highlight">help!</span>
                     </h5>
