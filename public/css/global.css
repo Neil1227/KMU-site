@@ -10,7 +10,144 @@
     --btn-gold:rgb(255, 149, 0);
     --btn-hover-gold:rgb(255, 123, 0);
 }
+#region {
+    max-height: 150px;  /* limits the height of dropdown when expanded */
+    font-size: 0.85rem; /* smaller font */
+}
+.region-search {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
 
+.region-search:focus {
+    border-color: #007bff; /* bootstrap primary blue */
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+.region-select {
+    width: 100%;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+
+
+/* Modal Background */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  width: 95%;
+  max-width: 450px;
+  padding: 25px;
+  border-radius: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.modal-desc {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+form label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+select, input[type="radio"] {
+  margin-top: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.radio-group label {
+  display: block;
+  margin: 5px 0;
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Success Section */
+.hidden {
+  display: none;
+}
+
+.success-icon {
+  font-size: 50px;
+  color: #16a34a;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.open-demo-btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.open-demo-btn:hover {
+  background: #1d4ed8;
+}
 
 /* Do this instead */
 * {

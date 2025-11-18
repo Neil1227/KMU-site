@@ -11,6 +11,7 @@ use App\Http\Controllers\Kmu_thesisController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MediaResourceController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\DemographicController;
 // Uploading Controllers
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\NotificationController;
@@ -26,6 +27,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/demographic/store', [DemographicController::class, 'store']);
+
 
 // All records page
 Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])

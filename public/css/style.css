@@ -184,7 +184,67 @@
             font-size: .9rem;
         }
         }
+    /* Modal base */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000; /* Elevated but below SweetAlert which uses higher z-index */
+      padding: 1rem;
+    }
 
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2100;
+    }
+
+    .modal-title { font-weight: 700; font-size: 1.25rem; margin-bottom: 0.25rem; }
+    .modal-desc  { color: #555; margin-bottom: 1rem; }
+
+    /* Close (X) */
+    .modal-close {
+      position: absolute;
+      right: 0.6rem;
+      top: 0.6rem;
+      background: transparent;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #444;
+    }
+
+    /* Basic inputs */
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+      margin-bottom: 0.75rem;
+    }
+
+    .radio-group label { display: block; margin-bottom: 0.25rem; cursor: pointer; }
+
+    /* Prevent scroll on body when modal open */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 480px) {
+      .modal-content { padding: 1rem; }
+    }
          /* Footer Styling */
          footer {
             flex: 1;
