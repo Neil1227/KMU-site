@@ -11,6 +11,15 @@
     </div>
 
     <hr class="border-secondary w-100">
+
+    {{-- VISITORS Section --}}
+    <h5 class="mt-4 mb-2">VISITORS</h5>
+
+    <a href="{{ route('admin.visitors') }}"
+        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.visitors' ? 'active' : 'collapsed' }}">
+        <i class="bi bi-people-fill me-2"></i> Visitor Profiles
+    </a>
+    
     {{-- RESEARCH Section --}}
     <h5 class="mt-4 mb-2">Research</h5>
     @if (session('admin_role') !== 'KMU' && session('admin_role') !== 'RESEARCH')

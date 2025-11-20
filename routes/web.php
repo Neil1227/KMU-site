@@ -30,6 +30,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/demographic/store', [DemographicController::class, 'store']);
 
+Route::get('/admin/visitors', [DemographicController::class, 'index'])
+    ->name('admin.visitors');
+Route::get('/dashboard', [DemographicController::class, 'index'])->name('dashboard');
+Route::delete('admin/demographics/{id}', [DemographicController::class, 'destroy']);
+
+// Updates
+// routes/web.php
+use App\Http\Controllers\PostController;
+
+// Display updates page
+Route::get('/updates', [PostController::class, 'index'])->name('updates.index');
+
+
+
+// For upload page
 
 // All records page
 Route::get('/admin/database/records', [DatabaseController::class, 'allRecords'])

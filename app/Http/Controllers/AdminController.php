@@ -13,6 +13,7 @@ use App\Models\PromotionalActivity;
 use App\Models\RecentActivity;
 use App\Models\RegisteredTechnology;
 use App\Models\Technology;
+use App\Models\Demographic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -142,7 +143,7 @@ class AdminController extends Controller
             'podcast' => Podcast::latest()->get(),
             'technologies' => Technology::latest()->get(),
             'recentActivities' => RecentActivity::latest()->take(3)->get(),
-            'totalPageViews' => DB::table('page_views')->sum('count'),
+            'totalVisitors' => Demographic::count(),
         ];
     }
 }

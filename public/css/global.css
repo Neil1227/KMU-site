@@ -14,6 +14,18 @@
     max-height: 150px;  /* limits the height of dropdown when expanded */
     font-size: 0.85rem; /* smaller font */
 }
+/* Make the body a flex container */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should expand to fill available space */
+main, .container {
+    flex: 1 0 auto;
+}
 .region-search {
     width: 100%;
     padding: 8px 12px;
@@ -39,7 +51,6 @@
     padding: 4px 8px;
     box-sizing: border-box;
 }
-
 
 /* Modal Background */
 .modal {
@@ -291,8 +302,8 @@ mark {
 }
 /* Footer Styling */
 footer {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  text-align: center;
-  color: white;
+    flex-shrink: 0;
+    background-color: #f8f8f8; /* optional */
+    text-align: center;
+    padding: 15px 0;
 }

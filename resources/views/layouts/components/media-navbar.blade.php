@@ -17,22 +17,33 @@
         <div class="collapse navbar-collapse" id="navbarNav" data-aos="fade-in" data-aos-delay="100">
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'home' ? 'active' : '' }}" href="{{ url('/homepage') }}#media-resources">Home</a>
+                    <a class="nav-link text-white {{ $active == 'home' ? 'active' : '' }}"
+                        href="{{ url('/homepage') }}#media-resources">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'ictv' ? 'active' : '' }}" href="{{ route('ictv') }}">ICTV</a>
+                    <a class="nav-link text-white {{ $active == 'updates' ? 'active' : '' }}"
+                        href="{{ url('/updates') }}">Updates</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'iec' ? 'active' : '' }}" href="{{ route('iec') }}">IEC Materials</a>
+                    <a class="nav-link text-white {{ $active == 'ictv' ? 'active' : '' }}"
+                        href="{{ route('ictv') }}">ICTV</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'newsletter' ? 'active' : '' }}" href="{{ route('newsletter') }}">Newsletter</a>
+                    <a class="nav-link text-white {{ $active == 'iec' ? 'active' : '' }}" 
+                        href="{{ route('iec') }}">IEC
+                            Materials</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'modules' ? 'active' : '' }}" href="{{ route('modules') }}">Modules</a>
+                    <a class="nav-link text-white {{ $active == 'newsletter' ? 'active' : '' }}"
+                        href="{{ route('newsletter') }}">Newsletter</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ $active == 'tech-portfolio' ? 'active' : '' }}" href="{{ route('tech-portfolio') }}">Tech Portfolio</a>
+                    <a class="nav-link text-white {{ $active == 'modules' ? 'active' : '' }}"
+                        href="{{ route('modules') }}">Modules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ $active == 'tech-portfolio' ? 'active' : '' }}"
+                        href="{{ route('tech-portfolio') }}">Tech Portfolio</a>
                 </li>
             </ul>
         </div>

@@ -43,12 +43,14 @@
                         <li class="dropdown-submenu">
                             <a class="dropdown-item text-dark" href="#">Knowledge Management Unit</a>
                             <ul class="dropdown-menu submenu">
-                                <li><a class="dropdown-item text-dark" href="{{ route('plagscan') }}">Plagiarism
-                                        Scan</a></li>
-                                <li><a class="dropdown-item text-dark" href="{{ route('promotional') }}">Promotional
-                                        Activities</a></li>
                                 <li><a class="dropdown-item text-dark" href="{{ route('podcast') }}">Knowledge
                                         Sharing</a></li>
+                                <li><a class="dropdown-item text-dark" href="{{ route('promotional') }}">Promotional
+                                        Activities</a></li>
+                                <li><a class="dropdown-item text-dark" href="{{ route('plagscan') }}">Plagiarism
+                                        Scan</a></li>
+
+
                             </ul>
                         </li>
                         <li class="dropdown-submenu">

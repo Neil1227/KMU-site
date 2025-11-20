@@ -28,9 +28,9 @@
 
     <main class="page-wrapper">
         @yield('content')
-        <div class="loader-wrapper " id="preloader">
+        {{-- <div class="loader-wrapper " id="preloader">
             <div class="loader"></div>
-        </div>
+        </div> --}}
         <!-- include('layouts.components.chatbox') pay to use only for chatbot -->
     </main>
 
