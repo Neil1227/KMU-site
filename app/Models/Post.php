@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['admin_id', 'type', 'title', 'description', 'tags'];
+    protected $fillable = ['admin_id', 'type', 'title', 'description', 'tags', 'sdg_target_indicators'];
+
 
     public function admin()
     {
@@ -16,8 +17,28 @@ class Post extends Model
 
 
     protected $casts = [
-        'tags' => 'array', // automatically convert comma-separated string to array (if you use accessor/mutator)
+        'tags' => 'array',
+        'sdg_target_indicators' => 'array', // new line
     ];
+
+    // Accessor (optional, Laravel 10+ can do this automatically with $casts)
+    public function getSdgTargetIndicatorsAttribute($value)
+    {
+        return $value ? explode(',', $value) : [];
+    }
+
+    // Mutator
+    public function setSdgTargetIndicatorsAttribute($value)
+    {
+        $this->attributes['sdg_target_indicators'] = is_array($value) ? implode(',', $value) : $value;
+    }
+
+    // In PostMedia.php
+    public function getFilePathAttribute()
+    {
+        // Assuming your media files are stored in storage/app/public/uploads
+        return $this->file_name ? asset('storage/' . $this->file_name) : null;
+    }
 
     public function media()
     {

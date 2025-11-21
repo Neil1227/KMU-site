@@ -89,7 +89,6 @@
     object-fit: cover;
     transition: transform 0.3s ease;
 }
-
 /* ========================
    Post Content
 ======================== */
@@ -117,14 +116,35 @@
 .post-footer {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     font-size: 12px;
     color: #888;
 }
 
+/* Meta (Posted by + SDG Indicators) */
+.post-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.sdg-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.badge {
+    font-size: 11px;
+    padding: 2px 6px;
+}
+
+/* SDG Tags */
 .tags {
     display: flex;
     gap: 6px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .tag-icon {
@@ -132,6 +152,7 @@
     height: 20px;
     object-fit: contain;
 }
+
 
 /* ========================
    Sidebar

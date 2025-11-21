@@ -1,0 +1,229 @@
+/* ============================
+   POSTS GRID
+============================ */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* ============================
+   POST CARD
+============================ */
+.post-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Media */
+.post-media {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+/* More Media badge */
+.more-media {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin: 5px 0;
+}
+
+/* ============================
+   Post Content
+============================ */
+.post-content {
+    padding: 12px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post-content h6 {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.post-content p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 12px;
+    color: #888;
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.sdg-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.badge {
+    font-size: 11px;
+    padding: 2px 6px;
+}
+
+/* SDG Tags */
+.tags {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tag-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Action Buttons */
+.action-buttons .btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+
+/* ============================
+   TAG ICONS
+============================ */
+.tags {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.tag-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+.action-buttons .btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.sdg-badge-wrapper {
+    position: relative;
+}
+
+.sdg-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    transition: all 0.2s;
+    cursor: pointer;
+    padding: 4px;
+    background-color: #fff;
+}
+
+.sdg-badge img {
+    width: 28px;
+    height: 28px;
+}
+
+.sdg-checkbox:checked + .sdg-badge {
+    border-color: #28a745; /* Green border when selected */
+ 
+}
+.dropzone.border-dashed {
+    border: 2px dashed #6c757d;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dropzone.border-dashed:hover {
+    background-color: #e9ecef;
+    border-color: #495057;
+}
+
+.dropzone.dragover {
+    border-color: #28a745;
+    background-color: #e6ffe6;
+}
+
+
+/* ============================
+   NO CONTENT DISPLAY
+============================ */
+.no-content-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.no-content-card .card-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.no-content-card h4 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.no-content-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* ============================
+   FILTER BUTTONS
+============================ */
+.filter-btn {
+    border: 1px solid #28a745;
+    color: #28a745;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.filter-btn.active {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}

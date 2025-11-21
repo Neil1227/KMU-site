@@ -48,18 +48,15 @@
                         <i class="bi bi-link-45deg"></i> Links
                     </button>
                     <!-- Admin Dropdown -->
-                    <div class="admin-dropdown">
-                        <select id="admin-select" onchange="setAdminFilter(this.value)" class="filter-select">
-                            <option value="" disabled selected>Filter by Offices</option> <!-- placeholder -->
-                            <option value="all">All content</option>
-                            <option value="EXTENSION">Extension Office</option>
-                            <option value="RESEARCH">Research Office</option>
-                            <option value="KMU">KM Office</option>
-                            <option value="IPTBM">IPTBM Office</option>
-                            <option value="TBI">Sibul-TBI Office</option>
-                        </select>
-
-                    </div>
+                    <select class="form-select ms-auto" id="admin-select" onchange="setAdminFilter(this.value)"
+                        style="width:auto;">
+                        <option value="all">All Offices</option>
+                        <option value="EXTENSION">Extension Office</option>
+                        <option value="RESEARCH">Research Office</option>
+                        <option value="KMU">KM Office</option>
+                        <option value="IPTBM">IPTBM Office</option>
+                        <option value="TBI">Sibul-TBI Office</option>
+                    </select>
                 </div>
 
                 <!-- Posts Grid -->
@@ -125,17 +122,31 @@
                                     @endif
                                 @endif
                             </div>
-
                             {{-- POST CONTENT --}}
                             <div class="post-content">
                                 <h3 class="highlight">{{ $post->title }}</h3>
                                 <p>{{ $post->description }}</p>
 
                                 <div class="post-footer">
-                                    <span>Posted by {{ ucfirst(strtolower($post->admin->role ?? 'Unknown')) }}
-                                        | {{ $post->created_at->diffForHumans() }}</span>
+                                    {{-- Posted By & Time --}}
+                                    <div class="post-meta">
+                                        <span>
+                                            Posted by {{ strtoupper($post->admin->role ?? 'UNKNOWN') }} |
+                                            {{ $post->created_at->diffForHumans() }}
+                                        </span>
 
-                                    {{-- TAGS --}}
+                                        {{-- SDG Target Indicators --}}
+                                        @if (!empty($post->sdg_target_indicators))
+                                            <div class="sdg-indicators mt-1">
+                                                <span>SDGs Target Indicators:</span>
+                                                @foreach ($post->sdg_target_indicators as $indicator)
+                                                    <span>{{ $indicator }}</span>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    {{-- SDG Tags --}}
                                     <div class="tags">
                                         @if (!empty($post->tags))
                                             @php
@@ -153,6 +164,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
                     @endforeach

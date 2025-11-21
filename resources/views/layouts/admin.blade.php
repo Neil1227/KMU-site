@@ -55,7 +55,7 @@
 
                     {{-- Dynamic Content --}}
                     <!-- Loader for Large File Overlay -->
-                    <div id="upload-loader">
+                    {{-- <div id="upload-loader">
                         <div style="
                                 border:6px solid #f85e0a;
                                 border-top:6px solid #1c366a;
@@ -64,7 +64,7 @@
                                 height:60px;
                                 animation:spin 1s linear infinite;"></div>
                         <p style="margin-top:10px;font-size:16px;color:#333;">Uploading, please wait...</p>
-                    </div>
+                    </div> --}}
                     @yield('content')
                 </div>
             </div>

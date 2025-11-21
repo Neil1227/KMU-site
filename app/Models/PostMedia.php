@@ -9,7 +9,7 @@ class PostMedia extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'type', 'url'];
+    protected $fillable = ['post_id', 'type', 'url', 'admin_id'];
 
     public function post()
     {
