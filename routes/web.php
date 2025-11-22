@@ -39,27 +39,14 @@ Route::delete('admin/demographics/{id}', [DemographicController::class, 'destroy
 // routes/web.php
 use App\Http\Controllers\PostController;
 
-// Display updates page and Upload pages
 Route::get('/updates', [PostController::class, 'index'])->name('updates.index');
 
 Route::prefix('admin')->group(function () {
-    // List posts
     Route::get('/upload-updates', [PostController::class, 'adminIndex'])->name('admin.upload-updates');
-
-    // Store new post
     Route::post('/updates', [PostController::class, 'store'])->name('admin.updates.store');
-
-    // Update existing post (PUT or PATCH)
-    Route::match(['put', 'patch'], '/updates/{post}', [PostController::class, 'update'])->name('admin.updates.update');
-
-    // Delete post
+    Route::get('/updates/{post}/edit', [PostController::class, 'edit'])->name('admin.updates.edit');
+    Route::put('/updates/{post}', [PostController::class, 'update'])->name('admin.updates.update');
     Route::delete('/updates/{post}', [PostController::class, 'destroy'])->name('admin.updates.destroy');
-
-    // Get post data as JSON for editing
-    Route::get('/updates/{post}/json', [PostController::class, 'json'])->name('admin.updates.json');
-
-    // Delete individual media
-    Route::delete('/media/{media}', [PostController::class, 'destroyMedia'])->name('admin.media.destroy');
 });
 
 

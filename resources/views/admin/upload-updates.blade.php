@@ -139,8 +139,10 @@
 
                                     {{-- Action Buttons --}}
                                     <div class="action-buttons mt-2 d-flex gap-1">
-                                        <button type="button" class="btn btn-sm btn-primary btn-edit" title="Edit Post"><i
-                                                class="bi bi-pencil"></i> Edit</button>
+                                        <button type="button" class="btn btn-sm btn-primary edit-post-btn"
+                                            data-id="{{ $post->id }}" title="Edit Post"><i class="bi bi-pencil"></i>
+                                            Edit</button>
+
                                         <button type="button" class="btn btn-sm btn-danger delete-post-btn"
                                             title="Delete Post"><i class="bi bi-trash"></i> Delete</button>
                                     </div>
@@ -246,59 +248,30 @@
     <!-- Edit Post Modal -->
     <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="editPostLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h5 class="modal-title text-white" id="editPostLabel">
-                        <i class="bi bi-pencil"></i> Edit Post
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
+            <form id="edit-post-form" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" id="edit-post-id">
 
-<form id="edit-post-form" method="POST" enctype="multipart/form-data" action="{{ route('admin.updates.update', ['post' => 0]) }}">
-                    @csrf
-                    @method('PUT')
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title text-white" id="editPostLabel"><i class="bi bi-pencil"></i> Edit Post</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
 
                     <div class="modal-body">
-
-                        <input type="hidden" name="post_id" id="edit-post-id">
-
-                        <!-- TITLE -->
                         <div class="mb-3">
-                            <label for="edit-title" class="form-label">Title</label>
-                            <input type="text" name="title" id="edit-title" class="form-control" required>
+                            <label>Title</label>
+                            <input type="text" id="edit-title" name="title" class="form-control" required>
                         </div>
 
-                        <!-- DESCRIPTION -->
                         <div class="mb-3">
-                            <label for="edit-description" clas s="form-label">Description</label>
-                            <textarea name="description" id="edit-description" rows="3" class="form-control"></textarea>
+                            <label>Description</label>
+                            <textarea id="edit-description" name="description" class="form-control" rows="3"></textarea>
                         </div>
 
-                        <!-- EXISTING MEDIA -->
                         <div class="mb-3">
-                            <label class="form-label">Existing Media</label>
-                            <div id="existing-media" class="d-flex gap-2 flex-wrap"></div>
-                        </div>
-
-                        <!-- UPLOAD NEW MEDIA -->
-                        <div class="mb-3">
-                            <label class="form-label">Add New Media</label>
-                            <input type="file" name="media[]" class="form-control" multiple>
-                        </div>
-
-                        <!-- SDG TARGET INDICATORS -->
-                        <div class="mb-3">
-                            <label for="edit-sdg-target-indicators" class="form-label">SDG Target Indicators</label>
-                            <input type="text" name="sdg_target_indicators" id="edit-sdg-target-indicators"
-                                class="form-control" placeholder="e.g., 1,2,3">
-                            <small class="text-muted">Separate indicators with commas</small>
-                        </div>
-
-                        <!-- SDG ICON CHECKBOXES -->
-                        <div class="mb-3">
-                            <label class="form-label">SDG Tags</label>
-                            <div class="sdg-tags d-flex flex-wrap gap-2">
-
+                            <label>SDG Tags</label>
+                            <div id="sdg-tags" class="d-flex flex-wrap gap-2">
                                 @for ($i = 1; $i <= 17; $i++)
                                     <div class="sdg-badge-wrapper">
                                         <input type="checkbox" id="edit-sdg-{{ $i }}" name="tags[]"
@@ -309,30 +282,42 @@
                                         </label>
                                     </div>
                                 @endfor
-
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label>Existing Media</label>
+                            <div id="existing-media" class="d-flex gap-2 flex-wrap"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Upload New Media (optional)</label>
+                            <input type="file" name="media[]" multiple class="form-control">
+                            <small class="text-muted">Uploading new media will replace existing media.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>SDG Target Indicators</label>
+                            <input type="text" id="edit-sdg-target-indicators" name="sdg_target_indicators"
+                                class="form-control" placeholder="e.g., 1.2.2, 2.3.a">
+                        </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Update Post</button>
                     </div>
-
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-
-
-
-
 
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     {{-- glight init --}}
     <script>
@@ -478,200 +463,109 @@
         });
     </script>
 
-{{-- Edit Post Population --}}
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const editModalEl = document.getElementById('editPostModal');
-    const editModal = new bootstrap.Modal(editModalEl);
-
-    const mediaContainer = document.getElementById('existing-media');
-    const mediaInput = document.getElementById('edit-media-input'); // <input type="file" multiple>
-
-    // -------------------------------
-    // Clear media previews
-    // -------------------------------
-    const clearMediaPreviews = () => mediaContainer.innerHTML = '';
-
-    // -------------------------------
-    // Show previews from existing media (from backend)
-    // -------------------------------
-    const showExistingMedia = (mediaArray) => {
-        clearMediaPreviews();
-        if (!Array.isArray(mediaArray)) return;
-
-        mediaArray.forEach(file => {
-            let previewHtml = '';
-            const fileUrl = file.file_path.startsWith('http') ? file.file_path : `/storage/${file.file_path}`;
-
-            if (file.file_type === 'image') {
-                previewHtml = `<img src="${fileUrl}" class="rounded border me-2 mb-2" style="width:80px;height:80px;object-fit:cover;">`;
-            } else if (file.file_type === 'video') {
-                previewHtml = `<video width="100" height="80" class="rounded border me-2 mb-2" controls>
-                                    <source src="${fileUrl}">
-                               </video>`;
-            } else {
-                previewHtml = `<a href="${fileUrl}" target="_blank" class="btn btn-sm btn-outline-primary me-2 mb-2">${file.file_name}</a>`;
-            }
-
-            mediaContainer.innerHTML += previewHtml;
-        });
-    };
-
-    // -------------------------------
-    // Show previews for newly selected files
-    // -------------------------------
-    if (mediaInput) {
-        mediaInput.addEventListener('change', () => {
-            const files = Array.from(mediaInput.files);
-            clearMediaPreviews();
-
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const preview = document.createElement('img');
-                    preview.src = e.target.result;
-                    preview.classList.add('rounded', 'border', 'me-2', 'mb-2');
-                    preview.style.width = '80px';
-                    preview.style.height = '80px';
-                    preview.style.objectFit = 'cover';
-                    mediaContainer.appendChild(preview);
-                };
-                reader.readAsDataURL(file);
-            });
-        });
-    }
-
-    // -------------------------------
-    // Populate edit modal
-    // -------------------------------
-    const populateModal = async (postId) => {
-        try {
-            const response = await fetch(`/admin/updates/${postId}/json`);
-            const contentType = response.headers.get('content-type');
-
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('Server did not return JSON');
-            }
-
-            const post = await response.json();
-
-            // Basic fields
-            document.getElementById('edit-post-id').value = post.id;
-            document.getElementById('edit-title').value = post.title;
-            document.getElementById('edit-description').value = post.description ?? '';
-
-            // SDG Target Indicators
-            document.getElementById('edit-sdg-target-indicators').value = 
-                Array.isArray(post.sdg_target_indicators) ? post.sdg_target_indicators.join(',') : '';
-
-            // SDG Tags
-            document.querySelectorAll('.sdg-checkbox').forEach(cb => cb.checked = false);
-            if (Array.isArray(post.tags)) {
-                post.tags.forEach(tag => {
-                    const cb = document.getElementById(`edit-sdg-${tag}`);
-                    if (cb) cb.checked = true;
-                });
-            }
-
-            // Existing media
-            showExistingMedia(post.media);
-
-            // Clear file input on open (so selecting new files will replace previews)
-            if (mediaInput) mediaInput.value = '';
-
-            // Show modal
-            editModal.show();
-
-        } catch (err) {
-            console.error('Failed to fetch post data:', err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Unable to Load Post',
-                text: 'There was an error loading the post data.',
-                confirmButtonColor: '#3085d6'
-            });
-        }
-    };
-
-    // -------------------------------
-    // Bind edit buttons
-    // -------------------------------
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const postId = btn.closest('.post-card').dataset.id;
-            populateModal(postId);
-        });
-    });
-});
-</script>
-
-
-
-
-    {{-- delete media --}}
+    {{-- Edit Post Population --}}
     <script>
-        document.addEventListener('click', async function(e) {
-            if (e.target.classList.contains('delete-media-btn')) {
+        document.addEventListener("DOMContentLoaded", () => {
 
-                const mediaId = e.target.dataset.mediaId;
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]')
+                .content;
 
-                const confirm = await Swal.fire({
-                    icon: 'warning',
-                    title: "Delete media?",
-                    text: "This file will be permanently removed.",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
+            document.querySelectorAll('.edit-post-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+
+                    const postId = this.dataset.id;
+                    const url = `/admin/updates/${postId}/edit`;
+                    const updateUrl = `/admin/updates/${postId}`;
+
+                    axios.get(url)
+                        .then(res => {
+                            const data = res.data;
+
+                            // Fill form fields
+                            document.getElementById('edit-post-id').value = data.id;
+                            document.getElementById('edit-title').value = data.title;
+                            document.getElementById('edit-description').value = data
+                            .description;
+                            document.getElementById('edit-sdg-target-indicators').value = data
+                                .sdg_target_indicators;
+                            document.getElementById('edit-post-form').action = updateUrl;
+
+                            // Highlight SDG tags
+                            const savedTags = data.tags.map(tag => parseInt(
+                            tag)); // array of numbers
+                            const sdgWrappers = document.querySelectorAll(
+                                '#sdg-tags .sdg-badge-wrapper');
+
+                            sdgWrappers.forEach(wrapper => {
+                                const checkbox = wrapper.querySelector(
+                                    'input[type="checkbox"]');
+                                const isChecked = savedTags.includes(parseInt(checkbox
+                                    .value));
+
+                                checkbox.checked = isChecked;
+
+                                // Add or remove the selected class for styling
+                                if (isChecked) {
+                                    wrapper.classList.add('selected');
+                                } else {
+                                    wrapper.classList.remove('selected');
+                                }
+                            });
+
+                            // Media preview
+                            const mediaContainer = document.getElementById('existing-media');
+                            mediaContainer.innerHTML = '';
+                            if (data.media.length === 0) {
+                                mediaContainer.innerHTML =
+                                    `<p class="text-muted">No media available</p>`;
+                            } else {
+                                data.media.forEach(m => {
+                                    let preview = '';
+                                    if (m.type.startsWith('image')) {
+                                        preview =
+                                            `<img src="/storage/${m.url}" class="img-thumbnail" width="120">`;
+                                    } else if (m.type.startsWith('video')) {
+                                        preview =
+                                            `<video width="160" controls><source src="/storage/${m.url}"></video>`;
+                                    } else {
+                                        preview =
+                                            `<a href="/storage/${m.url}" target="_blank" class="btn btn-outline-secondary btn-sm">View File</a>`;
+                                    }
+                                    mediaContainer.innerHTML += `<div>${preview}</div>`;
+                                });
+                            }
+
+                            // Show modal
+                            new bootstrap.Modal(document.getElementById('editPostModal'))
+                        .show();
+
+                        })
+                        .catch(() => Swal.fire("Error", "Failed to load post data", "error"));
                 });
+            });
 
-                if (!confirm.isConfirmed) return;
+            // Submit update
+            document.getElementById('edit-post-form').addEventListener('submit', function(e) {
+                e.preventDefault();
 
-                const response = await fetch(`/admin/media/${mediaId}/delete`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    }
+                let formData = new FormData(this);
+                formData.append('_method', 'PUT');
+
+                axios.post(this.action, formData)
+                    .then(() => Swal.fire("Success", "Post updated successfully", "success").then(() =>
+                        location.reload()))
+                    .catch(() => Swal.fire("Error", "Update failed", "error"));
+            });
+
+            // Toggle SDG badges on click (for both add and edit modals)
+            document.querySelectorAll('.sdg-badge-wrapper').forEach(wrapper => {
+                wrapper.addEventListener('click', function() {
+                    const checkbox = wrapper.querySelector('.sdg-checkbox');
+                    checkbox.checked = !checkbox.checked;
+                    wrapper.classList.toggle('selected', checkbox.checked);
                 });
+            });
 
-                if (response.ok) {
-                    e.target.parentElement.remove(); // Remove preview from modal
-                } else {
-                    Swal.fire("Error", "Failed to delete media.", "error");
-                }
-            }
-        });
-    </script>
-
-    {{-- swal for delete media --}}
-    <script>
-        document.addEventListener('click', async function(e) {
-            if (e.target.classList.contains('delete-media-btn')) {
-                const mediaId = e.target.dataset.mediaId;
-
-                const confirm = await Swal.fire({
-                    icon: 'warning',
-                    title: "Delete media?",
-                    text: "This file will be permanently removed.",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                });
-
-                if (!confirm.isConfirmed) return;
-
-                const response = await fetch(`/admin/media/${mediaId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    }
-                });
-
-                if (response.ok) {
-                    e.target.parentElement.remove(); // Remove preview from modal
-                    Swal.fire("Deleted!", "Media has been removed.", "success");
-                } else {
-                    Swal.fire("Error", "Failed to delete media.", "error");
-                }
-            }
         });
     </script>
 @endpush

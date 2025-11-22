@@ -132,40 +132,59 @@ class PostController extends Controller
         return back()->with('success', 'Post created successfully!');
     }
 
-    // Update post
-    public function update(Request $request, $id)
-    {
-        $post = Post::findOrFail($id);
+// Load post data for edit
+public function edit($id)
+{
+    $post = Post::with('media')->findOrFail($id);
 
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'sdg_target_indicators' => 'nullable|string',
-            'tags' => 'nullable|array',
-            'media.*' => 'nullable|file|mimes:jpg,jpeg,png,webp,mp4,mov'
-        ]);
+    return response()->json([
+        'id' => $post->id,
+        'title' => $post->title,
+        'description' => $post->description,
+        'sdg_target_indicators' => $post->sdg_target_indicators,
+        'tags' => $post->tags ?? [], // always array thanks to mutator
+        'media' => $post->media,
+    ]);
+}
 
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->sdg_target_indicators = $request->sdg_target_indicators
-            ? array_map('trim', explode(',', $request->sdg_target_indicators))
-            : [];
-        $post->tags = $request->tags ?? [];
-        $post->save();
+// Update post
+public function update(Request $request, $id)
+{
+    $post = Post::with('media')->findOrFail($id);
 
-        // Handle new media uploads
-        if ($request->hasFile('media')) {
-            foreach ($request->file('media') as $file) {
-                $path = $file->store('uploads', 'public');
-                $post->media()->create([
-                    'url' => $path,
-                    'type' => in_array($file->extension(), ['mp4', 'mov']) ? 'video' : 'image'
-                ]);
-            }
+    // Update main fields
+    $post->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'sdg_target_indicators' => $request->sdg_target_indicators,
+        'tags' => $request->tags, // mutator converts array to CSV
+    ]);
+
+    // Replace media if new files uploaded
+    if ($request->hasFile('media')) {
+        foreach ($post->media as $m) {
+            Storage::disk('public')->delete($m->url);
+            $m->delete();
         }
 
-        return response()->json(['success' => true, 'message' => 'Post updated successfully']);
+        foreach ($request->file('media') as $file) {
+            $path = $file->store('uploads', 'public');
+
+            PostMedia::create([
+                'post_id' => $post->id,
+                'type' => $file->getMimeType(),
+                'url' => $path,
+                'admin_id' => session('admin_id'),
+            ]);
+        }
     }
+
+    return response()->json(['success' => true]);
+}
+
+
+
+
 
     // Delete post
     public function destroy(Post $post)
