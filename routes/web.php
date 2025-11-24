@@ -52,6 +52,9 @@ Route::post('/admin/posts/{id}/approve', [PostController::class, 'approve'])
     ->name('admin.posts.approve');
 
 
+use App\Http\Controllers\SdgController;
+
+Route::get('/sdgs', [SdgController::class, 'index']);
 
 // For upload page
 
