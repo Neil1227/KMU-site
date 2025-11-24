@@ -179,14 +179,13 @@ Route::post('/admin/push-to-iptbm', [Kmu_thesisController::class, 'pushToIptbm']
     ->name('admin.pushToIptbm');
 
 // for extension
-Route::post('/extensions/push/{id}', [ExtensionController::class, 'pushToExtension'])
-    ->name('extensions.push');
+Route::post('/extensions/push/{id}', [ExtensionController::class, 'pushToExtension'])->name('extensions.push');
 Route::get('/admin/extensions', [ExtensionController::class, 'index'])
     ->name('admin.extensions.index');
 Route::delete('/admin/extensions/delete/{id}', [ExtensionController::class, 'destroy'])
     ->name('admin.extensions.destroy');
 
-Route::post('/admin/extensions/push/{id}', [ExtensionController::class, 'pushfromrecords'])->name('extensions.push');
+Route::post('/admin/extensions/push/{id}', [ExtensionController::class, 'pushfromrecords'])->name('admin.extensions.push');
 
 // technology admin
 Route::get('/technology-table', [TechnologyController::class, 'table'])->name('admin.technology-table');

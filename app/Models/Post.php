@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['admin_id', 'type', 'title', 'description', 'tags', 'sdg_target_indicators'];
+    protected $fillable = ['admin_id', 'type', 'title', 'description', 'tags', 'sdg_target_indicators','link'];
 
 
     public function admin()

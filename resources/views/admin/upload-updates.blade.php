@@ -91,11 +91,10 @@
                                             @endif
                                         @elseif ($post->type === 'file' || $post->type === 'link')
                                             @if ($index === 0)
-                                                <a href="{{ asset('storage/' . $media->url) }}" target="_blank"
-                                                    class="d-block mb-2 file-link">
-                                                    <i
-                                                        class="bi bi-file-earmark-text me-1"></i>{{ $media->filename ?? ($media->title ?? 'File/Link') }}
-                                                </a>
+                                                <a href="{{ asset('storage/' . $post->media->first()->url) }}"
+                                                    target="_blank" class="glightbox"> <img
+                                                        src="{{ asset('assets/img/media_thumbnail/ICTv.png') }}"
+                                                        alt="file icon" class="post-media"> </a>
                                             @endif
                                         @endif
                                     @endforeach
@@ -137,6 +136,7 @@
                                         </div>
                                     </div>
 
+                                    {{-- Action Buttons --}}
                                     {{-- Action Buttons --}}
                                     <div class="action-buttons mt-2 d-flex gap-1">
                                         <button type="button" class="btn btn-sm btn-primary edit-post-btn"
@@ -286,15 +286,21 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Existing Media</label>
-                            <div id="existing-media" class="d-flex gap-2 flex-wrap"></div>
-                        </div>
-
-                        <div class="mb-3">
                             <label>Upload New Media (optional)</label>
-                            <input type="file" name="media[]" multiple class="form-control">
+                            <div class="dropzone border dash p-3 text-center" id="edit-media-dropzone">
+                                <i class="bi bi-upload" style="font-size: 2rem;"></i>
+                                <p>Drag & drop files here or click to upload</p>
+                                <input type="file" name="media[]" multiple class="form-control d-none">
+                            </div>
                             <small class="text-muted">Uploading new media will replace existing media.</small>
                         </div>
+
+
+                        <div class="mb-3">
+                            <label>Existing Media</label>
+                            <div id="edit-existing-media" class="d-flex gap-2 flex-wrap"></div>
+                        </div>
+
 
                         <div class="mb-3">
                             <label>SDG Target Indicators</label>
@@ -317,102 +323,68 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    {{-- glight init --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener("DOMContentLoaded", () => {
 
-            // Initialize GLightbox
-            const lightbox = GLightbox({
-                touchNavigation: true,
-                loop: true,
-            });
+            // ===== Dropzone Utility =====
+            function initDropzone(dropzoneId) {
+                const dropzone = document.getElementById(dropzoneId);
+                if (!dropzone) return {
+                    droppedFiles: []
+                };
 
-            // Delete Post
-            document.querySelectorAll('.delete-post-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const postCard = this.closest('.post-card');
-                    const postId = postCard.dataset.id;
+                const fileInput = dropzone.querySelector('input[type="file"]');
+                let droppedFiles = [];
+                let previewContainer = dropzone.querySelector('.preview-container');
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "This post will be deleted permanently.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            axios.delete(`/admin/updates/${postId}`)
-                                .then(res => {
-                                    if (res.data.success) {
-                                        postCard.remove();
-                                        Swal.fire('Deleted!', res.data.message,
-                                            'success');
-                                    } else {
-                                        Swal.fire('Error!', res.data.message, 'error');
-                                    }
-                                })
-                                .catch(err => {
-                                    Swal.fire('Error!', 'Something went wrong.',
-                                        'error');
-                                });
+                if (!previewContainer) {
+                    previewContainer = document.createElement('div');
+                    previewContainer.classList.add('preview-container');
+                    dropzone.appendChild(previewContainer);
+                }
+
+                dropzone.addEventListener('click', e => {
+                    if (e.target === dropzone) fileInput.click();
+                });
+
+                fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+                dropzone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    dropzone.classList.add('bg-light');
+                });
+                dropzone.addEventListener('dragleave', e => {
+                    e.preventDefault();
+                    dropzone.classList.remove('bg-light');
+                });
+                dropzone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    dropzone.classList.remove('bg-light');
+                    handleFiles(e.dataTransfer.files);
+                });
+
+                function handleFiles(files) {
+                    Array.from(files).forEach(file => {
+                        if (!droppedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                            droppedFiles.push(file);
+                            const p = document.createElement('p');
+                            p.textContent = file.name;
+                            previewContainer.appendChild(p);
                         }
                     });
-                });
-            });
+                }
 
-        });
-    </script>
-
-    {{-- adding drop zone --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // ===== Dropzone =====
-            const dropzone = document.getElementById('media-dropzone');
-            const fileInput = dropzone.querySelector('input[type="file"]');
-            let droppedFiles = [];
-
-            // Open file selector on click
-            dropzone.addEventListener('click', () => fileInput.click());
-
-            // Handle files selected from input
-            fileInput.addEventListener('change', e => handleFiles(e.target.files));
-
-            // Handle drag & drop
-            dropzone.addEventListener('dragover', e => {
-                e.preventDefault();
-                dropzone.classList.add('bg-light');
-            });
-
-            dropzone.addEventListener('dragleave', e => {
-                e.preventDefault();
-                dropzone.classList.remove('bg-light');
-            });
-
-            dropzone.addEventListener('drop', e => {
-                e.preventDefault();
-                dropzone.classList.remove('bg-light');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            // Add files without duplicates
-            function handleFiles(files) {
-                Array.from(files).forEach(file => {
-                    // Prevent duplicates
-                    if (!droppedFiles.some(f => f.name === file.name && f.size === file.size)) {
-                        droppedFiles.push(file);
-                        const p = document.createElement('p');
-                        p.textContent = file.name;
-                        dropzone.appendChild(p);
-                    }
-                });
+                return {
+                    droppedFiles
+                };
             }
 
-            // ===== SDG Tags Toggle =====
+            // ===== Initialize Dropzones =====
+            const addDrop = initDropzone('media-dropzone');
+            const editDrop = initDropzone('edit-media-dropzone');
+            let editDroppedFiles = editDrop.droppedFiles;
+
+            // ===== SDG Tag Toggle =====
             document.querySelectorAll('.sdg-badge-wrapper').forEach(wrapper => {
                 wrapper.addEventListener('click', function() {
                     const checkbox = this.querySelector('.sdg-checkbox');
@@ -421,103 +393,65 @@
                 });
             });
 
-            // ===== Form Submission =====
-            const form = document.querySelector('#update-form');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(form);
-
-                // Remove the original file input entries (so we don't send duplicates)
-                formData.delete('media[]');
-
-                // Append only droppedFiles
-                droppedFiles.forEach(file => formData.append('media[]', file));
-
-                // Append selected SDG tags manually (optional, if not already in formData)
-                document.querySelectorAll('input[name="tags[]"]:checked').forEach(cb => {
-                    formData.append('tags[]', cb.value);
-                });
-
-                axios.post(form.action, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    })
-                    .then(res => {
-                        Swal.fire('Success', 'Post uploaded successfully', 'success').then(() => {
-                            location.reload();
-                        });
-
-                        // Reset
-                        droppedFiles = [];
-                        dropzone.querySelectorAll('p').forEach(p => p.remove());
-                        form.reset();
-                    })
-                    .catch(err => {
-                        let message = err.response?.data?.message || 'Something went wrong';
-                        Swal.fire('Error', message, 'error');
+            // ===== Add Post Form =====
+            const addForm = document.getElementById('update-form');
+            if (addForm) {
+                addForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const formData = new FormData(addForm);
+                    formData.delete('media[]');
+                    addDrop.droppedFiles.forEach(file => formData.append('media[]', file));
+                    document.querySelectorAll('input[name="tags[]"]:checked').forEach(cb => {
+                        formData.append('tags[]', cb.value);
                     });
-            });
 
-        });
-    </script>
+                    axios.post(addForm.action, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        })
+                        .then(() => Swal.fire('Success', 'Post uploaded successfully', 'success').then(() =>
+                            location.reload()))
+                        .catch(err => Swal.fire('Error', err.response?.data?.message ||
+                            'Something went wrong', 'error'));
+                });
+            }
 
-    {{-- Edit Post Population --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-
-            axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]')
-                .content;
-
+            // ===== Edit Post Modal =====
             document.querySelectorAll('.edit-post-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-
                     const postId = this.dataset.id;
-                    const url = `/admin/updates/${postId}/edit`;
-                    const updateUrl = `/admin/updates/${postId}`;
-
-                    axios.get(url)
+                    axios.get(`/admin/updates/${postId}/edit`)
                         .then(res => {
                             const data = res.data;
-
-                            // Fill form fields
+                            const editForm = document.getElementById('edit-post-form');
                             document.getElementById('edit-post-id').value = data.id;
                             document.getElementById('edit-title').value = data.title;
                             document.getElementById('edit-description').value = data
-                            .description;
+                                .description;
                             document.getElementById('edit-sdg-target-indicators').value = data
                                 .sdg_target_indicators;
-                            document.getElementById('edit-post-form').action = updateUrl;
+                            editForm.action = `/admin/updates/${postId}`;
 
-                            // Highlight SDG tags
-                            const savedTags = data.tags.map(tag => parseInt(
-                            tag)); // array of numbers
-                            const sdgWrappers = document.querySelectorAll(
-                                '#sdg-tags .sdg-badge-wrapper');
-
-                            sdgWrappers.forEach(wrapper => {
-                                const checkbox = wrapper.querySelector(
-                                    'input[type="checkbox"]');
-                                const isChecked = savedTags.includes(parseInt(checkbox
-                                    .value));
-
-                                checkbox.checked = isChecked;
-
-                                // Add or remove the selected class for styling
-                                if (isChecked) {
-                                    wrapper.classList.add('selected');
-                                } else {
-                                    wrapper.classList.remove('selected');
-                                }
-                            });
+                            // SDG tags
+                            const savedTags = data.tags.map(t => parseInt(t));
+                            document.querySelectorAll('#sdg-tags .sdg-badge-wrapper').forEach(
+                                wrapper => {
+                                    const checkbox = wrapper.querySelector(
+                                        'input[type="checkbox"]');
+                                    const checked = savedTags.includes(parseInt(checkbox
+                                        .value));
+                                    checkbox.checked = checked;
+                                    wrapper.classList.toggle('selected', checked);
+                                });
 
                             // Media preview
-                            const mediaContainer = document.getElementById('existing-media');
+                            const mediaContainer = document.getElementById(
+                                'edit-existing-media');
                             mediaContainer.innerHTML = '';
                             if (data.media.length === 0) {
                                 mediaContainer.innerHTML =
-                                    `<p class="text-muted">No media available</p>`;
+                                    '<p class="text-muted">No media available</p>';
                             } else {
                                 data.media.forEach(m => {
                                     let preview = '';
@@ -531,40 +465,79 @@
                                         preview =
                                             `<a href="/storage/${m.url}" target="_blank" class="btn btn-outline-secondary btn-sm">View File</a>`;
                                     }
-                                    mediaContainer.innerHTML += `<div>${preview}</div>`;
+                                    mediaContainer.innerHTML +=
+                                        `<div class="me-2 mb-2">${preview}</div>`;
                                 });
                             }
 
-                            // Show modal
+                            // Reset dropped files
+                            editDroppedFiles.length = 0;
+                            const dropzone = document.getElementById('edit-media-dropzone');
+                            dropzone.querySelectorAll('p').forEach(p => p.remove());
+
                             new bootstrap.Modal(document.getElementById('editPostModal'))
-                        .show();
-
+                                .show();
                         })
-                        .catch(() => Swal.fire("Error", "Failed to load post data", "error"));
+                        .catch(() => Swal.fire('Error', 'Failed to load post data', 'error'));
                 });
             });
 
-            // Submit update
-            document.getElementById('edit-post-form').addEventListener('submit', function(e) {
-                e.preventDefault();
+            // ===== Edit Form Submission =====
+            const editForm = document.getElementById('edit-post-form');
+            if (editForm) {
+                editForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const formData = new FormData(editForm);
+                    formData.append('_method', 'PUT');
+                    formData.delete('media[]');
+                    editDroppedFiles.forEach(file => formData.append('media[]', file));
 
-                let formData = new FormData(this);
-                formData.append('_method', 'PUT');
-
-                axios.post(this.action, formData)
-                    .then(() => Swal.fire("Success", "Post updated successfully", "success").then(() =>
-                        location.reload()))
-                    .catch(() => Swal.fire("Error", "Update failed", "error"));
-            });
-
-            // Toggle SDG badges on click (for both add and edit modals)
-            document.querySelectorAll('.sdg-badge-wrapper').forEach(wrapper => {
-                wrapper.addEventListener('click', function() {
-                    const checkbox = wrapper.querySelector('.sdg-checkbox');
-                    checkbox.checked = !checkbox.checked;
-                    wrapper.classList.toggle('selected', checkbox.checked);
+                    axios.post(editForm.action, formData, {
+                            headers: {
+                                "Content-Type": "multipart/form-data"
+                            }
+                        })
+                        .then(() => Swal.fire('Success', 'Post updated successfully', 'success').then(() =>
+                            location.reload()))
+                        .catch(() => Swal.fire('Error', 'Update failed', 'error'));
                 });
-            });
+            }
+
+            // ===== Delete Post (Event Delegation) =====
+            const postsContainer = document.getElementById('posts-grid'); // wrap all posts with this ID
+            if (postsContainer) {
+                postsContainer.addEventListener('click', function(e) {
+                    const button = e.target.closest('.delete-post-btn');
+                    if (!button) return;
+
+                    const postCard = button.closest('.post-card'); // adjust selector
+                    const postId = postCard.dataset.id;
+                    if (!postId) return;
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "This post will be deleted permanently.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            axios.delete(`/admin/updates/${postId}`)
+                                .then(res => {
+                                    if (res.data.success) {
+                                        postCard.remove();
+                                        Swal.fire('Deleted!', res.data.message, 'success');
+                                    } else {
+                                        Swal.fire('Error!', res.data.message, 'error');
+                                    }
+                                })
+                                .catch(() => Swal.fire('Error!', 'Something went wrong.', 'error'));
+                        }
+                    });
+                });
+            }
 
         });
     </script>

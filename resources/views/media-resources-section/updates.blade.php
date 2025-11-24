@@ -68,24 +68,25 @@
 
                             {{-- MEDIA DISPLAY --}}
                             <div class="post-media-wrapper">
-                                @if ($post->type === 'file' || $post->type === 'link')
+                                @php $firstMedia = $post->media->first(); @endphp
+
+                                @if (($post->type === 'file' || $post->type === 'link') && $firstMedia)
                                     <!-- Single File -->
-                                    <a href="{{ asset('storage/' . $post->media->first()->url) }}" target="_blank"
-                                        class="glightbox">
+                                    <a href="{{ asset('storage/' . $firstMedia->url) }}" target="_blank" class="glightbox">
                                         <img src="{{ asset('storage/post/post_thumbnail/fileicon.png') }}" alt="file icon"
                                             class="post-media">
                                     </a>
-                                @elseif($post->media->count() > 0)
-                                    @php $firstMedia = $post->media->first(); @endphp
-
+                                @elseif($firstMedia)
                                     @if ($post->media->count() > 1)
-                                        <!-- Gallery -->
+                                        <!-- Multiple media with overlay -->
+                                        @php $galleryId = 'post-' . $post->id; @endphp
                                         <div class="post-gallery-wrapper">
-                                            <a href="{{ asset('storage/' . $firstMedia->url) }}" class="glightbox">
+                                            <a href="{{ asset('storage/' . $firstMedia->url) }}" class="glightbox"
+                                                data-gallery="{{ $galleryId }}">
                                                 @if ($firstMedia->type === 'image')
                                                     <img src="{{ asset('storage/' . $firstMedia->url) }}"
                                                         class="post-media" alt="{{ $post->title }}">
-                                                @elseif($firstMedia->type === 'video')
+                                                @elseif ($firstMedia->type === 'video')
                                                     <video class="post-media" muted loop playsinline>
                                                         <source src="{{ asset('storage/' . $firstMedia->url) }}"
                                                             type="video/mp4">
@@ -96,7 +97,7 @@
 
                                             @foreach ($post->media->slice(1) as $mediaItem)
                                                 <a href="{{ asset('storage/' . $mediaItem->url) }}" class="glightbox"
-                                                    data-gallery="post-{{ $post->id }}"
+                                                    data-gallery="{{ $galleryId }}"
                                                     @if ($mediaItem->type === 'video') data-type="video" @endif
                                                     title="{{ $post->title }}" style="display:none;">
                                                 </a>
@@ -110,7 +111,7 @@
                                                 <img src="{{ asset('storage/' . $firstMedia->url) }}" class="post-media"
                                                     alt="{{ $post->title }}">
                                             </a>
-                                        @elseif($firstMedia->type === 'video')
+                                        @elseif ($firstMedia->type === 'video')
                                             <a href="{{ asset('storage/' . $firstMedia->url) }}" class="glightbox"
                                                 data-type="video" title="{{ $post->title }}">
                                                 <video class="post-media" muted loop playsinline>
@@ -120,8 +121,11 @@
                                             </a>
                                         @endif
                                     @endif
+                                @else
+                                    <p class="text-muted">No media available</p>
                                 @endif
                             </div>
+
                             {{-- POST CONTENT --}}
                             <div class="post-content">
                                 <h3 class="highlight">{{ $post->title }}</h3>
@@ -130,11 +134,6 @@
                                 <div class="post-footer">
                                     {{-- Posted By & Time --}}
                                     <div class="post-meta">
-                                        <span>
-                                            Posted by {{ strtoupper($post->admin->role ?? 'UNKNOWN') }} |
-                                            {{ $post->created_at->diffForHumans() }}
-                                        </span>
-
                                         {{-- SDG Target Indicators --}}
                                         @if (!empty($post->sdg_target_indicators))
                                             <div class="sdg-indicators mt-1">
@@ -144,6 +143,10 @@
                                                 @endforeach
                                             </div>
                                         @endif
+                                        <span>
+                                            Posted by {{ strtoupper($post->admin->role ?? 'UNKNOWN') }} |
+                                            {{ $post->created_at->diffForHumans() }}
+                                        </span>
                                     </div>
 
                                     {{-- SDG Tags --}}
@@ -165,16 +168,17 @@
                                 </div>
                             </div>
 
-
                         </div>
                     @endforeach
                 </div>
-                <div id="no-content-message" class="no-content-card " style="display:none;">
+
+                <div id="no-content-message" class="no-content-card" style="display:none;">
                     <div class="card-content m-auto">
                         <h4>No content available</h4>
                         <p>Please try selecting another office or content type.</p>
                     </div>
                 </div>
+
 
 
                 @if (count($posts) > 4)

@@ -162,17 +162,27 @@ public function update(Request $request, $id)
 
     // Replace media if new files uploaded
     if ($request->hasFile('media')) {
+        // Delete old media files and records
         foreach ($post->media as $m) {
             Storage::disk('public')->delete($m->url);
             $m->delete();
         }
 
+        // Save new media with proper type detection
         foreach ($request->file('media') as $file) {
             $path = $file->store('uploads', 'public');
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            $mediaType = match (true) {
+                in_array($ext, ['jpg', 'jpeg', 'png', 'webp']) => 'image',
+                $ext === 'mp4' => 'video',
+                in_array($ext, ['pdf', 'doc', 'docx']) => 'file',
+                default => 'other',
+            };
 
             PostMedia::create([
                 'post_id' => $post->id,
-                'type' => $file->getMimeType(),
+                'type' => $mediaType,
                 'url' => $path,
                 'admin_id' => session('admin_id'),
             ]);
@@ -181,6 +191,7 @@ public function update(Request $request, $id)
 
     return response()->json(['success' => true]);
 }
+
 
 
 
@@ -203,26 +214,4 @@ public function update(Request $request, $id)
         }
     }
     
-    public function destroyMedia(PostMedia $media)
-    {
-        try {
-            // Delete the physical file
-            if (Storage::disk('public')->exists($media->url)) {
-                Storage::disk('public')->delete($media->url);
-            }
-
-            // Delete DB record
-            $media->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Media deleted successfully.'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to delete media.'
-            ], 500);
-        }
-    }
 }
