@@ -63,9 +63,9 @@
                             <div class="post-card" data-admin="{{ strtoupper($post->admin->role ?? 'UNKNOWN') }}"
                                 data-id="{{ $post->id }}">
 
-                                {{-- Media --}}
+                                {{-- Media Rendering --}}
+                                @php $galleryId = 'post-' . $post->id; @endphp
                                 @if ($mediaItems->count() > 0)
-                                    @php $galleryId = 'post-' . $post->id; @endphp
                                     @foreach ($mediaItems as $index => $media)
                                         @if ($media->type === 'image')
                                             @if ($index === 0)
@@ -89,12 +89,13 @@
                                                 <a href="{{ asset('storage/' . $media->url) }}" class="glightbox d-none"
                                                     data-glightbox="gallery: {{ $galleryId }}; type: video; title: {{ $post->title }}"></a>
                                             @endif
-                                        @elseif ($post->type === 'file' || $post->type === 'link')
+                                        @elseif ($media->type === 'file')
                                             @if ($index === 0)
-                                                <a href="{{ asset('storage/' . $post->media->first()->url) }}"
-                                                    target="_blank" class="glightbox"> <img
-                                                        src="{{ asset('assets/img/media_thumbnail/fileicon.png') }}"
-                                                        alt="file icon" class="post-media"> </a>
+                                                <a href="{{ asset('storage/' . $media->url) }}" target="_blank"
+                                                    class="glightbox">
+                                                    <img src="{{ asset('assets/img/media_thumbnail/fileicon.png') }}"
+                                                        alt="file icon" class="post-media">
+                                                </a>
                                             @endif
                                         @endif
                                     @endforeach
@@ -104,6 +105,19 @@
                                             more</span>
                                     @endif
                                 @endif
+
+                                {{-- Link Button --}}
+                                @if (!empty($post->link))
+                                    <div class="mb-2">
+                                        <a href="{{ $post->link }}" target="_blank"
+                                            class=" post-link">
+                                            <img src="{{ asset('assets/img/media_thumbnail/linkicon.png') }}"
+                                                alt="link icon" class="post-media">
+                                        </a>
+                                        
+                                    </div>
+                                @endif
+
 
                                 {{-- Post Content --}}
                                 <div class="post-content">
@@ -141,14 +155,11 @@
                                         @if (!$post->is_approved)
                                             @if (session('admin_role') === 'KMU')
                                                 <button class="btn btn-success btn-sm approve-btn"
-                                                    data-id="{{ $post->id }}">
-                                                    Approve
-                                                </button>
+                                                    data-id="{{ $post->id }}">Approve</button>
                                             @endif
                                         @else
-                                            <button class="btn bg-light">Approved</button>
+                                            <button class="btn bg-light">Posted</button>
                                         @endif
-
 
                                         @if (session('admin_id') === $post->admin_id || session('admin_role') === 'KMU')
                                             <button type="button" class="btn btn-sm btn-primary edit-post-btn"
@@ -161,8 +172,6 @@
                                                 <i class="bi bi-trash"></i> Delete
                                             </button>
                                         @endif
-
-
                                     </div>
                                 </div>
                             </div>
@@ -217,6 +226,21 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea name="description" id="description" rows="3" class="form-control"></textarea>
                             </div>
+                            <!-- Link -->
+                            <div class="mb-3">
+                                <label for="link" class="form-label">Link (optional)</label>
+                                <input type="url" name="link" id="link" class="form-control"
+                                    placeholder="https://example.com">
+                                <small class="text-muted">Add a URL if applicable.</small>
+
+                                <!-- Preview Button -->
+                                <div class="mt-2" id="add-link-preview" style="display:none;">
+                                    <a href="#" target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-box-arrow-up-right"></i> Open Link
+                                    </a>
+                                </div>
+                            </div>
+
 
                             <!-- Drag & Drop Media -->
                             <div class="mb-3">
@@ -286,22 +310,24 @@
                             <label>Description</label>
                             <textarea id="edit-description" name="description" class="form-control" rows="3"></textarea>
                         </div>
-
+                        <!-- Link -->
                         <div class="mb-3">
-                            <label>SDG Tags</label>
-                            <div id="sdg-tags" class="d-flex flex-wrap gap-2">
-                                @for ($i = 1; $i <= 17; $i++)
-                                    <div class="sdg-badge-wrapper">
-                                        <input type="checkbox" id="edit-sdg-{{ $i }}" name="tags[]"
-                                            value="{{ $i }}" class="d-none sdg-checkbox">
-                                        <label for="edit-sdg-{{ $i }}" class="sdg-badge">
-                                            <img src="{{ asset("assets/img/sdgs/$i.png") }}"
-                                                alt="SDG {{ $i }}">
-                                        </label>
-                                    </div>
-                                @endfor
+                            <label for="edit-link" class="form-label">Link (optional)</label>
+                            <input type="url" id="edit-link" name="link" class="form-control"
+                                placeholder="https://example.com">
+                            <small class="text-muted">Add a URL if applicable.</small>
+
+                            <!-- Preview Button -->
+                            <div class="mt-2" id="edit-link-preview" style="display:none;">
+                                <a href="#" target="_blank" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-box-arrow-up-right"></i> Open Link
+                                </a>
                             </div>
                         </div>
+
+
+
+
 
                         <div class="mb-3">
                             <label>Upload New Media (optional)</label>
@@ -318,7 +344,21 @@
                             <label>Existing Media</label>
                             <div id="edit-existing-media" class="d-flex gap-2 flex-wrap"></div>
                         </div>
-
+                        <div class="mb-3">
+                            <label>SDG Tags</label>
+                            <div id="sdg-tags" class="d-flex flex-wrap gap-2">
+                                @for ($i = 1; $i <= 17; $i++)
+                                    <div class="sdg-badge-wrapper">
+                                        <input type="checkbox" id="edit-sdg-{{ $i }}" name="tags[]"
+                                            value="{{ $i }}" class="d-none sdg-checkbox">
+                                        <label for="edit-sdg-{{ $i }}" class="sdg-badge">
+                                            <img src="{{ asset("assets/img/sdgs/$i.png") }}"
+                                                alt="SDG {{ $i }}">
+                                        </label>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
 
                         <div class="mb-3">
                             <label>SDG Target Indicators</label>
@@ -371,10 +411,12 @@
                     e.preventDefault();
                     dropzone.classList.add('bg-light');
                 });
+
                 dropzone.addEventListener('dragleave', e => {
                     e.preventDefault();
                     dropzone.classList.remove('bg-light');
                 });
+
                 dropzone.addEventListener('drop', e => {
                     e.preventDefault();
                     dropzone.classList.remove('bg-light');
@@ -404,15 +446,18 @@
 
             // ===== SDG Tag Toggle =====
             document.querySelectorAll('.sdg-badge-wrapper').forEach(wrapper => {
-                wrapper.addEventListener('click', function() {
-                    const checkbox = this.querySelector('.sdg-checkbox');
+                wrapper.addEventListener('click', () => {
+                    const checkbox = wrapper.querySelector('.sdg-checkbox');
                     checkbox.checked = !checkbox.checked;
-                    this.classList.toggle('selected', checkbox.checked);
+                    wrapper.classList.toggle('selected', checkbox.checked);
                 });
             });
 
             // ===== Add Post Form =====
             const addForm = document.getElementById('update-form');
+            const addLinkInput = document.getElementById('link');
+            const addLinkPreview = document.getElementById('add-link-preview');
+
             if (addForm) {
                 addForm.addEventListener('submit', e => {
                     e.preventDefault();
@@ -433,75 +478,71 @@
                         .catch(err => Swal.fire('Error', err.response?.data?.message ||
                             'Something went wrong', 'error'));
                 });
+
+                if (addLinkInput && addLinkPreview) {
+                    addLinkInput.addEventListener('input', () => {
+                        if (addLinkInput.value.trim() !== '') {
+                            addLinkPreview.style.display = 'block';
+                            addLinkPreview.querySelector('a').href = addLinkInput.value;
+                        } else {
+                            addLinkPreview.style.display = 'none';
+                        }
+                    });
+                }
             }
 
-            // ===== Edit Post Modal =====
+            // ===== Edit Post Modal & Submission =====
+            const editForm = document.getElementById('edit-post-form');
+            const editLinkInput = document.getElementById('edit-link');
+            const editLinkPreview = document.getElementById('edit-link-preview');
+
             document.querySelectorAll('.edit-post-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const postId = this.dataset.id;
-                    axios.get(`/admin/updates/${postId}/edit`)
-                        .then(res => {
-                            const data = res.data;
-                            const editForm = document.getElementById('edit-post-form');
-                            document.getElementById('edit-post-id').value = data.id;
-                            document.getElementById('edit-title').value = data.title;
-                            document.getElementById('edit-description').value = data
-                                .description;
-                            document.getElementById('edit-sdg-target-indicators').value = data
-                                .sdg_target_indicators;
-                            editForm.action = `/admin/updates/${postId}`;
+                btn.addEventListener('click', () => {
+                    const postId = btn.dataset.id;
 
-                            // SDG tags
-                            const savedTags = data.tags.map(t => parseInt(t));
-                            document.querySelectorAll('#sdg-tags .sdg-badge-wrapper').forEach(
-                                wrapper => {
-                                    const checkbox = wrapper.querySelector(
-                                        'input[type="checkbox"]');
-                                    const checked = savedTags.includes(parseInt(checkbox
-                                        .value));
-                                    checkbox.checked = checked;
-                                    wrapper.classList.toggle('selected', checked);
-                                });
+                    axios.get(`/admin/updates/${postId}/edit`).then(res => {
+                        const data = res.data;
 
-                            // Media preview
-                            const mediaContainer = document.getElementById(
-                                'edit-existing-media');
-                            mediaContainer.innerHTML = '';
-                            if (data.media.length === 0) {
-                                mediaContainer.innerHTML =
-                                    '<p class="text-muted">No media available</p>';
-                            } else {
-                                data.media.forEach(m => {
-                                    let preview = '';
-                                    if (m.type.startsWith('image')) {
-                                        preview =
-                                            `<img src="/storage/${m.url}" class="img-thumbnail" width="120">`;
-                                    } else if (m.type.startsWith('video')) {
-                                        preview =
-                                            `<video width="160" controls><source src="/storage/${m.url}"></video>`;
-                                    } else {
-                                        preview =
-                                            `<a href="/storage/${m.url}" target="_blank" class="btn btn-outline-secondary btn-sm">View File</a>`;
-                                    }
-                                    mediaContainer.innerHTML +=
-                                        `<div class="me-2 mb-2">${preview}</div>`;
-                                });
-                            }
+                        // Populate fields
+                        document.getElementById('edit-post-id').value = data.id;
+                        document.getElementById('edit-title').value = data.title;
+                        document.getElementById('edit-description').value = data
+                        .description;
 
-                            // Reset dropped files
-                            editDroppedFiles.length = 0;
-                            const dropzone = document.getElementById('edit-media-dropzone');
-                            dropzone.querySelectorAll('p').forEach(p => p.remove());
+                        // Set form action dynamically
+                        editForm.action = `/admin/updates/${postId}`;
 
-                            new bootstrap.Modal(document.getElementById('editPostModal'))
-                                .show();
-                        })
-                        .catch(() => Swal.fire('Error', 'Failed to load post data', 'error'));
+                        // Populate link input & preview
+                        if (data.link && data.link.trim() !== '') {
+                            editLinkInput.value = '';
+                            editLinkInput.placeholder = data.link;
+                            editLinkPreview.style.display = 'block';
+                            editLinkPreview.querySelector('a').href = data.link;
+                        } else {
+                            editLinkInput.value = '';
+                            editLinkInput.placeholder = 'https://example.com';
+                            editLinkPreview.style.display = 'none';
+                        }
+
+                        new bootstrap.Modal(document.getElementById('editPostModal'))
+                    .show();
+                    }).catch(() => Swal.fire('Error', 'Failed to load post data', 'error'));
                 });
             });
 
-            // ===== Edit Form Submission =====
-            const editForm = document.getElementById('edit-post-form');
+            // Dynamic link preview while typing
+            if (editLinkInput && editLinkPreview) {
+                editLinkInput.addEventListener('input', () => {
+                    if (editLinkInput.value.trim() !== '') {
+                        editLinkPreview.style.display = 'block';
+                        editLinkPreview.querySelector('a').href = editLinkInput.value;
+                    } else {
+                        editLinkPreview.querySelector('a').href = editLinkInput.placeholder || '#';
+                        editLinkPreview.style.display = editLinkInput.placeholder ? 'block' : 'none';
+                    }
+                });
+            }
+
             if (editForm) {
                 editForm.addEventListener('submit', e => {
                     e.preventDefault();
@@ -521,14 +562,13 @@
                 });
             }
 
-            // ===== Delete Post (Event Delegation) =====
-            const postsContainer = document.getElementById('posts-grid'); // wrap all posts with this ID
+            // ===== Delete Post =====
+            const postsContainer = document.getElementById('posts-grid');
             if (postsContainer) {
                 postsContainer.addEventListener('click', function(e) {
                     const button = e.target.closest('.delete-post-btn');
                     if (!button) return;
-
-                    const postCard = button.closest('.post-card'); // adjust selector
+                    const postCard = button.closest('.post-card');
                     const postId = postCard.dataset.id;
                     if (!postId) return;
 
@@ -559,6 +599,8 @@
 
         });
     </script>
+
+
     <script>
         document.addEventListener("click", function(e) {
             if (e.target.closest(".approve-btn")) {

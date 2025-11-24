@@ -10,44 +10,53 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
+public function index()
+{
+    // Fetch posts with media and admin
+    $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
 
-        // Only KMU can see unapproved posts
-        if (session('role') !== 'KMU') {
-            $query->where('is_approved', true);
-        }
-
-        // Execute the query
-        $posts = $query->get();
-
-        // Prepare Facebook Pages (static)
-        $facebookPages = [
-            [
-                'title' => 'PSAU Office of Extension and Training',
-                'url' => 'https://www.facebook.com/PSAUOET',
-                'logo' => 'assets/img/about/Logo (1).png',
-            ],
-            [
-                'title' => 'PSAU Knowledge Management Center',
-                'url' => 'https://www.facebook.com/psau.kmc',
-                'logo' => 'assets/img/logo.png',
-            ],
-            [
-                'title' => 'PSAU-Intellectual Property and Technology Business Management Office',
-                'url' => 'https://www.facebook.com/psau.iptbm',
-                'logo' => 'assets/img/iptbm.png',
-            ],
-            [
-                'title' => 'PSAU-Technology Business Incubator',
-                'url' => 'https://www.facebook.com/psau.tbi',
-                'logo' => 'assets/img/sibultbi-logo.png',
-            ],
-        ];
-
-        return view('media-resources-section.updates', compact('posts', 'facebookPages'));
+    // Only KMU can see unapproved posts
+    if (session('role') !== 'KMU') {
+        $query->where('is_approved', true);
     }
+
+    // Execute the query
+    $posts = $query->get();
+
+    // Prepare Facebook Pages (static)
+    $facebookPages = [
+        [
+            'title' => 'PSAU Office of Extension and Training',
+            'url' => 'https://www.facebook.com/PSAUOET',
+            'logo' => 'assets/img/about/Logo (1).png',
+        ],
+        [
+            'title' => 'PSAU Knowledge Management Center',
+            'url' => 'https://www.facebook.com/psau.kmc',
+            'logo' => 'assets/img/logo.png',
+        ],
+        [
+            'title' => 'PSAU-Intellectual Property and Technology Business Management Office',
+            'url' => 'https://www.facebook.com/psau.iptbm',
+            'logo' => 'assets/img/iptbm.png',
+        ],
+        [
+            'title' => 'PSAU-Technology Business Incubator',
+            'url' => 'https://www.facebook.com/psau.tbi',
+            'logo' => 'assets/img/sibultbi-logo.png',
+        ],
+    ];
+
+    // Ensure `link` posts have the link column (even if null)
+    $posts->each(function ($post) {
+        if (strtolower(trim($post->type)) === 'link' && empty($post->link)) {
+            $post->link = '#'; // default placeholder
+        }
+    });
+
+    return view('media-resources-section.updates', compact('posts', 'facebookPages'));
+}
+
 
     // Admin overview
     public function adminIndex(Request $request)
@@ -108,7 +117,8 @@ class PostController extends Controller
             'tags' => $request->filled('tags') ? implode(',', array_unique($request->tags)) : null,
             'sdg_target_indicators' => $request->sdg_target_indicators,
             'type' => $postType,
-            'is_approved' => false, // KMU will approve manually
+            'is_approved' => false,
+            'link' => $request->link, // <-- add this
         ]);
 
 
@@ -148,8 +158,7 @@ class PostController extends Controller
             'id' => $post->id,
             'title' => $post->title,
             'description' => $post->description,
-            'sdg_target_indicators' => $post->sdg_target_indicators,
-            'tags' => $post->tags ?? [], // always array thanks to mutator
+            'link' => $post->link, // <- ensure this exists
             'media' => $post->media,
         ]);
     }
@@ -164,7 +173,8 @@ class PostController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'sdg_target_indicators' => $request->sdg_target_indicators,
-            'tags' => $request->tags, // mutator converts array to CSV
+            'tags' => $request->tags,
+            'link' => $request->link, // <-- add this
         ]);
 
         // Replace media if new files uploaded
@@ -214,9 +224,6 @@ class PostController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Post approved successfully']);
     }
-
-
-
 
     // Delete post
     public function destroy(Post $post)
