@@ -23,10 +23,11 @@
 /* Image side */
 .image-column {
   flex: 1 1 33.333%;
-  display: flex;
+
   align-items: start;
   justify-content: start;
   padding: 20px;
+  position: relative;
 }
 
 .image-column img {
@@ -101,3 +102,28 @@
     order: -1;
   }
 }
+
+.gallery-btn {
+  position: relative;   /* stays inside flow but can be adjusted */
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.view-gallery-link {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  text-decoration: none;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.view-gallery-link:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+

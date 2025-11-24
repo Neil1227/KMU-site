@@ -271,7 +271,7 @@ Through its extension programs, PSAU also improves rural infrastructure by provi
 
         $results = collect($staticPages)
             ->filter(function ($page) use ($query) {
-                return str_contains(strtolower($page['title'].' '.$page['content']), strtolower($query));
+                return str_contains(strtolower($page['title'] . ' ' . $page['content']), strtolower($query));
             })
             ->map(function ($page) use ($query) {
                 $content = $page['content'];
@@ -289,7 +289,7 @@ Through its extension programs, PSAU also improves rural infrastructure by provi
                 return [
                     'title' => $page['title'],
                     'snippet' => $snippet,
-                    'url' => $page['url'].'?query='.urlencode($query),
+                    'url' => $page['url'] . '?query=' . urlencode($query),
                 ];
             });
 
@@ -297,52 +297,52 @@ Through its extension programs, PSAU also improves rural infrastructure by provi
         $ictvResults = Ictv::where('title', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/ictv/'.$item->id), // assuming detail page
+                'url' => url('/ictv/' . $item->id), // assuming detail page
             ]);
 
         $iecResults = IECMaterial::where('title', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/iec/'.$item->id),
+                'url' => url('/iec/' . $item->id),
             ]);
 
         $promotionalResults = PromotionalActivity::where('title', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/promotional/'.$item->id),
+                'url' => url('/promotional/' . $item->id),
             ]);
 
         $podcastResults = Podcast::where('title', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/podcast/'.$item->id),
+                'url' => url('/podcast/' . $item->id),
             ]);
 
         $newsletterResults = Newsletter::where('title', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/newsletter/'.$item->id),
+                'url' => url('/newsletter/' . $item->id),
             ]);
 
         $moduleResults = Module::where('title', 'like', "%$query%")
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->title,
                 'snippet' => Str::limit($item->description, 100),
-                'url' => url('/modules/'.$item->id),
+                'url' => url('/modules/' . $item->id),
             ]);
 
         $columns = Schema::getColumnListing('technologies');
@@ -350,14 +350,14 @@ Through its extension programs, PSAU also improves rural infrastructure by provi
         $technologyResults = Technology::query()
             ->where(function ($q) use ($columns, $query) {
                 foreach ($columns as $column) {
-                    $q->orWhereRaw("LOWER(`$column`) LIKE ?", ['%'.strtolower($query).'%']);
+                    $q->orWhereRaw("LOWER(`$column`) LIKE ?", ['%' . strtolower($query) . '%']);
                 }
             })
             ->get()
-            ->map(fn ($item) => [
+            ->map(fn($item) => [
                 'title' => $item->product,
                 'snippet' => Str::limit($item->desc, 100),
-                'url' => url('/technologies/'.$item->id),
+                'url' => url('/technologies/' . $item->id),
             ]);
 
         // --- Merge all results ---
