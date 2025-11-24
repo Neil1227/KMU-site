@@ -112,14 +112,18 @@
                                                     alt="{{ $post->title }}">
                                             </a>
                                         @elseif ($firstMedia->type === 'video')
-                                            <a href="{{ asset('storage/' . $firstMedia->url) }}" class="glightbox"
-                                                data-type="video" title="{{ $post->title }}">
-                                                <video class="post-media" muted loop playsinline>
-                                                    <source src="{{ asset('storage/' . $firstMedia->url) }}"
-                                                        type="video/mp4">
+                                            <a href="{{ asset('storage/' . $firstMedia->url) }}"
+                                                class="glightbox"
+                                                data-type="video"
+                                                data-source="local"
+                                                title="{{ $post->title }}">
+                                                <video class="post-media" muted loop playsinline preload="metadata">
+                                                    <source src="{{ asset('storage/' . $firstMedia->url) }}" type="video/mp4">
                                                 </video>
                                             </a>
                                         @endif
+
+                                        
                                     @endif
                                 @else
                                     <p class="text-muted">No media available</p>

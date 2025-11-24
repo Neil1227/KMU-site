@@ -19,6 +19,7 @@ class Post extends Model
     protected $casts = [
         'tags' => 'array',
         'sdg_target_indicators' => 'array', // new line
+         'is_approved' => 'boolean',
     ];
 
     // Accessor (optional, Laravel 10+ can do this automatically with $casts)

@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
     Route::put('/updates/{post}', [PostController::class, 'update'])->name('admin.updates.update');
     Route::delete('/updates/{post}', [PostController::class, 'destroy'])->name('admin.updates.destroy');
 });
+Route::post('/admin/posts/{id}/approve', [PostController::class, 'approve'])
+    ->name('admin.posts.approve');
 
 
 

@@ -93,7 +93,7 @@
                                             @if ($index === 0)
                                                 <a href="{{ asset('storage/' . $post->media->first()->url) }}"
                                                     target="_blank" class="glightbox"> <img
-                                                        src="{{ asset('assets/img/media_thumbnail/ICTv.png') }}"
+                                                        src="{{ asset('assets/img/media_thumbnail/fileicon.png') }}"
                                                         alt="file icon" class="post-media"> </a>
                                             @endif
                                         @endif
@@ -139,6 +139,12 @@
                                     {{-- Action Buttons --}}
                                     {{-- Action Buttons --}}
                                     <div class="action-buttons mt-2 d-flex gap-1">
+                                        @if (session('admin_role') === 'KMU' && !$post->is_approved)
+                                            <button class="btn btn-success btn-sm approve-btn" data-id="{{ $post->id }}">
+                                                Approve
+                                            </button>
+                                        @endif
+
                                         <button type="button" class="btn btn-sm btn-primary edit-post-btn"
                                             data-id="{{ $post->id }}" title="Edit Post"><i class="bi bi-pencil"></i>
                                             Edit</button>
@@ -540,5 +546,34 @@
             }
 
         });
+    </script>
+    <script>
+        document.addEventListener("click", function (e) {
+    if (e.target.closest(".approve-btn")) {
+
+        let btn = e.target.closest(".approve-btn");
+        let id = btn.getAttribute("data-id");
+
+        Swal.fire({
+            title: "Approve this post?",
+            text: "This will make the post visible to the public.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Approve"
+        }).then((r) => {
+            if (r.isConfirmed) {
+                axios.post(`/admin/posts/${id}/approve`)
+                    .then(res => {
+                        Swal.fire("Approved!", res.data.message, "success")
+                            .then(() => location.reload());
+                    })
+                    .catch(() => {
+                        Swal.fire("Error", "Failed to approve.", "error");
+                    });
+            }
+        });
+    }
+});
+
     </script>
 @endpush

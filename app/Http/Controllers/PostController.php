@@ -12,11 +12,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Get posts with media and uploader info
-        $posts = Post::with('media', 'admin')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
 
+        // Only KMU can see unapproved posts
+        if (session('role') !== 'KMU') {
+            $query->where('is_approved', true);
+        }
+
+        // Execute the query
+        $posts = $query->get();
 
         // Prepare Facebook Pages (static)
         $facebookPages = [
@@ -44,6 +48,7 @@ class PostController extends Controller
 
         return view('media-resources-section.updates', compact('posts', 'facebookPages'));
     }
+
     // Admin overview
     public function adminIndex(Request $request)
     {
@@ -103,7 +108,9 @@ class PostController extends Controller
             'tags' => $request->filled('tags') ? implode(',', array_unique($request->tags)) : null,
             'sdg_target_indicators' => $request->sdg_target_indicators,
             'type' => $postType,
+            'is_approved' => false, // KMU will approve manually
         ]);
+
 
 
 
@@ -132,67 +139,81 @@ class PostController extends Controller
         return back()->with('success', 'Post created successfully!');
     }
 
-// Load post data for edit
-public function edit($id)
-{
-    $post = Post::with('media')->findOrFail($id);
+    // Load post data for edit
+    public function edit($id)
+    {
+        $post = Post::with('media')->findOrFail($id);
 
-    return response()->json([
-        'id' => $post->id,
-        'title' => $post->title,
-        'description' => $post->description,
-        'sdg_target_indicators' => $post->sdg_target_indicators,
-        'tags' => $post->tags ?? [], // always array thanks to mutator
-        'media' => $post->media,
-    ]);
-}
-
-// Update post
-public function update(Request $request, $id)
-{
-    $post = Post::with('media')->findOrFail($id);
-
-    // Update main fields
-    $post->update([
-        'title' => $request->title,
-        'description' => $request->description,
-        'sdg_target_indicators' => $request->sdg_target_indicators,
-        'tags' => $request->tags, // mutator converts array to CSV
-    ]);
-
-    // Replace media if new files uploaded
-    if ($request->hasFile('media')) {
-        // Delete old media files and records
-        foreach ($post->media as $m) {
-            Storage::disk('public')->delete($m->url);
-            $m->delete();
-        }
-
-        // Save new media with proper type detection
-        foreach ($request->file('media') as $file) {
-            $path = $file->store('uploads', 'public');
-            $ext = strtolower($file->getClientOriginalExtension());
-
-            $mediaType = match (true) {
-                in_array($ext, ['jpg', 'jpeg', 'png', 'webp']) => 'image',
-                $ext === 'mp4' => 'video',
-                in_array($ext, ['pdf', 'doc', 'docx']) => 'file',
-                default => 'other',
-            };
-
-            PostMedia::create([
-                'post_id' => $post->id,
-                'type' => $mediaType,
-                'url' => $path,
-                'admin_id' => session('admin_id'),
-            ]);
-        }
+        return response()->json([
+            'id' => $post->id,
+            'title' => $post->title,
+            'description' => $post->description,
+            'sdg_target_indicators' => $post->sdg_target_indicators,
+            'tags' => $post->tags ?? [], // always array thanks to mutator
+            'media' => $post->media,
+        ]);
     }
 
-    return response()->json(['success' => true]);
-}
+    // Update post
+    public function update(Request $request, $id)
+    {
+        $post = Post::with('media')->findOrFail($id);
+
+        // Update main fields
+        $post->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'sdg_target_indicators' => $request->sdg_target_indicators,
+            'tags' => $request->tags, // mutator converts array to CSV
+        ]);
+
+        // Replace media if new files uploaded
+        if ($request->hasFile('media')) {
+            // Delete old media files and records
+            foreach ($post->media as $m) {
+                Storage::disk('public')->delete($m->url);
+                $m->delete();
+            }
+
+            // Save new media with proper type detection
+            foreach ($request->file('media') as $file) {
+                $path = $file->store('uploads', 'public');
+                $ext = strtolower($file->getClientOriginalExtension());
+
+                $mediaType = match (true) {
+                    in_array($ext, ['jpg', 'jpeg', 'png', 'webp']) => 'image',
+                    $ext === 'mp4' => 'video',
+                    in_array($ext, ['pdf', 'doc', 'docx']) => 'file',
+                    default => 'other',
+                };
+
+                PostMedia::create([
+                    'post_id' => $post->id,
+                    'type' => $mediaType,
+                    'url' => $path,
+                    'admin_id' => session('admin_id'),
+                ]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
 
 
+    public function approve($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // Only KMU can approve
+        if (session('admin_role') !== 'KMU') {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+        }
+
+        $post->is_approved = true;
+        $post->save();
+
+        return response()->json(['success' => true, 'message' => 'Post approved successfully']);
+    }
 
 
 
@@ -213,5 +234,4 @@ public function update(Request $request, $id)
             ], 500);
         }
     }
-    
 }
