@@ -137,20 +137,32 @@
                                     </div>
 
                                     {{-- Action Buttons --}}
-                                    {{-- Action Buttons --}}
                                     <div class="action-buttons mt-2 d-flex gap-1">
-                                        @if (session('admin_role') === 'KMU' && !$post->is_approved)
-                                            <button class="btn btn-success btn-sm approve-btn" data-id="{{ $post->id }}">
-                                                Approve
+                                        @if (!$post->is_approved)
+                                            @if (session('admin_role') === 'KMU')
+                                                <button class="btn btn-success btn-sm approve-btn"
+                                                    data-id="{{ $post->id }}">
+                                                    Approve
+                                                </button>
+                                            @endif
+                                        @else
+                                            <button class="btn bg-light">Approved</button>
+                                        @endif
+
+
+                                        @if (session('admin_id') === $post->admin_id || session('admin_role') === 'KMU')
+                                            <button type="button" class="btn btn-sm btn-primary edit-post-btn"
+                                                data-id="{{ $post->id }}" title="Edit Post">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </button>
+
+                                            <button type="button" class="btn btn-sm btn-danger delete-post-btn"
+                                                title="Delete Post">
+                                                <i class="bi bi-trash"></i> Delete
                                             </button>
                                         @endif
 
-                                        <button type="button" class="btn btn-sm btn-primary edit-post-btn"
-                                            data-id="{{ $post->id }}" title="Edit Post"><i class="bi bi-pencil"></i>
-                                            Edit</button>
 
-                                        <button type="button" class="btn btn-sm btn-danger delete-post-btn"
-                                            title="Delete Post"><i class="bi bi-trash"></i> Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -548,32 +560,31 @@
         });
     </script>
     <script>
-        document.addEventListener("click", function (e) {
-    if (e.target.closest(".approve-btn")) {
+        document.addEventListener("click", function(e) {
+            if (e.target.closest(".approve-btn")) {
 
-        let btn = e.target.closest(".approve-btn");
-        let id = btn.getAttribute("data-id");
+                let btn = e.target.closest(".approve-btn");
+                let id = btn.getAttribute("data-id");
 
-        Swal.fire({
-            title: "Approve this post?",
-            text: "This will make the post visible to the public.",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonText: "Approve"
-        }).then((r) => {
-            if (r.isConfirmed) {
-                axios.post(`/admin/posts/${id}/approve`)
-                    .then(res => {
-                        Swal.fire("Approved!", res.data.message, "success")
-                            .then(() => location.reload());
-                    })
-                    .catch(() => {
-                        Swal.fire("Error", "Failed to approve.", "error");
-                    });
+                Swal.fire({
+                    title: "Approve this post?",
+                    text: "This will make the post visible to the public.",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Approve"
+                }).then((r) => {
+                    if (r.isConfirmed) {
+                        axios.post(`/admin/posts/${id}/approve`)
+                            .then(res => {
+                                Swal.fire("Approved!", res.data.message, "success")
+                                    .then(() => location.reload());
+                            })
+                            .catch(() => {
+                                Swal.fire("Error", "Failed to approve.", "error");
+                            });
+                    }
+                });
             }
         });
-    }
-});
-
     </script>
 @endpush
