@@ -55,6 +55,9 @@ Route::post('/admin/posts/{id}/approve', [PostController::class, 'approve'])
 use App\Http\Controllers\SdgController;
 
 Route::get('/sdgs', [SdgController::class, 'index']);
+Route::get('/sdg-gallery/{sdg}', [SdgController::class, 'show'])
+    ->name('sdg.gallery');
+
 
 // For upload page
 
@@ -209,9 +212,7 @@ Route::redirect('/home', '/homepage')->name('home');
 
 Route::view('/homepage', 'homepage')->name('homepage');
 
-Route::get('/sdgs', function () {
-    return view('sdg');
-})->name('sdgs');
+
 
 // By clicking the learn more button from index, it will increment the page view counter and redirect to the homepage
 Route::get('/learn-more', function () {
