@@ -57,6 +57,13 @@ use App\Http\Controllers\SdgController;
 Route::get('/sdgs', [SdgController::class, 'index']);
 Route::get('/sdg-gallery/{sdg}', [SdgController::class, 'show'])
     ->name('sdg.gallery');
+Route::get('/sdg/{sdg}', [SdgController::class, 'show'])->name('sdg.show');
+
+// SDG Admin
+Route::prefix('admin/sdgs')->group(function () {
+    Route::get('/', [\App\Http\Controllers\SdgAdminController::class, 'index'])->name('admin.sdg.index');
+    Route::put('/{sdg}', [\App\Http\Controllers\SdgAdminController::class, 'update'])->name('admin.sdg.update');
+});
 
 
 // For upload page

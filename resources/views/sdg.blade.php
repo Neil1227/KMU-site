@@ -50,14 +50,17 @@
             <section class="content-section mb-3" id="sdg{{ $sdg->sdg_number }}">
                 @if ($loop->iteration % 2 !== 0)
                     <div class="image-column">
-                        <img src="{{ asset("assets/img/sdgs/{$sdg->sdg_number}.png") }}" alt="SDG {{ $sdg->sdg_number }}" />
+                        <img src="{{ asset("assets/img/sdgs/{$sdg->sdg_number}.png") }}" alt="SDG {{ $sdg->sdg_number }}"
+                            class="sdg-icon" />
+
                         <div class="gallery-btn">
                             <a href="{{ route('sdg.gallery', $sdg->sdg_number) }}" class="view-gallery-link"
                                 style="background: {{ $sdgColors[$sdg->sdg_number] ?? '#000' }};">
-                                View Gallery
+                                View Activities
                             </a>
                         </div>
                     </div>
+
                     <div class="text-column">
                         <p>{{ $sdg->description }}</p>
                     </div>
@@ -66,12 +69,12 @@
                         <p>{{ $sdg->description }}</p>
                     </div>
                     <div class="image-column">
-                        <img src="{{ asset("assets/img/sdgs/{$sdg->sdg_number}.png") }}"
-                            alt="SDG {{ $sdg->sdg_number }}" />
+                        <img src="{{ asset("assets/img/sdgs/{$sdg->sdg_number}.png") }}" alt="SDG {{ $sdg->sdg_number }}"
+                            class="sdg-icon" />
                         <div class="gallery-btn">
                             <a href="{{ route('sdg.gallery', $sdg->sdg_number) }}" class="view-gallery-link"
                                 style="background: {{ $sdgColors[$sdg->sdg_number] ?? '#000' }};">
-                                View Gallery
+                                View Activities
                             </a>
                         </div>
                     </div>
@@ -79,9 +82,6 @@
             </section>
         @endforeach
     </div>
-
-
-
 
     @include('layouts.components.footer')
     @push('scripts')

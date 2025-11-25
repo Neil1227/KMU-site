@@ -14,10 +14,18 @@
     {{-- General Uploads Section --}}
     <h5 class="mt-4 mb-2">General Uploads</h5>
 
-    <a href="{{ route('admin.visitors') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.visitors' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-people-fill me-2"></i> SDG Uploads
+    {{-- SDG Description Editor --}}
+    <a href="{{ route('admin.sdg.index') }}"
+        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.index' ? 'active' : 'collapsed' }}">
+        <i class="bi bi-list-columns-reverse me-2"></i> SDG Descriptions
     </a>
+
+    {{-- SDG Media Uploads --}}
+    <a href=""
+        class="accordion-button sidebar-item {{ Route::currentRouteName() === '' ? 'active' : 'collapsed' }}">
+        <i class="bi bi-images me-2"></i> SDG Media Uploads
+    </a>
+
     <a href="{{ route('admin.upload-updates') }}"
         class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
         <i class="bi bi-newspaper me-2"></i> Updates Section

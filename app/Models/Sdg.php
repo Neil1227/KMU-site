@@ -14,6 +14,7 @@ class Sdg extends Model
     // Mass assignable fields
     protected $fillable = [
         'sdg_number',
+        'title',   
         'description',
         'gallery_link',
     ];

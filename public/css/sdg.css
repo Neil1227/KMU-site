@@ -126,4 +126,197 @@
   background: var(--secondary-color);
   transform: translateY(-2px);
 }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* ALWAYS 3 per row */
+            gap: 20px;
+            padding: 40px 80px;
+        }
 
+        .gallery-grid img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform .3s;
+            display: block;
+            /* Removes white gaps under images */
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 🔥 Responsive for smaller screens */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 per row */
+                padding: 40px 20px;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: repeat(1, 1fr);
+                /* 1 per row */
+            }
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 250px;
+            /* adjust */
+            object-fit: cover;
+            transition: transform .3s ease;
+        }
+
+
+        .gallery-card:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Overlay */
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 16px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all .3s ease;
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            height: 100px;
+            opacity: 1;
+        }
+
+        .overlay-icon {
+            height: 25px !important;
+            width: 25px !important;
+            object-fit: contain;
+        }
+
+
+
+        .overlay-title {
+            text-transform: capitalize;
+        }
+/* Text wrapper */
+.overlay-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px; /* small spacing between title and p */
+}
+
+/* Title */
+.overlay-title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Target (p below) — smaller, lighter, clean */
+.overlay-target {
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.85;
+    margin: 0;
+    line-height: 1.2;
+}
+/* Base pagination */
+.sdg-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.sdg-page-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #444; /* text color default */
+    font-weight: 600;
+    text-decoration: none;
+    background-color: #fff; /* default white */
+    border: 2px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect: fill with SDG color, text white */
+.sdg-page-item:hover {
+    color: #fff;
+    border: 2px solid transparent;
+}
+
+/* Active SDG: same as hover */
+.sdg-page-item.active {
+    color: #fff;
+    border: 2px solid transparent;
+}
+
+/* ===========================
+   SDG COLORS (used on hover/active)
+=========================== */
+.sdg-1:hover, .sdg-1.active { background-color: #e5243b; }
+.sdg-2:hover, .sdg-2.active { background-color: #dda63a; }
+.sdg-3:hover, .sdg-3.active { background-color: #4c9f38; }
+.sdg-4:hover, .sdg-4.active { background-color: #c5192d; }
+.sdg-5:hover, .sdg-5.active { background-color: #ff3a21; }
+.sdg-6:hover, .sdg-6.active { background-color: #26bde2; }
+.sdg-7:hover, .sdg-7.active { background-color: #fcc30b; }
+.sdg-8:hover, .sdg-8.active { background-color: #a21942; }
+.sdg-9:hover, .sdg-9.active { background-color: #fd6925; }
+.sdg-10:hover, .sdg-10.active { background-color: #dd1367; }
+.sdg-11:hover, .sdg-11.active { background-color: #fd9d24; }
+.sdg-12:hover, .sdg-12.active { background-color: #bf8b2e; }
+.sdg-13:hover, .sdg-13.active { background-color: #3f7e44; }
+.sdg-14:hover, .sdg-14.active { background-color: #0a97d9; }
+.sdg-15:hover, .sdg-15.active { background-color: #56c02b; }
+.sdg-16:hover, .sdg-16.active { background-color: #00689d; }
+.sdg-17:hover, .sdg-17.active { background-color: #19486a; }
+
+/* Hover lift effect */
+.sdg-page-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.sdg-page-item.active {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+/* Back button styling */
+.back-btn {  /* rectangle instead of circle */
+      width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 6px 14px;
+    font-weight: 500;
+    background: #eee;
+    color: var(--primary-color);
+}
+
+.back-btn:hover {
+    background: #ddd;
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sdg;
+use App\Models\SDGMedia;
 
 class SdgController extends Controller
 {
@@ -16,18 +17,23 @@ class SdgController extends Controller
 
         // 'sdgs.sdgs' assumes the Blade is at resources/views/sdgs/sdgs.blade.php
     }
- public function show($sdg)
+    public function show($sdg)
     {
         $sdgData = Sdg::where('sdg_number', $sdg)->firstOrFail();
 
-        $galleryImages = [
-            asset("assets/img/media_thumbnail/ICTv.png"),
-            asset("assets/img/media_thumbnail/ICTv.png"),
-            asset("assets/img/media_thumbnail/ICTv.png"),
-            asset("assets/img/media_thumbnail/ICTv.png"),
-            asset("assets/img/media_thumbnail/ICTv.png"),
-            asset("assets/img/media_thumbnail/ICTv.png"),
-        ];
+        $galleryImages = SDGMedia::where('sdg_id', $sdgData->id)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'image' => asset('storage/' . $item->image),
+                    'title' => $item->title,
+                    'sdg-targets' => $item->sdg_targets,
+                ];
+            })
+            ->toArray();
+
+
 
         return view('sdg-gallery', compact('sdgData', 'galleryImages'));
     }
