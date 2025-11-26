@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "SDG {$sdgData->sdg_number} Gallery")
+@section('title', "KMU | SDG {$sdgData->sdg_number} Activities")
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 @endpush
 
-@include('layouts.components.header')
-@include('layouts.components.navbar')
+
 
 @section('content')
-
+    @include('layouts.components.header')
+    @include('layouts.components.navbar')
+    
     <h2 class="text-center my-4 section-title" data-aos="fade-up">
         SDG {{ $sdgData->sdg_number }} – {{ $sdgData->title }} <br> Activities
     </h2>

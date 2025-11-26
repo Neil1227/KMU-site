@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'KMU | Home')
+@section('title', 'KMU | SDGs')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/sdg.css') }}">
@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="{{ asset('css/footer-homepage.css') }}">
 @endpush
 
+@section('content')
+
 {{-- Header --}}
 @include('layouts.components.header')
 
 {{-- Navbar --}}
 @include('layouts.components.navbar')
-@section('content')
-
     <div class="container mt-5">
         <h2 class="text-center mb-4 section-title" data-aos="fade-up">
             Sustainable Development Goals
