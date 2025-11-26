@@ -29,7 +29,7 @@
     <div class="container mt-4">
         <div class="card shadow-sm mt-4">
             <div class="card-header text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-3">SDG Descriptions</h5>
+                <h5>SDG Descriptions</h5>
             </div>
 
             <div class="card-body table-responsive-sm">

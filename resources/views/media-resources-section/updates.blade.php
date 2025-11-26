@@ -165,7 +165,7 @@
             {{-- Sidebar --}}
             <aside class="sidebar">
                 <div class="sidebar-box facebook-pages">
-                    <h4 class="highlight">Facebook Pages</h4>
+                    <h4 class="highlight">For Collaboration, contact <br> any of this facebook pages:</h4>
                     <div class="facebook-pages-list">
                         @foreach($facebookPages as $page)
                             <div class="fb-page-item">

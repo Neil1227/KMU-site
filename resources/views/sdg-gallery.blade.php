@@ -36,25 +36,38 @@
 
 
     <div class="gallery-grid" id="gallery-grid">
-        @foreach ($galleryImages as $index => $item)
-            <div class="gallery-card" @if ($index >= 6) style="display: none;" @endif>
-                <a href="{{ $item['image'] }}" class="glightbox" data-title="{{ $item['title'] }}"
-                    data-description="{{ $item['sdg-targets'] }}">
-                    <img src="{{ $item['image'] }}" alt="Gallery Image">
-                </a>
 
-                <div class="gallery-overlay">
-                    <div class="overlay-text">
-                        <span class="overlay-title">{{ $item['title'] }}</span>
-                        <p class="overlay-target">{{ $item['sdg-targets'] }}</p>
-                    </div>
-
-                    <img class="overlay-icon" src="{{ asset('assets/img/sdgs/' . $sdgData->sdg_number . '.png') }}"
-                        alt="SDG Icon">
-                </div>
+        {{-- Fallback if no gallery content --}}
+        @if (count($galleryImages) === 0)
+            <div class="no-content-card">
+                <h4>No SDG Activities Uploaded Yet</h4>
+                <p>Please check back soon for updates.</p>
             </div>
-        @endforeach
+        @else
+            @foreach ($galleryImages as $index => $item)
+                <div class="gallery-card" @if ($index >= 6) style="display: none;" @endif>
+                    <a href="{{ $item['image'] }}" class="glightbox" data-title="{{ $item['title'] }}"
+                        data-description="{{ $item['sdg-targets'] }}">
+                        <img src="{{ $item['image'] }}" alt="Gallery Image">
+                    </a>
+
+                    <div class="gallery-overlay">
+                        <div class="overlay-text mb-2">
+                            <span class="overlay-title">SDG {{ $sdgData->sdg_number }} – {{ $sdgData->title }}: <br>
+                                {{ $item['title'] }}
+                            </span>
+                            <p class="overlay-target">{{ $item['sdg-targets'] }}</p>
+                        </div>
+
+                        <img class="overlay-icon" src="{{ asset('assets/img/sdgs/' . $sdgData->sdg_number . '.png') }}"
+                            alt="SDG Icon">
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
     </div>
+
 
     <div class="gallery-btn text-center mb-5">
         @if (count($galleryImages) > 6)

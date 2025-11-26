@@ -59,11 +59,21 @@ Route::get('/sdg-gallery/{sdg}', [SdgController::class, 'show'])
     ->name('sdg.gallery');
 Route::get('/sdg/{sdg}', [SdgController::class, 'show'])->name('sdg.show');
 
-// SDG Admin
-Route::prefix('admin/sdgs')->group(function () {
-    Route::get('/', [\App\Http\Controllers\SdgAdminController::class, 'index'])->name('admin.sdg.index');
-    Route::put('/{sdg}', [\App\Http\Controllers\SdgAdminController::class, 'update'])->name('admin.sdg.update');
-});
+
+use App\Http\Controllers\SdgAdminController;
+
+// SDG MAIN PAGE (description editing)
+Route::get('/admin/sdg', [SdgAdminController::class, 'index'])
+    ->name('admin.sdg.index');
+
+// SDG MEDIA UPLOAD PAGE
+Route::get('/admin/sdg/media', [SdgAdminController::class, 'mediaIndex'])
+    ->name('admin.sdg.media');
+
+// SDG MEDIA STORE
+Route::post('/admin/sdg/media/store', [SdgAdminController::class, 'mediaStore'])
+    ->name('admin.sdg.media.store');
+
 
 
 // For upload page

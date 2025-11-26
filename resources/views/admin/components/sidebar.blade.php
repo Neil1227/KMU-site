@@ -20,11 +20,12 @@
         <i class="bi bi-list-columns-reverse me-2"></i> SDG Descriptions
     </a>
 
-    {{-- SDG Media Uploads --}}
-    <a href=""
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === '' ? 'active' : 'collapsed' }}">
+    <a href="{{ route('admin.sdg.media') }}"
+        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.media' ? 'active' : 'collapsed' }}">
         <i class="bi bi-images me-2"></i> SDG Media Uploads
     </a>
+
+
 
     <a href="{{ route('admin.upload-updates') }}"
         class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
