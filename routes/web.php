@@ -29,18 +29,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/demographic/store', [DemographicController::class, 'store']);
-
-Route::get('/admin/visitors', [DemographicController::class, 'index'])
-    ->name('admin.visitors');
+Route::get('/admin/visitors', [DemographicController::class, 'index'])->name('admin.visitors');
 Route::get('/dashboard', [DemographicController::class, 'index'])->name('dashboard');
 Route::delete('admin/demographics/{id}', [DemographicController::class, 'destroy']);
 
-// Updates
-// routes/web.php
 use App\Http\Controllers\PostController;
 
 Route::get('/updates', [PostController::class, 'index'])->name('updates.index');
-
+Route::post('/admin/posts/{id}/approve', [PostController::class, 'approve'])->name('admin.posts.approve');
 Route::prefix('admin')->group(function () {
     Route::get('/upload-updates', [PostController::class, 'adminIndex'])->name('admin.upload-updates');
     Route::post('/updates', [PostController::class, 'store'])->name('admin.updates.store');
@@ -48,8 +44,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/updates/{post}', [PostController::class, 'update'])->name('admin.updates.update');
     Route::delete('/updates/{post}', [PostController::class, 'destroy'])->name('admin.updates.destroy');
 });
-Route::post('/admin/posts/{id}/approve', [PostController::class, 'approve'])
-    ->name('admin.posts.approve');
+
 
 
 use App\Http\Controllers\SdgController;
@@ -73,7 +68,8 @@ Route::get('/admin/sdg/media', [SdgAdminController::class, 'mediaIndex'])
 // SDG MEDIA STORE
 Route::post('/admin/sdg/media/store', [SdgAdminController::class, 'mediaStore'])
     ->name('admin.sdg.media.store');
-
+Route::put('/admin/sdg/media/{media}', [SdgAdminController::class, 'mediaUpdate']);
+Route::delete('/admin/sdg/media/{media}', [SdgAdminController::class, 'mediaDestroy']);
 
 
 // For upload page

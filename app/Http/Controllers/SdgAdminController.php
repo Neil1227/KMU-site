@@ -27,7 +27,7 @@ class SdgAdminController extends Controller
 
         return response()->json(['success' => true]);
     }
-    
+
     /** ============================
      *     SDG MEDIA UPLOAD PAGE
      *  ============================ */
@@ -37,7 +37,6 @@ class SdgAdminController extends Controller
         $media = SDGMedia::with('sdg')->latest()->get();
 
         return view('admin.sdg-media', compact('sdgs', 'media'));
-
     }
 
     public function mediaStore(Request $request)
@@ -60,5 +59,38 @@ class SdgAdminController extends Controller
         ]);
 
         return back()->with('success', 'SDG Media uploaded successfully!');
+    }
+    // Update SDG Media
+    public function mediaUpdate(Request $request, SDGMedia $media)
+    {
+        $request->validate([
+            'sdg_id' => 'required|exists:sdgs,id',
+            'title' => 'required|string|max:255',
+            'sdg_targets' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('sdg_media', 'public');
+            $media->image = $path;
+        }
+
+        $media->update([
+            'sdg_id' => $request->sdg_id,
+            'title' => $request->title,
+            'sdg_targets' => $request->sdg_targets,
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    // Delete SDG Media
+    public function mediaDestroy(SDGMedia $media)
+    {
+        if ($media->image && file_exists(storage_path('app/public/' . $media->image))) {
+            unlink(storage_path('app/public/' . $media->image));
+        }
+        $media->delete();
+        return response()->json(['success' => true]);
     }
 }
