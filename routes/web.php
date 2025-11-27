@@ -340,11 +340,14 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 use App\Http\Controllers\StudentThesisController;
 
 Route::get('/upload-thesis', function () {
-    return view('media-resources-section.thesis_upload');
-})->name('thesis.form');
-
+    return view('media-resources-section.thesis_upload');})->name('thesis.form');
+    Route::get('/admin/student-research/theses/{id}', [StudentThesisController::class, 'show']);
 
 Route::post('/upload-thesis', [StudentThesisController::class, 'upload'])->name('thesis.upload');
-
 // Route for final submission
 Route::post('/submit-thesis', [StudentThesisController::class, 'submit'])->name('thesis.submit');
+Route::get('/admin/student-research/theses', [StudentThesisController::class, 'index'])->name('admin.thesis-papers');
+// New routes for update & delete
+Route::post('/admin/student-research/theses/update/{thesis}', [StudentThesisController::class, 'update'])->name('thesis.update');
+Route::delete('/admin/student-research/theses/delete/{thesis}', [StudentThesisController::class, 'destroy'])->name('thesis.delete');
+

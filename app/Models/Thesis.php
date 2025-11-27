@@ -14,26 +14,27 @@ class Thesis extends Model
     /**
      * The attributes that are mass assignable.
      */
-protected $fillable = [
-    'email',
-    'fullname',
-    'psau_id',
-    'contact_number',
-    'graduate_student',
-    'googledrive_link',
-    'college',
-    'program',
-    'thesis_title',
-    'adviser',
-    'groupmates',
-    'graduation_year',
-    'file_path',
-    'data_privacy_consent', // <--- new field
-];
+    protected $fillable = [
+        'email',
+        'fullname',
+        'psau_id',
+        'contact_number',
+        'graduate_student',
+        'googledrive_link',
+        'college',
+        'program',
+        'thesis_title',
+        'adviser',
+        'groupmates',
+        'graduation_year',
+        'graduation_month', // <-- new field
+        'file_path',
+        'data_privacy_consent',
+    ];
 
-protected $casts = [
-    'graduate_student' => 'boolean',
-    'data_privacy_consent' => 'boolean', // <--- cast as boolean
-];
-
+    protected $casts = [
+        'graduate_student' => 'boolean',
+        'data_privacy_consent' => 'boolean',
+        'graduation_month' => 'integer', // <-- cast as integer
+    ];
 }

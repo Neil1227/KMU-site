@@ -10,27 +10,28 @@
         </small>
     </div>
 
-    <hr class="border-secondary w-100">
-    {{-- General Uploads Section --}}
-    <h5 class="mt-4 mb-2">General Uploads</h5>
+    @if (session('admin_role') === 'KMU')
+        <hr class="border-secondary w-100">
+        {{-- General Uploads Section --}}
+        <h5 class="mt-4 mb-2">General Uploads</h5>
 
-    {{-- SDG Description Editor --}}
-    <a href="{{ route('admin.sdg.index') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.index' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-list-columns-reverse me-2"></i> SDG Descriptions
-    </a>
+        {{-- SDG Description Editor --}}
+        <a href="{{ route('admin.sdg.index') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.index' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-list-columns-reverse me-2"></i> SDG Descriptions
+        </a>
 
-    <a href="{{ route('admin.sdg.media') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.media' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-images me-2"></i> SDG Media Uploads
-    </a>
+        <a href="{{ route('admin.sdg.media') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.media' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-images me-2"></i> SDG Activities
+        </a>
 
+        <a href="{{ route('admin.upload-updates') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-newspaper me-2"></i> Updates Section
+        </a>
+    @endif
 
-
-    <a href="{{ route('admin.upload-updates') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-newspaper me-2"></i> Updates Section
-    </a>
 
     {{-- VISITORS Section --}}
     <h5 class="mt-4 mb-2">VISITORS</h5>
@@ -39,6 +40,19 @@
         class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.visitors' ? 'active' : 'collapsed' }}">
         <i class="bi bi-people-fill me-2"></i> Visitor Profiles
     </a>
+    {{-- STUDENT RESEARCH Section --}}
+    <h5 class="mt-4 mb-2">Student Research</h5>
+
+    @if (session('admin_role') === 'KMU' || session('admin_role') === 'RESEARCH')
+        <a href="{{ route('admin.thesis-papers') }}"
+            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.thesis-papers' ? 'active' : 'collapsed' }}">
+            <i class="bi bi-journal-bookmark me-2"></i> Thesis Papers
+        </a>
+    @else
+        <div class="accordion-button sidebar-item disabled-item" data-tooltip="Access restricted to KMU and Research">
+            <i class="bi bi-journal-bookmark me-2"></i> Thesis Papers
+        </div>
+    @endif
 
     {{-- RESEARCH Section --}}
     <h5 class="mt-4 mb-2">Research</h5>

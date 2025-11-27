@@ -18,7 +18,7 @@
 
     <div class="container-page-services my-4">
         <h2 class="section-title text-center ">Upload Your Thesis</h2>
-     <p class="text-center text-muted"><em>For bona fide PSAU Students submitting their Research Thesis</em></p>
+        <p class="text-center text-muted"><em>For bona fide PSAU Students submitting their Research Thesis</em></p>
 
         <form action="{{ route('thesis.submit') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -101,8 +101,6 @@
                                 </option>
                             </select>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -123,7 +121,7 @@
                             <input type="text" name="contact_number" class="form-control"
                                 placeholder="Contact Number" required>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <select name="graduate_student" class="form-select" required>
                                 <option value="">Master’s Student?</option>
 
@@ -131,7 +129,28 @@
                                 <option value="0">No</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <select name="graduation_month" id="graduation_month" class="form-select" required>
+                                <option value="">Graduation Month</option>
+                                @foreach ([
+                                    1 => 'January',
+                                    2 => 'February',
+                                    3 => 'March',
+                                    4 => 'April',
+                                    5 => 'May',
+                                    6 => 'June',
+                                    7 => 'July',
+                                    8 => 'August',
+                                    9 => 'September',
+                                    10 => 'October',
+                                    11 => 'November',
+                                    12 => 'December',
+                                ] as $num => $month)
+                                    <option value="{{ $num }}">{{ $month }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
                             <input type="number" name="graduation_year" class="form-control"
                                 placeholder="Graduation Year" min="2010" max="2100">
                         </div>
