@@ -335,3 +335,16 @@ Route::get('/others', [ResearchController::class, 'others'])->name('others');
 
 // Search Controller
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+use App\Http\Controllers\StudentThesisController;
+
+Route::get('/upload-thesis', function () {
+    return view('media-resources-section.thesis_upload');
+})->name('thesis.form');
+
+
+Route::post('/upload-thesis', [StudentThesisController::class, 'upload'])->name('thesis.upload');
+
+// Route for final submission
+Route::post('/submit-thesis', [StudentThesisController::class, 'submit'])->name('thesis.submit');

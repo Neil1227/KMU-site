@@ -1,0 +1,98 @@
+.upload-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 3 equal columns */
+    gap: 25px;
+    margin-top: 30px;
+
+    /* Add side padding */
+    padding: 0 20px; /* adjust as needed */
+
+    /* Make it responsive */
+    width: 100%;
+    max-width: 1400px;   /* prevents overly stretched layout */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 992px) {
+    .upload-container {
+        grid-template-columns: 1fr 1fr; /* becomes 2 columns */
+    }
+}
+
+@media (max-width: 768px) {
+    .upload-container {
+        grid-template-columns: 1fr; /* stacks to 1 column */
+    }
+}
+
+    .panel {
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Drag and Drop */
+    .upload-area {
+        border: 2px dashed var(--secondary-color);
+        border-radius: 12px;
+        padding: 60px 20px;
+        text-align: center;
+        color: #555;
+        cursor: pointer;
+        transition: 0.3s;
+        background: #fafafa;
+    }
+    .upload-area.dragover {
+        background: #e6f2ff;
+        border-color: var(--primary-color);
+    }
+    .upload-area input {
+        display: none;
+    }
+
+    .file-preview {
+        display: none;
+        margin-top: 15px;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        left: 0; top: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+        background: #fff;
+        width: 90%;
+        max-width: 800px;
+        height: 80%;
+        margin: 5% auto;
+        border-radius: 12px;
+        padding: 10px;
+    }
+    .modal iframe {
+        width: 100%; height: 100%;
+        border: none;
+    }
+    .close-modal {
+        font-size: 22px;
+        float: right;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .title-heading{
+        color: var(--primary-color);
+    }
+    .btn.btn-primary{
+background-color:var(--secondary-color) !important;
+border: none !important;
+    }
+        .btn.btn-primary:hover{
+background-color:var(--primary-color) !important;
+border: none !important;
+    }
