@@ -31,10 +31,11 @@
                         <input type="file" name="thesis_file" id="thesis_file" accept="application/pdf" required>
                     </label>
 
-                    <div class="file-preview" style="display:none;">
+                    <div class="file-preview mb-2" style="display:none;">
                         <p><strong>Selected File:</strong> <span id="fileName"></span></p>
                         <button type="button" class="btn btn-secondary btn-sm" id="previewBtn">Preview PDF</button>
                     </div>
+
                     <h5 class="title-heading">2. Thesis Details</h5>
                     <div class="row g-2">
                         <div class="col-12">
