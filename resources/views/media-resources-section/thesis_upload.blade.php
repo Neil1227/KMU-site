@@ -133,19 +133,19 @@
                             <select name="graduation_month" id="graduation_month" class="form-select" required>
                                 <option value="">Graduation Month</option>
                                 @foreach ([
-                                    1 => 'January',
-                                    2 => 'February',
-                                    3 => 'March',
-                                    4 => 'April',
-                                    5 => 'May',
-                                    6 => 'June',
-                                    7 => 'July',
-                                    8 => 'August',
-                                    9 => 'September',
-                                    10 => 'October',
-                                    11 => 'November',
-                                    12 => 'December',
-                                ] as $num => $month)
+            1 => 'January',
+            2 => 'February',
+            3 => 'March',
+            4 => 'April',
+            5 => 'May',
+            6 => 'June',
+            7 => 'July',
+            8 => 'August',
+            9 => 'September',
+            10 => 'October',
+            11 => 'November',
+            12 => 'December',
+        ] as $num => $month)
                                     <option value="{{ $num }}">{{ $month }}</option>
                                 @endforeach
                             </select>
@@ -167,17 +167,23 @@
                         E-signature: <strong>[Surname], [Given Name], [M.I.]</strong>
                     </small>
                     <div class="my-5">
-                        <div class="form-check">
-                            <input type="checkbox" name="data_privacy_consent" class="form-check-input"
-                                id="dataPrivacyConsent" required>
-                            <label class="form-check-label text-muted" style="font-size: .8rem" for="dataPrivacyConsent">
-                                <em>I hereby authorize the PSAU Knowledge Management Center to collect, store, and manage
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="data_privacy_consent" id="data_privacy_consent"
+                                value="1" required>
+                            <label class="form-check-label text-muted" style="font-size: .8rem" for="data_privacy_consent">
+                               <em>I hereby authorize the PSAU Knowledge Management Center to collect, store, and manage
                                     the data indicated herein in accordance with RA 10173 (Data Privacy Act of 2012).</em>
                             </label>
                         </div>
+
+                        @error('data_privacy_consent')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+
                     </div>
 
-                    <button class="btn btn-primary w-100 mt-2">Save Thesis</button>
+                    <button class="btn btn-primary w-100 mt-2">Save Information</button>
                 </div>
 
             </div>

@@ -350,4 +350,6 @@ Route::get('/admin/student-research/theses', [StudentThesisController::class, 'i
 // New routes for update & delete
 Route::post('/admin/student-research/theses/update/{thesis}', [StudentThesisController::class, 'update'])->name('thesis.update');
 Route::delete('/admin/student-research/theses/delete/{thesis}', [StudentThesisController::class, 'destroy'])->name('thesis.delete');
+Route::post('/thesis/{id}/move-to-drive', [StudentThesisController::class, 'moveToDrive'])
+    ->name('thesis.move_to_drive');
 
