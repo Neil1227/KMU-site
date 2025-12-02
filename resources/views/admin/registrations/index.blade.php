@@ -30,12 +30,12 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Registration Number</th>
-                            <th>Title</th>
+                            <th width="200">Title</th>
                             <th>Remarks</th>
                             <th>Date Received</th>
                             <th>Inventor/Owner</th>
                             <th>IP Type</th>
-                            <th>Actions</th>
+                            <th width="70">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,94 +66,98 @@
             </div>
         </div>
     </div>
-    <!-- Registered IP Modal -->
-    <div class="modal fade" id="registeredIpModal" tabindex="-1" aria-labelledby="registeredIpModalLabel"
-        aria-hidden="true">
+    @php
+        $remarksOptions = [
+            'Notice of Issuance and Registration',
+            'Notice of Publication',
+            'Registered with certificate',
+        ];
+        $ipTypeOptions = ['Patent', 'Trademark', 'Copyright', 'Industrial Design', 'Utility Model'];
+        $noticeOptions = ['Notice of Issuance', 'Registered w/o cert', 'Registered w/ cert', 'Undelivered Cert'];
+    @endphp
+
+    {{-- Add New Registered IP --}}
+    <div class="modal fade" id="registeredIpModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form action="{{ route('admin.registrations.store') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="registeredIpModalLabel">Add New Registered IP</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title">Add New Registered IP</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row g-3"> <!-- g-3 adds spacing between columns -->
+                        <div class="row g-3">
+                            {{-- Registration Number --}}
                             <div class="col-md-6">
-                                <label for="registration_number" class="form-label">Registration Number</label>
-                                <input type="text" class="form-control" id="registration_number"
-                                    name="registration_number" required>
+                                <label class="form-label">Registration Number</label>
+                                <input type="text" class="form-control" name="registration_number" required>
                             </div>
 
+                            {{-- Title --}}
                             <div class="col-md-6">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
+                                <label class="form-label">Title</label>
+                                <input type="text" class="form-control" name="title" required>
                             </div>
 
+                            {{-- Remarks --}}
                             <div class="col-md-6">
-                                <label for="remarks" class="form-label">Remarks</label>
-                                <select class="form-select" id="remarks" name="remarks">
+                                <label class="form-label">Remarks</label>
+                                <select class="form-select remarks" name="remarks">
                                     <option value="" selected disabled>-- Select Remarks --</option>
-                                    <option value="Notice of Issuance and Registration">Notice of Issuance and Registration
-                                    </option>
-                                    <option value="Notice of Publication">Notice of Publication</option>
-                                    <option value="Registered with certificate">Registered with certificate</option>
+                                    @foreach ($remarksOptions as $option)
+                                        <option value="{{ $option }}">{{ $option }}</option>
+                                    @endforeach
                                     <option value="Other">Other</option>
                                 </select>
-
-                                <!-- Hidden text input for 'Other' -->
-                                <input type="text" class="form-control mt-2 d-none" id="remarks_other"
-                                    name="remarks_other" placeholder="Enter custom remark">
+                                <input type="text" class="form-control mt-2 remarks-other d-none" name="remarks_other"
+                                    placeholder="Enter custom remark">
                             </div>
 
+                            {{-- Date Received --}}
                             <div class="col-md-6">
-                                <label for="date_received" class="form-label">Date Received</label>
-                                <input type="date" class="form-control" id="date_received" name="date_received"
-                                    max="{{ date('Y-m-d') }}">
-
-
+                                <label class="form-label">Date Received</label>
+                                <input type="date" class="form-control" name="date_received" max="{{ date('Y-m-d') }}">
                             </div>
 
+                            {{-- Inventor/Owner --}}
                             <div class="col-md-6">
-                                <label for="inventor_owner" class="form-label">Inventor/Owner (comma separated)</label>
-                                <textarea class="form-control" id="inventor_owner" name="inventor_owner" rows="3"
-                                    placeholder="Enter inventor/owner details"></textarea>
+                                <label class="form-label">Inventor/Owner</label>
+                                <textarea class="form-control" name="inventor_owner" rows="3"></textarea>
                             </div>
 
+                            {{-- IP Type --}}
                             <div class="col-md-6">
-                                <label for="ip_type" class="form-label">IP Type</label>
-                                <select class="form-select" id="ip_type" name="ip_type">
+                                <label class="form-label">IP Type</label>
+                                <select class="form-select ip_type" name="ip_type">
                                     <option value="" selected disabled>-- Select IP Type --</option>
-                                    <option value="Patent">Patent</option>
-                                    <option value="Trademark">Trademark</option>
-                                    <option value="Copyright">Copyright</option>
-                                    <option value="Industrial Design">Industrial Design</option>
-                                    <option value="Utility Model">Utility Model</option>
+                                    @foreach ($ipTypeOptions as $option)
+                                        <option value="{{ $option }}">{{ $option }}</option>
+                                    @endforeach
                                     <option value="Other">Other</option>
                                 </select>
-
-                                <!-- Hidden text input for 'Other' -->
-                                <input type="text" class="form-control mt-2 d-none" id="ip_type_other"
-                                    name="ip_type_other" placeholder="Enter custom IP type">
+                                <input type="text" class="form-control mt-2 ip-type-other d-none" name="ip_type_other"
+                                    placeholder="Enter custom IP type">
                             </div>
+
+                            {{-- Notice --}}
                             <div class="col-md-6">
-                                <label for="notice" class="form-label">Notice</label>
-                                <select class="form-select" id="notice" name="notice">
+                                <label class="form-label">Notice</label>
+                                <select class="form-select notice" name="notice">
                                     <option value="" selected disabled>-- Select Notice --</option>
-                                    <option value="Notice of Issuance">Notice of Issuance</option>
-                                    <option value="Registered w/o cert">Registered w/o cert</option>
-                                    <option value="Registered w/ cert">Registered w/ cert</option>
-                                    <option value="Undelivered Cert">Undelivered Cert</option>
+                                    @foreach ($noticeOptions as $option)
+                                        <option value="{{ $option }}">{{ $option }}</option>
+                                    @endforeach
                                     <option value="Other">Other</option>
                                 </select>
-
-                                <!-- Hidden text input for 'Other' -->
-                                <input type="text" class="form-control mt-2 d-none" id="notice_other"
-                                    name="notice_other" placeholder="Enter custom notice">
+                                <input type="text" class="form-control mt-2 notice-other d-none" name="notice_other"
+                                    placeholder="Enter custom notice">
                             </div>
+
+                            {{-- Comment --}}
                             <div class="col-md-6">
-                                <label for="comment" class="form-label">Comment</label>
-                                <input type="text" class="form-control" id="comment" name="comment">
+                                <label class="form-label">Comment</label>
+                                <input type="text" class="form-control" name="comment">
                             </div>
                         </div>
                     </div>
@@ -166,8 +170,9 @@
             </div>
         </div>
     </div>
+
+    {{-- Edit Modals --}}
     @foreach ($registrations as $ip)
-        <!-- Edit Modal -->
         <div class="modal fade" id="editIpModal-{{ $ip->id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -180,108 +185,104 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
+                                {{-- Registration Number --}}
                                 <div class="col-md-6">
-                                    <label for="registration_number" class="form-label">Registration Number</label>
+                                    <label class="form-label">Registration Number</label>
                                     <input type="text" class="form-control" name="registration_number"
                                         value="{{ $ip->registration_number }}" required>
                                 </div>
+
+                                {{-- Title --}}
                                 <div class="col-md-6">
-                                    <label for="title" class="form-label">Title</label>
+                                    <label class="form-label">Title</label>
                                     <input type="text" class="form-control" name="title"
                                         value="{{ $ip->title }}" required>
                                 </div>
+
+                                {{-- Remarks --}}
                                 <div class="col-md-6">
-                                    <label for="remarks" class="form-label">Remarks</label>
+                                    <label class="form-label">Remarks</label>
                                     <select class="form-select remarks" name="remarks">
-                                        <option value="Notice of Issuance and Registration"
-                                            {{ $ip->remarks == 'Notice of Issuance and Registration' ? 'selected' : '' }}>
-                                            Notice
-                                            of Issuance and Registration</option>
-                                        <option value="Notice of Publication"
-                                            {{ $ip->remarks == 'Notice of Publication' ? 'selected' : '' }}>Notice of
-                                            Publication
-                                        </option>
-                                        <option value="Registered with certificate"
-                                            {{ $ip->remarks == 'Registered with certificate' ? 'selected' : '' }}>
-                                            Registered with
-                                            certificate</option>
+                                        @foreach ($remarksOptions as $option)
+                                            <option value="{{ $option }}"
+                                                {{ $ip->remarks == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
                                         <option value="Other"
-                                            {{ !in_array($ip->remarks, ['Notice of Issuance and Registration', 'Notice of Publication', 'Registered with certificate']) ? 'selected' : '' }}>
-                                            Other</option>
+                                            {{ !in_array($ip->remarks, $remarksOptions) ? 'selected' : '' }}>
+                                            Other
+                                        </option>
+                                        @if (!in_array($ip->remarks, $remarksOptions))
+                                            <option value="{{ $ip->remarks }}" selected hidden>{{ $ip->remarks }}
+                                            </option>
+                                        @endif
                                     </select>
-                                    <input type="text"
-                                        class="form-control mt-2 {{ !in_array($ip->remarks, ['Notice of Issuance and Registration', 'Notice of Publication', 'Registered with certificate']) ? '' : 'd-none' }}"
-                                        name="remarks_other"
-                                        value="{{ !in_array($ip->remarks, ['Notice of Issuance and Registration', 'Notice of Publication', 'Registered with certificate']) ? $ip->remarks : '' }}">
+                                    <input type="text" class="form-control mt-2 remarks-other" name="remarks_other">
                                 </div>
+
+                                {{-- Date Received --}}
                                 <div class="col-md-6">
-                                    <label for="date_received" class="form-label">Date Received</label>
+                                    <label class="form-label">Date Received</label>
                                     <input type="date" class="form-control" name="date_received"
                                         value="{{ $ip->date_received }}" max="{{ date('Y-m-d') }}">
-
                                 </div>
+
+                                {{-- Inventor/Owner --}}
                                 <div class="col-md-6">
-                                    <label for="inventor_owner" class="form-label">Inventor/Owner</label>
+                                    <label class="form-label">Inventor/Owner</label>
                                     <textarea class="form-control" name="inventor_owner" rows="3">{{ $ip->inventor_owner }}</textarea>
                                 </div>
+
+                                {{-- IP Type --}}
                                 <div class="col-md-6">
-                                    <label for="ip_type" class="form-label">IP Type</label>
+                                    <label class="form-label">IP Type</label>
                                     <select class="form-select ip_type" name="ip_type">
-                                        <option value="Patent" {{ $ip->ip_type == 'Patent' ? 'selected' : '' }}>Patent
-                                        </option>
-                                        <option value="Trademark" {{ $ip->ip_type == 'Trademark' ? 'selected' : '' }}>
-                                            Trademark
-                                        </option>
-                                        <option value="Copyright" {{ $ip->ip_type == 'Copyright' ? 'selected' : '' }}>
-                                            Copyright
-                                        </option>
-                                        <option value="Industrial Design"
-                                            {{ $ip->ip_type == 'Industrial Design' ? 'selected' : '' }}>Industrial Design
-                                        </option>
-                                        <option value="Utility Model"
-                                            {{ $ip->ip_type == 'Utility Model' ? 'selected' : '' }}>
-                                            Utility Model</option>
+                                        @foreach ($ipTypeOptions as $option)
+                                            <option value="{{ $option }}"
+                                                {{ $ip->ip_type == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
                                         <option value="Other"
-                                            {{ !in_array($ip->ip_type, ['Patent', 'Trademark', 'Copyright', 'Industrial Design', 'Utility Model']) ? 'selected' : '' }}>
-                                            Other</option>
+                                            {{ !in_array($ip->ip_type, $ipTypeOptions) ? 'selected' : '' }}>Other</option>
+                                        @if (!in_array($ip->ip_type, $ipTypeOptions))
+                                            <option value="{{ $ip->ip_type }}" selected hidden>{{ $ip->ip_type }}
+                                            </option>
+                                        @endif
                                     </select>
-                                    <input type="text"
-                                        class="form-control mt-2 {{ !in_array($ip->ip_type, ['Patent', 'Trademark', 'Copyright', 'Industrial Design', 'Utility Model']) ? '' : 'd-none' }}"
-                                        name="ip_type_other"
-                                        value="{{ !in_array($ip->ip_type, ['Patent', 'Trademark', 'Copyright', 'Industrial Design', 'Utility Model']) ? $ip->ip_type : '' }}">
+                                    <input type="text" class="form-control mt-2 ip-type-other" name="ip_type_other">
                                 </div>
+
+                                {{-- Notice --}}
                                 <div class="col-md-6">
-                                    <label for="notice" class="form-label">Notice</label>
+                                    <label class="form-label">Notice</label>
                                     <select class="form-select notice" name="notice">
-                                        <option value="Notice of Issuance"
-                                            {{ $ip->notice == 'Notice of Issuance' ? 'selected' : '' }}>Notice of Issuance
-                                        </option>
-                                        <option value="Registered w/o cert"
-                                            {{ $ip->notice == 'Registered w/o cert' ? 'selected' : '' }}>Registered w/o
-                                            cert
-                                        </option>
-                                        <option value="Registered w/ cert"
-                                            {{ $ip->notice == 'Registered w/ cert' ? 'selected' : '' }}>Registered w/ cert
-                                        </option>
-                                        <option value="Undelivered Cert"
-                                            {{ $ip->notice == 'Undelivered Cert' ? 'selected' : '' }}>Undelivered Cert
-                                        </option>
+                                        @foreach ($noticeOptions as $option)
+                                            <option value="{{ $option }}"
+                                                {{ $ip->notice == $option ? 'selected' : '' }}>
+                                                {{ $option }}
+                                            </option>
+                                        @endforeach
                                         <option value="Other"
-                                            {{ !in_array($ip->notice, ['Notice of Issuance', 'Registered w/o cert', 'Registered w/ cert', 'Undelivered Cert']) ? 'selected' : '' }}>
-                                            Other</option>
+                                            {{ !in_array($ip->notice, $noticeOptions) ? 'selected' : '' }}>Other</option>
+                                        @if (!in_array($ip->notice, $noticeOptions))
+                                            <option value="{{ $ip->notice }}" selected hidden>{{ $ip->notice }}
+                                            </option>
+                                        @endif
                                     </select>
-                                    <input type="text"
-                                        class="form-control mt-2 {{ !in_array($ip->notice, ['Notice of Issuance', 'Registered w/o cert', 'Registered w/ cert', 'Undelivered Cert']) ? '' : 'd-none' }}"
-                                        name="notice_other"
-                                        value="{{ !in_array($ip->notice, ['Notice of Issuance', 'Registered w/o cert', 'Registered w/ cert', 'Undelivered Cert']) ? $ip->notice : '' }}">
+                                    <input type="text" class="form-control mt-2 notice-other" name="notice_other">
                                 </div>
+
+                                {{-- Comment --}}
                                 <div class="col-md-6">
-                                    <label for="comment" class="form-label">Comment</label>
+                                    <label class="form-label">Comment</label>
                                     <input type="text" class="form-control" name="comment"
                                         value="{{ $ip->comment }}">
                                 </div>
                             </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Update IP</button>
@@ -292,8 +293,71 @@
         </div>
     @endforeach
 
+
+
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+
+                // Generic handler for all select inputs with "Other"
+                const handleOtherField = (selectElem, inputElem, optionsArray) => {
+                    const selectedValue = selectElem.value;
+
+                    if (selectedValue === "Other") {
+                        inputElem.classList.remove("d-none");
+                    } else if (!optionsArray.includes(selectedValue)) {
+                        // Saved custom value in Edit Modal
+                        inputElem.classList.remove("d-none");
+                        inputElem.value = selectedValue;
+                    } else {
+                        inputElem.classList.add("d-none");
+                        inputElem.value = "";
+                    }
+                };
+
+                // Options list (must match Blade)
+                const remarksOptions = [
+                    "Notice of Issuance and Registration",
+                    "Notice of Publication",
+                    "Registered with certificate",
+                ];
+                const ipTypeOptions = [
+                    "Patent", "Trademark", "Copyright",
+                    "Industrial Design", "Utility Model",
+                ];
+                const noticeOptions = [
+                    "Notice of Issuance",
+                    "Registered w/o cert",
+                    "Registered w/ cert",
+                    "Undelivered Cert",
+                ];
+
+                // Loop through all select + input pairs
+                document.querySelectorAll(".remarks").forEach((select) => {
+                    const otherInput = select.parentElement.querySelector(".remarks-other");
+                    handleOtherField(select, otherInput, remarksOptions);
+                    select.addEventListener("change", () => handleOtherField(select, otherInput,
+                        remarksOptions));
+                });
+
+                document.querySelectorAll(".ip_type").forEach((select) => {
+                    const otherInput = select.parentElement.querySelector(".ip-type-other");
+                    handleOtherField(select, otherInput, ipTypeOptions);
+                    select.addEventListener("change", () => handleOtherField(select, otherInput,
+                    ipTypeOptions));
+                });
+
+                document.querySelectorAll(".notice").forEach((select) => {
+                    const otherInput = select.parentElement.querySelector(".notice-other");
+                    handleOtherField(select, otherInput, noticeOptions);
+                    select.addEventListener("change", () => handleOtherField(select, otherInput,
+                    noticeOptions));
+                });
+            });
+        </script>
+
+
         <script>
             $(document).ready(function() {
                 let table;
