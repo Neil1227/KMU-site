@@ -84,7 +84,6 @@
                             <option value="Region XIII – Caraga Region">
                             <option value="BARMM – Bangsamoro Autonomous Region in Muslim Mindanao">
                         </datalist>
-
                     </div>
 
                     <div class="mb-2">

@@ -340,8 +340,9 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 use App\Http\Controllers\StudentThesisController;
 
 Route::get('/upload-thesis', function () {
-    return view('media-resources-section.thesis_upload');})->name('thesis.form');
-    Route::get('/admin/student-research/theses/{id}', [StudentThesisController::class, 'show']);
+    return view('media-resources-section.thesis_upload');
+})->name('thesis.form');
+Route::get('/admin/student-research/theses/{id}', [StudentThesisController::class, 'show']);
 
 Route::post('/upload-thesis', [StudentThesisController::class, 'upload'])->name('thesis.upload');
 // Route for final submission
@@ -353,3 +354,10 @@ Route::delete('/admin/student-research/theses/delete/{thesis}', [StudentThesisCo
 Route::post('/thesis/{id}/move-to-drive', [StudentThesisController::class, 'moveToDrive'])
     ->name('thesis.move_to_drive');
 
+use App\Http\Controllers\IPRegistrationController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/registrations', [IPRegistrationController::class, 'index'])->name('registrations.index');
+    Route::post('/registrations', [IPRegistrationController::class, 'store'])->name('registrations.store');
+    Route::resource('registrations', IPRegistrationController::class)->except(['show']);
+});

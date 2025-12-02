@@ -14,10 +14,53 @@
 @section('content')
 <div class="container mt-4">
     <div class="card shadow-sm mt-4">
-        <div class="card-header text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"><i class="fa fa-users me-2"></i>Visitor Profiles</h5>
-            <span class="badge bg-light text-dark">{{ $demographics->count() }} total</span>
+<div class="card-header text-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0"><i class="fa fa-users me-2"></i>Visitor Profiles</h5>
+    <div class="d-flex gap-2 align-items-center">
+
+        <!-- Total Count -->
+        <span class="badge bg-light text-dark">{{ $demographics->count() }} total</span>
+
+        <!-- Regions Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="regionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Regions
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="regionsDropdown">
+                @foreach($demographics->groupBy('region')->map->count() as $region => $count)
+                    <li><span class="dropdown-item">{{ $region }} ({{ $count }})</span></li>
+                @endforeach
+            </ul>
         </div>
+
+        <!-- Sex Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="sexDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Sex
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sexDropdown">
+                @foreach($demographics->groupBy('sex')->map->count() as $sex => $count)
+                    <li><span class="dropdown-item">{{ ucfirst($sex) }} ({{ $count }})</span></li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- Status Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Status
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="statusDropdown">
+                @foreach($demographics->groupBy('status')->map->count() as $status => $count)
+                    <li><span class="dropdown-item">{{ ucfirst($status) }} ({{ $count }})</span></li>
+                @endforeach
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
 
         <div class="card-body table-responsive-sm">
             <table id="visitorTable" class="table table-bordered table-striped table-sm align-middle nowrap">
