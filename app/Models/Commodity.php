@@ -15,6 +15,7 @@ class Commodity extends Model
         'technologies',
         'technology_generator',
         'contact_info',
+        'college',          // <-- new column
         'type_of_technology',
         'ip_status',
         'trl_level',

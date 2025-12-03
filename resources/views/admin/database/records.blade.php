@@ -36,6 +36,7 @@
                         <th>Technologies</th>
                         <th>Technology Generator</th>
                         <th>Contact Info</th>
+                        <th>College</th> <!-- Added College -->
                         <th>Type of Technology</th>
                         <th>IP Status</th>
                         <th>TRL Level</th>
@@ -48,6 +49,7 @@
                         <th style="display:none">Created At</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach ($records as $record)
                         <tr data-id="{{ $record->id }}">
@@ -56,6 +58,7 @@
                             <td>{{ $record->technologies }}</td>
                             <td>{!! $record->technology_generator !!}</td>
                             <td>{{ $record->contact_info }}</td>
+                            <td>{{ $record->college }}</td>
                             @php
                                 $techClasses = [
                                     'Food' => 'badge-tech-food',
@@ -231,6 +234,7 @@
                     // Fill input fields
                     document.getElementById("edit_id").value = record.id;
                     document.getElementById("commodityEdit").value = record.commodity;
+                    document.getElementById("edit_college").value = record.college;
                     document.getElementById("edit_thesis_title").value = record.thesis_title;
                     document.getElementById("edit_technologies").value = record.technologies;
                     document.getElementById("edit_technology_generator").value = record
@@ -447,14 +451,16 @@
                                     <dt class="col-sm-3 fw-bold">Technologies:</dt><dd class="col-sm-9">${data[2]}</dd>
                                     <dt class="col-sm-3 fw-bold">Technology Generator:</dt><dd class="col-sm-9">${data[3]}</dd>
                                     <dt class="col-sm-3 fw-bold">Contact Info:</dt><dd class="col-sm-9">${data[4]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Type of Technology:</dt><dd class="col-sm-9">${data[5]}</dd>
-                                    <dt class="col-sm-3 fw-bold">IP Status:</dt><dd class="col-sm-9">${data[6]}</dd>
-                                    <dt class="col-sm-3 fw-bold">TRL Level:</dt><dd class="col-sm-9">${data[7]}</dd>
-                                    <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[8]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[9]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[10]}</dd>
-                                    <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9"><a href='${data[11]}' target='_blank'>${data[11]}</a></dd>
-                                    <dt class="col-sm-3 fw-bold">Priority Area:</dt><dd class="col-sm-9">${data[12]}</dd>
+                                    <dt class="col-sm-3 fw-bold">College:</dt><dd class="col-sm-9">${data[5]}</dd>
+
+                                    <dt class="col-sm-3 fw-bold">Type of Technology:</dt><dd class="col-sm-9">${data[6]}</dd>
+                                    <dt class="col-sm-3 fw-bold">IP Status:</dt><dd class="col-sm-9">${data[7]}</dd>
+                                    <dt class="col-sm-3 fw-bold">TRL Level:</dt><dd class="col-sm-9">${data[8]}</dd>
+                                    <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[9]}</dd>
+                                    <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[10]}</dd>
+                                    <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[11]}</dd>
+                                    <dt class="col-sm-3 fw-bold">Link:</dt><dd class="col-sm-9"><a href='${data[12]}' target='_blank'>${data[12]}</a></dd>
+                                    <dt class="col-sm-3 fw-bold">Priority Area:</dt><dd class="col-sm-9">${data[13]}</dd>
                                 </dl>
                             `;
 
@@ -473,12 +479,12 @@
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50],
                 columnDefs: [{
-                        targets: 14,
+                        targets: 13,
                         visible: false
                     }, // Hide Created At
                     {
                         orderable: false,
-                        targets: 13
+                        targets: 14
                     } // Actions
                 ],
                 columns: [{
@@ -489,6 +495,9 @@
                         responsivePriority: 2,
                         className: "all"
                     }, // Thesis Title
+                    {
+                        className: "all"
+                    }, // college
                     {
                         className: "none"
                     }, // Technologies

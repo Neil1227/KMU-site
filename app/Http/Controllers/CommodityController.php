@@ -151,6 +151,7 @@ class CommodityController extends Controller
             'technologies' => 'nullable|string|max:255',
             'technology_generator' => 'nullable|string|max:255',
             'contact_info' => 'nullable|string|max:100',
+            'college' => 'nullable|string|max:255', // <- new
             'type_of_technology' => 'nullable|string|max:100',
             'ip_status' => 'nullable|string|max:100',
             'trl_level' => 'nullable|integer|min:1|max:9',
@@ -202,13 +203,14 @@ class CommodityController extends Controller
             'technologies' => 'nullable|string|max:255',
             'technology_generator' => 'nullable|string|max:255',
             'contact_info' => 'nullable|string|max:100',
+            'college' => 'nullable|string|max:255', // <- new
             'type_of_technology' => 'nullable|string|max:100',
             'ip_status' => 'nullable|string|max:100',
             'trl_level' => 'nullable|integer|min:1|max:9',
             'sdgs' => 'nullable|string|max:500',
             'remarks' => 'nullable|string|max:255',
             'recommendations' => 'nullable|string|max:500',
-            'link' => 'nullable|string|max:500',
+            'link' => 'nullable|url|max:500',
             'priority_area' => 'nullable|string|max:255',
         ]);
 
