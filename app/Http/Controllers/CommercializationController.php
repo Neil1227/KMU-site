@@ -29,6 +29,7 @@ class CommercializationController extends Controller
             'technologies' => 'nullable|string',
             'technology_generator' => 'nullable|string|max:255',
             'contact_info' => 'nullable|string|max:255',
+            'college' => 'nullable|string|max:255', // added college
             'type_of_technology' => 'nullable|string|max:255',
             'ip_status' => 'nullable|string|max:255',
             'trl_level' => 'nullable|string|max:255',
@@ -45,6 +46,9 @@ class CommercializationController extends Controller
             ->with('success', 'Commercialization record created successfully.');
     }
 
+    /**
+     * Delete a record.
+     */
     public function destroy($id)
     {
         try {
@@ -63,11 +67,22 @@ class CommercializationController extends Controller
         }
     }
 
-
+    /**
+     * Push from Commodity to Commercialization.
+     */
     public function pushFromCommodity($id)
     {
         try {
             $commodity = Commodity::findOrFail($id);
+
+            // Check if this commodity is already pushed
+            $exists = Commercialization::where('commodity_id', $commodity->id)->exists();
+            if ($exists) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'This commodity has already been pushed to Commercialization.'
+                ], 409);
+            }
 
             Commercialization::create([
                 'commodity_id' => $commodity->id,
@@ -76,6 +91,7 @@ class CommercializationController extends Controller
                 'technologies' => $commodity->technologies,
                 'technology_generator' => $commodity->technology_generator,
                 'contact_info' => $commodity->contact_info,
+                'college' => $commodity->college,
                 'type_of_technology' => $commodity->type_of_technology,
                 'ip_status' => $commodity->ip_status,
                 'trl_level' => $commodity->trl_level,
@@ -86,9 +102,16 @@ class CommercializationController extends Controller
                 'priority_area' => $commodity->priority_area,
             ]);
 
-            return response()->json(['message' => 'Pushed to Commercialization successfully.']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Pushed to Commercialization successfully.'
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Unable to push this record.'], 500);
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to push this record.',
+                'error' => $e->getMessage() // optional for debugging
+            ], 500);
         }
     }
 }

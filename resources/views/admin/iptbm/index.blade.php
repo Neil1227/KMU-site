@@ -47,12 +47,12 @@
                             <th>Technologies</th>
                             <th class="hide-column">Technology Generator</th>
                             <th class="hide-column">Contact Info</th>
+                            <th>College</th> <!-- Added college -->
                             <th class="hide-column">Type of Technology</th>
                             <th>Link</th>
                             <th class="hide-column">Priority Area</th>
                             <th style="display:none">Date Received</th>
                             <th class="text-center">Actions</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +72,8 @@
                                     {{ $commertial->technology_generator ?? '—' }}</td>
                                 <td class="hide-column" data-full="{{ $commertial->contact_info ?? '—' }}">
                                     {{ Str::limit($commertial->contact_info ?? '—', 50) }}</td>
+                                <td data-full="{{ $commertial->college ?? '—' }}">
+                                    {{ $commertial->college ?? '—' }}</td>
                                 <td class="hide-column" data-full="{{ $commertial->type_of_technology ?? '—' }}">
                                     {{ $commertial->type_of_technology ?? '—' }}</td>
                                 <td data-full="{{ $commertial->link ?? '—' }}">
@@ -85,7 +87,6 @@
                                 <td class="hide-column" data-full="{{ $commertial->priority_area ?? '—' }}">
                                     {{ $commertial->priority_area ?? '—' }}</td>
                                 <td style="display:none">{{ $commertial->created_at }}</td>
-
                                 <td class="text-center">
                                     <button class="btn btn-primary btn-sm push-to-registered"
                                         data-id="{{ $commertial->id }}" data-technology="{{ $commertial->technologies }}"
@@ -101,7 +102,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center">No records found.</td>
+                                <td colspan="11" class="text-center">No records found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -109,8 +110,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @push('scripts')
@@ -120,7 +119,6 @@
 
     <script>
         $(document).ready(function() {
-
             var table = $('#commercializationTable').DataTable({
                 responsive: true,
                 columnDefs: [{
@@ -139,7 +137,7 @@
                 }
             });
 
-            // Folding row logic with toggle arrow
+            // Folding row logic
             $('#commercializationTable tbody').on('click', 'td:first-child', function() {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);

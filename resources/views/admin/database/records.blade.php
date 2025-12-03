@@ -166,7 +166,8 @@
                                         @endif
                                         @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
                                             <li>
-                                                <button type="button" class="dropdown-item push-commercialization"
+                                                <button type="button"
+                                                    class="dropdown-item view push-action push-commercialization"
                                                     data-id="{{ $record->id }}"
                                                     data-url="{{ route('admin.iptbm.push', $record->id) }}">
                                                     <i class="bi bi-briefcase-fill me-1"></i> Push to Commercialization
@@ -546,27 +547,32 @@
             });
         });
     </script>
+    {{-- push to comm --}}
     <script>
-        $(document).on('click', '.push-commercialization', function() {
+        $(document).on('click', '.push-to-registered', function() {
             let id = $(this).data('id');
-            let url = $(this).data('url');
 
-            Swal.fire({
-                title: "Push to Commercialization?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, push it"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    axios.post(url)
-                        .then(res => {
-                            Swal.fire("Success", res.data.message, "success").then(() => {
-                                location.reload();
-                            });
-                        })
-                        .catch(err => {
-                            Swal.fire("Error", "Something went wrong.", "error");
-                        });
+            $.ajax({
+                url: `/admin/commercialization/push/${id}`, // update to your route
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    if (res.success) {
+                        Swal.fire('Success', res.message, 'success');
+                        // optionally remove row from table
+                    } else {
+                        Swal.fire('Error', res.message, 'error');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 409) {
+                        Swal.fire('Warning', xhr.responseJSON.message, 'warning');
+                    } else {
+                        Swal.fire('Error', xhr.responseJSON?.message || 'Something went wrong',
+                            'error');
+                    }
                 }
             });
         });

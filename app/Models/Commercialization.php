@@ -15,6 +15,7 @@ class Commercialization extends Model
         'technologies',
         'technology_generator',
         'contact_info',
+        'college', // <-- Added college
         'type_of_technology',
         'ip_status',
         'trl_level',

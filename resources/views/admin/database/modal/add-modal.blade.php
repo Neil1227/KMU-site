@@ -58,6 +58,7 @@
                                     <option value="COED - College of Education">COED - College of Education</option>
                                     <option value="CVM - College of Veterinary Medicine">CVM - College of Veterinary
                                         Medicine</option>
+                                    <option value="Others">Others</option>
                                 </select>
 
 
