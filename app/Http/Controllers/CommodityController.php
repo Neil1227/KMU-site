@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Commodity;
 use App\Models\DBActivity;
+
+use App\Models\Commercialization;
 use Illuminate\Http\Request;
 
 class CommodityController extends Controller
@@ -404,5 +406,33 @@ class CommodityController extends Controller
             'commodities' => $commodities,
             'commodityCounts' => $commodityCounts,
         ]);
+    }
+
+    public function push($id)
+    {
+        try {
+            $commodity = Commodity::findOrFail($id);
+
+            Commercialization::create([
+                'commodity_id' => $id,
+                'commodity' => $commodity->commodity ?? null,
+                'thesis_title' => $commodity->thesis_title ?? null,
+                'technologies' => $commodity->technologies ?? null,
+                'technology_generator' => $commodity->technology_generator ?? null,
+                'contact_info' => $commodity->contact_info ?? null,
+                'type_of_technology' => $commodity->type_of_technology ?? null,
+                'ip_status' => $commodity->ip_status ?? null,
+                'trl_level' => $commodity->trl_level ?? null,
+                'sdgs' => $commodity->sdgs ?? null,
+                'remarks' => $commodity->remarks ?? null,
+                'recommendations' => $commodity->recommendations ?? null,
+                'link' => $commodity->link ?? null,
+                'priority_area' => $commodity->priority_area ?? null,
+            ]);
+
+            return response()->json(['message' => 'Pushed to Commercialization successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unable to push this record.'], 500);
+        }
     }
 }

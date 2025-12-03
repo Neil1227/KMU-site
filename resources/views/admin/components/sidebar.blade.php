@@ -165,6 +165,18 @@
             </div>
         @endif
 
+        {{-- Technology Database --}}
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'IPTBM')
+            <a href="{{ route('admin.database.commodities') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.database.commodities' ? 'active' : 'collapsed' }}">
+                <i class="bi bi-database me-2"></i> Technology Database
+            </a>
+        @else
+            <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
+                <i class="bi bi-database me-2"></i> Technology Database
+            </div>
+        @endif
+
         {{-- EXTENSION Section --}}
         <h5 class="mt-4 mb-2">Extension</h5>
 
@@ -187,39 +199,25 @@
 
 
 
-{{-- IPTBM Section --}}
-<h5 class="mt-4 mb-2">IPTBM</h5>
+        {{-- IPTBM Section --}}
+        <h5 class="mt-4 mb-2">IPTBM</h5>
 
-{{-- Technology Database --}}
-@if (session('admin_role') === 'KMU' || session('admin_role') === 'IPTBM')
-    <a href="{{ route('admin.database.commodities') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.database.commodities' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-database me-2"></i> Technology Database
-    </a>
-@else
-    <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
-        <i class="bi bi-database me-2"></i> Technology Database
-    </div>
-@endif
+        {{-- Registered IPs --}}
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'IPTBM')
+            <a href="{{ route('admin.registrations.index') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registrations.index' ? 'active' : 'collapsed' }}">
+                <i class="bi bi-file-earmark-text me-2"></i> Registered IPs
+            </a>
+        @else
+            <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
+                <i class="bi bi-file-earmark-text me-2"></i> Registered IPs
+            </div>
+        @endif
 
-{{-- Registered IPs --}}
-@if (session('admin_role') === 'KMU' || session('admin_role') === 'IPTBM')
-    <a href="{{ route('admin.registrations.index') }}"
-        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.registrations.index' ? 'active' : 'collapsed' }}">
-        <i class="bi bi-file-earmark-text me-2"></i> Registered IPs
-    </a>
-@else
-    <div class="accordion-button sidebar-item restricted" data-tooltip="Access restricted">
-        <i class="bi bi-file-earmark-text me-2"></i> Registered IPs
-    </div>
-@endif
-
-
-        {{-- TBI Section --}}
-        <h5 class="mt-4 mb-2">TBI</h5>
+        {{-- Commercialization --}}
         @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
-            <a href="{{ route('admin.notifications') }}"
-                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
+            <a href="{{ route('admin.iptbm.index') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.iptbm.index' ? 'active' : 'collapsed' }}">
                 <i class="bi bi-bell me-2"></i> Commercialization
                 @if ($newApplicationsCount > 0)
                     <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
@@ -229,6 +227,35 @@
             <div class="accordion-button sidebar-item disabled-item"
                 data-tooltip="Access restricted to IPTBM and KMU">
                 <i class="bi bi-bell me-2"></i> Commercialization
+                @if ($newApplicationsCount > 0)
+                    <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
+                @endif
+            </div>
+        @endif
+
+
+        {{-- TBI Section --}}
+        <h5 class="mt-4 mb-2">Agri-Business</h5>
+
+        {{-- TBI Section --}}
+        <h5 class="mt-4 mb-2">Technology Licensing</h5>
+
+        {{-- TBI Section --}}
+        <h5 class="mt-4 mb-2">TBI</h5>
+
+        {{-- For Registration --}}
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+            <a href="{{ route('admin.notifications') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
+                <i class="bi bi-bell me-2"></i> For Registration
+                @if ($newApplicationsCount > 0)
+                    <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
+                @endif
+            </a>
+        @else
+            <div class="accordion-button sidebar-item disabled-item"
+                data-tooltip="Access restricted to IPTBM and KMU">
+                <i class="bi bi-bell me-2"></i> For Registration
                 @if ($newApplicationsCount > 0)
                     <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
                 @endif

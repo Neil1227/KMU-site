@@ -88,9 +88,9 @@
                                         </form>
                                     @else
                                         {{-- ✅ Show the other buttons ONLY after acknowledgment --}}
-                                        <button class="btn btn-sm btn-primary push-to-iptbm-btn" title="Push to IPTBM"
-                                            data-id="{{ $research->id }}" data-title="{{ $research->title }}"
-                                            data-authors="{{ $research->authors }}"
+                                        <button class="btn btn-sm btn-primary push-to-iptbm-btn"
+                                            title="Push to Technology Database" data-id="{{ $research->id }}"
+                                            data-title="{{ $research->title }}" data-authors="{{ $research->authors }}"
                                             data-technology_type="{{ $research->technology_type }}"
                                             data-priority_area="{{ $research->priority_area }}"
                                             data-link="{{ $research->link }}"
@@ -145,7 +145,8 @@
 
                                             @foreach ($commodities as $c)
                                                 <option value="{{ $c->commodity }}">{{ $c->commodity }}
-                                                    ({{ $c->total }})</option>
+                                                    ({{ $c->total }})
+                                                </option>
                                             @endforeach
                                         </select>
 
@@ -619,7 +620,7 @@
                 icon: 'success',
                 title: 'Success!',
                 text: '{{ session('
-                        success ') }}',
+                                        success ') }}',
                 confirmButtonColor: '#198754'
             });
         @endif
@@ -629,7 +630,7 @@
                 icon: 'error',
                 title: 'Error!',
                 text: '{{ session('
-                        error ') }}',
+                                        error ') }}',
                 confirmButtonColor: '#dc3545'
             });
         @endif

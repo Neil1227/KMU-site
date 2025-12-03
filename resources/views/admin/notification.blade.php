@@ -289,7 +289,7 @@
 
                                 $('#customModal .modal-title').html(
                                     `Details for <span class="text-primary fw-bold">${$(tr).find('td').eq(0).attr('data-full')}</span>`
-                                    );
+                                );
                                 $('#customModal .modal-body').html(dl);
                                 $('#customModal').modal('show');
                             }

@@ -151,11 +151,6 @@
                                                 <i class="bi bi-pencil-fill me-1"></i> Edit
                                             </button>
                                         </li>
-                                        <!-- <li>
-                                        <button class="dropdown-item tag" data-bs-toggle="modal" data-bs-target="#changeClassificationModal">
-                                            <i class="bi bi-tags me-1"></i> Classification
-                                        </button>
-                                    </li> -->
                                         @if (session('admin_role') === 'KMU')
                                             <li>
                                                 <button type="button" class="dropdown-item view tag"
@@ -164,6 +159,15 @@
                                                     <i class="bi bi-box me-1"></i> Push to Extension
                                                 </button>
 
+                                            </li>
+                                        @endif
+                                        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+                                            <li>
+                                                <button type="button" class="dropdown-item push-commercialization"
+                                                    data-id="{{ $record->id }}"
+                                                    data-url="{{ route('admin.iptbm.push', $record->id) }}">
+                                                    <i class="bi bi-briefcase-fill me-1"></i> Push to Commercialization
+                                                </button>
                                             </li>
                                         @endif
 
@@ -248,7 +252,7 @@
 
                     // Open modal
                     const modal = new bootstrap.Modal(document.getElementById(
-                    "editCommodityModal"));
+                        "editCommodityModal"));
                     modal.show();
                 });
             });
@@ -302,7 +306,7 @@
 
                     // Show modal
                     const modal = new bootstrap.Modal(document.getElementById(
-                    "editCommodityModal"));
+                        "editCommodityModal"));
                     modal.show();
                 });
             });
@@ -533,7 +537,31 @@
             });
         });
     </script>
+    <script>
+        $(document).on('click', '.push-commercialization', function() {
+            let id = $(this).data('id');
+            let url = $(this).data('url');
 
+            Swal.fire({
+                title: "Push to Commercialization?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, push it"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post(url)
+                        .then(res => {
+                            Swal.fire("Success", res.data.message, "success").then(() => {
+                                location.reload();
+                            });
+                        })
+                        .catch(err => {
+                            Swal.fire("Error", "Something went wrong.", "error");
+                        });
+                }
+            });
+        });
+    </script>
     <!-- push notification -->
     <script src="{{ asset('js/pushcontent.js') }}"></script>
     <script src="{{ asset('js/pushtoextension.js') }}"></script>

@@ -361,3 +361,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/registrations', [IPRegistrationController::class, 'store'])->name('registrations.store');
     Route::resource('registrations', IPRegistrationController::class)->except(['show']);
 });
+
+use App\Http\Controllers\CommercializationController;
+// COMMERCIALIZATION
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/commercialization', [CommercializationController::class, 'index'])
+        ->name('iptbm.index');
+
+    Route::delete('/commercialization/{commercialization}', [CommercializationController::class, 'destroy'])
+        ->name('iptbm.destroy');
+
+    Route::post('/admin/database/commodities/{id}/push', [CommercializationController::class, 'pushFromCommodity'])
+        ->name('iptbm.push');
+});

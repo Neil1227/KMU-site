@@ -62,7 +62,7 @@ class NotificationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to push commodity: '.$e->getMessage(),
+                'message' => 'Failed to push commodity: ' . $e->getMessage(),
             ], 500);
         }
     }
@@ -100,7 +100,7 @@ class NotificationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to revert push: '.$e->getMessage(),
+                'message' => 'Failed to revert push: ' . $e->getMessage(),
             ], 500);
         }
     }
