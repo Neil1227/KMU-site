@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AgriBusiness;
 use App\Models\Commercialization;
+use App\Models\TechnologyLicensingUnit;
 use Illuminate\Http\Request;
 
 class AgriBusinessController extends Controller
@@ -24,21 +25,33 @@ class AgriBusinessController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'thesis_title' => 'nullable|string|max:255',
-            'technologies' => 'nullable|string',
-            'technology_generator' => 'nullable|string|max:255',
-            'type_of_technology' => 'nullable|string|max:255',
-            'contact_info' => 'nullable|string|max:255',
-            'remarks' => 'nullable|string',
-            'link' => 'nullable|string|max:255',
-        ]);
+        try {
+            $agri = AgriBusiness::create([
+                'thesis_title'         => $request->thesis_title,
+                'technologies'         => $request->technologies,
+                'technology_generator' => $request->technology_generator,
+                'type_of_technology'   => $request->type_of_technology,
+                'contact_info'         => $request->contact_info,
+                'remarks'              => $request->remarks,
+                'link'                 => $request->link,
+            ]);
 
-        AgriBusiness::create($request->all());
+            // DELETE the original commercialization record
+            \App\Models\Commercialization::findOrFail($request->commertial_id)->delete();
 
-        return redirect()->route('admin.agri-business.index')
-            ->with('success', 'Agri-Business record created successfully.');
+            return response()->json([
+                'success' => true,
+                'message' => 'Record pushed to Agri-Business and removed from Commercialization!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to push record.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
+
 
     /**
      * Delete a record.
@@ -104,5 +117,28 @@ class AgriBusinessController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unable to push the record.'], 500);
         }
+    }
+
+    public function pushToTLU($id)
+    {
+        $agri = AgriBusiness::findOrFail($id);
+
+        $newTLU = TechnologyLicensingUnit::create([
+            'thesis_title'         => $agri->thesis_title,
+            'technologies'         => $agri->technologies,
+            'technology_generator' => $agri->technology_generator,
+            'type_of_technology'   => $agri->type_of_technology,
+            'contact_info'         => $agri->contact_info,
+            'remarks'              => $agri->remarks,
+            'link'                 => $agri->link,
+        ]);
+
+        // DELETE the original AgriBusiness record after pushing
+        $agri->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Record successfully pushed to Technology Licensing Unit and removed from Agri-Business!'
+        ]);
     }
 }

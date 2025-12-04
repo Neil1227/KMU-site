@@ -43,7 +43,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Commodity</th>
-                            <th>Thesis Title</th>
+                            <th width="200">Thesis Title</th>
                             <th>Technologies</th>
                             <th class="hide-column">Technology Generator</th>
                             <th class="hide-column">Contact Info</th>
@@ -65,7 +65,9 @@
                                         data-full="{{ $commodity->commodity ?? '—' }}">{{ $commodity->commodity ?? '—' }}</span>
                                 </td>
                                 <td data-full="{{ $commertial->thesis_title ?? '—' }}">
-                                    {{ Str::limit($commertial->thesis_title ?? '—', 50) }}</td>
+                                    {{ $commertial->thesis_title ?? '—' }}
+                                </td>
+
                                 <td data-full="{{ $commertial->technologies ?? '—' }}">
                                     {{ Str::limit($commertial->technologies ?? '—', 50) }}</td>
                                 <td class="hide-column" data-full="{{ $commertial->technology_generator ?? '—' }}">
@@ -126,6 +128,80 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Agri-Business Modal -->
+            <!-- Agri-Business Modal -->
+            <div class="modal fade" id="agriModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form id="agriForm" action="{{ route('admin.agri-business.store') }}" method="POST">
+
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add to Agri-Business</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <input type="hidden" name="commertial_id" id="agri_comm_id">
+
+                                <!-- Thesis Title -->
+                                <div class="mb-3">
+                                    <label class="form-label">Thesis Title</label>
+                                    <input type="text" class="form-control" name="thesis_title" id="agri_thesis">
+                                </div>
+
+                                <!-- Technologies -->
+                                <div class="mb-3">
+                                    <label class="form-label">Technologies</label>
+                                    <textarea class="form-control" name="technologies" id="agri_technologies" rows="2"></textarea>
+                                </div>
+
+                                <!-- Technology Generator -->
+                                <div class="mb-3">
+                                    <label class="form-label">Technology Generator</label>
+                                    <input type="text" class="form-control" name="technology_generator"
+                                        id="agri_generator">
+                                </div>
+
+                                <!-- Type of Technology -->
+                                <div class="mb-3">
+                                    <label class="form-label">Type of Technology</label>
+                                    <input type="text" class="form-control" name="type_of_technology" id="agri_type">
+                                </div>
+
+                                <!-- Contact Info -->
+                                <div class="mb-3">
+                                    <label class="form-label">Contact Info</label>
+                                    <input type="text" class="form-control" name="contact_info" id="agri_contact">
+                                </div>
+
+                                <!-- Remarks -->
+                                <div class="mb-3">
+                                    <label class="form-label">Remarks</label>
+                                    <textarea class="form-control" name="remarks" id="agri_remarks" rows="2"></textarea>
+                                </div>
+
+                                <!-- Link (INTENTIONALLY EMPTY — user fills manually) -->
+                                <div class="mb-3">
+                                    <label class="form-label">Link</label>
+                                    <input type="text" class="form-control" name="link"
+                                        placeholder="Enter link manually (optional)">
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-success" type="submit">Save</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 @endsection
@@ -135,61 +211,13 @@
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
-    {{-- push tho agribus --}}
     <script>
         $(document).ready(function() {
-            // Push to Agri-Business
-            $(document).on('click', '.push-to-agri', function() {
-                var commercializationId = $(this).data('id');
-                var button = $(this);
 
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This will push the record to Agri-Business.",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#28a745',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: 'Yes, push it!'
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-                        try {
-                            const res = await fetch(
-                                "{{ url('admin/commercialization/push-to-agri') }}/" +
-                                commercializationId, {
-                                    method: "POST",
-                                    headers: {
-                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                        "Accept": "application/json"
-                                    }
-                                });
-
-                            const data = await res.json();
-
-                            if (data.message) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Pushed!',
-                                    text: data.message,
-                                    timer: 1500,
-                                    showConfirmButton: false
-                                });
-                            } else if (data.error) {
-                                Swal.fire('Error', data.error, 'error');
-                            }
-
-                        } catch (err) {
-                            Swal.fire('Error', 'Something went wrong.', 'error');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            var table = $('#commercializationTable').DataTable({
+            /* ============================================================
+             *  INITIALIZE DATATABLE
+             * ============================================================ */
+            const table = $('#commercializationTable').DataTable({
                 responsive: true,
                 columnDefs: [{
                     orderable: true,
@@ -207,70 +235,116 @@
                 }
             });
 
-            // Folding row logic
-            $('#commercializationTable tbody').on('click', 'td:first-child', function() {
-                var tr = $(this).closest('tr');
-                var row = table.row(tr);
-                var arrow = $(this).find('.expand-toggle');
-
-                if (row.child.isShown()) {
-                    row.child.hide();
-                    tr.removeClass('expanded');
-                } else {
-                    var detailsHtml = tr.find('td').map(function(i) {
-                        var title = $('#commercializationTable thead th').eq(i).text();
-                        if ($(this).hasClass('hide-column')) {
-                            return `<div><strong>${title}:</strong> ${$(this).attr('data-full') || $(this).text()}</div>`;
-                        }
-                    }).get().join('');
-                    row.child(`<div class="folding-row p-2 bg-light">${detailsHtml}</div>`).show();
-                    tr.addClass('expanded');
-                }
+            /* ============================================================
+             *  SWEETALERT HELPERS
+             * ============================================================ */
+            const swalSuccess = msg => Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: msg,
+                timer: 1500,
+                showConfirmButton: false
+            });
+            const swalError = msg => Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: msg
+            });
+            const swalConfirm = text => Swal.fire({
+                title: "Confirm",
+                text: text || "Are you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel"
             });
 
-            // Delete record
-            $(document).on('click', '.delete-notif', function() {
-                var url = $(this).data('url');
-                var tr = $(this).closest('tr');
+            /* ============================================================
+             *  HELPER: REMOVE ROW FROM DATATABLE
+             * ============================================================ */
+            function removeRow(id) {
+                const row = $(`tr[data-id="${id}"]`);
+                table.row(row).remove().draw();
+            }
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This will permanently delete the record.",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#6c757d",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-                        try {
-                            const res = await fetch(url, {
-                                method: "DELETE",
-                                headers: {
-                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                    "Accept": "application/json"
-                                }
-                            });
-                            const data = await res.json();
-                            if (data.success) {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Deleted!",
-                                    text: data.message,
-                                    timer: 1500,
-                                    showConfirmButton: false
-                                });
-                                table.row(tr).remove().draw();
-                            } else Swal.fire("Error", data.message, "error");
-                        } catch {
-                            Swal.fire("Error", "Something went wrong.", "error");
-                        }
-                    }
+            /* ============================================================
+             *  AGRI-BUSINESS MODAL
+             * ============================================================ */
+            function populateAgriModal(tr) {
+                $('#agri_comm_id').val(tr.data('id'));
+                $('#agri_thesis').val(tr.find('td:eq(1)').data('full'));
+                $('#agri_technologies').val(tr.find('td:eq(2)').data('full'));
+                $('#agri_generator').val(tr.find('td:eq(3)').data('full'));
+                $('#agri_contact').val(tr.find('td:eq(4)').data('full'));
+                $('#agri_type').val(tr.find('td:eq(6)').data('full'));
+                $('#agri_remarks').val('');
+                $('#agriForm input[name="link"]').val('');
+                $('#agriModal').modal('show');
+            }
+
+            $(document).on("click", ".push-to-agri", function() {
+                populateAgriModal($(this).closest("tr"));
+            });
+
+            $('#agriModal').on('hidden.bs.modal', () => $('#agriForm')[0].reset());
+
+            /* ============================================================
+             *  SUBMIT AGRI FORM
+             * ============================================================ */
+            $('#agriForm').on('submit', function(e) {
+                e.preventDefault();
+                const form = $(this);
+                const id = $('#agri_comm_id').val();
+                const submitBtn = form.find('button[type=submit]');
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        swalSuccess(response.message || "Record saved and pushed.");
+                        removeRow(id);
+                        $('#agriModal').modal('hide');
+                    },
+                    error: function(xhr) {
+                        let msg = xhr.responseJSON?.message || "Unable to save.";
+                        swalError(msg);
+                    },
+                    complete: () => submitBtn.prop('disabled', false).text('Save')
                 });
             });
 
-            // Push modal
-            $(document).on('click', '.push-to-registered', function() {
+            /* ============================================================
+             *  DELETE RECORD
+             * ============================================================ */
+            $(document).on("click", ".delete-notif", async function() {
+                const tr = $(this).closest("tr");
+                const id = tr.data("id");
+                const url = $(this).data("url");
+
+                const result = await swalConfirm("This will permanently delete the record.");
+                if (!result.isConfirmed) return;
+
+                try {
+                    const res = await fetch(url, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Accept": "application/json"
+                        }
+                    });
+                    const data = await res.json();
+                    data.success ? (swalSuccess(data.message), removeRow(id)) : swalError(data.message);
+                } catch {
+                    swalError("Something went wrong.");
+                }
+            });
+
+            /* ============================================================
+             *  REGISTERED TECHNOLOGY MODAL
+             * ============================================================ */
+            $(document).on("click", ".push-to-registered", function() {
                 $('#technology').val($(this).data('technology'));
                 $('#techGenerator').val($(this).data('generator'));
                 $('#description').val('');
@@ -279,36 +353,54 @@
                 $('#pushTechnologyModal').modal('show');
             });
 
-            // Push technology AJAX
             $('#pushTechnologyForm').on('submit', function(e) {
                 e.preventDefault();
-                let notificationId = $('#notificationId').val();
-                let row = $(`tr[data-id="${notificationId}"]`);
+                const form = $(this);
+                const id = $('#notificationId').val();
+                const btn = form.find("button[type=submit]");
+
+                btn.prop("disabled", true).text("Saving...");
 
                 $.ajax({
                     url: "{{ route('admin.registered-technology.store') }}",
                     type: "POST",
-                    data: $(this).serialize(),
+                    data: form.serialize(),
                     success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message,
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
+                        swalSuccess(response.message);
+                        removeRow(id);
                         $('#pushTechnologyModal').modal('hide');
-                        table.row(row).remove().draw();
                     },
                     error: function(xhr) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: xhr.responseJSON?.message || 'Something went wrong'
-                        });
-                    }
+                        swalError(xhr.responseJSON?.message || "Something went wrong.");
+                    },
+                    complete: () => btn.prop("disabled", false).text("Save")
                 });
             });
+
+            /* ============================================================
+             *  FOLDING ROW LOGIC
+             * ============================================================ */
+            $('#commercializationTable tbody').on('click', 'td:first-child', function() {
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('expanded');
+                    return;
+                }
+
+                const detailsHtml = tr.find('td').map(function(i) {
+                    const header = $('#commercializationTable thead th').eq(i).text();
+                    if ($(this).hasClass('hide-column')) {
+                        return `<div><strong>${header}:</strong> ${$(this).data('full') || $(this).text()}</div>`;
+                    }
+                }).get().join('');
+
+                row.child(`<div class="folding-row p-2 bg-light">${detailsHtml}</div>`).show();
+                tr.addClass('expanded');
+            });
+
         });
     </script>
 @endpush

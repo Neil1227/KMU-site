@@ -305,7 +305,7 @@
 
 
             /*** Push to TLU ***/
-            const pushToTLU = async (id) => {
+            const pushToTLU = async (id, tr) => {
                 try {
                     const res = await fetch(`/admin/agri-business/push-to-tlu/${id}`, {
                         method: 'POST',
@@ -315,27 +315,32 @@
                         }
                     });
                     const data = await res.json();
-                    if (data.message) {
-                        Swal.fire('Success', data.message, 'success');
-                    } else if (data.error) {
-                        Swal.fire('Error', data.error, 'error');
+                    if (data.success) {
+                        await Swal.fire('Success', data.message, 'success');
+                        table.row(tr).remove().draw(); // Remove row from DataTable
+                    } else {
+                        Swal.fire('Error', data.message || 'Unable to push record.', 'error');
                     }
-                } catch {
+                } catch (err) {
                     Swal.fire('Error', 'Something went wrong.', 'error');
+                    console.error(err);
                 }
             };
 
             $(document).on('click', '.push-to-tlu', function() {
                 const id = $(this).data('id');
+                const tr = $(this).closest('tr'); // get the row to remove
+
                 Swal.fire({
                     title: 'Push to TLU?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, push!'
                 }).then((result) => {
-                    if (result.isConfirmed) pushToTLU(id);
+                    if (result.isConfirmed) pushToTLU(id, tr);
                 });
             });
+
 
         });
     </script>

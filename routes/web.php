@@ -389,7 +389,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('agri-business/push-to-tlu/{id}', [AgriBusinessController::class, 'pushToTLU'])
         ->name('agri-business.pushToTLU');
     Route::put('agri-business/{id}', [AgriBusinessController::class, 'update'])->name('admin.agri-business.update');
+    // Receive pushed record FROM Agri-Business
+    Route::post(
+        '/agri-business/{id}/push-to-tlu',
+        [AgriBusinessController::class, 'pushToTLU']
+    )->name('agri-business.push.tlu');
 });
 
 Route::post('admin/commercialization/push-to-agri/{id}', [AgriBusinessController::class, 'pushFromCommercialization'])
     ->name('commercialization.pushToAgri');
+// Technology Licensing Unit CRUD
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('tlu', App\Http\Controllers\TechnologyLicensingUnitController::class);
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('tbi', \App\Http\Controllers\TbiController::class);
+
+    Route::post(
+        '/tlu/push/{id}',
+        [App\Http\Controllers\TechnologyLicensingUnitController::class, 'pushToTbi']
+    )->name('tlu.push.tbi');
+});
