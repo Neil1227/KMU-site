@@ -88,17 +88,35 @@
                                     {{ $commertial->priority_area ?? '—' }}</td>
                                 <td style="display:none">{{ $commertial->created_at }}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-primary btn-sm push-to-registered"
-                                        data-id="{{ $commertial->id }}" data-technology="{{ $commertial->technologies }}"
-                                        data-generator="{{ $commertial->technology_generator }}"
-                                        title="Register Technology">
-                                        <i class="bi bi-send"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm delete-notif"
-                                        data-url="{{ route('admin.iptbm.destroy', $commertial->id) }}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                            id="actionDropdown{{ $commertial->id }}" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $commertial->id }}">
+                                            <li>
+                                                <button class="dropdown-item text-success push-to-registered">
+                                                    <i class="bi bi-send me-2"></i>Promotional/Development
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item text-success push-to-agri"
+                                                    data-id="{{ $commertial->id }}">
+                                                    <i class="bi bi-send me-2"></i>For Agri-Business
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item text-danger delete-notif"
+                                                    data-url="{{ route('admin.iptbm.destroy', $commertial->id) }}">
+                                                    <i class="bi bi-trash me-2"></i>Delete
+                                                </button>
+                                            </li>
+
+                                        </ul>
+                                    </div>
                                 </td>
+
                             </tr>
                         @empty
                             <tr>
@@ -116,6 +134,58 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+
+    {{-- push tho agribus --}}
+    <script>
+        $(document).ready(function() {
+            // Push to Agri-Business
+            $(document).on('click', '.push-to-agri', function() {
+                var commercializationId = $(this).data('id');
+                var button = $(this);
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will push the record to Agri-Business.",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, push it!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        try {
+                            const res = await fetch(
+                                "{{ url('admin/commercialization/push-to-agri') }}/" +
+                                commercializationId, {
+                                    method: "POST",
+                                    headers: {
+                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                        "Accept": "application/json"
+                                    }
+                                });
+
+                            const data = await res.json();
+
+                            if (data.message) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Pushed!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                            } else if (data.error) {
+                                Swal.fire('Error', data.error, 'error');
+                            }
+
+                        } catch (err) {
+                            Swal.fire('Error', 'Something went wrong.', 'error');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

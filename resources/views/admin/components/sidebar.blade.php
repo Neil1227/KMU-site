@@ -237,6 +237,20 @@
         {{-- TBI Section --}}
         <h5 class="mt-4 mb-2">Agri-Business</h5>
 
+        {{-- Agri-Business --}}
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+            <a href="{{ route('admin.agri-business.index') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.agri-business.index' ? 'active' : 'collapsed' }}">
+                <i class="bi bi-graph-up me-2"></i> Agri-Business
+
+            </a>
+        @else
+            <div class="accordion-button sidebar-item disabled-item"
+                data-tooltip="Access restricted to IPTBM and KMU">
+                <i class="bi bi-graph-up me-2"></i> Agri-Business
+
+            </div>
+        @endif
         {{-- TBI Section --}}
         <h5 class="mt-4 mb-2">Technology Licensing</h5>
 

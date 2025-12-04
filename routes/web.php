@@ -374,3 +374,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/admin/database/commodities/{id}/push', [CommercializationController::class, 'pushFromCommodity'])
         ->name('iptbm.push');
 });
+
+use App\Http\Controllers\AgriBusinessController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Agri-Business CRUD
+    Route::get('agri-business', [AgriBusinessController::class, 'index'])->name('agri-business.index');
+    Route::post('agri-business', [AgriBusinessController::class, 'store'])->name('agri-business.store');
+    Route::delete('agri-business/{id}', [AgriBusinessController::class, 'destroy'])->name('agri-business.destroy');
+
+    // Push from Commercialization
+    Route::post('agri-business/push/{id}', [AgriBusinessController::class, 'pushFromCommercialization'])
+        ->name('agri-business.push');
+    Route::post('agri-business/push-to-tlu/{id}', [AgriBusinessController::class, 'pushToTLU'])
+        ->name('agri-business.pushToTLU');
+    Route::put('agri-business/{id}', [AgriBusinessController::class, 'update'])->name('admin.agri-business.update');
+});
+
+Route::post('admin/commercialization/push-to-agri/{id}', [AgriBusinessController::class, 'pushFromCommercialization'])
+    ->name('commercialization.pushToAgri');
