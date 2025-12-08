@@ -47,10 +47,11 @@
                             <th>Technologies</th>
                             <th class="hide-column">Technology Generator</th>
                             <th class="hide-column">Contact Info</th>
-                            <th>College</th> <!-- Added college -->
+                            <th>College</th>
                             <th class="hide-column">Type of Technology</th>
                             <th>Link</th>
                             <th class="hide-column">Priority Area</th>
+                            <th>Pushed To</th> <!-- NEW COLUMN -->
                             <th style="display:none">Date Received</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -61,23 +62,28 @@
                             <tr data-id="{{ $commertial->id }}">
                                 <td>
                                     <span class="expand-toggle">▶</span>
-                                    <span
-                                        data-full="{{ $commodity->commodity ?? '—' }}">{{ $commodity->commodity ?? '—' }}</span>
+                                    <span data-full="{{ $commodity->commodity ?? '—' }}">
+                                        {{ $commodity->commodity ?? '—' }}
+                                    </span>
                                 </td>
                                 <td data-full="{{ $commertial->thesis_title ?? '—' }}">
                                     {{ $commertial->thesis_title ?? '—' }}
                                 </td>
-
                                 <td data-full="{{ $commertial->technologies ?? '—' }}">
-                                    {{ Str::limit($commertial->technologies ?? '—', 50) }}</td>
+                                    {{ Str::limit($commertial->technologies ?? '—', 50) }}
+                                </td>
                                 <td class="hide-column" data-full="{{ $commertial->technology_generator ?? '—' }}">
-                                    {{ $commertial->technology_generator ?? '—' }}</td>
+                                    {{ $commertial->technology_generator ?? '—' }}
+                                </td>
                                 <td class="hide-column" data-full="{{ $commertial->contact_info ?? '—' }}">
-                                    {{ Str::limit($commertial->contact_info ?? '—', 50) }}</td>
+                                    {{ Str::limit($commertial->contact_info ?? '—', 50) }}
+                                </td>
                                 <td data-full="{{ $commertial->college ?? '—' }}">
-                                    {{ $commertial->college ?? '—' }}</td>
+                                    {{ $commertial->college ?? '—' }}
+                                </td>
                                 <td class="hide-column" data-full="{{ $commertial->type_of_technology ?? '—' }}">
-                                    {{ $commertial->type_of_technology ?? '—' }}</td>
+                                    {{ $commertial->type_of_technology ?? '—' }}
+                                </td>
                                 <td data-full="{{ $commertial->link ?? '—' }}">
                                     @if ($commertial->link)
                                         <a href="{{ $commertial->link }}" target="_blank"
@@ -87,7 +93,22 @@
                                     @endif
                                 </td>
                                 <td class="hide-column" data-full="{{ $commertial->priority_area ?? '—' }}">
-                                    {{ $commertial->priority_area ?? '—' }}</td>
+                                    {{ $commertial->priority_area ?? '—' }}
+                                </td>
+
+                                <!-- NEW: Pushed To Column -->
+                                <td>
+                                    @if ($commertial->pushed_to_promotion && $commertial->pushed_to_agri)
+                                        Both
+                                    @elseif($commertial->pushed_to_promotion)
+                                        Promotional/Development
+                                    @elseif($commertial->pushed_to_agri)
+                                        Agri-Business
+                                    @else
+                                        —
+                                    @endif
+                                </td>
+
                                 <td style="display:none">{{ $commertial->created_at }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">
@@ -98,13 +119,23 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $commertial->id }}">
                                             <li>
-                                                <button class="dropdown-item text-success push-to-registered">
+                                                <button class="dropdown-item text-warning edit-commercialization"
+                                                    data-id="{{ $commertial->id }}">
+                                                    <i class="bi bi-pencil-square me-2"></i>Edit
+                                                </button>
+                                            </li>
+
+                                            <li>
+                                                <button class="dropdown-item text-success push-to-registered"
+                                                    data-id="{{ $commertial->id }}"
+                                                    {{ $commertial->pushed_to_promotion ? 'disabled' : '' }}>
                                                     <i class="bi bi-send me-2"></i>Promotional/Development
                                                 </button>
                                             </li>
                                             <li>
                                                 <button class="dropdown-item text-success push-to-agri"
-                                                    data-id="{{ $commertial->id }}">
+                                                    data-id="{{ $commertial->id }}"
+                                                    {{ $commertial->pushed_to_agri ? 'disabled' : '' }}>
                                                     <i class="bi bi-send me-2"></i>For Agri-Business
                                                 </button>
                                             </li>
@@ -118,91 +149,177 @@
                                         </ul>
                                     </div>
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11" class="text-center">No records found.</td>
+                                <td colspan="7" class="text-center">No records found.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-            <!-- Agri-Business Modal -->
-            <!-- Agri-Business Modal -->
-            <div class="modal fade" id="agriModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <form id="agriForm" action="{{ route('admin.agri-business.store') }}" method="POST">
-
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title">Add to Agri-Business</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-
-                            <div class="modal-body">
-
-                                <input type="hidden" name="commertial_id" id="agri_comm_id">
-
-                                <!-- Thesis Title -->
-                                <div class="mb-3">
-                                    <label class="form-label">Thesis Title</label>
-                                    <input type="text" class="form-control" name="thesis_title" id="agri_thesis">
-                                </div>
-
-                                <!-- Technologies -->
-                                <div class="mb-3">
-                                    <label class="form-label">Technologies</label>
-                                    <textarea class="form-control" name="technologies" id="agri_technologies" rows="2"></textarea>
-                                </div>
-
-                                <!-- Technology Generator -->
-                                <div class="mb-3">
-                                    <label class="form-label">Technology Generator</label>
-                                    <input type="text" class="form-control" name="technology_generator"
-                                        id="agri_generator">
-                                </div>
-
-                                <!-- Type of Technology -->
-                                <div class="mb-3">
-                                    <label class="form-label">Type of Technology</label>
-                                    <input type="text" class="form-control" name="type_of_technology" id="agri_type">
-                                </div>
-
-                                <!-- Contact Info -->
-                                <div class="mb-3">
-                                    <label class="form-label">Contact Info</label>
-                                    <input type="text" class="form-control" name="contact_info" id="agri_contact">
-                                </div>
-
-                                <!-- Remarks -->
-                                <div class="mb-3">
-                                    <label class="form-label">Remarks</label>
-                                    <textarea class="form-control" name="remarks" id="agri_remarks" rows="2"></textarea>
-                                </div>
-
-                                <!-- Link (INTENTIONALLY EMPTY — user fills manually) -->
-                                <div class="mb-3">
-                                    <label class="form-label">Link</label>
-                                    <input type="text" class="form-control" name="link"
-                                        placeholder="Enter link manually (optional)">
-                                </div>
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-success" type="submit">Save</button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
+        <div class="modal fade" id="editCommercializationModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form id="editCommercializationForm">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="edit_comm_id" name="id">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Commercialization</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Commodity</label>
+
+                                    <!-- Visible but NOT editable -->
+                                    <input type="text" id="edit_commodity_name" class="form-control" disabled>
+
+                                    <!-- Hidden ID for saving -->
+                                    <input type="hidden" id="edit_commodity_id" name="commodity_id">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_thesis_title" class="form-label">Thesis Title</label>
+                                    <input type="text" id="edit_thesis_title" name="thesis_title" class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_technologies" class="form-label">Technologies</label>
+                                    <input type="text" id="edit_technologies" name="technologies"
+                                        class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_technology_generator" class="form-label">Technology Generator</label>
+                                    <input type="text" id="edit_technology_generator" name="technology_generator"
+                                        class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_contact_info" class="form-label">Contact Info</label>
+                                    <input type="text" id="edit_contact_info" name="contact_info"
+                                        class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_college" class="form-label">College</label>
+                                    <select name="college" id="edit_college" class="form-select">
+                                        <option value="">Select College</option>
+                                        <option value="CAS - College of Arts and Sciences">CAS - College of Arts and
+                                            Sciences</option>
+                                        <option value="CASTech - College of Agriculture Systems and Technology">CASTech -
+                                            College of Agriculture Systems and Technology</option>
+                                        <option value="CBEE - College of Business, Economics and Entrepreneurship">CBEE -
+                                            College of Business, Economics and Entrepreneurship</option>
+                                        <option value="CFAF - College of Forestry and Agroforestry">CFAF - College of
+                                            Forestry and Agroforestry</option>
+                                        <option value="COECS - College of Engineering and Computer Studies">COECS - College
+                                            of Engineering and Computer Studies</option>
+                                        <option value="COED - College of Education">COED - College of Education</option>
+                                        <option value="CVM - College of Veterinary Medicine">CVM - College of Veterinary
+                                            Medicine</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label for="edit_type_of_technology" class="form-label">Type of Technology</label>
+                                    <select name="type_of_technology" id="edit_type_of_technology" class="form-select">
+                                        <option value="Food">Food</option>
+                                        <option value="Non-Food">Non-Food</option>
+                                        <option value="N/A">N/A</option>
+
+                                        <optgroup label="Non-Food">
+                                            <option value="Non-Food (Chemical)">Non-Food (Chemical)</option>
+                                            <option value="Non-Food (Software)">Non-Food (Software)</option>
+                                            <option value="Non-Food (Equipment)">Non-Food (Equipment)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label for="edit_ip_status" class="form-label">IP Status</label>
+                                    <select name="ip_status" id="edit_ip_status" class="form-select">
+                                        <option value="Non-IP Applied">Non-IP Applied</option>
+                                        <option value="IP Applied">IP Applied</option>
+                                        <option value="Registered">Registered</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_trl_level" class="form-label">TRL Level</label>
+                                    <select name="trl_level" id="edit_trl_level" class="form-select">
+                                        @for ($i = 1; $i <= 9; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <label for="edit_sdgs" class="form-label">SDGs</label>
+                                    <input type="text" id="edit_sdgs" name="sdgs" class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_remarks" class="form-label">Remarks</label>
+                                    <select name="remarks" id="edit_remarks" class="form-select">
+                                        <option value="For Product Development">For Product Development</option>
+                                        <option value="For Incubation">For Incubation</option>
+                                        <option value="For Commercialization">For Commercialization</option>
+                                        <option value="For IP Application">For IP Application</option>
+                                        <option value="For Deployment">For Deployment</option>
+                                        <option value="For Extention">For Extention</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <label for="edit_recommendations" class="form-label">Recommendations</label>
+                                    <textarea id="edit_recommendations" name="recommendations" class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_link" class="form-label">Link</label>
+                                    <input type="text" id="edit_link" name="link" class="form-control">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="edit_priority_area" class="form-label">Priority Area</label>
+                                    <select name="priority_area" id="edit_priority_area" class="form-select">
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="Aquaculture">Aquaculture</option>
+                                        <option value="LiveStock">LiveStock</option>
+                                        <option value="Livelihood">Livelihood</option>
+                                        <option value="Biotechnology">Biotechnology</option>
+                                        <option value="Root Crops">Root Crops</option>
+                                        <option value="Internet Of Things">Internet Of Things</option>
+                                        <option value="Others">Others</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
     </div>
 @endsection
 
@@ -210,195 +327,210 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
 
-            /* ============================================================
-             *  INITIALIZE DATATABLE
-             * ============================================================ */
             const table = $('#commercializationTable').DataTable({
-                responsive: true,
-                columnDefs: [{
-                    orderable: true,
-                    targets: 4
-                }],
-                order: [
-                    [9, 'desc']
-                ],
-                pageLength: 10,
-                lengthMenu: [5, 10, 25, 50],
-                autoWidth: false,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records..."
+                responsive: true
+            });
+
+            /* Folding row logic ... (keep your existing folding code) */
+            $('#commercializationTable tbody').on('click', '.expand-toggle', function() {
+                let tr = $(this).closest('tr');
+                let row = table.row(tr);
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('expanded');
+                } else {
+                    let details = '';
+                    tr.find('td').each(function() {
+                        let full = $(this).data('full');
+                        let th = $(this).closest('table').find('thead th').eq($(this).index())
+                            .text();
+                        if (full && th !== "Actions" && th !== "Link") details +=
+                            `<p><strong>${th}:</strong> ${full}</p>`;
+                    });
+                    row.child(details).show();
+                    tr.addClass('expanded');
                 }
             });
 
-            /* ============================================================
-             *  SWEETALERT HELPERS
-             * ============================================================ */
-            const swalSuccess = msg => Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: msg,
-                timer: 1500,
-                showConfirmButton: false
-            });
-            const swalError = msg => Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: msg
-            });
-            const swalConfirm = text => Swal.fire({
-                title: "Confirm",
-                text: text || "Are you sure?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes",
-                cancelButtonText: "Cancel"
-            });
-
-            /* ============================================================
-             *  HELPER: REMOVE ROW FROM DATATABLE
-             * ============================================================ */
-            function removeRow(id) {
-                const row = $(`tr[data-id="${id}"]`);
-                table.row(row).remove().draw();
-            }
-
-            /* ============================================================
-             *  AGRI-BUSINESS MODAL
-             * ============================================================ */
-            function populateAgriModal(tr) {
-                $('#agri_comm_id').val(tr.data('id'));
-                $('#agri_thesis').val(tr.find('td:eq(1)').data('full'));
-                $('#agri_technologies').val(tr.find('td:eq(2)').data('full'));
-                $('#agri_generator').val(tr.find('td:eq(3)').data('full'));
-                $('#agri_contact').val(tr.find('td:eq(4)').data('full'));
-                $('#agri_type').val(tr.find('td:eq(6)').data('full'));
-                $('#agri_remarks').val('');
-                $('#agriForm input[name="link"]').val('');
-                $('#agriModal').modal('show');
-            }
-
-            $(document).on("click", ".push-to-agri", function() {
-                populateAgriModal($(this).closest("tr"));
-            });
-
-            $('#agriModal').on('hidden.bs.modal', () => $('#agriForm')[0].reset());
-
-            /* ============================================================
-             *  SUBMIT AGRI FORM
-             * ============================================================ */
-            $('#agriForm').on('submit', function(e) {
-                e.preventDefault();
-                const form = $(this);
-                const id = $('#agri_comm_id').val();
-                const submitBtn = form.find('button[type=submit]');
-                submitBtn.prop('disabled', true).text('Saving...');
-
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        swalSuccess(response.message || "Record saved and pushed.");
-                        removeRow(id);
-                        $('#agriModal').modal('hide');
-                    },
-                    error: function(xhr) {
-                        let msg = xhr.responseJSON?.message || "Unable to save.";
-                        swalError(msg);
-                    },
-                    complete: () => submitBtn.prop('disabled', false).text('Save')
+            /* ===== Persistent alerts (unique names to avoid conflicts) ===== */
+            function showPersistentSuccess(msg) {
+                console.log('[ALERT] showPersistentSuccess:', msg);
+                return Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: msg || '',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: true
                 });
-            });
+            }
 
-            /* ============================================================
-             *  DELETE RECORD
-             * ============================================================ */
-            $(document).on("click", ".delete-notif", async function() {
-                const tr = $(this).closest("tr");
-                const id = tr.data("id");
-                const url = $(this).data("url");
+            function showPersistentError(msg) {
+                console.log('[ALERT] showPersistentError:', msg);
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: msg || '',
+                    showConfirmButton: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: true
+                });
+            }
 
-                const result = await swalConfirm("This will permanently delete the record.");
+            function askConfirm(text) {
+                console.log('[ALERT] askConfirm');
+                return Swal.fire({
+                    title: 'Confirm',
+                    text: text || 'Are you sure?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    allowOutsideClick: false
+                });
+            }
+
+            /* ===== DELETE RECORD ===== */
+            $(document).on('click', '.delete-notif', async function() {
+                const tr = $(this).closest('tr');
+                const id = tr.data('id');
+                const url = $(this).data('url');
+
+                const result = await askConfirm('This will permanently delete the record.');
                 if (!result.isConfirmed) return;
 
                 try {
                     const res = await fetch(url, {
-                        method: "DELETE",
+                        method: 'DELETE',
                         headers: {
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                            "Accept": "application/json"
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                            'Accept': 'application/json'
                         }
                     });
                     const data = await res.json();
-                    data.success ? (swalSuccess(data.message), removeRow(id)) : swalError(data.message);
-                } catch {
-                    swalError("Something went wrong.");
-                }
-            });
+                    console.log('[DELETE] response:', data);
 
-            /* ============================================================
-             *  REGISTERED TECHNOLOGY MODAL
-             * ============================================================ */
-            $(document).on("click", ".push-to-registered", function() {
-                $('#technology').val($(this).data('technology'));
-                $('#techGenerator').val($(this).data('generator'));
-                $('#description').val('');
-                $('#link').val('');
-                $('#notificationId').val($(this).data('id'));
-                $('#pushTechnologyModal').modal('show');
-            });
-
-            $('#pushTechnologyForm').on('submit', function(e) {
-                e.preventDefault();
-                const form = $(this);
-                const id = $('#notificationId').val();
-                const btn = form.find("button[type=submit]");
-
-                btn.prop("disabled", true).text("Saving...");
-
-                $.ajax({
-                    url: "{{ route('admin.registered-technology.store') }}",
-                    type: "POST",
-                    data: form.serialize(),
-                    success: function(response) {
-                        swalSuccess(response.message);
-                        removeRow(id);
-                        $('#pushTechnologyModal').modal('hide');
-                    },
-                    error: function(xhr) {
-                        swalError(xhr.responseJSON?.message || "Something went wrong.");
-                    },
-                    complete: () => btn.prop("disabled", false).text("Save")
-                });
-            });
-
-            /* ============================================================
-             *  FOLDING ROW LOGIC
-             * ============================================================ */
-            $('#commercializationTable tbody').on('click', 'td:first-child', function() {
-                const tr = $(this).closest('tr');
-                const row = table.row(tr);
-
-                if (row.child.isShown()) {
-                    row.child.hide();
-                    tr.removeClass('expanded');
-                    return;
-                }
-
-                const detailsHtml = tr.find('td').map(function(i) {
-                    const header = $('#commercializationTable thead th').eq(i).text();
-                    if ($(this).hasClass('hide-column')) {
-                        return `<div><strong>${header}:</strong> ${$(this).data('full') || $(this).text()}</div>`;
+                    if (data.success) {
+                        await showPersistentSuccess(data.message || 'Deleted.');
+                        table.row(tr).remove().draw();
+                    } else {
+                        await showPersistentError(data.message || 'Delete failed.');
                     }
-                }).get().join('');
+                } catch (e) {
+                    console.error('[DELETE] error', e);
+                    await showPersistentError('Something went wrong.');
+                }
+            });
 
-                row.child(`<div class="folding-row p-2 bg-light">${detailsHtml}</div>`).show();
-                tr.addClass('expanded');
+            /* ===== PUSH TO AGRI ===== */
+            $(document).on('click', '.push-to-agri', function() {
+                const commId = $(this).data('id');
+                const tr = $(this).closest('tr');
+
+                console.log('[PUSH TO AGRI] start, id=', commId);
+                axios.post(`/admin/agri-business/push/${commId}`)
+                    .then(async (res) => {
+                        console.log('[PUSH TO AGRI] response', res.data);
+                        await showPersistentSuccess(res.data.message || 'Pushed to Agri-Business!');
+                        tr.find('.push-to-registered, .push-to-agri').prop('disabled', true);
+                        const pushedCol = tr.find('td').eq(9);
+                        const current = pushedCol.text().trim();
+                        if (current === '—') pushedCol.text('Agri-Business');
+                        else if (current === 'Promotional/Development') pushedCol.text('Both');
+                    })
+                    .catch(async (err) => {
+                        console.error('[PUSH TO AGRI] error', err?.response?.data || err);
+                        await showPersistentError(err?.response?.data?.message ||
+                            'Unable to push record.');
+                    });
+            });
+
+            /* ===== PUSH TO REGISTERED TECHNOLOGY ===== */
+            $(document).on('click', '.push-to-registered', function() {
+                const commId = $(this).data('id');
+                const tr = $(this).closest('tr');
+
+                console.log('[PUSH TO REGISTERED] id=', commId);
+                axios.post(`/admin/promotion/push/${commId}`)
+                    .then(async (res) => {
+                        console.log('[PUSH TO REGISTERED] response', res.data);
+                        await showPersistentSuccess(res.data.message || 'Pushed successfully.');
+                        tr.find('.push-to-registered, .push-to-agri').prop('disabled', true);
+                        const pushedCol = tr.find('td').eq(9);
+                        const current = pushedCol.text().trim();
+                        if (current === '—') pushedCol.text('Promotional/Development');
+                        else if (current === 'Agri-Business') pushedCol.text('Both');
+                    })
+                    .catch(async (err) => {
+                        console.error('[PUSH TO REGISTERED] error', err?.response?.data || err);
+                        if (err?.response?.status === 409) {
+                            await Swal.fire('Already Exists', 'This record is already pushed.',
+                                'info');
+                        } else {
+                            await showPersistentError('Unable to push record.');
+                        }
+                    });
+            });
+
+            /* ===== EDIT - OPEN MODAL ===== */
+            $(document).on('click', '.edit-commercialization', function() {
+                const commId = $(this).data('id');
+                console.log('[EDIT] fetching', commId);
+
+                axios.get(`/admin/commercialization/${commId}/edit`)
+                    .then(res => {
+                        console.log('[EDIT] data', res.data);
+                        const data = res.data;
+
+                        $('#edit_comm_id').val(data.id);
+                        $('#edit_commodity_name').val(data.commodity ? data.commodity.commodity : '');
+                        $('#edit_commodity_id').val(data.commodity_id);
+                        $('#edit_thesis_title').val(data.thesis_title);
+                        $('#edit_technologies').val(data.technologies);
+                        $('#edit_technology_generator').val(data.technology_generator);
+                        $('#edit_contact_info').val(data.contact_info);
+                        $('#edit_college').val(data.college);
+                        $('#edit_type_of_technology').val(data.type_of_technology);
+                        $('#edit_ip_status').val(data.ip_status);
+                        $('#edit_trl_level').val(data.trl_level);
+                        $('#edit_sdgs').val(data.sdgs);
+                        $('#edit_remarks').val(data.remarks);
+                        $('#edit_recommendations').val(data.recommendations);
+                        $('#edit_link').val(data.link);
+                        $('#edit_priority_area').val(data.priority_area);
+
+                        $('#editCommercializationModal').modal('show');
+                    })
+                    .catch(err => {
+                        console.error('[EDIT] fetch error', err);
+                        showPersistentError('Unable to fetch record.');
+                    });
+            });
+
+            /* ===== EDIT - SUBMIT ===== */
+            $('#editCommercializationForm').on('submit', function(e) {
+                e.preventDefault();
+                const commId = $('#edit_comm_id').val();
+                const formData = $(this).serialize();
+
+                console.log('[EDIT SUBMIT] id=', commId, 'payload=', formData);
+                axios.put(`/admin/commercialization/${commId}`, formData)
+                    .then(async res => {
+                        console.log('[EDIT SUBMIT] response', res.data);
+                        await showPersistentSuccess(res.data.message || 'Updated successfully.');
+                        $('#editCommercializationModal').modal('hide');
+
+                        location.reload(); // <-- THIS reloads the table
+                    })
+
+                    .catch(async err => {
+                        console.error('[EDIT SUBMIT] error', err?.response?.data || err);
+                        await showPersistentError(err?.response?.data?.message ||
+                            'Failed to update.');
+                    });
             });
 
         });

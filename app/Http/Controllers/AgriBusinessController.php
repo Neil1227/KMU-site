@@ -6,6 +6,8 @@ use App\Models\AgriBusiness;
 use App\Models\Commercialization;
 use App\Models\TechnologyLicensingUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class AgriBusinessController extends Controller
 {
@@ -36,8 +38,7 @@ class AgriBusinessController extends Controller
                 'link'                 => $request->link,
             ]);
 
-            // DELETE the original commercialization record
-            \App\Models\Commercialization::findOrFail($request->commertial_id)->delete();
+
 
             return response()->json([
                 'success' => true,
@@ -89,34 +90,34 @@ class AgriBusinessController extends Controller
     /**
      * Push a record from Commercialization to Agri-Business.
      */
-    public function pushFromCommercialization($id)
+    public function pushFromCommercialization($id, Request $request)
     {
-        try {
-            $commercialization = Commercialization::findOrFail($id);
+        $comm = Commercialization::findOrFail($id);
 
-            // Check if record already exists in Agri-Business
-            $exists = AgriBusiness::where('thesis_title', $commercialization->thesis_title)
-                ->where('technologies', $commercialization->technologies)
-                ->exists();
+        // Optional duplicate check
+        $exists = AgriBusiness::where('thesis_title', $comm->thesis_title)
+            ->where('technologies', $comm->technologies)
+            ->exists();
 
-            if ($exists) {
-                return response()->json(['error' => 'Record already exists in Agri-Business.'], 409);
-            }
-
-            AgriBusiness::create([
-                'thesis_title' => $commercialization->thesis_title,
-                'technologies' => $commercialization->technologies,
-                'technology_generator' => $commercialization->technology_generator,
-                'type_of_technology' => $commercialization->type_of_technology,
-                'contact_info' => $commercialization->contact_info,
-                'remarks' => null,
-                'link' => $commercialization->link,
-            ]);
-
-            return response()->json(['message' => 'Record pushed to Agri-Business successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Unable to push the record.'], 500);
+        if ($exists) {
+            return response()->json(['message' => 'Already exists in Agri-Business.'], 409);
         }
+
+        $agri = AgriBusiness::create([
+            'thesis_title' => $comm->thesis_title,
+            'technologies' => $comm->technologies,
+            'technology_generator' => $comm->technology_generator,
+            'type_of_technology' => $comm->type_of_technology,
+            'contact_info' => $comm->contact_info,
+            'remarks' => $comm->remarks,
+            'link' => $comm->link,
+
+        ]);
+
+        // Update the pushed_to_agri flag
+        $comm->update(['pushed_to_agri' => true]);
+
+        return response()->json(['success' => true, 'message' => 'Pushed to Agri-Business!']);
     }
 
     public function pushToTLU($id)

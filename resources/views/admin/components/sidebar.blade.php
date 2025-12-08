@@ -208,6 +208,11 @@
 
         @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
             <h5 class="mt-4 mb-2">TBI</h5>
+
+            <a href="{{ route('admin.promotion.index') }}"
+                class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.promotion.index' ? 'active' : 'collapsed' }}">
+                <i class="bi bi-building me-2"></i> Promotion and Development
+            </a>
             <a href="{{ route('admin.tbi.index') }}"
                 class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.tbi.index' ? 'active' : 'collapsed' }}">
                 <i class="bi bi-building me-2"></i> TBI Records

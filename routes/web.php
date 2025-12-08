@@ -373,6 +373,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/admin/database/commodities/{id}/push', [CommercializationController::class, 'pushFromCommodity'])
         ->name('iptbm.push');
+    Route::get('commercialization/{id}/edit', [CommercializationController::class, 'edit'])
+        ->name('commercialization.edit');
+
+    Route::put('commercialization/{id}', [CommercializationController::class, 'update'])
+        ->name('commercialization.update');
 });
 
 use App\Http\Controllers\AgriBusinessController;
@@ -414,3 +419,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         [App\Http\Controllers\TechnologyLicensingUnitController::class, 'pushToTbi']
     )->name('tlu.push.tbi');
 });
+
+use App\Http\Controllers\PromotionController;
+// Promotion (CRUD)
+Route::prefix('admin/promotion')->name('admin.promotion.')->group(function () {
+
+    Route::get('/', [PromotionController::class, 'index'])->name('index');
+    Route::post('/store', [PromotionController::class, 'store'])->name('store');
+    Route::put('/{id}', [PromotionController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PromotionController::class, 'destroy'])->name('destroy');
+});
+Route::post('/admin/promotion/push/{id}', [PromotionController::class, 'pushFromCommercial'])
+    ->name('admin.promotion.push');

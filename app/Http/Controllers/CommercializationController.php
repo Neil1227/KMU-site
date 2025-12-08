@@ -13,9 +13,43 @@ class CommercializationController extends Controller
      */
     public function index()
     {
-        $commercializations = Commercialization::with('commodity')->latest()->paginate(10);
+        $commercializations = Commercialization::with('commodity')->get();
+        $commodities = Commodity::all();
 
-        return view('admin.iptbm.index', compact('commercializations'));
+        return view('admin.iptbm.index', compact('commercializations', 'commodities'));
+    }
+
+    public function edit($id)
+    {
+        $comm = Commercialization::with('commodity')->findOrFail($id);
+
+        return response()->json($comm);
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'commodity_id' => 'required|exists:commodities,id',
+            'thesis_title' => 'nullable|string|max:255',
+            'technologies' => 'nullable|string',
+            'technology_generator' => 'nullable|string|max:255',
+            'contact_info' => 'nullable|string|max:255',
+            'college' => 'nullable|string|max:255',
+            'type_of_technology' => 'nullable|string|max:255',
+            'ip_status' => 'nullable|string|max:255',
+            'trl_level' => 'nullable|string|max:255',
+            'sdgs' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string',
+            'recommendations' => 'nullable|string',
+            'link' => 'nullable|string|max:255',
+            'priority_area' => 'nullable|string|max:255',
+        ]);
+
+        $commercialization = Commercialization::findOrFail($id);
+        $commercialization->update($request->all());
+
+        return response()->json(['success' => true, 'message' => 'Record updated successfully.']);
     }
 
     /**

@@ -15,7 +15,7 @@ class Commercialization extends Model
         'technologies',
         'technology_generator',
         'contact_info',
-        'college', // <-- Added college
+        'college',
         'type_of_technology',
         'ip_status',
         'trl_level',
@@ -24,7 +24,10 @@ class Commercialization extends Model
         'recommendations',
         'link',
         'priority_area',
+        'pushed_to_promotion', // new
+        'pushed_to_agri',      // new
     ];
+
 
     public function commodity()
     {
