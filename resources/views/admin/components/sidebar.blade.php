@@ -182,7 +182,7 @@
 
         {{-- TBI Section --}}
 
-        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI_AgriBus')
             <h5 class="mt-4 mb-2">Agri-Business</h5>
 
             {{-- Agri-Business --}}
@@ -194,7 +194,7 @@
         @endif
         {{-- Technology Licensing Section --}}
 
-        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI_TLU')
             <h5 class="mt-4 mb-2">Technology Licensing</h5>
 
             <a href="{{ route('admin.tlu.index') }}"

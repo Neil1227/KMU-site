@@ -1,82 +1,86 @@
 <link rel="stylesheet" href="{{ asset('css/admin/database/navbar.css') }}">
 <!-- Navbar -->
-@if(session('admin_logged_in') && 
-    !request()->routeIs('admin.database.commodities', 'admin.database.priority*'))
-<nav class="dashboard-navbar">
-    <div class="navbar-left">
-        <div class="d-flex align-items-center mb-3">
-            <!-- Logo -->
-            <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" style="height: 50px; margin-right: 10px;">
-            <!-- Heading -->
-            <h2 class="m-0">Technology Database Management</h2>
+@if (session('admin_logged_in') && !request()->routeIs('admin.database.commodities', 'admin.database.priority*'))
+    <nav class="dashboard-navbar">
+        <div class="navbar-left">
+            <div class="d-flex align-items-center mb-3">
+                <!-- Logo -->
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" style="height: 50px; margin-right: 10px;">
+                <!-- Heading -->
+                <h2 class="m-0">Technology Database Management</h2>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 @endif
 
 
 
 </nav>
-@if(session('admin_logged_in'))
-<div class="nav-container">
+@if (session('admin_logged_in'))
+    <div class="nav-container">
 
-    <div class="tabs">
+        <div class="tabs">
 
-        <a href="{{ route('admin.database.commodities') }}" class="tab {{ request()->routeIs('admin.database.commodities') ? 'active' : '' }}">
-            <i data-lucide="bar-chart-3"></i>
-            <span>Commodities</span>
-        </a>
-        <a href="{{ route('admin.database.graphs') }}" class="tab {{ request()->routeIs('admin.database.graphs') ? 'active' : '' }}">
-            <i data-lucide="bar-chart-3"></i>
-            <span>Graphs</span>
-        </a>
-<a href="{{ route('admin.database.records') }}" 
-   class="tab {{ request()->routeIs('admin.database.records') ? 'active' : '' }}">
-    <i data-lucide="file-text"></i>
-    
-    <span class="position-relative">
-        Technologies
-        @if(($newCount ?? 0) > 0)
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ $newCount }}
-            </span>
-        @endif
-    </span>
-</a>
+            <a href="{{ route('admin.database.commodities') }}"
+                class="tab {{ request()->routeIs('admin.database.commodities') ? 'active' : '' }}">
+                <i data-lucide="bar-chart-3"></i>
+                <span>Commodities</span>
+            </a>
+            <a href="{{ route('admin.database.graphs') }}"
+                class="tab {{ request()->routeIs('admin.database.graphs') ? 'active' : '' }}">
+                <i data-lucide="bar-chart-3"></i>
+                <span>Graphs</span>
+            </a>
+            <a href="{{ route('admin.database.records') }}"
+                class="tab {{ request()->routeIs('admin.database.records') ? 'active' : '' }}">
+                <i data-lucide="file-text"></i>
+
+                <span class="position-relative">
+                    Technologies
+                    @if (($newCount ?? 0) > 0)
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $newCount }}
+                        </span>
+                    @endif
+                </span>
+            </a>
 
 
 
-        <a href="{{ route('admin.database.view-ip-applied') }}" class="tab {{ request()->routeIs('admin.database.view-ip-applied') ? 'active' : '' }}">
-            <i data-lucide="file-check"></i>
-            <span>IP Applied</span>
-        </a>
+            <a href="{{ route('admin.database.view-ip-applied') }}"
+                class="tab {{ request()->routeIs('admin.database.view-ip-applied') ? 'active' : '' }}">
+                <i data-lucide="file-check"></i>
+                <span>IP Applied</span>
+            </a>
 
-        <a href="{{ route('admin.database.view-regtech') }}" class="tab {{ request()->routeIs('admin.database.view-regtech') ? 'active' : '' }}">
-            <i data-lucide="user-check"></i>
-            <span>IP Registered</span>
-        </a>
+            <a href="{{ route('admin.database.view-regtech') }}"
+                class="tab {{ request()->routeIs('admin.database.view-regtech') ? 'active' : '' }}">
+                <i data-lucide="user-check"></i>
+                <span>Registered Technologies</span>
+            </a>
 
-        <a href="{{ route('admin.database.activity') }}" class="tab {{ request()->routeIs('admin.database.activity') ? 'active' : '' }}">
-            <i data-lucide="activity"></i>
-            <span>Activity Logs</span>
-        </a>
-        @if(request()->routeIs('admin.database.commodities'))
-        <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
-            <span class="btn-add-icon mx-auto">Add Commodity</span>
-        </button>
+            <a href="{{ route('admin.database.activity') }}"
+                class="tab {{ request()->routeIs('admin.database.activity') ? 'active' : '' }}">
+                <i data-lucide="activity"></i>
+                <span>Activity Logs</span>
+            </a>
+            @if (request()->routeIs('admin.database.commodities'))
+                <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
+                    <span class="btn-add-icon mx-auto">Add Commodity</span>
+                </button>
 
-        @include('admin.database.modal.add-modal')
-        @else
-        <!-- Fallback disabled button -->
-        <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
-            <span class="btn-add-icon mx-auto">Add Commodity</span>
-        </button>
-        @endif
+                @include('admin.database.modal.add-modal')
+            @else
+                <!-- Fallback disabled button -->
+                <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addCommodityModal">
+                    <span class="btn-add-icon mx-auto">Add Commodity</span>
+                </button>
+            @endif
 
+
+        </div>
 
     </div>
-
-</div>
 @endif
 
 <!-- sweet alert for success on adding new commodity -->
@@ -107,7 +111,8 @@
 
                 if (data.success) {
                     // Close modal
-                    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('addCommodityModal'));
+                    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById(
+                        'addCommodityModal'));
                     modal.hide();
 
                     // Reset form
