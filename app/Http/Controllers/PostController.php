@@ -10,52 +10,52 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-public function index()
-{
-    // Fetch posts with media and admin
-    $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
+    public function index()
+    {
+        // Fetch posts with media and admin
+        $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
 
-    // Only KMU can see unapproved posts
-    if (session('role') !== 'KMU') {
-        $query->where('is_approved', true);
-    }
-
-    // Execute the query
-    $posts = $query->get();
-
-    // Prepare Facebook Pages (static)
-    $facebookPages = [
-        [
-            'title' => 'PSAU Office of Extension and Training',
-            'url' => 'https://www.facebook.com/PSAUOET',
-            'logo' => 'assets/img/about/Logo (1).png',
-        ],
-        [
-            'title' => 'PSAU Knowledge Management Center',
-            'url' => 'https://www.facebook.com/psau.kmc',
-            'logo' => 'assets/img/logo.png',
-        ],
-        [
-            'title' => 'PSAU-Intellectual Property and Technology Business Management Office',
-            'url' => 'https://www.facebook.com/psau.iptbm',
-            'logo' => 'assets/img/iptbm.png',
-        ],
-        [
-            'title' => 'PSAU-Technology Business Incubator',
-            'url' => 'https://www.facebook.com/psau.tbi',
-            'logo' => 'assets/img/sibultbi-logo.png',
-        ],
-    ];
-
-    // Ensure `link` posts have the link column (even if null)
-    $posts->each(function ($post) {
-        if (strtolower(trim($post->type)) === 'link' && empty($post->link)) {
-            $post->link = '#'; // default placeholder
+        // Only KMU can see unapproved posts
+        if (session('role') !== 'KMU') {
+            $query->where('is_approved', true);
         }
-    });
 
-    return view('media-resources-section.updates', compact('posts', 'facebookPages'));
-}
+        // Execute the query
+        $posts = $query->get();
+
+        // Prepare Facebook Pages (static)
+        $facebookPages = [
+            [
+                'title' => 'PSAU Office of Extension and Training',
+                'url' => 'https://www.facebook.com/profile.php?id=61577308247303',
+                'logo' => 'assets/img/about/Logo (1).png',
+            ],
+            [
+                'title' => 'PSAU Knowledge Management Center',
+                'url' => 'https://www.facebook.com/psau.kmc',
+                'logo' => 'assets/img/logo.png',
+            ],
+            [
+                'title' => 'PSAU-Intellectual Property and Technology Business Management Office',
+                'url' => 'https://www.facebook.com/psau.iptbm',
+                'logo' => 'assets/img/iptbm.png',
+            ],
+            [
+                'title' => 'PSAU-Technology Business Incubator',
+                'url' => 'https://www.facebook.com/psau.tbi',
+                'logo' => 'assets/img/sibultbi-logo.png',
+            ],
+        ];
+
+        // Ensure `link` posts have the link column (even if null)
+        $posts->each(function ($post) {
+            if (strtolower(trim($post->type)) === 'link' && empty($post->link)) {
+                $post->link = '#'; // default placeholder
+            }
+        });
+
+        return view('media-resources-section.updates', compact('posts', 'facebookPages'));
+    }
 
 
     // Admin overview

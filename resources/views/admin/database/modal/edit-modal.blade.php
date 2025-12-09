@@ -109,12 +109,28 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">TRL Level</label>
+                                @php
+                                    $trlDescriptions = [
+                                        1 => 'Basic principles observed',
+                                        2 => 'Technology concept formulated',
+                                        3 => 'Experimental proof of concept',
+                                        4 => 'Technology validated in the lab',
+                                        5 => 'Technology validated in relevant environment',
+                                        6 => 'Technology demonstrated in relevant environment',
+                                        7 => 'System prototype demonstration in operational environment',
+                                        8 => 'System complete and qualified',
+                                        9 => 'Actual system proven in operational environment',
+                                    ];
+                                @endphp
+
                                 <select name="trl_level" id="edit_trl_level" class="form-select">
                                     @for ($i = 1; $i <= 9; $i++)
-                                        <option value="{{ (string) $i }}">{{ $i }}</option>
+                                        <option value="{{ $i }}">
+                                            {{ $i }} — {{ $trlDescriptions[$i] }}
+                                        </option>
                                     @endfor
-
                                 </select>
+
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">SDGs</label>

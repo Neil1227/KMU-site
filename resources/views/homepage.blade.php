@@ -88,12 +88,8 @@
                     <a href="	{{ route('updates.index') }}" class="text-decoration-none">
                         <div class="card text-center media-card">
                             <div class="position-relative">
-                                <picture>
-                                    <source srcset="{{ asset('assets/img/media_thumbnail/media_ictv.webp') }}"
-                                        type="image/webp">
-                                    <img src="{{ asset('assets/img/media_thumbnail/media_ictv.png') }}"
-                                        class="card-img-top media-img" alt="ICTV">
-                                </picture>
+                                <img src="{{ asset('assets/img/media_thumbnail/updates.jpg') }}"
+                                    class="card-img-top media-img" alt="ICTV">
                                 <div class="media-overlay">See more ⇀</div>
                             </div>
                             <div class="card-body">

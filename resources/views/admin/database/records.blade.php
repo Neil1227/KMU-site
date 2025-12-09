@@ -445,6 +445,18 @@
                         display: function(row, update) {
                             if (!update) {
                                 const data = row.data();
+                                const trlDescriptions = {
+                                    1: 'Basic principles observed',
+                                    2: 'Technology concept formulated',
+                                    3: 'Experimental proof of concept',
+                                    4: 'Technology validated in the lab',
+                                    5: 'Technology validated in relevant environment',
+                                    6: 'Technology demonstrated in relevant environment',
+                                    7: 'System prototype demonstration in operational environment',
+                                    8: 'System complete and qualified',
+                                    9: 'Actual system proven in operational environment'
+                                };
+
                                 let detailsDL = `
                                 <dl class="row">
                                     <dt class="col-sm-3 fw-bold">Commodity:</dt><dd class="col-sm-9">${data[0]}</dd>
@@ -456,7 +468,11 @@
 
                                     <dt class="col-sm-3 fw-bold">Type of Technology:</dt><dd class="col-sm-9">${data[6]}</dd>
                                     <dt class="col-sm-3 fw-bold">IP Status:</dt><dd class="col-sm-9">${data[7]}</dd>
-                                    <dt class="col-sm-3 fw-bold">TRL Level:</dt><dd class="col-sm-9">${data[8]}</dd>
+                                    <dt class="col-sm-3 fw-bold">TRL:</dt>
+                                    <dd class="col-sm-9">
+                                        ${data[8]} — ${trlDescriptions[Number(String(data[8]).trim().replace(/\D/g, ''))] || 'N/A'}
+                                    </dd>
+
                                     <dt class="col-sm-3 fw-bold">SDGs:</dt><dd class="col-sm-9">${data[9]}</dd>
                                     <dt class="col-sm-3 fw-bold">Remarks:</dt><dd class="col-sm-9">${data[10]}</dd>
                                     <dt class="col-sm-3 fw-bold">Recommendations:</dt><dd class="col-sm-9">${data[11]}</dd>
