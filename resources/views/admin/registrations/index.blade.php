@@ -345,14 +345,14 @@
                     const otherInput = select.parentElement.querySelector(".ip-type-other");
                     handleOtherField(select, otherInput, ipTypeOptions);
                     select.addEventListener("change", () => handleOtherField(select, otherInput,
-                    ipTypeOptions));
+                        ipTypeOptions));
                 });
 
                 document.querySelectorAll(".notice").forEach((select) => {
                     const otherInput = select.parentElement.querySelector(".notice-other");
                     handleOtherField(select, otherInput, noticeOptions);
                     select.addEventListener("change", () => handleOtherField(select, otherInput,
-                    noticeOptions));
+                        noticeOptions));
                 });
             });
         </script>

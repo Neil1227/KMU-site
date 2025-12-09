@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('admin.*', function ($view) {
+            Paginator::useBootstrapFive();
             $newResearchCount = Research::where('status', 'pending')->count();
             $newApplicationsCount = Notification::where('is_read', false)->count();
             $newRegisteredCount = RegisteredTechnology::where('is_new', true)->count();

@@ -1,20 +1,17 @@
-  const counters = document.querySelectorAll('.counter');
-  const speed = 200; // lower = faster
+const counters = document.querySelectorAll('.counter');
 
-  counters.forEach(counter => {
-    const updateCount = () => {
-      const target = +counter.getAttribute('data-target');
-      const count = +counter.innerText;
+counters.forEach(counter => {
+    const target = +counter.dataset.target;
+    const duration = 5000; // 0.8 seconds
+    const start = 0;
+    const startTime = performance.now();
 
-      const increment = target / speed;
+    function animate(time) {
+        const progress = Math.min((time - startTime) / duration, 1);
+        counter.innerText = Math.floor(progress * target);
 
-      if (count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(updateCount, 20);
-      } else {
-        counter.innerText = target;
-      }
-    };
+        if (progress < 1) requestAnimationFrame(animate);
+    }
 
-    updateCount();
-  });
+    requestAnimationFrame(animate);
+});

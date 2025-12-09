@@ -307,6 +307,9 @@ Route::get('/143123', function () {
 });
 
 // For main controller
+Route::get('/homepage', [MainController::class, 'index'])->name('homepage');
+
+Route::get('/ipregistered', [MainController::class, 'ipregistered'])->name('ip.registered');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::get('/about', [MainController::class, 'about'])->name('about');
 Route::get('/plagscan', [MainController::class, 'plagscan'])->name('plagscan');

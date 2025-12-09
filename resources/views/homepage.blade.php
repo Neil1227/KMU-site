@@ -45,9 +45,12 @@
 
                     <div class="hero-stats">
                         <div class="clickable">
-                            <a href="/ip-applied">
-                                <strong><span class="counter" data-target="10">0</span>+</strong><br>IP Applied
+                            <a href="{{ route('ip.registered') }}">
+                                <strong><span class="counter" data-target="{{ $ipAppliedCount }}">0</span></strong><br>
+                                IP Applied
                             </a>
+
+
                         </div>
                         <div><strong><span class="highlight counter" data-target="400">0</span>+</strong><br>Plagiarism
                             Certificates</div>
@@ -198,21 +201,6 @@
                         </div>
                     </a>
                 </div>
-
-                <!-- character Card -->
-                {{-- <div class="col-md-4 mb-4 media-container" data-aos="zoom-in" data-aos-delay="500">
-                    <a href="" class="text-decoration-none">
-                        <div class=" text-center ">
-                            <div class="position-relative">
-                                <img src="{{ asset('assets/img/character/Idea.png') }}" alt="Overlay"
-                                    class="overlay-img" style="width: auto; height: 300px;">
-                            </div>
-                        </div>
-                    </a>
-                </div> --}}
-
-
-
             </div>
         </div>
     </section>

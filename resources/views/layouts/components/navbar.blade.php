@@ -49,11 +49,11 @@
                                         Activities</a></li>
                                 <li><a class="dropdown-item text-dark" href="{{ route('plagscan') }}">Plagiarism
                                         Scan</a></li>
-<li>
-    <a class="dropdown-item text-dark" href="{{ route('thesis.form') }}">
-        Upload Thesis Paper
-    </a>
-</li>
+                                <li>
+                                    <a class="dropdown-item text-dark" href="{{ route('thesis.form') }}">
+                                        Upload Thesis Paper
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
@@ -62,6 +62,9 @@
                             <ul class="dropdown-menu submenu">
                                 <li><a class="dropdown-item text-dark" href="{{ route('iptbm') }}">General Function and
                                         services</a></li>
+                                <li><a class="dropdown-item text-dark" href="{{ route('ip.registered') }}">IP
+                                        Registered
+                                        Technologies</a></li>
                             </ul>
                         </li>
 

@@ -11,7 +11,9 @@ class IPRegistrationController extends Controller
     public function index()
     {
         $registrations = Registration::orderBy('date_received', 'desc')->get();
-        return view('admin.registrations.index', compact('registrations'));
+        $ipAppliedCount = Registration::count(); // Add counter here
+
+        return view('admin.registrations.index', compact('registrations', 'ipAppliedCount'));
     }
 
     public function store(Request $request)
