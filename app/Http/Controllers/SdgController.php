@@ -37,4 +37,20 @@ class SdgController extends Controller
 
         return view('sdg-gallery', compact('sdgData', 'galleryImages'));
     }
+    public function update(Request $request, $id)
+    {
+        $sdg = Sdg::findOrFail($id);
+
+        $sdg->update([
+            'sdg_number' => $request->sdg_number,
+            'title'      => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'SDG updated successfully.',
+            'data' => $sdg
+        ]);
+    }
 }

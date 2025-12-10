@@ -10,11 +10,11 @@
         </small>
     </div>
 
-    @if (session('admin_role') === 'KMU')
-        <hr class="border-secondary w-100">
-        {{-- General Uploads Section --}}
-        <h5 class="mt-4 mb-2">General Uploads</h5>
 
+    <hr class="border-secondary w-100">
+    {{-- General Uploads Section --}}
+    <h5 class="mt-4 mb-2">General Uploads</h5>
+    @if (session('admin_role') === 'KMU')
         {{-- SDG Description Editor --}}
         <a href="{{ route('admin.sdg.index') }}"
             class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.index' ? 'active' : 'collapsed' }}">
@@ -25,12 +25,12 @@
             class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.sdg.media' ? 'active' : 'collapsed' }}">
             <i class="bi bi-images me-2"></i> SDG Activities
         </a>
-
-        <a href="{{ route('admin.upload-updates') }}"
-            class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
-            <i class="bi bi-newspaper me-2"></i> Updates Section
-        </a>
     @endif
+    <a href="{{ route('admin.upload-updates') }}"
+        class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.upload-updates' ? 'active' : 'collapsed' }}">
+        <i class="bi bi-newspaper me-2"></i> Updates Section
+    </a>
+
 
     {{-- VISITORS Section --}}
     <h5 class="mt-4 mb-2">VISITORS</h5>

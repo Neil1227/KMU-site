@@ -60,7 +60,8 @@ use App\Http\Controllers\SdgAdminController;
 // SDG MAIN PAGE (description editing)
 Route::get('/admin/sdg', [SdgAdminController::class, 'index'])
     ->name('admin.sdg.index');
-
+//description
+Route::put('/admin/sdg/{sdg}', [SdgAdminController::class, 'update'])->name('admin.sdg.update');
 // SDG MEDIA UPLOAD PAGE
 Route::get('/admin/sdg/media', [SdgAdminController::class, 'mediaIndex'])
     ->name('admin.sdg.media');
