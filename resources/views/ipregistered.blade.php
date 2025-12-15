@@ -175,7 +175,23 @@
                                     <tr>
                                         <td data-label="Registration No">{{ $reg->registration_number }}</td>
                                         <td data-label="Title">{{ $reg->title }}</td>
-                                        <td data-label="Inventor">{{ $reg->inventor_owner }}</td>
+                                        <td data-label="Inventor">
+                                            @php
+                                                preg_match_all(
+                                                    '/[A-Z][a-z]+(?:\s[A-Z]\.)+\s[A-Z][a-z]+/',
+                                                    $reg->inventor_owner,
+                                                    $matches,
+                                                );
+                                            @endphp
+
+                                            @forelse ($matches[0] as $inventor)
+                                                <div>{{ $inventor }}</div>
+                                            @empty
+                                                {{ $reg->inventor_owner }}
+                                            @endforelse
+                                        </td>
+
+
                                         <td data-label="IP Type">
                                             @if ($reg->ip_type === 'UM')
                                                 Utility Model

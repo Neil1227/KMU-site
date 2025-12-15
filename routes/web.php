@@ -287,19 +287,28 @@ Route::prefix('admin')->group(function () {
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 
-// applied
+// Registered Technology
 Route::get('/admin/registered-technology', [RegisteredController::class, 'index'])
     ->name('admin.registered-technology');
-// pushing applied
-Route::post('/admin/registered-technology/store', [RegisteredController::class, 'store'])
+
+Route::post('/admin/registered-technology', [RegisteredController::class, 'store'])
     ->name('admin.registered-technology.store');
-// destroy applied
+
 Route::delete('/admin/registered-technology/{id}', [RegisteredController::class, 'destroy'])
     ->name('admin.registered-technology.destroy');
+Route::put(
+    '/admin/registered-technology/{id}',
+    [RegisteredController::class, 'update']
+)->name('admin.registered-technology.update');
+Route::get(
+    '/registered-technology',
+    [RegisteredController::class, 'publicIndex']
+)->name('registered.technology.public');
 
-// ✅ This route renders the view
+// View page
 Route::get('/admin/database/view-regtech', [RegisteredController::class, 'table'])
     ->name('admin.database.view-regtech');
+
 
 // for redirect using the secret code
 Route::get('/143123', function () {

@@ -179,7 +179,7 @@
                                         <li>
                                             <button class="dropdown-item view push-action" data-id="{{ $record->id }}"
                                                 data-url="{{ route('notifications.push', $record->id) }}">
-                                                <i class="bi bi-arrow-right-circle me-1"></i> For Application
+                                                <i class="bi bi-arrow-right-circle me-1"></i> Push to TBI
                                             </button>
                                         </li>
                                         <li>

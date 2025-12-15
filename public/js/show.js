@@ -25,21 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggleBtn');
     let expanded = false;
 
-    toggleBtn.addEventListener('click', () => {
+    toggleBtn?.addEventListener('click', () => {
         cards.forEach((card, index) => {
             if (index >= 6) {
-                card.classList.toggle('hidden-card');
+                card.classList.toggle('d-none');
             }
         });
 
-        toggleBtn.textContent = expanded ? 'Show More' : 'Show Less';
         expanded = !expanded;
+        toggleBtn.textContent = expanded ? 'Show Less' : 'Show More';
 
         if (!expanded) {
-            document.getElementById('moduleCards').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('moduleCards')
+                .scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
+
 // newsletter
 document.addEventListener('DOMContentLoaded', function () {
     const cards = document.querySelectorAll('.newsletter-card');

@@ -71,9 +71,20 @@
                         <li class="dropdown-submenu">
                             <a class="dropdown-item text-dark" href="#">Technology Business Incubator</a>
                             <ul class="dropdown-menu submenu">
-                                <li><a class="dropdown-item text-dark" href="{{ route('tbi') }}">General Services</a>
+                                <li>
+                                    <a class="dropdown-item text-dark" href="{{ route('tbi') }}">
+                                        General Services
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item text-dark"
+                                        href="{{ route('registered.technology.public') }}">
+                                        Registered Technology
+                                    </a>
                                 </li>
                             </ul>
+
                         </li>
                     </ul>
 

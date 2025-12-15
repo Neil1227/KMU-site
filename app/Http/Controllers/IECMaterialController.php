@@ -30,17 +30,22 @@ class IECMaterialController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'pdf' => 'nullable|file|mimes:pdf',
-            'png' => 'nullable|image',
+            'pdf'   => 'nullable|file|mimes:pdf',
+            'png'   => 'nullable|image', // accepts jpg, jpeg, png, webp, gif, etc.
         ]);
 
-        $pdfName = $this->storeFile($request, 'pdf', 'iec_brochure');
-        $pngName = $this->storeFile($request, 'png', 'iec_thumbnail');
+        $pdfName = $request->hasFile('pdf')
+            ? $this->storeFile($request, 'pdf', 'iec_brochure')
+            : null;
+
+        $pngName = $request->hasFile('png')
+            ? $this->storeFile($request, 'png', 'iec_thumbnail')
+            : null;
 
         $iec = IECMaterial::create([
             'title' => $validated['title'],
-            'file' => $pdfName,
-            'png' => $pngName,
+            'file'  => $pdfName,
+            'png'   => $pngName,
         ]);
 
         $this->logActivity('added', $iec->title);
@@ -48,15 +53,16 @@ class IECMaterialController extends Controller
         return redirect()->back()->with('success', 'IEC Material uploaded successfully.');
     }
 
+
     /**
      * Update an existing IEC Material
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string',
-            'file' => 'nullable|mimes:pdf',
-            'png' => 'nullable|image',
+            'title' => 'required|string|max:255',
+            'file'  => 'nullable|file|mimes:pdf',
+            'png'   => 'nullable|image', // accepts ALL image types
         ]);
 
         $material = IECMaterial::findOrFail($id);
@@ -74,8 +80,11 @@ class IECMaterialController extends Controller
 
         $this->logActivity('updated', $material->title);
 
-        return response()->json(['message' => 'IEC Material updated successfully!']);
+        return response()->json([
+            'message' => 'IEC Material updated successfully!'
+        ]);
     }
+
 
     /**
      * Delete an IEC Material
@@ -84,12 +93,12 @@ class IECMaterialController extends Controller
     {
         $material = IECMaterial::findOrFail($id);
 
-        if ($material->file && Storage::disk('public')->exists('iec_brochure/'.$material->file)) {
-            Storage::disk('public')->delete('iec_brochure/'.$material->file);
+        if ($material->file && Storage::disk('public')->exists('iec_brochure/' . $material->file)) {
+            Storage::disk('public')->delete('iec_brochure/' . $material->file);
         }
 
-        if ($material->png && Storage::disk('public')->exists('iec_thumbnail/'.$material->png)) {
-            Storage::disk('public')->delete('iec_thumbnail/'.$material->png);
+        if ($material->png && Storage::disk('public')->exists('iec_thumbnail/' . $material->png)) {
+            Storage::disk('public')->delete('iec_thumbnail/' . $material->png);
         }
 
         $title = $material->title;
@@ -113,11 +122,11 @@ class IECMaterialController extends Controller
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = $file->getClientOriginalExtension();
         $baseName = str_replace(' ', '_', $originalName);
-        $fileName = $baseName.'.'.$extension;
+        $fileName = $baseName . '.' . $extension;
         $counter = 1;
 
-        while (Storage::disk('public')->exists($folder.'/'.$fileName)) {
-            $fileName = $baseName.'_('.$counter.').'.$extension;
+        while (Storage::disk('public')->exists($folder . '/' . $fileName)) {
+            $fileName = $baseName . '_(' . $counter . ').' . $extension;
             $counter++;
         }
 

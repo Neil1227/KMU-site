@@ -21,6 +21,12 @@ class RegisteredController extends Controller
 
         return view('admin.registered-technology', compact('commodities'));
     }
+    public function publicIndex()
+    {
+        $technologies = RegisteredTechnology::latest()->paginate(10);
+
+        return view('registeredtech', compact('technologies'));
+    }
 
     /**
      * Store pushed technology into registered technologies
@@ -50,7 +56,38 @@ class RegisteredController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Technology successfully pushed and notification deleted!',
+            'message' => 'Technology successfully added!',
+            'data' => $tech,
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'technology' => 'required|string|max:255',
+            'technology_generator' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'link' => 'nullable|url|max:255',
+        ]);
+
+        $tech = RegisteredTechnology::find($id);
+
+        if (! $tech) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Technology not found.',
+            ], 404);
+        }
+
+        $tech->update([
+            'technology' => $request->technology,
+            'technology_generator' => $request->technology_generator,
+            'description' => $request->description,
+            'link' => $request->link,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Technology successfully updated.',
             'data' => $tech,
         ]);
     }

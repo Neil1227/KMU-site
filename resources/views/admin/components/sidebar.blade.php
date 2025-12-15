@@ -220,7 +220,7 @@
         @endif
 
         {{-- For Registration --}}
-        @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
+        {{-- @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')
             <a href="{{ route('admin.notifications') }}"
                 class="accordion-button sidebar-item {{ Route::currentRouteName() === 'admin.notifications' ? 'active' : 'collapsed' }}">
                 <i class="bi bi-bell me-2"></i> For Registration
@@ -228,7 +228,7 @@
                     <span class="badge bg-danger ms-auto">{{ $newApplicationsCount }}</span>
                 @endif
             </a>
-        @endif
+        @endif --}}
 
         {{-- Registered Technology --}}
         @if (session('admin_role') === 'KMU' || session('admin_role') === 'TBI')

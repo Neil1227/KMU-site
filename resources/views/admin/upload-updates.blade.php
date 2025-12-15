@@ -66,55 +66,55 @@
                                 {{-- Media Rendering --}}
                                 @php $galleryId = 'post-' . $post->id; @endphp
                                 @if ($mediaItems->count() > 0)
+                                    @php $galleryId = 'post-' . $post->id; @endphp
+
                                     @foreach ($mediaItems as $index => $media)
-                                        @if ($media->type === 'image')
-                                            @if ($index === 0)
-                                                <a href="{{ asset('storage/' . $media->url) }}" class="glightbox"
-                                                    data-glightbox="gallery: {{ $galleryId }}; title: {{ $post->title }}">
-                                                    <img src="{{ asset('storage/' . $media->url) }}" class="post-media"
-                                                        alt="{{ $post->title }}">
-                                                </a>
-                                            @else
-                                                <a href="{{ asset('storage/' . $media->url) }}" class="glightbox d-none"
-                                                    data-glightbox="gallery: {{ $galleryId }}; title: {{ $post->title }}"></a>
-                                            @endif
-                                        @elseif ($media->type === 'video')
-                                            @if ($index === 0)
-                                                <a href="{{ asset('storage/' . $media->url) }}" class="glightbox"
-                                                    data-glightbox="gallery: {{ $galleryId }}; type: video; title: {{ $post->title }}">
-                                                    <video src="{{ asset('storage/' . $media->url) }}" class="post-media"
-                                                        muted loop controls></video>
-                                                </a>
-                                            @else
-                                                <a href="{{ asset('storage/' . $media->url) }}" class="glightbox d-none"
-                                                    data-glightbox="gallery: {{ $galleryId }}; type: video; title: {{ $post->title }}"></a>
-                                            @endif
-                                        @elseif ($media->type === 'file')
-                                            @if ($index === 0)
-                                                <a href="{{ asset('storage/' . $media->url) }}" target="_blank"
-                                                    class="glightbox">
-                                                    <img src="{{ asset('assets/img/media_thumbnail/fileicon.png') }}"
-                                                        alt="file icon" class="post-media">
-                                                </a>
-                                            @endif
+                                        @php
+                                            $isFirst = $index === 0;
+                                            $isImage = $media->type === 'image';
+                                            $isVideo = $media->type === 'video';
+                                        @endphp
+
+                                        @if ($isImage || $isVideo)
+                                            <a href="{{ asset('storage/' . $media->url) }}"
+                                                class="glightbox {{ $isFirst ? '' : 'd-none' }}"
+                                                data-gallery="{{ $galleryId }}" data-title="{{ $post->title }}"
+                                                @if ($isVideo) data-type="video" @endif>
+
+                                                @if ($isFirst)
+                                                    @if ($isImage)
+                                                        <img src="{{ asset('storage/' . $media->url) }}"
+                                                            class="post-media">
+                                                    @else
+                                                        <video src="{{ asset('storage/' . $media->url) }}"
+                                                            class="post-media" muted loop controls></video>
+                                                    @endif
+                                                @endif
+                                            </a>
+                                        @elseif ($media->type === 'file' && $isFirst)
+                                            <a href="{{ asset('storage/' . $media->url) }}" target="_blank">
+                                                <img src="{{ asset('assets/img/media_thumbnail/fileicon.png') }}"
+                                                    alt="file icon" class="post-media">
+                                            </a>
                                         @endif
                                     @endforeach
 
                                     @if ($mediaItems->count() > 1)
-                                        <span class="more-media text-muted small">+{{ $mediaItems->count() - 1 }}
-                                            more</span>
+                                        <span class="more-media text-muted small">
+                                            +{{ $mediaItems->count() - 1 }} more
+                                        </span>
                                     @endif
                                 @endif
+
 
                                 {{-- Link Button --}}
                                 @if (!empty($post->link))
                                     <div class="mb-2">
-                                        <a href="{{ $post->link }}" target="_blank"
-                                            class=" post-link">
+                                        <a href="{{ $post->link }}" target="_blank" class=" post-link">
                                             <img src="{{ asset('assets/img/media_thumbnail/linkicon.png') }}"
                                                 alt="link icon" class="post-media">
                                         </a>
-                                        
+
                                     </div>
                                 @endif
 
@@ -383,6 +383,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const lightbox = GLightbox({
+                selector: '.glightbox',
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true
+            });
 
             // ===== Dropzone Utility =====
             function initDropzone(dropzoneId) {
@@ -507,7 +513,7 @@
                         document.getElementById('edit-post-id').value = data.id;
                         document.getElementById('edit-title').value = data.title;
                         document.getElementById('edit-description').value = data
-                        .description;
+                            .description;
 
                         // Set form action dynamically
                         editForm.action = `/admin/updates/${postId}`;
@@ -525,7 +531,7 @@
                         }
 
                         new bootstrap.Modal(document.getElementById('editPostModal'))
-                    .show();
+                            .show();
                     }).catch(() => Swal.fire('Error', 'Failed to load post data', 'error'));
                 });
             });
