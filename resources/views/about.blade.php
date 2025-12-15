@@ -100,8 +100,7 @@
 
                         <div class="card-pair">
                             <div class="team-card active" data-aos="fade-right">
-                                <img src="{{ asset('assets/img/about/Carandang, Rogelio Jr. P. (Coat).png') }}"
-                                    alt="">
+                                <img src="{{ asset('assets/img/about/docgelcarandang.png') }}" alt="">
                                 <h4 class="highlight">Dr. Rogelio D. Carandang, Jr.</h4>
                                 <p class="role">Director — Office of the Research and Development</p>
                             </div>
