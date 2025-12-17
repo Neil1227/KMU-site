@@ -514,9 +514,31 @@
                         document.getElementById('edit-title').value = data.title;
                         document.getElementById('edit-description').value = data
                             .description;
+                        document.getElementById('edit-sdg-target-indicators').value =
+                            data.sdg_target_indicators ?? '';
+                        document.querySelectorAll('.sdg-checkbox').forEach(cb => {
+                            cb.checked = false;
+                        });
+
+
 
                         // Set form action dynamically
                         editForm.action = `/admin/updates/${postId}`;
+
+                        // Populate tags
+                        if (Array.isArray(data.tags)) {
+                            data.tags.forEach(id => {
+                                const cb = document.getElementById(
+                                `edit-sdg-${id}`);
+                                if (cb) cb.checked = true;
+                            });
+                        } else if (typeof data.tags === 'string') {
+                            data.tags.split(',').forEach(id => {
+                                const cb = document.getElementById(
+                                    `edit-sdg-${id.trim()}`);
+                                if (cb) cb.checked = true;
+                            });
+                        }
 
                         // Populate link input & preview
                         if (data.link && data.link.trim() !== '') {

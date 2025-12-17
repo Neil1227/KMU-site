@@ -158,9 +158,12 @@ class PostController extends Controller
             'id' => $post->id,
             'title' => $post->title,
             'description' => $post->description,
-            'link' => $post->link, // <- ensure this exists
+            'sdg_target_indicators' => $post->sdg_target_indicators,
+            'tags' => $post->tags,
+            'link' => $post->link,
             'media' => $post->media,
         ]);
+        
     }
 
     // Update post
