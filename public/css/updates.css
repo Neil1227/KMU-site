@@ -15,6 +15,56 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+/* ========================
+   Sidebar - Mobile Responsive
+======================== */
+@media (max-width: 768px) {
+    .main-grid {
+        flex-direction: column; /* stack content and sidebar */
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+        gap: 16px;
+    }
+
+    .sidebar-box {
+        width: 100%;
+        padding: 14px;
+    }
+
+    /* Remove sticky for mobile, let it scroll naturally */
+    .sidebar-box.facebook-pages {
+        position: relative;
+        top: auto;
+        z-index: auto;
+    }
+
+    .facebook-pages-list {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fb-page-item {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .fb-page-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .fb-page-title {
+        font-size: 0.9rem;
+    }
+
+    /* Ensure spacing between all sidebar boxes */
+    .sidebar-box + .sidebar-box {
+        margin-top: 16px;
+    }
+}
 
 /* ========================
    Grid Layout

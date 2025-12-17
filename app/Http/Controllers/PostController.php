@@ -16,7 +16,7 @@ class PostController extends Controller
         $query = Post::with('media', 'admin')->orderBy('created_at', 'desc');
 
         // Only KMU can see unapproved posts
-        if (session('role') !== 'KMU') {
+        if (session('admin_role') !== 'KMU') {
             $query->where('is_approved', true);
         }
 
@@ -212,19 +212,23 @@ class PostController extends Controller
 
     public function approve($id)
     {
-        $post = Post::findOrFail($id);
-
-        // Only KMU can approve
         if (session('admin_role') !== 'KMU') {
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
+            ], 403);
         }
-
+    
+        $post = Post::findOrFail($id);
         $post->is_approved = true;
         $post->save();
-
-        return response()->json(['success' => true, 'message' => 'Post approved successfully']);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Post approved successfully'
+        ]);
     }
-
+    
     // Delete post
     public function destroy(Post $post)
     {
