@@ -31,14 +31,14 @@ ul li {
 }
 .highlight{
   font-size: 2rem;
-    background: linear-gradient(30deg, #f85e0a, #1c366a);
+    background: linear-gradient(30deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; /* for Firefox */
 }
   .tech-title {
-    color: var(--secondary-color);
-    border-left: 4px solid var(--primary-color);
+    color: var(--primary-color);
+    border-left: 4px solid var(--secondary-color);
     padding-left: 10px;
   }
 
@@ -51,7 +51,7 @@ ul li {
   }
 
   .npv-value {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-weight: bold;
   }
  .contact-link {
@@ -128,7 +128,7 @@ a.profit-btn:hover {
   margin-bottom: 12px;
 }
 .card-text {
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 
 .tech-card-title {
@@ -145,6 +145,6 @@ a.profit-btn:hover {
 }
 
 #toggleTechnologyBtn.btn-primary:hover {
-  background-color: #d84c00;
+  background-color: var(--primary-color);
   transform: translateY(-1px);
 }

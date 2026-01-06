@@ -276,6 +276,28 @@
     border: 2px solid transparent;
 }
 
+
+/* ===========================
+   SDG TITLE COLORS
+=========================== */
+.section-title.sdgs-1  { color: #e5243b; }
+.section-title.sdgs-2  { color: #dda63a; }
+.section-title.sdgs-3  { color: #4c9f38; }
+.section-title.sdgs-4  { color: #c5192d; }
+.section-title.sdgs-5  { color: #ff3a21; }
+.section-title.sdgs-6  { color: #26bde2; }
+.section-title.sdgs-7  { color: #fcc30b; }
+.section-title.sdgs-8  { color: #a21942; }
+.section-title.sdgs-9  { color: #fd6925; }
+.section-title.sdgs-10 { color: #dd1367; }
+.section-title.sdgs-11 { color: #fd9d24; }
+.section-title.sdgs-12 { color: #bf8b2e; }
+.section-title.sdgs-13 { color: #3f7e44; }
+.section-title.sdgs-14 { color: #0a97d9; }
+.section-title.sdgs-15 { color: #56c02b; }
+.section-title.sdgs-16 { color: #00689d; }
+.section-title.sdgs-17 { color: #19486a; }
+
 /* ===========================
    SDG COLORS (used on hover/active)
 =========================== */

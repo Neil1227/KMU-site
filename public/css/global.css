@@ -1,15 +1,24 @@
 :root {
     --main-font: 'League Spartan', Arial, sans-serif;
-    --primary-color:#f85e0a;
-    --secondary-color:#1c366a;
-    --tertiary-color:#ffc700;
-    --complimentary-color:#f0b211;
-    --white-text:#fff;
-    --off-white-color:#f3f1f1;
-    --gray-complement: #555;
-    --btn-gold:rgb(255, 149, 0);
-    --btn-hover-gold:rgb(255, 123, 0);
+
+    /* Core Brand Colors */
+    --primary-color: #0f5617;     /* Deep forest green */
+    --secondary-color: #FFDF00;   /* Bright golden yellow */
+
+    /* Complementary & Accent Colors */
+    --tertiary-color: #7fbf4d;    /* Soft leaf green (lighter complement) */
+    --complimentary-color: #f5b800; /* Warm gold-orange accent */
+
+    /* Neutrals */
+    --white-text: #ffffff;
+    --off-white-color: #f6f6f4;   /* Clean warm off-white */
+    --gray-complement: #4a4a4a;   /* Neutral gray that fits green/yellow */
+
+    /* Buttons */
+    --btn-gold: #f0b211;          /* Rich gold */
+    --btn-hover-gold: #d89b00;    /* Darker gold for hover */
 }
+
 #region {
     max-height: 150px;  /* limits the height of dropdown when expanded */
     font-size: 0.85rem; /* smaller font */
@@ -91,6 +100,7 @@ main, .container {
 form label {
   font-weight: 600;
   margin-top: 10px;
+  color: var(--gray-complement);
   display: block;
 }
 
@@ -204,7 +214,7 @@ body {
   flex-wrap: wrap;
   width: 100%;
   align-items: center;
-  color: var(--secondary-color);
+  color: var(--primary-color);
   font-weight: 300;
   font-size: 0.7rem;
 }
@@ -213,12 +223,12 @@ body {
 .heading-list li i {
   font-size: 1rem;
   margin-right: 8px;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 /* Social icon links */
 .social-icon {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   margin-left: 10px;
   font-size: 1.2rem;
   transition: color 0.3s ease;
@@ -281,7 +291,7 @@ mark {
   padding-bottom: 50px;
 }
 .section-title {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     margin: 0;
     padding: 10px;
     display: inline-block;
@@ -298,7 +308,7 @@ mark {
 
 .card-body .watch-btn:hover {
   background-color: var(--secondary-color);
-  color: var(--white-text);
+  color: var(--gray-complement);
 }
 /* Footer Styling */
 footer {

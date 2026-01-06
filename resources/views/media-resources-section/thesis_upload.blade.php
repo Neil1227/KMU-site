@@ -169,10 +169,11 @@
                     <div class="my-5">
 
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="data_privacy_consent" id="data_privacy_consent"
-                                value="1" required>
-                            <label class="form-check-label text-muted" style="font-size: .8rem" for="data_privacy_consent">
-                               <em>I hereby authorize the PSAU Knowledge Management Center to collect, store, and manage
+                            <input class="form-check-input" type="checkbox" name="data_privacy_consent"
+                                id="data_privacy_consent" value="1" required>
+                            <label class="form-check-label text-muted" style="font-size: .8rem"
+                                for="data_privacy_consent">
+                                <em>I hereby authorize the PSAU Knowledge Management Center to collect, store, and manage
                                     the data indicated herein in accordance with RA 10173 (Data Privacy Act of 2012).</em>
                             </label>
                         </div>

@@ -19,7 +19,7 @@
 }
 
 .card-text {
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 
 .ictv-card-title {
@@ -36,7 +36,7 @@
 
 .card-body .watch-btn:hover {
   background-color: var(--secondary-color);
-  color: var(--white-text);
+  color: var(--gray-complement);
 }
 
 /* Collapsible Cards */
@@ -68,6 +68,6 @@
 }
 
 #toggleIctvBtn.btn-primary:hover {
-  background-color: #d84c00;
+  background-color: var(--primary-color);
   transform: translateY(-1px);
 }

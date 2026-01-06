@@ -17,10 +17,11 @@
 @section('content')
     @include('layouts.components.header')
     @include('layouts.components.navbar')
-    
-    <h2 class="text-center my-4 section-title" data-aos="fade-up">
+
+    <h2 class="text-center my-4 section-title sdgs-{{ $sdgData->sdg_number }}" data-aos="fade-up">
         SDG {{ $sdgData->sdg_number }} – {{ $sdgData->title }} <br> Activities
     </h2>
+
 
     {{-- SDG Number Pagination --}}
     <div class="sdg-pagination">

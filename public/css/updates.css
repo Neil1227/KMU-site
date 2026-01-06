@@ -10,7 +10,7 @@
 
 .highlight {
     font-size: 1.5rem;
-    background: linear-gradient(30deg, #f85e0a, #1c366a);
+    background: linear-gradient(30deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -279,7 +279,7 @@
     font-weight: 600;
     font-size: 0.875rem;
     text-decoration: none;
-    color: var(--secondary-color, #555);
+    color: var(--primary-color, #555);
     transition: color 0.2s;
 }
 
@@ -318,7 +318,7 @@
 
 .filter-btn.active {
     background: var(--secondary-color);
-    color: #fff;
+    color: var(--gray-complement);
     box-shadow: 0 3px 8px rgba(0, 132, 199, 0.4);
 }
 

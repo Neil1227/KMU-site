@@ -51,7 +51,7 @@
                                         Scan</a></li>
                                 <li>
                                     <a class="dropdown-item text-dark" href="{{ route('thesis.form') }}">
-                                        Upload Thesis Paper
+                                        Research/Thesis
                                     </a>
                                 </li>
 

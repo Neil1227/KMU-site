@@ -32,7 +32,7 @@
 }
 
 .pdf-card .card-body small {
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 
 .newsletter-card.collapsed {
@@ -54,6 +54,6 @@
 }
 
 #toggleNewsletterBtn.btn-primary:hover {
-  background-color: #d84c00;
+  background-color: var(--primary-color);
   transform: translateY(-1px);
 }

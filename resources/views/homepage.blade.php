@@ -40,18 +40,19 @@
 
 
                     <div class="hero-buttons">
-                        <a href="{{ url('plagscan') }}" class="btn btn-hero mb-1">Explore Our Service ⇀</a>
+                        <a href="{{ route('ip.registered') }}" class="btn btn-hero mb-1"><span class="counter"
+                                data-target="{{ $ipAppliedCount }}">0</span> IP Applied ⇀</a>
                     </div>
 
                     <div class="hero-stats">
-                        <div class="clickable">
+                        {{-- <div class="clickable">
                             <a href="{{ route('ip.registered') }}">
                                 <strong><span class="counter" data-target="{{ $ipAppliedCount }}">0</span></strong><br>
                                 IP Applied
                             </a>
 
 
-                        </div>
+                        </div> --}}
                         <div><strong><span class="highlight counter" data-target="400">0</span>+</strong><br>Plagiarism
                             Certificates</div>
                         <div><strong><span class="highlight counter" data-target="621">0</span>+</strong><br>Satisfied

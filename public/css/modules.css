@@ -32,7 +32,7 @@
 }
 
 .pdf-card .card-body small {
-  color: var(--secondary-color);
+  color: var(--gray-complement);
 }
 .transition-card {
     overflow: hidden;
@@ -63,7 +63,7 @@
 
 /* Hover effect */
 #toggleBtn.btn-primary:hover {
-  background-color: #d84c00; /* Darker version of your primary */
+  background-color: var(--primary-color); /* Darker version of your primary */
   transform: translateY(-1px);
 }
 

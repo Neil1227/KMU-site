@@ -34,7 +34,7 @@
 
 /* === HOVER === */
 .new_research-card:hover {
-  background-color: #f85e0a;
+  background-color: var(--tertiary-color);
   transform: translateY(-2px);
 }
 

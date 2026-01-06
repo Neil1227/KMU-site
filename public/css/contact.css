@@ -5,7 +5,7 @@
   .contact-icon {
     width: 50px;
     height: 50px;
-    background: #f7dccb;
+    background: var(--tertiary-color);
     transition: color 0.3s ease;
     border-radius: 50%;
     display: flex;
@@ -45,12 +45,12 @@
   }
   #contactForm .btn-hero {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--off-white-color);
     border: none;
   }
 
   #contactForm .btn-hero:hover {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--gray-complement);
 
   }

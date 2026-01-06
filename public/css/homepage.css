@@ -38,10 +38,12 @@
 .hero-text {
   flex: 1;
   min-width: 300px;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .hero-title {
+  border-left: var(--secondary-color) 4px solid;
+  padding-left: 12px;
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 10px;
@@ -85,7 +87,7 @@ a.btn-hero {
 
 a.btn-hero:hover {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--gray-complement);
 
 }
 
@@ -96,10 +98,10 @@ a.btn-outline {
 }
 
 /* Stats */
-.hero-stats div:first-child {
-  cursor: pointer; /* makes it clickable */
-  background: var(--secondary-color);
-  color: white; /* text color */
+/* .hero-stats div:first-child {
+  cursor: pointer; 
+  background: var(--tertiary-color);
+  color: var(--gray-complement);
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -113,11 +115,11 @@ a.btn-outline {
   text-decoration: none;
   color: inherit;
   display: block;
-}
+} */
 
 .hero-stats {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
   align-items: center;
   gap: 30px;
   margin-top: 20px;
@@ -134,7 +136,7 @@ a.btn-outline {
 }
 .highlight{
   font-size: 1.5rem;
-    background: linear-gradient(30deg, #f85e0a, #1c366a);
+    background: linear-gradient(30deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; /* for Firefox */
