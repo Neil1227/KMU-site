@@ -28,7 +28,7 @@
         <div class="about-section py-5" data-aos="fade-up">
             <div class="container text-center">
                 <h2 class="section-title text-center mb-3" data-aos="fade-down">
-                    What is <span class="title-highlight">Research, Innovation, Extension, and Training Office?</span>
+                    <span class="title-highlight"> What is Research, Innovation, Extension, and Training Office?</span>
                 </h2>
 
                 <div class="about-content d-flex flex-column flex-md-row align-items-center text-start gap-4 mb-5"
@@ -61,8 +61,8 @@
             <div class="team-container">
                 <!-- Top card -->
                 <h2 class="section-title text-center mb-5" data-aos="fade-up">
-                    Research, Innovation, Extension and Training <span class="title-highlight">CLUSTER</span>
-                    <em> <small class="text-muted">(RIET)</small></em>
+                    <span class="title-highlight">Research, Innovation, Extension and Training CLUSTER</span>
+                    <br><em> <small class="text-muted">(RIET)</small></em>
                 </h2>
 
                 <div class="team-card active special-layout" data-aos="fade-right">
@@ -155,7 +155,7 @@
                 </div>
 
                 <h2 class="section-title text-center m-5" data-aos="fade-up">
-                    Meet Our <span class="title-highlight">Team</span>
+                    <span class="title-highlight"> Meet Our Team</span>
                 </h2>
 
                 <div class="team-card active special-layout" data-aos="fade-right">
@@ -205,7 +205,7 @@
         <div class="about-section py-5" data-aos="fade-up">
             <div class="container text-center">
                 <h2 class="section-title text-center mb-3" data-aos="fade-down">
-                    What is <span class="title-highlight">Knowledge Management Unit?</span>
+                    <span class="title-highlight">What is Knowledge Management Unit?</span>
                 </h2>
 
                 <div class="about-content d-flex flex-column flex-md-row align-items-center text-start gap-4 mb-5"
@@ -238,7 +238,7 @@
         </div>
 
         <div class="values-section" data-aos="fade-up">
-            <h2 class="section-title text-center mb-5">KMU <span class="title-highlight">Objectives</span></h2>
+            <h2 class="section-title text-center mb-5"><span class="title-highlight">KMU Objectives</span></h2>
             <div class="values-container">
                 <div class="value-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="value-icon"><i class="fas fa-circle-down fs-4"></i></div>
